@@ -2,7 +2,7 @@ import { WagmiConfig, createClient } from 'wagmi'
 import { getDefaultProvider } from 'ethers'
 import Profile from './components/xmtp/xmtp'
 import Createrepo from './components/creator/create-repo'
-import Header from './components/Header'
+import CreatorHeader from './components/creator/CreatorHeader'
 import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom'
 function App() {
 
@@ -15,9 +15,9 @@ function App() {
   return(
     <div className="App">
       <Router>
-        <Header/>
+        <CreatorHeader/>
           <Routes>
-          <Route path="/" element={<Createrepo />}>
+          <Route path="/creator/creat-repo" element={<Createrepo />}>
             </Route>
           </Routes>
       </Router>

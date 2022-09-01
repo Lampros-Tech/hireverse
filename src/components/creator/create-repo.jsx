@@ -21,8 +21,11 @@ function Createrepo() {
                 <div className='owner'>
                     <DD_repo/>
                 </div>
+                <h1 className='mx-4  text-3xl'>
+                    /
+                </h1>
                 <div className='Repo-name'>
-
+                    <input type="text" name="reponame" className='align-middle'></input>
                 </div>
 
             </div>
