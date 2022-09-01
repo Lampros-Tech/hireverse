@@ -15,9 +15,9 @@ function App() {
   return(
     <div className="App">
       <Router>
-        <CreatorHeader/>
           <Routes>
-          <Route path="/creator/creat-repo" element={<Createrepo />}>
+            <Route path="creator" element={<CreatorHeader />}>
+              <Route path="repo" element={<Createrepo />} />            
             </Route>
           </Routes>
       </Router>
