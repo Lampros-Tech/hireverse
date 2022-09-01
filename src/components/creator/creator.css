@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+.Content
+{
+    max-width: 786px;
+    margin:0 auto;
+    background-color: #FAFFFD;
+}
+.parent-content
+{
+    background-color: #FAFFFD;
+}
+.Heading
+{
+    text-align: left;
+}
+.font-primary
+{
+    font-family: 'Lato';
+    font-size: 2rem;
+}
+.font-secondary
+{
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1rem;
+}
