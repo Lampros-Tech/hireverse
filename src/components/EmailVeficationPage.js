@@ -3,7 +3,7 @@ import "./styles/login.css";
 import emailpic from "./styles/email_pic.webp";
 import { Link } from "react-router-dom";
 
-function LoginPage() {
+function EmailVeficationPage() {
   return (
     <>
       <section className="login-main">
@@ -13,7 +13,7 @@ function LoginPage() {
               <img src={emailpic} alt="img" />
             </div>
             <form action="" className="email-form">
-              <span className="email-form-title">Login</span>
+              <span className="email-form-title">Email Verification</span>
               <div className="wrap-input validate-input">
                 <input
                   type="email"
@@ -21,29 +21,33 @@ function LoginPage() {
                   className="input"
                   placeholder="Email"
                 />
+
                 <span className="focus-input"></span>
-                <span className="symbol-input"></span>
+                {/* <span className="symbol-input"></span> */}
+              </div>
+              <div className="btn-container">
+                <button className="email-verify-button">Send Code</button>
               </div>
               <div className="wrap-input validate-input">
                 <input
-                  type="password"
+                  type="text"
                   required
                   className="input"
-                  placeholder="Password"
+                  placeholder="Code"
                 />
                 <span className="focus-input"></span>
-                <span className="symbol-input"></span>
+                {/* <span className="symbol-input"></span> */}
               </div>
               <div className="btn-container">
                 <button className="email-verify-button">Verify Email</button>
               </div>
-              <div className="text-center pt-12">
+              {/* <div className="text-center pt-12">
                 <span className="txt1">Forgot </span>
                 <Link to="/#">Username / Password?</Link>
               </div>
               <div className="text-center pt-20">
                 <Link to="/#">Create your account </Link>
-              </div>
+              </div> */}
             </form>
           </section>
         </section>
@@ -52,4 +56,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default EmailVeficationPage;
