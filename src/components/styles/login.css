@@ -32,12 +32,12 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 2rem;
+  border-right: 2px solid #e5e7eb;
 }
 .email-pic {
   min-height: 100%;
   width: 60%;
   margin: auto 20px;
-  border-right: 2px solid #e5e7eb;
   will-change: transform;
   transform: perspective(300px) rotateX(0deg) rotateY(0deg);
 }
@@ -45,6 +45,7 @@
   max-width: 100%;
   vertical-align: middle;
   border-style: none;
+  margin: auto;
 }
 .email-form {
   width: 35%;
@@ -177,6 +178,9 @@ select {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 2rem;
+}
+.role-guide {
+  border-right: 2px solid #d3d3d3;
 }
 
 @media (max-width: 768px) {

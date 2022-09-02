@@ -30,11 +30,11 @@ function App() {
           ></Route>
           <Route
             path="creator-registration-form"
-            element={<CandidateRegForm />}
+            element={<CreatorRegForm />}
           ></Route>
           <Route
             path="candidate-registration-form"
-            element={<CreatorRegForm />}
+            element={<CandidateRegForm />}
           ></Route>
 
           <Route path="creator" element={<CreatorHeader />}>

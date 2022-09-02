@@ -24,7 +24,7 @@ function RoleSelector() {
       <section className="login-main">
         <section className="login-inside">
           <section className="wrap-role">
-            <div className="email-pic">
+            <div className="email-pic role-guide">
               Guidance About Roles
               {/* <img src={emailpic} alt="img" /> */}
             </div>
