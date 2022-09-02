@@ -11,6 +11,10 @@ import EmailVeficationPage from "./components/EmailVeficationPage";
 import TestDescription from "./components/company/TestDescription";
 import TestsFeed from "./components/company/TestsFeed";
 import CreatorsList from "./components/company/CreatorsList";
+import RoleSelector from "./components/RoleSelector";
+import CompanyRegForm from "./components/registartionforms/CompanyRegForm";
+import CandidateRegForm from "./components/registartionforms/CandidateRegForm";
+import CreatorRegForm from "./components/registartionforms/CreatorRegForm";
 
 function App() {
   return (
@@ -19,6 +23,20 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="ev" element={<EmailVeficationPage />}></Route>
+          <Route path="role" element={<RoleSelector />}></Route>
+          <Route
+            path="company-registration-form"
+            element={<CompanyRegForm />}
+          ></Route>
+          <Route
+            path="creator-registration-form"
+            element={<CandidateRegForm />}
+          ></Route>
+          <Route
+            path="candidate-registration-form"
+            element={<CreatorRegForm />}
+          ></Route>
+
           <Route path="creator" element={<CreatorHeader />}>
             <Route path="repo" element={<Createrepo />} />
           </Route>

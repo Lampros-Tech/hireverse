@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles/login.css";
 import emailpic from "./styles/email_pic.webp";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 function EmailVeficationPage() {
+  let navigate = useNavigate();
+  const [credentials, setCredentials] = useState({ email: "", code: "" });
   return (
     <>
       <section className="login-main">
@@ -16,10 +19,16 @@ function EmailVeficationPage() {
               <span className="email-form-title">Email Verification</span>
               <div className="wrap-input validate-input">
                 <input
-                  type="email"
-                  required
                   className="input"
+                  value={credentials.email}
+                  type="text"
                   placeholder="Email"
+                  onChange={(event) =>
+                    setCredentials({
+                      email: event.target.value,
+                      code: credentials.code,
+                    })
+                  }
                 />
 
                 <span className="focus-input"></span>
@@ -30,16 +39,34 @@ function EmailVeficationPage() {
               </div>
               <div className="wrap-input validate-input">
                 <input
-                  type="text"
-                  required
                   className="input"
-                  placeholder="Code"
+                  value={credentials.code}
+                  type="password"
+                  placeholder="enter your password"
+                  onChange={(event) =>
+                    setCredentials({
+                      email: credentials.email,
+                      code: event.target.value,
+                    })
+                  }
                 />
                 <span className="focus-input"></span>
                 {/* <span className="symbol-input"></span> */}
               </div>
               <div className="btn-container">
-                <button className="email-verify-button">Verify Email</button>
+                <button
+                  className="email-verify-button"
+                  disabled={
+                    !/^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/.test(
+                      credentials.email
+                    )
+                  }
+                  onClick={() => {
+                    if (credentials.code === "letmein") navigate("/role");
+                  }}
+                >
+                  Verify Email
+                </button>
               </div>
               {/* <div className="text-center pt-12">
                 <span className="txt1">Forgot </span>
