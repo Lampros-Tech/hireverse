@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import LoginPage from "./components/LoginPage";
 import CompanyHeader from "./components/company/CompanyHeader";
+import RecruitmentDetails from "./components/company/RecruitmentDetails";
 
 function App() {
   return (
@@ -16,7 +17,10 @@ function App() {
             <Route path="repo" element={<Createrepo />} />
           </Route>
           <Route path="company" element={<CompanyHeader />}>
-            <Route path="repo" element={<Createrepo />} />
+            <Route
+              path="recruitment-details"
+              element={<RecruitmentDetails />}
+            />
           </Route>
         </Routes>
       </Router>
