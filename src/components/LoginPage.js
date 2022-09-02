@@ -41,7 +41,7 @@ function LoginPage() {
                 <span className="txt1">Forgot </span>
                 <Link to="/#">Username / Password?</Link>
               </div>
-              <div className="text-center pt-136">
+              <div className="text-center pt-20">
                 <Link to="/#">Create your account </Link>
               </div>
             </form>

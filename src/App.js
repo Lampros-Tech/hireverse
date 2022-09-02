@@ -5,6 +5,9 @@ import LandingPage from "./components/LandingPage";
 import LoginPage from "./components/LoginPage";
 import CompanyHeader from "./components/company/CompanyHeader";
 import RecruitmentDetails from "./components/company/RecruitmentDetails";
+import CandidateHeader from "./components/candidate/CandidateHeader";
+import CandidateFeed from "./components/candidate/CandidateFeed";
+import CandidateTestResults from "./components/candidate/CandidateTestResults";
 
 function App() {
   return (
@@ -20,6 +23,13 @@ function App() {
             <Route
               path="recruitment-details"
               element={<RecruitmentDetails />}
+            />
+          </Route>
+          <Route path="candidate" element={<CandidateHeader />}>
+            <Route path="candidate-feed" element={<CandidateFeed />} />
+            <Route
+              path="candidate-test-results"
+              element={<CandidateTestResults />}
             />
           </Route>
         </Routes>
