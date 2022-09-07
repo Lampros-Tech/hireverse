@@ -1,6 +1,6 @@
-import { Fragment } from 'react'
-import { Link, Outlet } from 'react-router-dom'
-import { Popover, Transition } from '@headlessui/react'
+import { Fragment } from "react";
+import { Link, Outlet } from "react-router-dom";
+import { Popover, Transition } from "@headlessui/react";
 import {
   ArrowPathIcon,
   Bars3Icon,
@@ -14,20 +14,20 @@ import {
   ShieldCheckIcon,
   Squares2X2Icon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+} from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 const solutions = [
   {
-    name: 'My Tests',
+    name: "My Tests",
     description:
-      'Get a better understanding of where your traffic is coming from.',
-    href: '#',
+      "Get a better understanding of where your traffic is coming from.",
+    href: "#",
     icon: ChartBarIcon,
   },
   {
-    name: 'Practice Tests',
-    description: 'Speak directly to your customers in a more meaningful way.',
-    href: '#',
+    name: "Practice Tests",
+    description: "Speak directly to your customers in a more meaningful way.",
+    href: "#",
     icon: CursorArrowRaysIcon,
   },
   //   {
@@ -49,52 +49,52 @@ const solutions = [
   //     href: "#",
   //     icon: ArrowPathIcon,
   //   },
-]
+];
 const callsToAction = [
   //   { name: "Watch Demo", href: "#", icon: PlayIcon },
   //   { name: "Contact Sales", href: "#", icon: PhoneIcon },
-]
+];
 const resources = [
   {
-    name: 'Help Center',
+    name: "Help Center",
     description:
-      'Get all of your questions answered in our forums or contact support.',
-    href: '#',
+      "Get all of your questions answered in our forums or contact support.",
+    href: "#",
     icon: LifebuoyIcon,
   },
   {
-    name: 'Guides',
+    name: "Guides",
     description:
-      'Learn how to maximize our platform to get the most out of it.',
-    href: '#',
+      "Learn how to maximize our platform to get the most out of it.",
+    href: "#",
     icon: BookmarkSquareIcon,
   },
   {
-    name: 'Events',
+    name: "Events",
     description:
-      'See what meet-ups and other events we might be planning near you.',
-    href: '#',
+      "See what meet-ups and other events we might be planning near you.",
+    href: "#",
     icon: CalendarIcon,
   },
   {
-    name: 'Security',
-    description: 'Understand how we take your privacy seriously.',
-    href: '#',
+    name: "Security",
+    description: "Understand how we take your privacy seriously.",
+    href: "#",
     icon: ShieldCheckIcon,
   },
-]
+];
 const recentPosts = [
-  { id: 1, name: 'Boost your conversion rate', href: '#' },
+  { id: 1, name: "Boost your conversion rate", href: "#" },
   {
     id: 2,
-    name: 'How to use search engine optimization to drive traffic to your site',
-    href: '#',
+    name: "How to use search engine optimization to drive traffic to your site",
+    href: "#",
   },
-  { id: 3, name: 'Improve your customer experience', href: '#' },
-]
+  { id: 3, name: "Improve your customer experience", href: "#" },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Header() {
@@ -137,15 +137,15 @@ export default function Header() {
                   <>
                     <Popover.Button
                       className={classNames(
-                        open ? 'text-gray-900' : 'text-gray-500',
-                        'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
+                        open ? "text-gray-900" : "text-gray-500",
+                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                       )}
                     >
                       <span>Repository</span>
                       <ChevronDownIcon
                         className={classNames(
-                          open ? 'text-gray-600' : 'text-gray-400',
-                          'ml-2 h-5 w-5 group-hover:text-gray-500',
+                          open ? "text-gray-600" : "text-gray-400",
+                          "ml-2 h-5 w-5 group-hover:text-gray-500"
                         )}
                         aria-hidden="true"
                       />
@@ -182,7 +182,6 @@ export default function Header() {
                               Repositor3
                             </Link>
                           </div>
-                          
                         </div>
                       </Popover.Panel>
                     </Transition>
@@ -194,15 +193,15 @@ export default function Header() {
                   <>
                     <Popover.Button
                       className={classNames(
-                        open ? 'text-gray-900' : 'text-gray-500',
-                        'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
+                        open ? "text-gray-900" : "text-gray-500",
+                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                       )}
                     >
                       <span>Tests</span>
                       <ChevronDownIcon
                         className={classNames(
-                          open ? 'text-gray-600' : 'text-gray-400',
-                          'ml-2 h-5 w-5 group-hover:text-gray-500',
+                          open ? "text-gray-600" : "text-gray-400",
+                          "ml-2 h-5 w-5 group-hover:text-gray-500"
                         )}
                         aria-hidden="true"
                       />
@@ -515,7 +514,7 @@ export default function Header() {
                     Sign up
                   </Link>
                   <p className="mt-6 text-center text-base font-medium text-gray-500">
-                    Existing customer?{' '}
+                    Existing customer?{" "}
                     <Link
                       to="/#"
                       className="text-indigo-600 hover:text-indigo-500"
@@ -530,8 +529,7 @@ export default function Header() {
         </Transition>
       </Popover>
 
-        <Outlet/>
-    </>        
-
-  )
+      <Outlet />
+    </>
+  );
 }

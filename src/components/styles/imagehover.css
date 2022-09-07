@@ -1,0 +1,99 @@
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* width: 100%;
+  height: 100%; */
+}
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  /* width: 100%;
+  max-width: 720px;
+  height: 100%;
+  max-height: 720px;
+  padding: 20px 0; */
+}
+/* .box h1 {
+  margin: 30px 0 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 3rem;
+  letter-spacing: 1px;
+  text-align: center;
+} */
+.image {
+  /* position: relative; */
+  width: 350px;
+  height: 320px;
+  /* width: 100px;
+  height: 100px; */
+  /* overflow: hidden; */
+  background: url("./email_pic.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: tiltImage 2s linear infinite;
+}
+.image::before {
+  opacity: 0.4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: skewX(-20deg);
+  background-color: #fff;
+  content: "";
+  animation: gloss 2s linear infinite;
+}
+.shadow {
+  width: 100px;
+  height: 8px;
+  margin-top: 10px;
+  border-radius: 50%;
+  background-color: #000;
+  filter: blur(10px);
+  animation: tiltImage 2s linear infinite;
+}
+@keyframes tiltImage {
+  0% {
+    transform: skewY(5deg);
+  }
+  50% {
+    transform: skewY(-5deg);
+  }
+  100% {
+    transform: skewY(5deg);
+  }
+}
+@keyframes gloss {
+  0% {
+    transform: translateX(-250px) skewX(-20deg);
+  }
+  50% {
+    transform: translateX(-90px) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(-250px) skewX(-20deg);
+  }
+}
+@media screen and (max-width: 480px) {
+  #container {
+    height: auto;
+    align-items: flex-start;
+  }
+  .image {
+    width: 150px;
+    height: 150px;
+  }
+  .box {
+    height: 200px;
+  }
+  .box h1 {
+    font-size: 1.5rem;
+  }
+}
