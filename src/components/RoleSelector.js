@@ -45,14 +45,14 @@ function RoleSelector() {
                   className="email-verify-button"
                   onClick={() => {
                     if (value === "company") {
-                      navigate("/company-registration-form");
+                      navigate("/companyregform");
                     }
                     if (value === "creator") {
-                      navigate("/creator-registration-form");
+                      navigate("/creatorregform");
                     }
 
                     if (value === "candidate") {
-                      navigate("/candidate-registration-form");
+                      navigate("/candidateregform");
                     }
                   }}
                 >
