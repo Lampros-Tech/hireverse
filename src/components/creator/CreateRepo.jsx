@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './creator.css'
 import DD_repo from './Dropdowns/DD_repo'
-function Createrepo() {
+function CreateRepo() {
   return (
     <>
       <div className="parent-content">
@@ -114,4 +114,4 @@ function Createrepo() {
     </>
   )
 }
-export default Createrepo
+export default CreateRepo
