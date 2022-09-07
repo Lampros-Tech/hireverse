@@ -1,22 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles/login.css";
-import emailpic from "./styles/email_pic.webp";
-import { useNavigate } from "react-router-dom";
+import "./styles/imagehover.css";
+// import emailpic from "./styles/email_pic.webp";
+// import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 function EmailVeficationPage() {
-  let navigate = useNavigate();
-  const [credentials, setCredentials] = useState({ email: "", code: "" });
+  // let navigate = useNavigate();
+  const [credentials, setCredentials] = useState({ email: "", username: "" });
+
+  useEffect(() => {
+    console.log(credentials);
+  }, [credentials]);
   return (
     <>
       <section className="login-main">
         <section className="login-inside">
           <section className="wrap-email">
             <div className="email-pic">
-              <img src={emailpic} alt="img" />
+              <div id="container">
+                <div className="box">
+                  <div className="image"></div>
+                  <div className="shadow"></div>
+                </div>
+              </div>
+              {/* <img className="" src={emailpic} alt="img" /> */}
             </div>
             <form action="" className="email-form">
-              <span className="email-form-title">Email Verification</span>
+              <span className="email-form-title">Sign Up</span>
               <div className="wrap-input validate-input">
                 <input
                   className="input"
@@ -26,33 +37,26 @@ function EmailVeficationPage() {
                   onChange={(event) =>
                     setCredentials({
                       email: event.target.value,
-                      code: credentials.code,
+                      username: credentials.username,
+                    })
+                  }
+                />
+                <input
+                  className="input"
+                  value={credentials.username}
+                  type="text"
+                  placeholder="Username"
+                  onChange={(event) =>
+                    setCredentials({
+                      email: credentials.email,
+                      username: event.target.value,
                     })
                   }
                 />
 
-                <span className="focus-input"></span>
                 {/* <span className="symbol-input"></span> */}
               </div>
-              <div className="btn-container">
-                <button className="email-verify-button">Send Code</button>
-              </div>
-              <div className="wrap-input validate-input">
-                <input
-                  className="input"
-                  value={credentials.code}
-                  type="password"
-                  placeholder="enter your password"
-                  onChange={(event) =>
-                    setCredentials({
-                      email: credentials.email,
-                      code: event.target.value,
-                    })
-                  }
-                />
-                <span className="focus-input"></span>
-                {/* <span className="symbol-input"></span> */}
-              </div>
+
               <div className="btn-container">
                 <button
                   className="email-verify-button"
@@ -61,20 +65,11 @@ function EmailVeficationPage() {
                       credentials.email
                     )
                   }
-                  onClick={() => {
-                    if (credentials.code === "letmein") navigate("/role");
-                  }}
+                  onClick={() => {}}
                 >
-                  Verify Email
+                  Next
                 </button>
               </div>
-              {/* <div className="text-center pt-12">
-                <span className="txt1">Forgot </span>
-                <Link to="/#">Username / Password?</Link>
-              </div>
-              <div className="text-center pt-20">
-                <Link to="/#">Create your account </Link>
-              </div> */}
             </form>
           </section>
         </section>

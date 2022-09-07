@@ -22,7 +22,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
-          <Route path="ev" element={<EmailVeficationPage />}></Route>
+          <Route path="/signup/ev" element={<EmailVeficationPage />}></Route>
           <Route path="role" element={<RoleSelector />}></Route>
           <Route
             path="company-registration-form"
@@ -39,6 +39,7 @@ function App() {
 
           <Route path="creator" element={<CreatorHeader />}>
             <Route path="repo" element={<Createrepo />} />
+            {/* Add prasanna app.js here */}
           </Route>
           <Route path="company" element={<CompanyHeader />}>
             <Route
