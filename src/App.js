@@ -73,13 +73,12 @@ function App() {
             <Route path="createrepo" element={<Createrepo />} />
             <Route path="assesment" element={<CreateAssesment />} />
             <Route path="question" element={<AddQuestion />} />
-            <Route path="MyQuestion" element={<Viewquestion />} />
+            <Route path="myquestion" element={<Viewquestion />} />
             <Route path="myrepo" element={<Myrepos />} />
             <Route path="myassessment" element={<MyAssesments />} />
             <Route path="editrepo" element={<Editrepo />} />
             <Route path="editAssesment" element={<EditAssesment />} />
             <Route path="message" element={<CreatorMessage />} />
-            
           </Route>
 
           <Route path="company" element={<CompanyHeader />}>
@@ -90,12 +89,12 @@ function App() {
             <Route path="tests" element={<TestsFeed />} />
             <Route path="" element={<CreatorsList />} />
             <Route path="testdescrption" element={<TestDescription />} />
-            <Route path="jobpost" element={<Jobpost/>}/>
-            <Route path="availabletests" element={<AvailableTest/>}/>
-            <Route path="invitecandidates" element={<InviteCandidate/>}/>
-            <Route path="jobapplicant" element={<JobApplicant/>}/>
-            <Route path="jobinsights" element={<Jobinsights/>}/>
-            <Route path="message" element={<CompanyMessage/>}/>
+            <Route path="jobpost" element={<Jobpost />} />
+            <Route path="availabletests" element={<AvailableTest />} />
+            <Route path="invitecandidates" element={<InviteCandidate />} />
+            <Route path="jobapplicant" element={<JobApplicant />} />
+            <Route path="jobinsights" element={<Jobinsights />} />
+            <Route path="message" element={<CompanyMessage />} />
           </Route>
           <Route path="candidate" element={<CandidateHeader />}>
             <Route path="" element={<CandidateFeed />} />
@@ -104,10 +103,10 @@ function App() {
               path="candidate-test-results"
               element={<CandidateTestResults />}
             />
-            <Route path="candidate-profile" element={<Home/>}/>
+            <Route path="candidate-profile" element={<Home />} />
             <Route path="testtakenpage" element={<TestTakenpage />} />
             <Route path="testInstruction" element={<TestInstructionpage />} />
-            <Route path="message" element={<CandidateMessage/>}/>
+            <Route path="message" element={<CandidateMessage />} />
           </Route>
         </Routes>
       </Router>

@@ -922,7 +922,7 @@ function CreatorExperience() {
                       className="f-next-btn"
                       onClick={() => {
                         // handleClick(7);
-                        navigate("/creator");
+                        navigate("/creator/myquestion");
                       }}
                     >
                       <span>NEXT</span>
