@@ -10,7 +10,7 @@ const CompanyMessage = () => {
                 <div className="conv_box">
                     <div className="conv active">
                         <div className="conv_left">
-                            <div className="image">
+                            <div className="company-image">
                                 <img src="https://images.unsplash.com/photo-1661294052753-c92664e3e1d6?crop=entropy\u0026cs=tinysrgb\u0026fit=max\u0026fm=jpg\u0026ixid=MnwzNjE5NjR8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI1NDAyODk\u0026ixlib=rb-1.2.1\u0026q=80\u0026w=200" alt="icon" className="bitmap" />
                             </div>
                         </div>
@@ -27,7 +27,7 @@ const CompanyMessage = () => {
                     </div>
                     <div className="conv">
                         <div className="conv_left">
-                            <div className="image">
+                            <div className="company-image">
                                 <img src="https://images.unsplash.com/photo-1662377088248-6cf24d3791d8?crop=entropy\u0026cs=tinysrgb\u0026fit=max\u0026fm=jpg\u0026ixid=MnwzNjE5NjR8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI1NDQyNDE\u0026ixlib=rb-1.2.1\u0026q=80\u0026w=200" alt="icon" className="bitmap" />
                             </div>
                         </div>
@@ -44,7 +44,7 @@ const CompanyMessage = () => {
                     </div>
                     <div className="conv unread">
                         <div className="conv_left">
-                            <div className="image">
+                            <div className="company-image">
                                 <img src="https://images.unsplash.com/photo-1659942546320-297ce58f567a?crop=entropy\u0026cs=tinysrgb\u0026fit=max\u0026fm=jpg\u0026ixid=MnwzNjE5NjR8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI1NDU5NjU\u0026ixlib=rb-1.2.1\u0026q=80\u0026w=200" alt="icon" className="bitmap" />
                             </div>
                         </div>
@@ -61,7 +61,7 @@ const CompanyMessage = () => {
                     </div>
                     <div className="conv">
                         <div className="conv_left">
-                            <div className="image">
+                            <div className="company-image">
                                 <img src="https://images.unsplash.com/photo-1661379935198-a2f4afb915df?crop=entropy\u0026cs=tinysrgb\u0026fit=max\u0026fm=jpg\u0026ixid=MnwzNjE5NjR8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI1NDQ3ODA\u0026ixlib=rb-1.2.1\u0026q=80\u0026w=200" alt="icon" className="bitmap" />
                             </div>
                         </div>
@@ -78,7 +78,7 @@ const CompanyMessage = () => {
                     </div>
                     <div className="conv">
                         <div className="conv_left">
-                            <div className="image">
+                            <div className="company-image">
                                 <img src="https://images.unsplash.com/photo-1661435806102-1f9fa4c6050f?crop=entropy\u0026cs=tinysrgb\u0026fit=max\u0026fm=jpg\u0026ixid=MnwzNjE5NjR8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjI1NTExMTE\u0026ixlib=rb-1.2.1\u0026q=80\u0026w=200" alt="icon" className="bitmap" />
                             </div>
                         </div>
@@ -146,7 +146,7 @@ const CompanyMessage = () => {
                                 "autolink",
                                 "lists",
                                 "link",
-                                "image",
+                                "company-image",
                                 "charmap",
                                 "preview",
                                 "anchor",
@@ -168,9 +168,9 @@ const CompanyMessage = () => {
                                 "removeformat | image",
                             image_title: true,
                             automatic_uploads: true,
-                            file_picker_types: "image",
+                            file_picker_types: "company-image",
                             file_picker_callback: function (callback, value, meta) {
-                                if (meta.filetype === "image") {
+                                if (meta.filetype === "company-image") {
                                     var input = document.getElementById("my-file");
                                     input.click();
                                     input.onchange = function () {
