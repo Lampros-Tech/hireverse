@@ -180,7 +180,7 @@ export default function AddQuestion() {
         <div className="Add-Enter_Questions">
           <div className="Add-type_of_Question">
             <select className="Add-Question-type" defaultValue={""} id="Question" onChange={(e) => { setCategory(e.target.value) }}>
-              <option value="">Select genre of Question</option>
+              <option value="gener-select">Select genre of Question</option>
               {
                 subjects.map((i, index) => (
                   <option value={i} key={index}>{i}</option>

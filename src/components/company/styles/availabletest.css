@@ -1,0 +1,148 @@
+.availabletest-main-content {
+  height: 100%;
+  width: 100%;
+
+  margin: 0 auto;
+  margin-top: 5%;
+}
+.availabletest-main-information {
+  margin-top: 2%;
+  margin-left: 25%;
+  width: 55%;
+  margin-bottom: 5%;
+  background-color: aliceblue;
+}
+.avilabletest-front-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 43%;
+  margin-top: 2%;
+}
+.availabletest-description {
+  margin-left: 3em;
+  text-align: justify;
+  /* margin-top: 5%; */
+  /* width: 60%; */
+  margin-bottom: 40px;
+}
+.availabletest-user-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5%;
+  margin-bottom: 5%;
+}
+.available-creator-name {
+  white-space: nowrap;
+}
+.availabletest-usetest-button {
+  white-space: nowrap;
+  margin-left: 5em;
+}
+.purchased-name {
+  border-right: 1px solid black;
+  padding: 10px;
+}
+.created-name {
+  padding: 10px;
+}
+.availabletest-title {
+  margin-left: 50px;
+  margin-top: 10px;
+}
+.availabletest-description-to-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.available-information {
+  padding: 5px;
+  padding-right: 5%;
+}
+.variable-cost-name {
+  font-weight: 700;
+}
+.availabletest-variable-cost {
+  display: flex;
+  margin-left: 51%;
+}
+.availabletest-submit {
+  margin-left: 45%;
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
+.availabletest-save-button {
+  /* padding: 10px; */
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+@media only screen and (max-width: 768px) {
+  .availabletest-main-information {
+    margin-top: 5%;
+    margin-left: 10%;
+    width: 80%;
+    margin-bottom: 5%;
+    background-color: aliceblue;
+  }
+  .availabletest-variable-cost {
+    display: flex;
+    margin-left: 5%;
+  }
+  .availabletest-title {
+    margin-left: 5%;
+    margin-top: 10px;
+  }
+  .availabletest-description {
+    margin-left: 5%;
+    text-align: justify;
+
+    width: 90%;
+    margin-bottom: 10px;
+  }
+  .available-information {
+    padding: 5px;
+  }
+  .availabletest-description-to-button {
+    display: block;
+    align-items: center;
+    justify-content: center;
+  }
+  .availabletest-user-icon {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    /* margin-left: 5px; */
+    margin-bottom: 5%;
+  }
+  .availabletest-usetest-button {
+    white-space: nowrap;
+    margin-left: 0em;
+  }
+  .use-test-button {
+    padding: 10px;
+    margin-top: 10px;
+  }
+  .availabletest-submit {
+    /* margin-left: 15%;
+    margin-bottom: 5%;
+    margin-top: 15%; */
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5%;
+    margin-top: 10%;
+  }
+  .available-creator-name {
+    white-space: nowrap;
+    margin-right: 55%;
+  }
+  .avilabletest-front-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-right: 58%; */
+    margin-top: 2%;
+  }
+}

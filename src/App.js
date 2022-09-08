@@ -30,7 +30,16 @@ import CandidateEducation from "./components/registartionforms/CandidateEducatio
 import CandidateExperience from "./components/registartionforms/CandidateExperience";
 import CreatorExperience from "./components/registartionforms/CreatorExperience";
 import CandidateTestResults from "./components/candidate/Test/CandidateTestResults";
-
+import CandidateTest from "./components/candidate/Test/CandidateTest";
+import Home from "./components/Profile/candidateprofile/Home";
+import Jobpost from "./components/company/Jobpost";
+import AvailableTest from "./components/company/Availabletest";
+import InviteCandidate from "./components/company/Invitecandidate";
+import JobApplicant from "./components/company/JobApplicant";
+import Jobinsights from "./components/company/JobInsight";
+import CreatorMessage from "./components/creator/CreatorMessages";
+import CandidateMessage from "./components/candidate/CandidateMessages";
+import CompanyMessage from "./components/company/CompanyMessages";
 function App() {
   const client_ = createClient({
     autoConnect: true,
@@ -65,10 +74,12 @@ function App() {
             <Route path="assesment" element={<CreateAssesment />} />
             <Route path="question" element={<AddQuestion />} />
             <Route path="MyQuestion" element={<Viewquestion />} />
-            <Route path="" element={<Myrepos />} />
-            <Route path="mytests" element={<MyAssesments />} />
+            <Route path="myrepo" element={<Myrepos />} />
+            <Route path="myassessment" element={<MyAssesments />} />
             <Route path="editrepo" element={<Editrepo />} />
             <Route path="editAssesment" element={<EditAssesment />} />
+            <Route path="message" element={<CreatorMessage />} />
+            
           </Route>
 
           <Route path="company" element={<CompanyHeader />}>
@@ -78,17 +89,25 @@ function App() {
             />
             <Route path="tests" element={<TestsFeed />} />
             <Route path="" element={<CreatorsList />} />
-            <Route path="td" element={<TestDescription />} />
+            <Route path="testdescrption" element={<TestDescription />} />
+            <Route path="jobpost" element={<Jobpost/>}/>
+            <Route path="availabletests" element={<AvailableTest/>}/>
+            <Route path="invitecandidates" element={<InviteCandidate/>}/>
+            <Route path="jobapplicant" element={<JobApplicant/>}/>
+            <Route path="jobinsights" element={<Jobinsights/>}/>
+            <Route path="message" element={<CompanyMessage/>}/>
           </Route>
           <Route path="candidate" element={<CandidateHeader />}>
             <Route path="" element={<CandidateFeed />} />
-            <Route path="candidate-test" element={<CandidateTestResults />} />
+            <Route path="candidate-test" element={<CandidateTest />} />
             <Route
               path="candidate-test-results"
               element={<CandidateTestResults />}
             />
+            <Route path="candidate-profile" element={<Home/>}/>
             <Route path="testtakenpage" element={<TestTakenpage />} />
             <Route path="testInstruction" element={<TestInstructionpage />} />
+            <Route path="message" element={<CandidateMessage/>}/>
           </Route>
         </Routes>
       </Router>

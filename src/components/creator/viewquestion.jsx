@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 // import EditQuestion from '../'
 // import Questions from './Data/Question'
+import "./viewquestion.css"
+
 import $ from 'jquery'
 import 'jquery/dist/jquery.min.js'
 import 'datatables.net-dt/js/dataTables.dataTables'
@@ -97,8 +99,8 @@ function Viewquestion() {
 
     return (
       <div className="question-List">
-        <div onClick={() => { Redirect() }} className="backBtn-preview"><Backlogo comStyle={{ width: '30px', height: '30px', cursor: 'pointer' }} /></div>
-        <h1 style={{ textAlign: 'center' }}>All Questions</h1>
+        {/* <div onClick={() => { Redirect() }} className="backBtn-preview"><Backlogo comStyle={{ width: '30px', height: '30px', cursor: 'pointer' }} /></div> */}
+        <h1 style={{ textAlign: 'center' }} className="font-primary">Questions feed</h1>
         <table id="table_id" className="display ">
           <thead>
             <tr>
