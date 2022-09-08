@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./landing.css";
 import { useRef } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
 function CreatorRegForm() {
+  let navigate = useNavigate();
+
   const refOne = useRef(null);
   const refTwo = useRef(null);
   const refThree = useRef(null);
@@ -756,7 +760,10 @@ function CreatorRegForm() {
                     </button>
                     <button
                       className="f-next-btn"
-                      onClick={() => handleClick(4)}
+                      onClick={() => {
+                        handleClick(4);
+                        navigate("/creatorregform/creator-experience");
+                      }}
                     >
                       <span>NEXT</span>
 

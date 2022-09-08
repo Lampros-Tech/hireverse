@@ -70,8 +70,7 @@
   z-index: 1;
   margin-bottom: 10px;
 }
-input.input {
-  margin: 20px 0;
+input {
   outline: none;
   border: none;
 }
@@ -183,10 +182,7 @@ select {
 .role-guide {
   border-right: 2px solid #d3d3d3;
 }
-.tilt-effect {
-  width: 50%;
-  height: 50%;
-}
+
 @media (max-width: 768px) {
   .wrap-email {
     align-items: center;

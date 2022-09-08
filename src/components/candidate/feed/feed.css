@@ -1,0 +1,50 @@
+.feed-header {
+  text-align: center;
+  font-size: xx-large;
+  margin-bottom: 50px;
+}
+
+.form-header {
+  text-align: center;
+  font-size: xx-large;
+  margin-bottom: 50px;
+}
+
+.feed-outer {
+  border-radius: 10px;
+  margin: 0 auto;
+  background-color: #189ad3;
+  height: 50%;
+  width: 50%;
+  margin-bottom: 20px;
+  text-align: center;
+  color: aliceblue;
+}
+
+.feed-button {
+  margin: 10px;
+  height: 25px;
+  width: 50px;
+}
+
+.text-box {
+  height: 100px;
+  width: 50%;
+}
+
+.question-box {
+  height: 30px;
+  width: 50%;
+}
+
+.form-btn {
+  margin: 10px;
+  height: 25px;
+  width: 60px;
+}
+
+.upload-btn {
+  margin: 10px;
+  height: 25px;
+  width: 92px;
+}

@@ -11,14 +11,13 @@ import Myrepos from "./components/creator/Myrepos";
 import MyAssesments from "./components/creator/Mytest";
 import Editrepo from "./components/creator/Editrepo";
 import EditAssesment from "./components/creator/EditAssesment";
-import TestTakenpage from "./components/Test/testTakenpage";
-import TestInstructionpage from "./components/Test/TestInstructionpage";
+import TestTakenpage from "./components/candidate/Test/testTakenpage";
+import TestInstructionpage from "./components/candidate/Test/TestInstructionpage";
 import LandingPage from "./components/LandingPage";
 import CompanyHeader from "./components/company/CompanyHeader";
 import RecruitmentDetails from "./components/company/RecruitmentDetails";
 import CandidateHeader from "./components/candidate/CandidateHeader";
-import CandidateFeed from "./components/candidate/CandidateFeed";
-import CandidateTestResults from "./components/candidate/CandidateTestResults";
+import CandidateFeed from "./components/candidate/feed/CandidateFeed";
 import EmailVeficationPage from "./components/EmailVeficationPage";
 import TestDescription from "./components/company/TestDescription";
 import TestsFeed from "./components/company/TestsFeed";
@@ -30,6 +29,7 @@ import CreatorRegForm from "./components/registartionforms/CreatorRegForm";
 import CandidateEducation from "./components/registartionforms/CandidateEducation";
 import CandidateExperience from "./components/registartionforms/CandidateExperience";
 import CreatorExperience from "./components/registartionforms/CreatorExperience";
+import CandidateTestResults from "./components/candidate/Test/CandidateTestResults";
 
 function App() {
   const client_ = createClient({
@@ -41,8 +41,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
-          <Route path="/signup/ev" element={<EmailVeficationPage />}></Route>
+          <Route path="signup/ev" element={<EmailVeficationPage />}></Route>
           <Route path="role" element={<RoleSelector />}></Route>
+
           <Route path="companyregform" element={<CompanyRegForm />}></Route>
           <Route path="creatorregform" element={<CreatorRegForm />}></Route>
           <Route
@@ -58,33 +59,36 @@ function App() {
             path="candidateregform/candidate-experience"
             element={<CandidateExperience />}
           ></Route>
+
           <Route path="creator" element={<CreatorHeader />}>
             <Route path="createrepo" element={<Createrepo />} />
             <Route path="assesment" element={<CreateAssesment />} />
             <Route path="question" element={<AddQuestion />} />
             <Route path="MyQuestion" element={<Viewquestion />} />
-            <Route path="myrepos" element={<Myrepos />} />
+            <Route path="" element={<Myrepos />} />
             <Route path="mytests" element={<MyAssesments />} />
             <Route path="editrepo" element={<Editrepo />} />
             <Route path="editAssesment" element={<EditAssesment />} />
-            <Route path="testtakenpage" element={<TestTakenpage />} />
-            <Route path="testInstruction" element={<TestInstructionpage />} />
           </Route>
+
           <Route path="company" element={<CompanyHeader />}>
             <Route
               path="recruitment-details"
               element={<RecruitmentDetails />}
             />
             <Route path="tests" element={<TestsFeed />} />
-            <Route path="all-creators" element={<CreatorsList />} />
+            <Route path="" element={<CreatorsList />} />
             <Route path="td" element={<TestDescription />} />
           </Route>
           <Route path="candidate" element={<CandidateHeader />}>
-            <Route path="candidate-feed" element={<CandidateFeed />} />
+            <Route path="" element={<CandidateFeed />} />
+            <Route path="candidate-test" element={<CandidateTestResults />} />
             <Route
               path="candidate-test-results"
               element={<CandidateTestResults />}
             />
+            <Route path="testtakenpage" element={<TestTakenpage />} />
+            <Route path="testInstruction" element={<TestInstructionpage />} />
           </Route>
         </Routes>
       </Router>

@@ -1,0 +1,40 @@
+.test-header {
+  text-align: center;
+  font-size: xx-large;
+  margin-bottom: 50px;
+}
+
+.candidate-name {
+  text-align: center;
+  font-size: x-large;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+.test-outer {
+  border-radius: 10px;
+  margin: 0 auto;
+  background-color: #189ad3;
+  height: 50%;
+  width: auto;
+  max-width: 60%;
+  margin-bottom: 20px;
+  text-align: center;
+  color: aliceblue;
+}
+
+.candidate-info {
+  column-count: 2;
+}
+
+.test-info {
+  font-size: large;
+}
+
+.all-info {
+  margin-bottom: 20px;
+}
+
+.result-info {
+  margin-bottom: 20px;
+}

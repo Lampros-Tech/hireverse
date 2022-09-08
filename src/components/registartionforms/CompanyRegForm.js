@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import PhoneInput from "react-phone-input-2";
 
@@ -7,6 +8,8 @@ import "./landing.css";
 import { useRef } from "react";
 
 function CompanyRegForm() {
+  let navigate = useNavigate();
+
   const refOne = useRef(null);
   const refTwo = useRef(null);
   const refThree = useRef(null);
@@ -1199,7 +1202,10 @@ function CompanyRegForm() {
                     </button>
                     <button
                       className="f-next-btn"
-                      onClick={() => handleClick(8)}
+                      onClick={() => {
+                        // handleClick(8);
+                        navigate("company/all-creators");
+                      }}
                     >
                       <span>NEXT</span>
 

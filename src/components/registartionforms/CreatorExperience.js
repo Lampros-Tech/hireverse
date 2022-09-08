@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "react-phone-input-2/lib/style.css";
 import "./landing.css";
 import { useRef } from "react";
 
 function CreatorExperience() {
+  let navigate = useNavigate();
+
   const refOne = useRef(null);
   const refTwo = useRef(null);
   const refThree = useRef(null);
@@ -917,7 +920,10 @@ function CreatorExperience() {
                     </button>
                     <button
                       className="f-next-btn"
-                      onClick={() => handleClick(7)}
+                      onClick={() => {
+                        // handleClick(7);
+                        navigate("/creator/myrepos");
+                      }}
                     >
                       <span>NEXT</span>
 

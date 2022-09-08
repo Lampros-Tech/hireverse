@@ -33,7 +33,11 @@ function RoleSelector() {
                 What represents you well?
               </span>
               <div className="wrap-input validate-input">
-                <select value={value} onChange={handleChange}>
+                <select
+                  className="role-select"
+                  value={value}
+                  onChange={handleChange}
+                >
                   {options.map((option) => (
                     <option value={option.value}>{option.label}</option>
                   ))}

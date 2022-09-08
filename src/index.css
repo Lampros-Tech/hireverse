@@ -1,16 +1,69 @@
-@tailwind base; 
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --gradient-color: linear-gradient(
+    90deg,
+    #005073,
+    #107dac,
+    #189ad3,
+    #9fd356,
+    #9fd356,
+    #189ad3,
+    #107dac,
+    #005073
+  );
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+button.hireverse-btn {
+  font-size: 1rem;
+  font-weight: 700;
+  background: var(--gradient-color);
+  background-size: 600% 200%;
+  animation: gradient 4s linear infinite;
+  animation-direction: alternate;
+  /* background: linear-gradient(270deg, #189ad3 0%, #9fd356 100%); */
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  color: white;
+}
+button.hireverse-btn:hover {
+  color: white;
+}
+button.hireverse-btn-mobile {
+  width: 100%;
+  background: var(--gradient-color);
+  background-size: 600% 200%;
+  animation: gradient 3s linear infinite;
+  animation-direction: alternate;
+  /* background: linear-gradient(270deg, #189ad3 0%, #9fd356 100%); */
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  color: white;
+}
+button.hireverse-btn:hover {
+  color: white;
+}
+@keyframes gradient {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
 }

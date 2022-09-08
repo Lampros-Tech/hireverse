@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "./landing.css";
 
 function CandidateRegForm() {
+  let navigate = useNavigate();
+
   const refOne = useRef(null);
   const refTwo = useRef(null);
   const refThree = useRef(null);
@@ -764,7 +767,10 @@ function CandidateRegForm() {
                     </button>
                     <button
                       className="f-next-btn"
-                      onClick={() => handleClick(4)}
+                      onClick={() => {
+                        handleClick(4);
+                        navigate("/candidateregform/candidate-education");
+                      }}
                     >
                       <span>NEXT</span>
 
