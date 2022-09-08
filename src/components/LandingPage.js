@@ -104,8 +104,9 @@ function LandingPage() {
               hassle
             </p>
             <iframe
-              width="560"
-              height="315"
+              className="d-video"
+              width="70%"
+              height="600px"
               src="https://www.youtube.com/embed/znbzGfGLw_4"
               title="YouTube video player"
               frameborder="0"
