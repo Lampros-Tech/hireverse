@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./styles/login.css";
 import "./styles/imagehover.css";
+import { useNavigate } from "react-router-dom";
+
 // import emailpic from "./styles/email_pic.webp";
 // import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 function EmailVeficationPage() {
+  let navigate = useNavigate();
+
   // let navigate = useNavigate();
   const [credentials, setCredentials] = useState({ email: "", username: "" });
 
@@ -19,7 +23,7 @@ function EmailVeficationPage() {
           <section className="wrap-email">
             <div className="email-pic">
               <div id="container">
-                <div className="box">
+                <div className="ev-box">
                   <div className="image"></div>
                   <div className="shadow"></div>
                 </div>
@@ -65,7 +69,7 @@ function EmailVeficationPage() {
                       credentials.email
                     )
                   }
-                  onClick={() => {}}
+                  onClick={() => navigate("/role")}
                 >
                   Next
                 </button>

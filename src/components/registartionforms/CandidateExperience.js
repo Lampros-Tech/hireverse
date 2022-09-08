@@ -922,7 +922,7 @@ function CandidateExperience() {
                       className="f-next-btn"
                       onClick={() => {
                         // handleClick(7);
-                        navigate("/candidate-feed");
+                        navigate("/candidate/");
                       }}
                     >
                       <span>NEXT</span>

@@ -265,11 +265,9 @@ h1.d-video-title {
   z-index: 2;
 }
 
-video.d-video {
-  width: 80vw;
-  height: 65vh;
-  border: 1px solid black;
-  z-index: 5;
+iframe.d-video {
+  /* width: 70%;
+  height: 60%; */
 }
 
 p.d-video-p {
@@ -369,8 +367,8 @@ img.d-third-flex-item-img {
 button.d-connect-btn {
   right: auto;
   border-radius: 50px;
-  font-size: 0.7rem;
-  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  padding: 1rem 2rem;
   background-color: #282133;
   color: #eff0ee;
 }

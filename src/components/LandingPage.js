@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import { WagmiConfig, createClient } from "wagmi";
 import { getDefaultProvider } from "ethers";
 import Profile from "./xmtp/xmtp";
+
 import logo from "./styles/logo.png";
 import polygon from "./styles/polygon.svg";
 import ipfs from "./styles/IPFS_logo.svg";
@@ -25,9 +28,12 @@ import item5 from "./styles/item6.svg";
 import item1 from "./styles/item7.svg";
 import item4 from "./styles/Proctoring.svg";
 import lastimg from "./styles/3.png";
+
 import "./styles/landingpage.css";
 
 function LandingPage() {
+  let navigate = useNavigate();
+
   const client_ = createClient({
     autoConnect: true,
     provider: getDefaultProvider(),
@@ -43,7 +49,12 @@ function LandingPage() {
             <img className="d-logo" src={logo} alt="logo" />
           </div>
           <div className="d-connect">
-            <button className="d-connect-btn">Connect Wallet</button>
+            <button
+              className="d-connect-btn"
+              onClick={() => navigate("/signup/ev")}
+            >
+              Connect Wallet
+            </button>
           </div>
         </section>
         <img className="d-hero-bg-1" src={bigbg} alt="background" />

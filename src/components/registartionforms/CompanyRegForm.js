@@ -1204,7 +1204,7 @@ function CompanyRegForm() {
                       className="f-next-btn"
                       onClick={() => {
                         // handleClick(8);
-                        navigate("company/all-creators");
+                        navigate("/company");
                       }}
                     >
                       <span>NEXT</span>
