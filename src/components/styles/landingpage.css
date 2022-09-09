@@ -110,6 +110,8 @@ p.d-sponser-p {
 }
 
 .d-third-flex {
+  margin: auto;
+  max-width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -137,14 +139,16 @@ p.d-sponser-p {
 }
 
 .d-fourth {
-  width: 80%;
+  max-width: 70%;
   padding: 0% 20px;
+  min-height: 100vh;
   margin: auto;
   text-align: center;
 }
 
 h1.d-fourth-h1 {
-  margin-bottom: 100px;
+  margin-top: 20px;
+  /* margin-bottom: 80px; */
   font-size: 2rem;
   font-weight: 600;
 }
@@ -193,9 +197,12 @@ img.d-fourth-inside-img {
   min-width: 100%;
   /* height: 40vh; */
 }
-
+.d-last-right-img-div {
+  width: 50%;
+  margin: auto;
+}
 .d-last-left {
-  padding: 5%;
+  padding: 5% 1% 5% 5%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -206,7 +213,7 @@ img.d-fourth-inside-img {
 }
 
 img.d-last-right-img {
-  width: 65%;
+  margin: auto;
 }
 
 h2.d-last-right-h2 {
@@ -218,7 +225,7 @@ h2.d-last-right-h2 {
 
 h1.d-last-h1 {
   color: #eff0ee;
-  font-size: 3.2rem;
+  font-size: 3rem;
   font-weight: 700;
 }
 
@@ -261,7 +268,7 @@ button.d-third-flex-btn {
 }
 
 h1.d-video-title {
-  margin: 10px 0;
+  margin-top: 30px;
   font-size: 2rem;
   font-weight: 700;
   z-index: 2;
@@ -275,7 +282,8 @@ iframe.d-video {
 }
 
 p.d-video-p {
-  margin: 10px 0;
+  font-size: 1.5rem;
+  margin: 20px 0;
 }
 
 h1.d-hero-left-h1 {
@@ -286,9 +294,12 @@ h1.d-hero-left-h1 {
   opacity: 0.8;
   color: #282133;
 }
-
+.d-sponser-grid-item {
+  margin: auto;
+}
 p.d-hero-left-p {
   margin: 10px 0;
+  font-size: 1.3rem;
 }
 
 img.d-logo {
@@ -322,23 +333,33 @@ img.d-graphics-item-2 {
 }
 
 img.d-graphics-item-3 {
-  /* width: 400px; */
+  width: 36rem;
   position: absolute;
-  top: 53vh;
-  right: 0px;
+  top: 60vh;
+  right: -10px;
+  z-index: 1;
+}
+
+img.d-graphics-item-4 {
+  /* width: 36rem; */
+  position: absolute;
+  top: 60vh;
+  left: -10%;
   z-index: 1;
 }
 
 img.d-video-graphics-1 {
-  /* width: 70%; */
+  width: 50%;
   position: absolute;
-  top: -7px;
-  right: -18%;
+  top: -50px;
+  right: -20%;
   /* left: 30rem;
     bottom: 40rem; */
   z-index: 1;
 }
-
+.d-third-section {
+  background-color: white;
+}
 .d-third-flex-item-left {
   width: 50%;
   /* display: flex;

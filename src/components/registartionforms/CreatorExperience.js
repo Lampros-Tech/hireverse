@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "react-phone-input-2/lib/style.css";
-import "./landing.css";
+import "./regform.css";
 import { useRef } from "react";
 
 function CreatorExperience() {

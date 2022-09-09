@@ -28,6 +28,7 @@ import item5 from "./styles/item6.svg";
 import item1 from "./styles/item7.svg";
 import item4 from "./styles/Proctoring.svg";
 import lastimg from "./styles/3.png";
+import line2 from "./styles/bline.svg";
 
 import "./styles/landingpage.css";
 
@@ -122,6 +123,7 @@ function LandingPage() {
             </video> */}
           </div>
           <img className="d-video-graphics-1" src={smallbg} alt="line" />
+          <img className="d-graphics-item-4" src={line2} alt="line" />
         </section>
         <section className="d-third-section">
           <div className="d-inside-third">
@@ -260,7 +262,9 @@ function LandingPage() {
             <button className="d-last-left-btn">Let's Connect</button>
           </div>
           <div className="d-last-right">
-            <img src={lastimg} alt="" className="d-last-right-img" />
+            <div className="d-last-right-img-div">
+              <img src={lastimg} alt="" className="d-last-right-img" />
+            </div>
             <h2 className="d-last-right-h2">
               The only decentralised hiring & talent assessment platform.
             </h2>

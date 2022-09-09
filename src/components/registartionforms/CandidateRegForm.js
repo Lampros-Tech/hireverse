@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import "./landing.css";
+import "./regform.css";
 
 function CandidateRegForm() {
   let navigate = useNavigate();
@@ -768,7 +768,7 @@ function CandidateRegForm() {
                     <button
                       className="f-next-btn"
                       onClick={() => {
-                        handleClick(4);
+                        // handleClick(4);
                         navigate("/candidateregform/candidate-education");
                       }}
                     >

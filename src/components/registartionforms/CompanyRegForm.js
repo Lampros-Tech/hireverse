@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 
 import "react-phone-input-2/lib/style.css";
-import "./landing.css";
+import "./regform.css";
 import { useRef } from "react";
 
 function CompanyRegForm() {
