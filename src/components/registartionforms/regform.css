@@ -22,6 +22,14 @@
 /* .hidden {
   display: none;
 } */
+
+img.f-logo-img {
+  width: 200px;
+  height: 100px;
+  position: fixed;
+  top: 10px;
+  left: 20px;
+}
 .f-first {
   /* height: auto; */
   display: flex;

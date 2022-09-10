@@ -18,6 +18,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import logo from "../styles/logo.png";
 
 const solutions = [
   {
@@ -100,11 +101,7 @@ export default function CompanyHeader() {
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <Link to="/#">
                 <span className="sr-only">Workflow</span>
-                <img
-                  className="h-8 w-auto sm:h-10"
-                  src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                  alt=""
-                />
+                <img className="h-12 w-auto sm:h-16" src={logo} alt="logo" />
               </Link>
             </div>
             <div className="grow"></div>
@@ -122,7 +119,29 @@ export default function CompanyHeader() {
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </Popover.Button>
             </div>
-
+            <form className="hidden space-x-10 md:flex items-center w-1/4">
+              <div className="relative w-full">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="absolute top-0 bottom-0 w-4 h-4 my-auto text-gray-400 left-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="w-full py-2 pl-10  text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+                />
+              </div>
+            </form>
             <Popover.Group
               as="nav"
               className="hidden space-x-10 md:flex items-center"
@@ -227,29 +246,7 @@ export default function CompanyHeader() {
               </button>
             </Popover.Group>
             {/* <Popover className="relative"> */}
-            <form className="hidden space-x-10 md:flex items-center">
-              <div className="relative">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="absolute top-0 bottom-0 w-4 h-4 my-auto text-gray-400 left-3"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="w-full py-1 pl-10  text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
-                />
-              </div>
-            </form>
+
             {/* </Popover> */}
             {/* Profile image and notification icon  */}
             <div className="hidden items-center justify-end md:flex ">
@@ -361,11 +358,7 @@ export default function CompanyHeader() {
               <div className="px-5 pt-5 pb-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <img
-                      className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                      alt="Workflow"
-                    />
+                    <img className="h-14 w-auto" src={logo} alt="Workflow" />
                   </div>
                   <div className="-mr-2">
                     <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">

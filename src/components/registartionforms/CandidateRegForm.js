@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "./regform.css";
+import logo from "../styles/logo.png";
 
 function CandidateRegForm() {
   let navigate = useNavigate();
@@ -283,6 +284,8 @@ function CandidateRegForm() {
   return (
     <>
       <section className="f-background">
+        <img className="f-logo-img" src={logo} alt="logo" />
+
         <section className="f-container">
           {/* *********************************************************** */}
           {/* 1st input field */}
@@ -405,7 +408,7 @@ function CandidateRegForm() {
                       target(e, 1);
                     }}
                     cols="30"
-                    rows="10"
+                    rows="5"
                   />
                   <div className="f-btn-flex">
                     <button

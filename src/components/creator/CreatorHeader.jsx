@@ -17,6 +17,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import logo from "../styles/logo.png";
 
 const solutions = [
   {
@@ -99,11 +100,7 @@ export default function CandidateHeader() {
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <Link to="MyQuestion">
                 <span className="sr-only">Workflow</span>
-                <img
-                  className="h-8 w-auto sm:h-10"
-                  src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                  alt=""
-                />
+                <img className="h-12 w-auto sm:h-16" src={logo} alt="" />
               </Link>
             </div>
             <div className="grow"></div>
@@ -126,11 +123,7 @@ export default function CandidateHeader() {
                 Feed
               </Link>
 
-
-
-            {/* Repository */}
-
-
+              {/* Repository */}
 
               <Popover className="relative">
                 {({ open }) => (
@@ -164,29 +157,26 @@ export default function CandidateHeader() {
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                             {/* {solutions.map((item) => ( */}
-                              <Link
-                                to="createrepo"
-                                className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                              >
-                                <div className="ml-4">
-                                  <p className="text-base font-medium text-gray-900">
-                                    Create Repository
-                                  </p>
-                                 
-                                </div>
-                              </Link>
-                              <Link
-                                to="myrepo"
-                                className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                              >
-                                <div className="ml-4">
-                                  <p className="text-base font-medium text-gray-900">
-                                    View Repository
-                                  </p>
-                                 
-                                </div>
-                              </Link>
-                            
+                            <Link
+                              to="createrepo"
+                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
+                            >
+                              <div className="ml-4">
+                                <p className="text-base font-medium text-gray-900">
+                                  Create Repository
+                                </p>
+                              </div>
+                            </Link>
+                            <Link
+                              to="myrepo"
+                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
+                            >
+                              <div className="ml-4">
+                                <p className="text-base font-medium text-gray-900">
+                                  View Repository
+                                </p>
+                              </div>
+                            </Link>
                           </div>
                           <div className="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
                             {callsToAction.map((item) => (
@@ -210,14 +200,8 @@ export default function CandidateHeader() {
                   </>
                 )}
               </Popover>
-              
 
-
-
-            {/* Assessment */}
-
-
-
+              {/* Assessment */}
 
               <Popover className="relative">
                 {({ open }) => (
@@ -251,28 +235,26 @@ export default function CandidateHeader() {
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                             {/* {solutions.map((item) => ( */}
-                              <Link
-                                to="assesment"
-                                className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                              >
-                                <div className="ml-4">
-                                  <p className="text-base font-medium text-gray-900">
-                                    Create Assessment
-                                  </p>
-                                 
-                                </div>
-                              </Link>
-                              <Link
-                                to="myassessment"
-                                className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                              >
-                                <div className="ml-4">
-                                  <p className="text-base font-medium text-gray-900">
-                                    View Assessment
-                                  </p>  
-                                </div>
-                              </Link>
-                            
+                            <Link
+                              to="assesment"
+                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
+                            >
+                              <div className="ml-4">
+                                <p className="text-base font-medium text-gray-900">
+                                  Create Assessment
+                                </p>
+                              </div>
+                            </Link>
+                            <Link
+                              to="myassessment"
+                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
+                            >
+                              <div className="ml-4">
+                                <p className="text-base font-medium text-gray-900">
+                                  View Assessment
+                                </p>
+                              </div>
+                            </Link>
                           </div>
                           <div className="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
                             {callsToAction.map((item) => (
@@ -296,10 +278,6 @@ export default function CandidateHeader() {
                   </>
                 )}
               </Popover>
-
-
-
-
 
               {/* Question */}
 
@@ -335,28 +313,26 @@ export default function CandidateHeader() {
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                             {/* {solutions.map((item) => ( */}
-                              <Link
-                                to="MyQuestion"
-                                className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                              >
-                                <div className="ml-4">
-                                  <p className="text-base font-medium text-gray-900">
-                                    View Question
-                                  </p>
-                                 
-                                </div>
-                              </Link>
-                              <Link
-                                to="question"
-                                className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                              >
-                                <div className="ml-4">
-                                  <p className="text-base font-medium text-gray-900">
-                                    Add Question
-                                  </p>  
-                                </div>
-                              </Link>
-                            
+                            <Link
+                              to="MyQuestion"
+                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
+                            >
+                              <div className="ml-4">
+                                <p className="text-base font-medium text-gray-900">
+                                  View Question
+                                </p>
+                              </div>
+                            </Link>
+                            <Link
+                              to="question"
+                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
+                            >
+                              <div className="ml-4">
+                                <p className="text-base font-medium text-gray-900">
+                                  Add Question
+                                </p>
+                              </div>
+                            </Link>
                           </div>
                           <div className="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
                             {callsToAction.map((item) => (
@@ -380,9 +356,6 @@ export default function CandidateHeader() {
                   </>
                 )}
               </Popover>
-              
-
-
 
               <Link
                 to="/#"
@@ -531,11 +504,7 @@ export default function CandidateHeader() {
               <div className="px-5 pt-5 pb-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <img
-                      className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                      alt="Workflow"
-                    />
+                    <img className="h-14 w-auto" src={logo} alt="Workflow" />
                   </div>
                   <div className="-mr-2">
                     <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
