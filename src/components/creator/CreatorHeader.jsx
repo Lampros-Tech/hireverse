@@ -2,18 +2,10 @@ import { Fragment } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Popover, Menu, Transition } from "@headlessui/react";
 import {
-  ArrowPathIcon,
   Bars3Icon,
   BellIcon,
-  BookmarkSquareIcon,
-  CalendarIcon,
   ChartBarIcon,
   CursorArrowRaysIcon,
-  LifebuoyIcon,
-  PhoneIcon,
-  PlayIcon,
-  ShieldCheckIcon,
-  Squares2X2Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";

@@ -1,6 +1,6 @@
-import { WagmiConfig, createClient } from "wagmi";
-import { getDefaultProvider } from "ethers";
-import Profile from "./components/xmtp/xmtp";
+// import { WagmiConfig, createClient } from "wagmi";
+// import { getDefaultProvider } from "ethers";
+// import Profile from "./components/xmtp/xmtp";
 import Createrepo from "./components/creator/CreateRepo";
 import CreatorHeader from "./components/creator/CreatorHeader";
 import CreateAssesment from "./components/creator/CreateAssesment";
@@ -40,11 +40,12 @@ import Jobinsights from "./components/company/JobInsight";
 import CreatorMessage from "./components/creator/CreatorMessages";
 import CandidateMessage from "./components/candidate/CandidateMessages";
 import CompanyMessage from "./components/company/CompanyMessages";
+
 function App() {
-  const client_ = createClient({
-    autoConnect: true,
-    provider: getDefaultProvider(),
-  });
+  // const client_ = createClient({
+  //   autoConnect: true,
+  //   provider: getDefaultProvider(),
+  // });
   return (
     <div className="App">
       <Router>
@@ -96,6 +97,7 @@ function App() {
             <Route path="jobinsights" element={<Jobinsights />} />
             <Route path="message" element={<CompanyMessage />} />
           </Route>
+
           <Route path="candidate" element={<CandidateHeader />}>
             <Route path="" element={<CandidateFeed />} />
             <Route path="candidate-test" element={<CandidateTest />} />

@@ -2,18 +2,10 @@ import { Fragment } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Popover, Menu, Transition } from "@headlessui/react";
 import {
-  ArrowPathIcon,
   Bars3Icon,
   BellIcon,
-  BookmarkSquareIcon,
-  CalendarIcon,
   ChartBarIcon,
   CursorArrowRaysIcon,
-  LifebuoyIcon,
-  PhoneIcon,
-  PlayIcon,
-  ShieldCheckIcon,
-  Squares2X2Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -24,13 +16,13 @@ const solutions = [
     name: "My Tests",
     description:
       "Get a better understanding of where your traffic is coming from.",
-    href: "#",
+    href: "candidate-test-results",
     icon: ChartBarIcon,
   },
   {
     name: "Practice Tests",
     description: "Speak directly to your customers in a more meaningful way.",
-    href: "#",
+    href: "candidate-test",
     icon: CursorArrowRaysIcon,
   },
   //   {
@@ -53,10 +45,10 @@ const solutions = [
   //     icon: ArrowPathIcon,
   //   },
 ];
-const callsToAction = [
-  //   { name: "Watch Demo", href: "#", icon: PlayIcon },
-  //   { name: "Contact Sales", href: "#", icon: PhoneIcon },
-];
+// const callsToAction = [
+//   //   { name: "Watch Demo", href: "#", icon: PlayIcon },
+//   //   { name: "Contact Sales", href: "#", icon: PhoneIcon },
+// ];
 // const resources = [
 //   {
 //     name: "Help Center",
@@ -98,7 +90,7 @@ export default function CandidateHeader() {
         <div className=" px-4 sm:px-6">
           <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
-              <Link to="/#">
+              <Link to="/">
                 <span className="sr-only">Workflow</span>
                 <img className="h-12 w-auto sm:h-16" src={logo} alt="logo" />
               </Link>
@@ -146,7 +138,7 @@ export default function CandidateHeader() {
               className="hidden space-x-10 md:flex items-center"
             >
               <Link
-                to="/#"
+                to="/candidate"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Feed
@@ -186,7 +178,7 @@ export default function CandidateHeader() {
                             {solutions.map((item) => (
                               <Link
                                 key={item.name}
-                                to="/#"
+                                to={item.href}
                                 className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
                               >
                                 <item.icon
@@ -205,7 +197,7 @@ export default function CandidateHeader() {
                             ))}
                           </div>
                           <div className="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
-                            {callsToAction.map((item) => (
+                            {/* {callsToAction.map((item) => (
                               <div key={item.name} className="flow-root">
                                 <Link
                                   to="/#"
@@ -218,7 +210,7 @@ export default function CandidateHeader() {
                                   <span className="ml-3">{item.name}</span>
                                 </Link>
                               </div>
-                            ))}
+                            ))} */}
                           </div>
                         </div>
                       </Popover.Panel>
@@ -227,7 +219,7 @@ export default function CandidateHeader() {
                 )}
               </Popover>
               <Link
-                to="/#"
+                to="/candidate/message"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Messages
@@ -430,14 +422,14 @@ export default function CandidateHeader() {
               <div className="space-y-6 py-6 px-5">
                 <div className="grid grid-cols-2 gap-y-4 gap-x-8">
                   <Link
-                    to="/#"
+                    to="/candidate"
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                   >
                     Feed
                   </Link>
 
                   <Link
-                    to="/#"
+                    to="/candidate/message"
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                   >
                     Messages

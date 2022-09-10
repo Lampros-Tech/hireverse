@@ -2,19 +2,10 @@ import { Fragment } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Popover, Menu, Transition } from "@headlessui/react";
 import {
-  ArrowPathIcon,
   Bars3Icon,
   BellIcon,
   BriefcaseIcon,
   ClipboardDocumentListIcon,
-  CalendarIcon,
-  ChartBarIcon,
-  CursorArrowRaysIcon,
-  LifebuoyIcon,
-  PhoneIcon,
-  PlayIcon,
-  ShieldCheckIcon,
-  Squares2X2Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -25,7 +16,7 @@ const solutions = [
     name: "Create a Job",
     description:
       "Get a better understanding of where your traffic is coming from.",
-    href: "#",
+    href: "recruitment-details",
     icon: BriefcaseIcon,
   },
   {
@@ -99,7 +90,7 @@ export default function CompanyHeader() {
         <div className=" px-4 sm:px-6">
           <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
-              <Link to="/#">
+              <Link to="/">
                 <span className="sr-only">Workflow</span>
                 <img className="h-12 w-auto sm:h-16" src={logo} alt="logo" />
               </Link>
@@ -147,7 +138,7 @@ export default function CompanyHeader() {
               className="hidden space-x-10 md:flex items-center"
             >
               <Link
-                to="/#"
+                to="/company"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Feed
@@ -193,7 +184,7 @@ export default function CompanyHeader() {
                             {solutions.map((item) => (
                               <Link
                                 key={item.name}
-                                to="/#"
+                                to={item.href}
                                 className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
                               >
                                 <item.icon
@@ -234,7 +225,7 @@ export default function CompanyHeader() {
                 )}
               </Popover>
               <Link
-                to="/#"
+                to="message"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Messages
@@ -397,7 +388,7 @@ export default function CompanyHeader() {
                     {solutions.map((item) => (
                       <Link
                         key={item.name}
-                        to="/#"
+                        to={item.href}
                         className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
                       >
                         <item.icon
@@ -427,7 +418,7 @@ export default function CompanyHeader() {
                     Creators
                   </Link>
                   <Link
-                    to="/#"
+                    to="message"
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                   >
                     Messages

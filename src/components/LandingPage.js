@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { WagmiConfig, createClient } from "wagmi";
-import { getDefaultProvider } from "ethers";
-import Profile from "./xmtp/xmtp";
+// import { WagmiConfig, createClient } from "wagmi";
+// import { getDefaultProvider } from "ethers";
+// import Profile from "./xmtp/xmtp";
 
 import logo from "./styles/logo.png";
 import polygon from "./styles/polygon.svg";
@@ -35,10 +35,10 @@ import "./styles/landingpage.css";
 function LandingPage() {
   let navigate = useNavigate();
 
-  const client_ = createClient({
-    autoConnect: true,
-    provider: getDefaultProvider(),
-  });
+  // const client_ = createClient({
+  //   autoConnect: true,
+  //   provider: getDefaultProvider(),
+  // });
   return (
     <>
       {/* <WagmiConfig client={client_}>
@@ -46,6 +46,7 @@ function LandingPage() {
       </WagmiConfig> */}
       <section className="d-main-container ">
         <section className="d-navbar">
+          <img className="d-hero-bg-1" src={bigbg} alt="background" />
           <div className="d-logo">
             <img className="d-logo" src={logo} alt="logo" />
           </div>
@@ -58,7 +59,6 @@ function LandingPage() {
             </button>
           </div>
         </section>
-        <img className="d-hero-bg-1" src={bigbg} alt="background" />
         <section className="d-hero">
           <div className="d-hero-flex">
             <div className="d-hero-left">
@@ -110,9 +110,9 @@ function LandingPage() {
               height="600px"
               src="https://www.youtube.com/embed/znbzGfGLw_4"
               title="YouTube video player"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
+              allowFullScreen
             ></iframe>
             {/* <video
               className="d-video"
