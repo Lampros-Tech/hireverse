@@ -1,6 +1,6 @@
-from flask import Flask
-from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, \
-                               unset_jwt_cookies, jwt_required, JWTManager
+from flask import Flask, render_template
+from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, \
+    unset_jwt_cookies, jwt_required, JWTManager
 from flask_cors import CORS
 import os
 import subprocess
@@ -27,14 +27,14 @@ app.register_blueprint(candidate)
 
 cors = CORS(app)
 app.config['Access-Control-Allow-Origin'] = '*'
-app.config["Access-Control-Allow-Headers"]="Content-Type"
+app.config["Access-Control-Allow-Headers"] = "Content-Type"
 app.config['DEBUG'] = os.getenv('DEBUG')
 
 app.config["JWT_HEADER_NAME"] = "X-Forwarded-Authorization"
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 os.environ["TBL_PRIVATE_KEY"] = "b2f174428045bfece6d2d830f4b3f48a902b4f8800c7ff10a056cd6c80d3fb71"
 os.environ["TBL_CHAIN"] = "polygon-mumbai"
-os.environ['TBL_ALCHEMY']= "ALbcNieoFrIRYYNDrcr4dAASXUCZbm-i"
+os.environ['TBL_ALCHEMY'] = "ALbcNieoFrIRYYNDrcr4dAASXUCZbm-i"
 
 smtp = smtplib.SMTP('smtp.gmail.com', 587)
 
@@ -47,7 +47,7 @@ def hello_world():
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
-#Sending Verification otp using mail
+# Sending Verification otp using mail
 def send_verification_mail(client_mail):
     try:
         # client_mail = request.json['email']
@@ -84,50 +84,111 @@ def send_verification_mail(client_mail):
         print(e)
         return None
 
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Check Username Availability
+
+
+@app.route('/check_username', methods=["POST"])
+def check_username():
+    username = request.json['username']
+    # email = request.json['email']
+    # walletAddress = request.json['walletAddress']
+
+    # Checking if the User Already Exists or Not
+    fields = '*'
+    tablename = os.environ['login_table']
+    condition = "username='" + username + "'"
+    # Select Query
+    data = select_query(fields, tablename, condition)
+    final_data = json.loads(data.decode('utf-8'))
+
+    if (len(final_data['rows']) == 0):
+        return {"status": 200, "data": "valid"}, 200
+
+    response_body = {
+        "status": 409,
+        "data": "username already existsvalid"
+    }, 409
+    return response_body
 
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
-#Signup API
+# Check Email Availability
+
+
+@app.route('/check_email', methods=["POST"])
+def check_email():
+    # username = request.json['username']
+    email = request.json['email']
+    # walletAddress = request.json['walletAddress']
+
+    # Checking if the User Already Exists or Not
+    fields = '*'
+    tablename = os.environ['login_table']
+    condition = "email='" + email + "'"
+    # Select Query
+    data = select_query(fields, tablename, condition)
+    final_data = json.loads(data.decode('utf-8'))
+
+    if (len(final_data['rows']) == 0):
+        return {"status": 200, "data": "valid"}, 200
+
+    response_body = {
+        "status": 409,
+        "data": "email already exists"
+    }, 409
+    return response_body
+
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Signup API
+
+
 @app.route('/signup', methods=["POST"])
 def signup():
     username = request.json['username']
     email = request.json['email']
     walletAddress = request.json['walletAddress']
 
-    #Checking if the User Already Exists or Not 
+    # Checking if the User Already Exists or Not
     fields = '*'
     tablename = os.environ['login_table']
-    condition =  tablename + "."+ "username='" + username + "' OR " + tablename + "."  + "email='" + email + "' OR "+ tablename + "." +"walletAddress='"  + walletAddress + "'"
-    #Select Query 
-    data = select_query(fields,tablename, condition)
+    condition = tablename + "." + "username='" + username + "' OR " + tablename + "." + \
+        "email='" + email + "' OR " + tablename + "." + \
+        "walletAddress='" + walletAddress + "'"
+    # Select Query
+    data = select_query(fields, tablename, condition)
     final_data = json.loads(data.decode('utf-8'))
 
-    if(len(final_data['rows']) == 0):
-        #If not Exist Insert to Database
+    if (len(final_data['rows']) == 0):
+        # If not Exist Insert to Database
         otp = send_verification_mail(email)
         fields = '(username,email,walletaddress,otp,createdat)'
         values = f"""('{username}', '{email}','{walletAddress}','{otp}',{int(datetime.datetime.now().timestamp())})"""
-        
-        #Insert Query 
-        data = insert_query(tablename, fields ,values)
+
+        # Insert Query
+        data = insert_query(tablename, fields, values)
         response_body = {
-            "status":200,
-            "data":"User's Record Added Successfully !"
-        }
+            "status": 200,
+            "data": "User's Record Added Successfully !"
+        }, 200
         return response_body
 
     response_body = {
-            "status":200,
-            "data":"User Already Exists !"
-        }    
+        "status": 409,
+        "data": "User Already Exists !"
+    }, 409
     return response_body
 
 
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
-#Email OTP Verification
+# Email OTP Verification
 @app.route('/verify', methods=["GET"])
 def verify():
     try:
@@ -135,8 +196,8 @@ def verify():
         email = request.args['email']
         fields = '(otp)'
         tablename = os.environ['login_table']
-        condition =  f"""email='{email}'"""
-        data = select_query(fields,tablename, condition)
+        condition = f"""email='{email}'"""
+        data = select_query(fields, tablename, condition)
         final_data = json.loads(data.decode('utf-8'))
         print(final_data['rows'][0])
         print(otp)
@@ -144,12 +205,12 @@ def verify():
             if final_data['rows'][0][0] == str(otp):
                 fields = f"""varified=1"""
 
-                data = update_query(tablename, fields ,condition)
-                return {"message": "Verified !"}
+                data = update_query(tablename, fields, condition)
+                return render_template("verified.html")
             else:
-                return {"message":"OTP is not correct !"}
+                return render_template("not_verified.html")
         except:
-            return {"message":"Email does not exists !"}    
+            return render_template("not_verified.html")
 
     except Exception as e:
         return {"message": str(e)}
@@ -158,7 +219,7 @@ def verify():
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
-#Inserting Role Of User
+# Inserting Role Of User
 @app.route('/insertRole', methods=["POST"])
 def insertRole():
     walletAddress = request.json['walletAddress']
@@ -166,55 +227,53 @@ def insertRole():
     fields = '*'
     tablename = os.environ['login_table']
 
-    #Checking If the Address is Exists Or Not
-    condition =  f"""walletAddress='{walletAddress}'"""
-    data = select_query(fields,tablename, condition)
+    # Checking If the Address is Exists Or Not
+    condition = f"""walletAddress='{walletAddress}'"""
+    data = select_query(fields, tablename, condition)
     final_data = json.loads(data.decode('utf-8'))
-    if(len(final_data['rows']) == 0):
+    if (len(final_data['rows']) == 0):
         response_body = {
-            "status":200,
-            "data":"User Does Not Exists !"
-        }    
+            "status": 200,
+            "data": "User Does Not Exists !"
+        }
         return response_body
 
     fields = f"""role='{role}'"""
     condition = f"""walletAddress='{walletAddress}'"""
-    
-    #Update Query
-    data = update_query(tablename, fields ,condition)
+
+    # Update Query
+    data = update_query(tablename, fields, condition)
     response_body = {
-        "status":200,
-        "data":"User's Role Updated Successfully !"
+        "status": 200,
+        "data": "User's Role Updated Successfully !"
     }
     return response_body
 
-    
 
 def getWalletRole(walletAddress):
     fields = '(role)'
     tablename = os.environ['login_table']
-    condition =  f"""walletAddress='{walletAddress}'"""
-    data = select_query(fields,tablename, condition)
+    condition = f"""walletAddress='{walletAddress}'"""
+    data = select_query(fields, tablename, condition)
     final_data = json.loads(data.decode('utf-8'))
     try:
         return final_data['rows'][0]
     except:
-        return None    
-
+        return None
 
 
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
-#Get Role Of User By Address
+# Get Role Of User By Address
 @app.route('/getRole', methods=["GET"])
 def getRole():
     walletAddress = request.json['walletAddress']
-    role = getWalletRole(walletAddress)   
+    role = getWalletRole(walletAddress)
     response_body = {
-        "status":200,
-        "data":{
-            'role':role
+        "status": 200,
+        "data": {
+            'role': role
         }
     }
     return response_body
@@ -223,35 +282,34 @@ def getRole():
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
-#Get Login Id Of User By Address
+# Get Login Id Of User By Address
 @app.route('/getLoginId', methods=["GET"])
 def getLoginId():
     walletAddress = request.json['walletAddress']
     fields = '(loginid)'
     tablename = os.environ['login_table']
-    condition =  f"""walletAddress='{walletAddress}'"""
-    data = select_query(fields,tablename, condition)
+    condition = f"""walletAddress='{walletAddress}'"""
+    data = select_query(fields, tablename, condition)
     final_data = json.loads(data.decode('utf-8'))
     print(final_data)
 
     try:
         loginId = final_data['rows'][0]
     except:
-        loginId = None    
+        loginId = None
     response_body = {
-        "status":200,
-        "data":{
-            'loginId':loginId
+        "status": 200,
+        "data": {
+            'loginId': loginId
         }
     }
     return response_body
 
 
-
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
-#Registration of User
+# Registration of User
 @app.route('/registration', methods=["POST"])
 def registration():
     try:
@@ -262,20 +320,20 @@ def registration():
         
         role_functions = {
 
-            'Candidate':"candidate_registration",
-            'Creator':"creator_registration",
-            'Company':"company_registration"
+            'Candidate': "candidate_registration",
+            'Creator': "creator_registration",
+            'Company': "company_registration"
         }
         data_ = eval(str(role_functions[role[0]]) + str(f'({data})'))
         print(data_)
         response_body = {
-            "status":200,
-            "data":data
+            "status": 200,
+            "data": data
         }
     except Exception as e:
         response_body = {
-            "status":501,
-            "data":str(e)
+            "status": 501,
+            "data": str(e)
         }
     return response_body
 
