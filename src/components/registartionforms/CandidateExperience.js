@@ -70,9 +70,7 @@ function CandidateExperience() {
       alert("Experience End Date");
       // } else if (e === 6 && showAll.cstatus === "") {
       //   alert("Employment Status");
-    } else if (e === 7 && showAll.cdesc === "") {
-      alert("Any other Details");
-    } else {
+    } else if (e < 7) {
       // console.log(refArr[e + 1].section);
       const test = refArr[e + 1].section;
       // console.log(test);
@@ -81,6 +79,10 @@ function CandidateExperience() {
         const inputFocus = refArr[e + 1].input;
         inputFocus.current.focus();
       }, 500);
+    } else if (e === 7 && showAll.cdesc === "") {
+      alert("Any other Details");
+    } else {
+      navigate("/candidate");
     }
   };
 
@@ -101,7 +103,13 @@ function CandidateExperience() {
       handleClick(num);
     }
   };
-
+  const newTarget = (e, num) => {
+    if ((e.ctrlKey || e.metaKey) && (e.keyCode === 13 || e.keyCode === 10)) {
+      setTimeout(() => {
+        handleClick(num);
+      }, 200);
+    }
+  };
   useEffect(() => {
     inputRefOne.current.focus();
   }, []);
@@ -954,8 +962,9 @@ function CandidateExperience() {
                       setAll({ ...showAll, cdesc: e.target.value })
                     }
                     onKeyUp={(e) => {
+                      console.log(e);
                       e.preventDefault();
-                      target(e, 7);
+                      newTarget(e, 7);
                     }}
                     cols="30"
                     rows="5"
@@ -993,8 +1002,7 @@ function CandidateExperience() {
                     <button
                       className="f-next-btn"
                       onClick={() => {
-                        // handleClick(7);
-                        navigate("/candidate/");
+                        handleClick(7);
                       }}
                     >
                       <span>NEXT</span>
