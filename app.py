@@ -23,6 +23,8 @@ load_dotenv()
 app = Flask(__name__)
 
 
+app.register_blueprint(candidate)
+
 cors = CORS(app)
 app.config['Access-Control-Allow-Origin'] = '*'
 app.config["Access-Control-Allow-Headers"]="Content-Type"
@@ -255,7 +257,9 @@ def registration():
     try:
         walletAddress = request.json['walletAddress']
         role = getWalletRole(walletAddress)
-        data = (request.json['loginId'],request.json['name'],request.json['bio'],request.json['profileImage'],request.json['coverImage'],walletAddress,request.json['address'],request.json['country'],request.json['contactNumber'])
+        if role[0]=='Candidate':
+            data = (request.json['loginId'],request.json['name'],request.json['bio'],request.json['profileImage'],request.json['coverImage'],walletAddress,request.json['address'],request.json['country'],request.json['contactNumber'])
+        
         role_functions = {
 
             'Candidate':"candidate_registration",

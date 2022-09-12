@@ -4,8 +4,12 @@ import os
 from queries import *
 import datetime
 import json
+from flask import Blueprint, render_template, abort
 
 load_dotenv()
+
+candidate = Blueprint('candidate', __name__)
+
 
 def candidate_registration(data):
     try:
@@ -26,3 +30,8 @@ def candidate_registration(data):
 
     except Exception as e:
         return e    
+
+
+@candidate.route('/candidate/test')
+def test():
+    return 'This is my first API call!',200
