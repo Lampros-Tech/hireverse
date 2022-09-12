@@ -46,7 +46,6 @@ function LandingPage() {
       </WagmiConfig> */}
       <section className="d-main-container ">
         <section className="d-navbar">
-          <img className="d-hero-bg-1" src={bigbg} alt="background" />
           <div className="d-logo">
             <img className="d-logo" src={logo} alt="logo" />
           </div>
@@ -60,6 +59,9 @@ function LandingPage() {
           </div>
         </section>
         <section className="d-hero">
+          <img className="d-hero-bg-1" src={bigbg} alt="background" />
+          <img className="d-graphics-item-3" src={line1} alt="line" />
+
           <div className="d-hero-flex">
             <div className="d-hero-left">
               <h1 className="d-hero-left-h1">
@@ -95,7 +97,6 @@ function LandingPage() {
         </section>
         <img className="d-graphics-item-1" src={gd1} alt="gd" />
         <img className="d-graphics-item-2" src={gd2} alt="gd" />
-        <img className="d-graphics-item-3" src={line1} alt="line" />
 
         <section className="d-video-container">
           <div className="d-inside-video-container">
