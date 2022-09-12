@@ -44,6 +44,7 @@ function RoleSelector() {
                   <option value="" disabled hidden>
                     Select your role
                   </option>
+
                   <option className="role-options" value="creator">
                     Creator
                   </option>

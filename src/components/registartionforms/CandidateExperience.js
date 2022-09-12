@@ -3,10 +3,17 @@ import { useNavigate } from "react-router-dom";
 
 import "react-phone-input-2/lib/style.css";
 import "./regform.css";
+import logo from "../styles/logo.png";
+import correct_ar from "../assets/images/correct_arrow.svg";
+
 import { useRef } from "react";
 
 function CandidateExperience() {
   let navigate = useNavigate();
+
+  const [optionOne, setOptionOne] = useState(false);
+  const [optionTwo, setOptionTwo] = useState(false);
+  const [optionThree, setOptionThree] = useState(false);
 
   const refOne = useRef(null);
   const refTwo = useRef(null);
@@ -106,6 +113,8 @@ function CandidateExperience() {
   return (
     <>
       <section className="f-background">
+        <img className="f-logo-img" src={logo} alt="logo" />
+
         <section className="f-container">
           {/* *********************************************************** */}
           {/* 1st input field */}
@@ -217,20 +226,83 @@ function CandidateExperience() {
                   </p>
                   <span className="f-co">Choose one Option</span>
                   <div className="f-options-grid-main">
-                    <div class="f-grid-item">
+                    <div
+                      className={
+                        optionOne
+                          ? "f-grid-item f-selected-grid"
+                          : "f-grid-item"
+                      }
+                      onClick={() => {
+                        setOptionOne(true);
+                        setOptionTwo(false);
+                        setOptionThree(false);
+                      }}
+                    >
                       <span className="f-option-tag">A</span>
                       <span className="f-option-name">Onsite</span>
-                      <span>Y</span>
+                      <div className="correct-arrow">
+                        {optionOne ? (
+                          <>
+                            <img
+                              className="correct-arrow"
+                              src={correct_ar}
+                              alt="correct arrow"
+                            />
+                          </>
+                        ) : null}
+                      </div>
                     </div>
-                    <div class="f-grid-item">
+                    <div
+                      className={
+                        optionTwo
+                          ? "f-grid-item f-selected-grid"
+                          : "f-grid-item"
+                      }
+                      onClick={() => {
+                        setOptionOne(false);
+                        setOptionTwo(true);
+                        setOptionThree(false);
+                      }}
+                    >
                       <span className="f-option-tag">B</span>
                       <span className="f-option-name">Remote</span>
-                      <span>Y</span>
+                      <div className="correct-arrow">
+                        {optionTwo ? (
+                          <>
+                            <img
+                              className="correct-arrow"
+                              src={correct_ar}
+                              alt="correct arrow"
+                            />
+                          </>
+                        ) : null}
+                      </div>
                     </div>
-                    <div class="f-grid-item">
+                    <div
+                      className={
+                        optionThree
+                          ? "f-grid-item f-selected-grid"
+                          : "f-grid-item"
+                      }
+                      onClick={() => {
+                        setOptionOne(false);
+                        setOptionTwo(false);
+                        setOptionThree(true);
+                      }}
+                    >
                       <span className="f-option-tag">C</span>
                       <span className="f-option-name">Hybrid</span>
-                      <span>Y</span>
+                      <div className="correct-arrow">
+                        {optionThree ? (
+                          <>
+                            <img
+                              className="correct-arrow"
+                              src={correct_ar}
+                              alt="correct arrow"
+                            />
+                          </>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
                   {/* <input
@@ -886,7 +958,7 @@ function CandidateExperience() {
                       target(e, 7);
                     }}
                     cols="30"
-                    rows="10"
+                    rows="5"
                   />
                   <div className="f-btn-flex">
                     <button

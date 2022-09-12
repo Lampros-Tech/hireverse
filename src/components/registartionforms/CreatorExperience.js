@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import "react-phone-input-2/lib/style.css";
 import "./regform.css";
+import logo from "../styles/logo.png";
+
 import { useRef } from "react";
 
 function CreatorExperience() {
@@ -106,6 +108,8 @@ function CreatorExperience() {
   return (
     <>
       <section className="f-background">
+        <img className="f-logo-img" src={logo} alt="logo" />
+
         <section className="f-container">
           {/* *********************************************************** */}
           {/* 1st input field */}
@@ -886,7 +890,7 @@ function CreatorExperience() {
                       target(e, 7);
                     }}
                     cols="30"
-                    rows="10"
+                    rows="5"
                   />
                   <div className="f-btn-flex">
                     <button

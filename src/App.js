@@ -40,6 +40,7 @@ import Jobinsights from "./components/company/JobInsight";
 import CreatorMessage from "./components/creator/CreatorMessages";
 import CandidateMessage from "./components/candidate/CandidateMessages";
 import CompanyMessage from "./components/company/CompanyMessages";
+import CreatorEducation from "./components/registartionforms/CreatorEducation";
 
 function App() {
   // const client_ = createClient({
@@ -56,6 +57,10 @@ function App() {
 
           <Route path="companyregform" element={<CompanyRegForm />}></Route>
           <Route path="creatorregform" element={<CreatorRegForm />}></Route>
+          <Route
+            path="creatorregform/creator-education"
+            element={<CreatorEducation />}
+          ></Route>
           <Route
             path="creatorregform/creator-experience"
             element={<CreatorExperience />}

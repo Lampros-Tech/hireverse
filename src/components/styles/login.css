@@ -83,15 +83,20 @@ input {
   outline: none;
   border: none;
 }
-option.role-options {
-  appearance: none;
+option {
+  background: #eff0ee;
+}
+option:focus {
+  background-color: #134e6f;
+}
+/* option.role-options {
   background-color: #134e6f;
   color: #eff0ee;
 }
 option.role-options:hover {
   background-color: #eff0ee !important;
   color: #134e6f;
-}
+} */
 .input {
   font-family: Poppins-Medium;
   font-size: 1.2rem;
@@ -189,6 +194,7 @@ select.role-select:focus {
 select.role-select::-ms-expand {
   display: none;
 }
+
 .wrap-role {
   min-height: 70vh;
   min-width: 60vw;
