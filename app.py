@@ -204,11 +204,11 @@ def verify():
         print(otp)
         try:
             if final_data['rows'][0][0] == str(otp):
-                fields ={
-                    "varified":1
+                fields = {
+                    "varified": 1
                 }
-                
-                data = update_query(tablename, fields, condition,False)
+
+                data = update_query(tablename, fields, condition, False)
                 return render_template("verified.html")
             else:
                 return render_template("not_verified.html")
@@ -254,11 +254,14 @@ def insertRole():
         }, 409
         return response_body
 
-    fields = f"""role='{role}'"""
+    fields = {
+        "role" : f"{role}" 
+    }
+
     condition = f"""walletAddress='{walletAddress}'"""
 
     # Update Query
-    data = update_query(tablename, fields, condition)
+    data = update_query(tablename, fields, condition, False)
 
     response_body = {
         "status": 200,
@@ -270,7 +273,7 @@ def insertRole():
 def getWalletRole(walletAddress):
     fields = '(role)'
     tablename = os.environ['login_table']
-    condition = f"""walletAddress='{walletAddress}'"""
+    condition = f"""walletaddress='{walletAddress}'"""
     data = select_query(fields, tablename, condition)
     final_data = json.loads(data.decode('utf-8'))
     try:

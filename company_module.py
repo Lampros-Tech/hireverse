@@ -61,3 +61,6 @@ def update():
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # Update Company Sectors
+@company.route('/company/add_sectors', methods=['POST'])
+def add_sector():
+    name = request.json['name']
