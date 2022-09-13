@@ -779,7 +779,7 @@ function CreatorEducation() {
                       className="f-next-btn"
                       onClick={() => {
                         // handleClick(6);
-                        navigate("/candidateregform/candidate-experience");
+                        navigate("/creatorregform/creator-experience");
                       }}
                     >
                       <span>NEXT</span>

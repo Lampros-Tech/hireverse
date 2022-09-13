@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// import { WagmiConfig, createClient } from "wagmi";
+import {
+  WagmiConfig,
+  createClient,
+  defaultChains,
+  configureChains,
+} from "wagmi";
+import { alchemyProvider } from "wagmi/providers/alchemy";
+import { publicProvider } from "wagmi/providers/public";
+
 // import { getDefaultProvider } from "ethers";
 // import Profile from "./xmtp/xmtp";
+import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
+// import { InjectedConnector } from "wagmi/connectors/injected";
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+
+import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
+
+import WalletPopup from "./walletconnect/WalletPopup";
+import WalletConnect from "./walletconnect/WalletConnect";
 
 import logo from "./styles/logo.png";
 import polygon from "./styles/polygon.svg";
@@ -32,27 +48,72 @@ import line2 from "./styles/bline.svg";
 
 import "./styles/landingpage.css";
 
+const { chains, provider, webSocketProvider } = configureChains(defaultChains, [
+  alchemyProvider({ apiKey: "yourAlchemyApiKey" }),
+  publicProvider(),
+]);
+
+const client = createClient({
+  autoConnect: true,
+  connectors: [
+    new MetaMaskConnector({ chains }),
+    new CoinbaseWalletConnector({
+      chains,
+      options: {
+        appName: "wagmi",
+      },
+    }),
+    new WalletConnectConnector({
+      chains,
+      options: {
+        qrcode: true,
+      },
+    }),
+    // new InjectedConnector({
+    //   chains,
+    //   options: {
+    //     name: "Injected",
+    //     shimDisconnect: true,
+    //   },
+    // }),
+  ],
+  provider,
+  webSocketProvider,
+});
+
 function LandingPage() {
   let navigate = useNavigate();
 
-  // const client_ = createClient({
-  //   autoConnect: true,
-  //   provider: getDefaultProvider(),
-  // });
+  const [isOpen, setIsOpen] = useState(false);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
-      {/* <WagmiConfig client={client_}>
-        <Profile />
-      </WagmiConfig> */}
       <section className="d-main-container ">
         <section className="d-navbar">
           <div className="d-logo">
             <img className="d-logo" src={logo} alt="logo" />
           </div>
           <div className="d-connect">
+            <WagmiConfig client={client}>
+              {isOpen && (
+                <WalletPopup
+                  content={
+                    <>
+                      <WalletConnect />
+                    </>
+                  }
+                  handleClose={togglePopup}
+                />
+              )}
+            </WagmiConfig>
             <button
               className="d-connect-btn"
-              onClick={() => navigate("/signup/ev")}
+              value="Connect"
+              onClick={togglePopup}
             >
               Connect Wallet
             </button>
