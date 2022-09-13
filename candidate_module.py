@@ -5,6 +5,7 @@ from queries import *
 import datetime
 import json
 from flask import Blueprint, render_template, abort
+from flask.globals import request, session
 
 load_dotenv()
 
@@ -32,6 +33,58 @@ def candidate_registration(data):
         return e    
 
 
-@candidate.route('/candidate/test')
-def test():
-    return 'This is my first API call!',200
+@candidate.route('/user/addEducation', methods=["POST"])
+def addEducation():
+    try:
+        tablename = os.environ['user_education']
+        fields = "(login_id,wallet_address, institute_name, degree, filed_of_study, start_date, end_date, score, description)"
+        values = (request.json['login_id'],request.json['wallet_address'],request.json['institute_name'],request.json['degree'],request.json['filed_of_study'],request.json['start_date'],request.json['end_date'],request.json['score'],request.json['description'])
+        data = insert_query(tablename, fields ,values)
+        response_body = {
+            "status":200,
+            "data":"User Education added !"
+        }    
+        return response_body
+    except Exception as e:
+        print(str(e))
+        return str(e),403
+
+
+@candidate.route('/user/addExperience', methods=["POST"])
+def addExperience():
+    try:
+        tablename = os.environ['user_experiance_table']
+        fields = "(login_id,wallet_address, employement_type, company_name, location, start_date, end_date,status,description)"
+        values = (request.json['login_id'],request.json['wallet_address'],request.json['employement_type'],request.json['company_name'],request.json['location'],request.json['start_date'],request.json['end_date'],request.json['status'],request.json['description'])
+        data = insert_query(tablename, fields ,values)
+        response_body = {
+            "status":200,
+            "data":"User Experience Added !"
+        }    
+        return response_body
+    except Exception as e:
+        return str(e),403
+
+
+@candidate.route('/user/addAchivement', methods=["POST"])
+def addAchivement():
+    try:
+        tablename = os.environ['user_achivement_table']
+        fields = "(login_id,wallet_address, title, description, image, issueing_organization, score)"
+        values = (request.json['login_id'],request.json['wallet_address'],request.json['title'],request.json['description'],request.json['image'],request.json['issueing_organization'],request.json['score'])
+        data = insert_query(tablename, fields ,values)
+        response_body = {
+            "status":200,
+            "data":"User Achivement Added !"
+        }    
+        return response_body
+    except Exception as e:    
+        return str(e),403
+
+
+# @candidate.route('/user/addSkill', methods=["POST"])
+# def addSkill():
+#     try:
+
+
+#     except:    
