@@ -62,8 +62,8 @@ def update():
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
-# Update Company Sectors
-@company.route('/company/add_sectors', methods=['POST'])
+# Add Sectors
+@company.route('/company/addSectors', methods=['POST'])
 def add_sector():
     try:
         name = request.json['name']
@@ -89,3 +89,42 @@ def add_sector():
         print(e)
 
         return "Something went wrong", 500
+
+
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Add Sectors
+@company.route('/company/addCreatorSectors', methods=['POST'])
+def addCreatorSector():
+    try:
+        company_sectors = os.environ['company_sectors']
+        fields = "(login_id, sector_id)"
+        login_id = request.json['login_id']
+        sector_names = request.json['sector_name']
+        sector_table = os.environ['sector']
+        sector_ids = request.json['sector_ids']
+        for sector in sector_names:
+            data = insert_query(sector_table,"(sector_name)",f"""('{sector}')""")    
+            condition = f"""sector_name='{sector}'"""
+            data = select_query("(sector_id)", sector_table, condition)
+            final_data = json.loads(data.decode('utf-8'))
+            if len(final_data['rows']) > 0:
+                sector_ids.append(final_data['rows'][0][0])
+
+        values = ''
+        for ids in sector_ids:
+            values +=  f"""({login_id},{ids}),"""
+        data = insert_query(company_sectors,fields,values[0:-1])    
+        response_body = {
+            "status":200,
+            "data":"User's Skill Addedd Successfully !"
+        },200    
+        return response_body
+
+    except Exception as e:   
+        response_body = {
+            "status":409,
+            "data":str(e)
+        },409
+        return response_body
