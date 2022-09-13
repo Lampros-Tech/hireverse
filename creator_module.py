@@ -11,19 +11,20 @@ load_dotenv()
 creator = Blueprint('creator', __name__)
 
 
-def creator_registration(data):
+def creator_registration(creator_data):
     try:
         fields = '*'
-        tablename = os.environ['creator_table']
+        tablename = os.environ['creators_table']
         # Checking If the Address is Exists Or Not
-        condition = f"""wallet_address='{data[5]}'"""
+        condition = f"""wallet_address='{creator_data[1]}'"""
         data = select_query(fields, tablename, condition)
         final_data = json.loads(data.decode('utf-8'))
+        print("Inside creators registration:",final_data)
         if (len(final_data['rows']) == 0):
-            tablename = os.environ['creator_table']
-            fields = "(login_id, wallet_address, name, bio, profile_image, cover_image, address, country, contact_number, question_table_name, repo_table_name, creators_table)"
-            values = data[0:9] + (int(datetime.datetime.now().timestamp()),
-                                  int(datetime.datetime.now().timestamp())) + data[9:12]
+            tablename = os.environ['creators_table']
+            fields = "(login_id, wallet_address, name, bio, profile_image, cover_image, address, country, contact_number, created_at, modified_at)"
+            values = creator_data + (int(datetime.datetime.now().timestamp()),
+                                  int(datetime.datetime.now().timestamp()))
             print(values)
             data = insert_query(tablename, fields, values)
             return "Registration Successfully !"

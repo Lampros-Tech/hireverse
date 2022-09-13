@@ -255,7 +255,7 @@ def insertRole():
         return response_body
 
     fields = {
-        "role" : f"{role}" 
+        "role": f"{role}"
     }
 
     condition = f"""walletAddress='{walletAddress}'"""
@@ -333,7 +333,7 @@ def getLoginId():
 @app.route('/registration', methods=["POST"])
 def registration():
     try:
-        walletAddress = request.json['walletAddress']
+        walletAddress = request.json['wallet_address']
         role = getWalletRole(walletAddress)
         if role[0] == 'Candidate':
             data = (request.json['loginId'], request.json['name'], request.json['bio'], request.json['profileImage'],
@@ -345,7 +345,7 @@ def registration():
 
         if role[0] == 'Creator':
             data = (request.json['login_id'], request.json['wallet_address'], request.json['name'], request.json['bio'], request.json['profile_image'], request.json['cover_image'],
-                    request.json['address'], request.json['country'], request.json['contact_number'], request.json['question_table_name'], request.json['repo_table_name'], request.json['creators_table'])
+                    request.json['address'], request.json['country'], request.json['contact_number'])
 
         role_functions = {
             'Candidate': "candidate_registration",
@@ -356,13 +356,13 @@ def registration():
         print(data_)
         response_body = {
             "status": 200,
-            "data": data
-        }
+            "data": data_
+        }, 200
     except Exception as e:
         response_body = {
             "status": 501,
             "data": str(e)
-        }
+        }, 501
     return response_body
 
 
