@@ -28,7 +28,7 @@ def company_registration(company_data):
             tablename = os.environ['company_table']
             fields = "(login_id,name,logo,cover_image,wallet_address,description,company_url,year_of_establishment,number_of_employees,address,contry,contect_number,created_at,modified_at)"
             values = company_data + (int(datetime.datetime.now().timestamp()),
-                             int(datetime.datetime.now().timestamp()))
+                                     int(datetime.datetime.now().timestamp()))
             data = insert_query(tablename, fields, values)
             return "Registration Successfully !"
         else:
@@ -41,12 +41,14 @@ def company_registration(company_data):
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # Update Company Details
+
+
 @company.route('/company/update', methods=['POST'])
 def update():
     try:
         update_values = request.json['data']
         # print(update_values)
-        walletAddress = request.json['walletAddress']        
+        walletAddress = request.json['walletAddress']
         tablename = os.environ['company_table']
         condition = f"""wallet_address='{walletAddress}'"""
         data = update_query(tablename, update_values, condition, True)
@@ -63,4 +65,27 @@ def update():
 # Update Company Sectors
 @company.route('/company/add_sectors', methods=['POST'])
 def add_sector():
-    name = request.json['name']
+    try:
+        name = request.json['name']
+        fields = "*"
+        tablename = os.environ['sector']
+        condition = f""" sector_name='{name}'"""
+        check = select_query(fields, tablename, condition)
+        final_data = json.loads(check.decode('utf-8'))
+        
+        #print(final_data)
+        
+        if (len(final_data['rows']) != 0):
+            return "sector already exist!!", 409
+        
+        fields = "(sector_name)"
+        values = f"""('{name}')"""
+        data = insert_query(tablename,fields,values)
+
+        print(data)
+
+        return "Data inserted successfully!!!", 200
+    except Exception as e:
+        print(e)
+
+        return "Something went wrong", 500
