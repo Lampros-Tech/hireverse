@@ -158,7 +158,7 @@ button.email-verify-button {
   transition: all 0.4s;
 }
 
-select {
+select.role-select {
   border: 1px solid black;
   width: 100%;
   padding: 0 1rem;

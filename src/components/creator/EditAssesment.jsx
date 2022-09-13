@@ -4,6 +4,7 @@ import 'jquery/dist/jquery.min.js'
 import 'datatables.net-dt/js/dataTables.dataTables'
 import 'datatables.net-dt/css/jquery.dataTables.min.css'
 import { useState } from 'react';
+import EditQuestion from './EditQuestion';
 import './creator.css';
 import closebtn from "../creator/Images/closebtn.png";
 import Editimg from '../creator/Images/edit.png';
@@ -14,7 +15,7 @@ import parse from "html-react-parser";
 function EditAssesment ()
 {
     // let navigate = useNavigate();
-  const [Edit, setEdit] = useState(false);
+  const [showEdit, setEdit] = useState(false);
   const [id, setId] = useState(null);
   const [qCategory, setQCategory] = useState(null);
   const [questions, setQuestions] = useState([]);
@@ -119,7 +120,7 @@ function EditAssesment ()
               </div>
               <div className='text-left'>
                 <textarea 
-                className='border-dotted border-gray-700 border-2 rounded-md text-xs'
+                className=' border-gray-700 rounded-md text-xs uplift'
                 value="default value"
                   rows={5}
                   cols={90}>
@@ -134,7 +135,7 @@ function EditAssesment ()
                 <input
                   type="text"
                   value="Default value"
-                  className="w-full align-middle px-2 py-1.5 rounded-md border border-gray-300 my-2"
+                  className="w-full align-middle px-2 py-1.5 rounded-md  uplift my-2"
                 ></input>
               </div>
             </div>
@@ -169,20 +170,17 @@ function EditAssesment ()
                       type="text" 
                       onChange={(e)=>{ setGenreList({...genreList, name : e.target.value })}}
                       name='genre' 
-                      placeholder='enter genre'
+                      placeholder='Enter genre'
                       defaultValue={genreList.name} 
-                      className='p-1 mx-2 rounded-md border border-gray-300'
+                      className='p-1 mx-2 rounded-md border border-gray-300 uplift'
                     />
-                    <input type="number" onChange={(e)=>{setGenreList({...genreList,number : e.target.value})}} name='numberOfQuestion' placeholder='enter number of question'defaultValue={genreList.number} className='p-1 mx-2 w-52 rounded-md border border-gray-300'/>
-                    <select name="Repository" onChange={(e)=>{setGenreList({...genreList, repo : e.target.value})}} defaultValue={genreList.repo} id="repos" className='p-1 rounded-md border border-gray-300'>
+                    <input type="number" onChange={(e)=>{setGenreList({...genreList,number : e.target.value})}} name='numberOfQuestion' placeholder='enter number of question'defaultValue={genreList.number} className='p-1 mx-2 w-52 uplift rounded-md'/>
+                    <select name="Repository" onChange={(e)=>{setGenreList({...genreList, repo : e.target.value})}} defaultValue={genreList.repo} id="repos" className='p-1 rounded-md border uplift border-gray-300'>
                         <option value=""  disabled hidden>Select repository</option>
                         <option value="repo2">Repository2</option>
                         <option value="repo3">Repository3</option>
                         <option value="repo4">Repository4</option>
                     </select>
-                    <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mx-2" onClick={()=>{addGenre()}}>
-                     Add Button
-                    </button>
                 </div>
                 
                 <div className='border-b-2 pb-4 w-full  '>
@@ -343,79 +341,63 @@ function EditAssesment ()
                         </div>
                     </div>
                   </div>
-                  <div>
+                  {/* <div>
                       <button className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mx-2 mt-4 mb-4'>Edit assesment</button>
-                  </div>
+                  </div> */}
                 
             </div>
           </div>
         </div>
         <div>
-            <div className="question-List Content my-4 ">
-                <h1 style={{ textAlign: 'center' }} className="font-secondary">All Questions in this Assesment</h1>
-                <table id="table_id" className="display ">
-                    <thead>
-                    <tr>
-                        <th>Sr no.</th>
-                        <th>Category</th>
-                        <th>Question</th>
-                        <th>Correct Answer</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                        {questions.map((Question, index) => {
-                        return (
-                            <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{Question.category}</td>
-                            <td>{parse(Question.question)}</td>
-                            <td>{parse(Question.correct)}</td>
-                            <td className="Edit"><img className="a_editUser" onClick={() => { Editquestion(Question._id, Question.category) }} src={Editimg} /></td>
-                            <td className="s"><img className="a_editUser" onClick={() => { setDelId(Question._id); setDelCategory(Question.category); showDeleteAlert(true); }} src={Delete} /></td>
-                            </tr>
-                        )
-                        })}
-
-                    </tbody>
-                </table>
-                {
-                    Edit
-                    ?
-                    <div className='editQuestion'>
-                        {/* <EditQuestion id={id} category={qCategory} hideComponent={closeEdit} getAllQuestions={getAllQuestions} /> */}
-                    </div>
-                    :
-                    null
-                }
-                {
-                    deleteAlert
-                    ?
-                    <div className='delete-alert-main'>
-                        <div className='delete-alert-box'>
-                        <div className='delete-alert-header'>
-                            <div className='title'>
-                            Alert
-                            </div>
-                            <div className='close-btn'>
-                            <img src={closebtn} height={35} width={35} style={{ cursor: "pointer" }} />
-                            </div>
-                        </div>
-                        <div className='delete-alert-message'>
-                            Are you sure you want to delete this question?
-                        </div>
-                        <div className='delete-alert-footer'>
-                            <div className='cancel'><button className='cancel-btn' >Cancel</button></div>
-                            <div className='delete'><button className='delete-btn' >Delete</button></div>
-                        </div>
-                        </div>
-                    </div>
-                    :
-                    null
-                }
+            <>
+            <div className='Content '>
+          <div className='title text-center font-primary font-bold my-8'>
+              List of Questions
+          </div>
+          <div className='Questions my-10'>
+            <div className='card-background uplift h-52 p-2 px-8 rounded-md'>
+              <div className='Tittle font-primary'>
+                  Question 1
+              </div>
+              <div className='font-secondary description'>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime quaerat vero a voluptatibus ratione quidem quo dignissimos dolor libero vitae iusto odit facilis.
+              </div>
             </div>
+          </div>
+
+
+
+
+          <div className='Questions my-10'>
+            <div className='card-background uplift h-52 p-2 px-8 rounded-md'>
+              <div className='Tittle font-primary'>
+                  Question 1
+              </div>
+              <div className='font-secondary overflow-x-auto description'>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime quaerat vero a voluptatibus ratione quidem quo dignissimos dolor libero vitae iusto odit facilis.
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime quaerat vero a voluptatibus ratione quidem quo dignissimos dolor libero vitae iusto odit facilis.
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime quaerat vero a voluptatibus ratione quidem quo dignissimos dolor libero vitae iusto odit facilis.
+              </div>
+              {/* <div className='text-center w-full'>
+                <button className='Edit-Question p-3 rounded-md ' onClick={() => { Editquestion() }} >
+                    Edit Question
+                </button>
+              </div> */}
+            </div>
+          </div>
+        </div>
+        
+        {
+          showEdit
+          ?
+          <div className='editquestion'>
+            <EditQuestion/>
+          </div>
+          :
+          null
+        }
+ 
+            </>
         </div>
       </div>
     )

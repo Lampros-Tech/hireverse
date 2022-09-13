@@ -96,7 +96,7 @@ function Editrepo() {
               </div>
               <h1 className="mx-4  text-3xl">/</h1>
               <div className="Repo-name">
-                    Repo name from Backend.
+                    Formula 1
               </div>
             </div>
             <div className="instruction font-secondary text-left py-3 ">
@@ -172,71 +172,27 @@ function Editrepo() {
             Make changes
           </button>
         </div>
-        <div>
-        <div className="question-List Content my-4 ">
-                <h1 style={{ textAlign: 'center' }} className="font-secondary">All Questions in this repository</h1>
-                <table id="table_id" className="display ">
-                    <thead>
-                    <tr>
-                        <th>Sr no.</th>
-                        <th>Category</th>
-                        <th>Question</th>
-                        <th>Correct Answer</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+        <div className='Content'>
+        <div className='title text-center font-primary font-bold my-8'>
+              View Question
+          </div>
+          <div className='Questions my-10'>
+              <div className='card-background uplift h-52 p-2 px-8 rounded-md'>
+                <div className='Tittle font-primary'>
+                    Question 1
+                </div>
+                <div className='font-secondary overflow-x-auto description'>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime quaerat vero a voluptatibus ratione quidem quo dignissimos dolor libero vitae iusto odit facilis.
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime quaerat vero a voluptatibus ratione quidem quo dignissimos dolor libero vitae iusto odit facilis.
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime quaerat vero a voluptatibus ratione quidem quo dignissimos dolor libero vitae iusto odit facilis.
+                </div>
 
-                        {questions.map((Question, index) => {
-                        return (
-                            <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{Question.category}</td>
-                            <td>{parse(Question.question)}</td>
-                            <td>{parse(Question.correct)}</td>
-                            <td className="Edit"><img className="a_editUser" onClick={() => { Editquestion(Question._id, Question.category) }} src={Editimg} /></td>
-                            <td className="s"><img className="a_editUser" onClick={() => { setDelId(Question._id); setDelCategory(Question.category); showDeleteAlert(true); }} src={Delete} /></td>
-                            </tr>
-                        )
-                        })}
-
-                    </tbody>
-                </table>
-                {
-                    Edit
-                    ?
-                    <div className='editQuestion'>
-                        {/* <EditQuestion id={id} category={qCategory} hideComponent={closeEdit} getAllQuestions={getAllQuestions} /> */}
-                    </div>
-                    :
-                    null
-                }
-                {
-                    deleteAlert
-                    ?
-                    <div className='delete-alert-main'>
-                        <div className='delete-alert-box'>
-                        <div className='delete-alert-header'>
-                            <div className='title'>
-                            Alert
-                            </div>
-                            <div className='close-btn'>
-                            <img src={closebtn} height={35} width={35} style={{ cursor: "pointer" }} />
-                            </div>
-                        </div>
-                        <div className='delete-alert-message'>
-                            Are you sure you want to delete this question?
-                        </div>
-                        <div className='delete-alert-footer'>
-                            <div className='cancel'><button className='cancel-btn' >Cancel</button></div>
-                            <div className='delete'><button className='delete-btn' >Delete</button></div>
-                        </div>
-                        </div>
-                    </div>
-                    :
-                    null
-                }
+                <div className='text-center w-full'>
+                  <button className='Edit-Question p-3 rounded-md ' onClick={() => { Editquestion() }} >
+                      Edit Question
+                  </button>
+                </div>
+              </div>
             </div>
         </div>
       </div>

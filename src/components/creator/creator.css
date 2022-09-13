@@ -6,6 +6,10 @@
     margin:0 auto;
     background-color: #FAFFFD;
 }
+.uplift
+{
+    box-shadow: 0px 0px 6px 5px rgb(233, 233, 233);
+}
 .parent-content
 {
     background-color: #FAFFFD;
@@ -19,19 +23,33 @@
     font-family: 'Lato';
     font-size: 2rem;
 }
+.font-primary-sm
+{
+    font-family: 'Lato';
+    font-size: 1rem;
+}
 .font-secondary
+{
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1rem;
+}
+.font-secondary-sm
 {
     font-family: 'Roboto Mono', monospace;
     font-size: 1rem;
 }
 .heder
 {
-    width: 160px;
+    width: 200px;
     text-align:center;
     border: 1px #000 solid;
 }
+.heder1
+{
+
+}
 .cont{
-    width: 160px;
+    width: 200px;
     text-align:center;
     font-family: 'Roboto Mono', monospace;
     
@@ -39,5 +57,14 @@
 .output-table
 {
     margin: 0 auto;
+}
+.create-assessment-btn
+{
+    background-color: #FAFFFD;
+}
+.create-assessment-btn:hover
+{
+    background-color: #FF6150 ;
+    color: #FAFFFD;
 }
 

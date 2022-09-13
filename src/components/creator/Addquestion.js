@@ -590,7 +590,7 @@ export default function AddQuestion() {
                 </div>
                 <button className="Add-submit" onClick={() => { singleQuestion(); }}>
                   Add Question
-                </button>
+                </button> 
               </div>
           
         </div>

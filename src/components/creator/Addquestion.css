@@ -106,7 +106,7 @@
 .Add-submit {
   margin-bottom: 20px;
   margin-left: 20px;
-  background-color: #262626;
+  background-color: #FF6150;
   color: #fff;
   font-size: 1rem;
   padding: 10px 20px;
@@ -115,4 +115,8 @@
 .tox-notification--warning
 {
   display: none !important;
+}
+.img, svg, video, canvas, audio, iframe, embed, object {
+  display: none;
+  vertical-align: middle;
 }

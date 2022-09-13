@@ -25,8 +25,8 @@ function CreateRepo() {
               </div>
             </div>
             <div className="repo-name flex">
-              <div className="owner">
-                <DD_repo />
+              <div className="owner ">
+                <DD_repo className="uplift"/>
               </div>
               <h1 className="mx-4  text-3xl">/</h1>
               <div className="Repo-name">
@@ -34,7 +34,7 @@ function CreateRepo() {
                   type="text"
                   name="reponame"
                   placeholder="Short repository name"
-                  className="align-middle  px-2 py-1.5 rounded-md border border-gray-300"
+                  className="align-middle uplift px-2 py-1.5 rounded-md border border-gray-300"
                 ></input>
               </div>
             </div>
@@ -47,7 +47,7 @@ function CreateRepo() {
             <div>
               <input
                 type="text"
-                className="w-full align-middle px-2 py-1.5 rounded-md border border-gray-300 my-2"
+                className="w-full uplift align-middle px-2 py-1.5 rounded-md border border-gray-300 my-2"
               ></input>
             </div>
           </div>
@@ -63,10 +63,7 @@ function CreateRepo() {
                 name="privacy-radio"
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
               />
-              <label
-                
-                className="ml-2 font-secondary font-semibold text-left"
-              >
+              <label className="ml-2 font-secondary font-semibold text-left">
                 Global
               </label>
             </div>
@@ -106,7 +103,7 @@ function CreateRepo() {
             You are creating a private repository press create repository button
             to Create.
           </div>
-          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+          <button className="create-assessment-btn text-black-700 font-semibold py-2 px-4 border border-black-500  rounded">
             Button
           </button>
         </div>
@@ -115,3 +112,4 @@ function CreateRepo() {
   )
 }
 export default CreateRepo
+ 

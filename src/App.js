@@ -40,6 +40,8 @@ import Jobinsights from "./components/company/JobInsight";
 import CreatorMessage from "./components/creator/CreatorMessages";
 import CandidateMessage from "./components/candidate/CandidateMessages";
 import CompanyMessage from "./components/company/CompanyMessages";
+import EditQuestion from "./components/creator/EditQuestion";
+import QuestionFeed from "./components/creator/questionFeed";
 function App() {
   const client_ = createClient({
     autoConnect: true,
@@ -69,24 +71,21 @@ function App() {
             element={<CandidateExperience />}
           ></Route>
 
-          <Route path="creator" element={<CreatorHeader />}>
-            <Route path="createrepo" element={<Createrepo />} />
-            <Route path="assesment" element={<CreateAssesment />} />
-            <Route path="question" element={<AddQuestion />} />
-            <Route path="MyQuestion" element={<Viewquestion />} />
-            <Route path="myrepo" element={<Myrepos />} />
-            <Route path="myassessment" element={<MyAssesments />} />
-            <Route path="editrepo" element={<Editrepo />} />
-            <Route path="editAssesment" element={<EditAssesment />} />
-            <Route path="message" element={<CreatorMessage />} />
-            
+          <Route path="creator" element={<CreatorHeader/>}>
+            <Route path="createrepo" element={<Createrepo/>}/>
+            <Route path="assesment" element={<CreateAssesment/>}/>
+            <Route path="question" element={<AddQuestion/>}/>
+            <Route path="MyQuestion" element={<Viewquestion/>}/>
+            <Route path="myrepo" element={<Myrepos/>}/>
+            <Route path="myassessment" element={<MyAssesments/>}/>
+            <Route path="editrepo" element={<Editrepo/>}/>
+            <Route path="editAssesment" element={<EditAssesment/>}/>
+            <Route path="message" element={<CreatorMessage />}/>
+            <Route path="questionFeed" element={<QuestionFeed/>}/>
           </Route>
 
           <Route path="company" element={<CompanyHeader />}>
-            <Route
-              path="recruitment-details"
-              element={<RecruitmentDetails />}
-            />
+            <Route path="recruitment-details" element={<RecruitmentDetails />}/>
             <Route path="tests" element={<TestsFeed />} />
             <Route path="" element={<CreatorsList />} />
             <Route path="testdescrption" element={<TestDescription />} />
@@ -100,13 +99,10 @@ function App() {
           <Route path="candidate" element={<CandidateHeader />}>
             <Route path="" element={<CandidateFeed />} />
             <Route path="candidate-test" element={<CandidateTest />} />
-            <Route
-              path="candidate-test-results"
-              element={<CandidateTestResults />}
-            />
+            <Route path="candidate-test-results" element={<CandidateTestResults />}/>
             <Route path="candidate-profile" element={<Home/>}/>
             <Route path="testtakenpage" element={<TestTakenpage />} />
-            <Route path="testInstruction" element={<TestInstructionpage />} />
+            <Route path="testInstruction" element={<TestInstructionpage/>} />
             <Route path="message" element={<CandidateMessage/>}/>
           </Route>
         </Routes>

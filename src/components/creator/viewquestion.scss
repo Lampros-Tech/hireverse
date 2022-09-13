@@ -1,0 +1,96 @@
+.question-List {
+    margin: 0 auto;
+    max-width: 786px;
+    margin-top: 40px;
+    margin-bottom: 50px;
+  } 
+
+
+$background: rgb(239,240,238);
+$button: rgb(255,98,83);
+
+.card-background
+{
+  background-color: $background;
+}
+.Edit-Question
+{
+  background-color: $button;
+  color:#fff;
+}
+.description
+{
+  height: 100px;
+}
+.editquestion {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: #fff;
+}
+.edit_Question {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.812);
+  left: 0;
+}
+.edit_question_header {
+  display: flex;
+  height: 80px;
+}
+.text_editor1 {
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+.option-selection {
+  display: flex;
+  height: 89%;
+}
+.option-field {
+  background-color: #fff;
+  margin: 20px;
+  border-radius: 10px;
+  border: 0.7px solid #000;
+  overflow: auto;
+}
+.option1 {
+  margin-top: 80px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.EditQuestion_footer {
+  display: flex;
+  text-align: right;
+  width: 100%;
+}
+.EditQuestion_footer_cancel {
+  float: right !important;
+  margin: 20px;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  padding: 10px;
+  color: #fff;
+  background-color: red;
+  cursor: pointer;
+}
+
+.EditQuestion_footer_update {
+  float: right !important;
+  margin: 20px;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  padding: 10px;
+  color: #000;
+  background-color: white;
+  cursor: pointer;
+}
+.edit_question_close_button {
+  height: 25px;
+  margin: 20px;
+  cursor: pointer;
+}
+.edit_question_header {
+  display: flex;
+  height: 80px;
+}
