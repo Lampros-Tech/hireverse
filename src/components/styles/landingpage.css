@@ -186,12 +186,13 @@ h1.d-fourth-h1 {
 h2.d-fourth-inside-h2 {
   max-width: 70%;
   word-wrap: break-word;
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: 700;
 }
 
 img.d-fourth-inside-img {
   width: 8rem;
+  margin-bottom: 1.2rem;
 }
 
 .d-last {
@@ -303,6 +304,7 @@ h1.d-hero-left-h1 {
   color: #282133;
 }
 .d-sponser-grid-item {
+  width: 60%;
   margin: auto;
 }
 p.d-hero-left-p {
@@ -316,8 +318,9 @@ img.d-logo {
 }
 
 img.d-sponser-img {
-  height: 50%;
-  width: 70%;
+  /* height: 50%;
+  width: 70%; */
+  margin: auto;
 }
 
 img.d-graphics-item-1 {

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import "react-phone-input-2/lib/style.css";
 import "./regform.css";
-import logo from "../styles/logo.png";
+import logo from "../assets/images/logo.png";
 import correct_ar from "../assets/images/correct_arrow.svg";
 
 import { useRef } from "react";

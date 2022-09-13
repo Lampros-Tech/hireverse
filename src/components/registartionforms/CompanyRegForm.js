@@ -6,7 +6,7 @@ import { countryArr } from "./CountryList";
 
 import "react-phone-input-2/lib/style.css";
 import "./regform.css";
-import logo from "../styles/logo.png";
+import logo from "../assets/images/logo.png";
 
 import { useRef } from "react";
 

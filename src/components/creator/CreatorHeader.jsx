@@ -9,7 +9,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import logo from "../styles/logo.png";
+import logo from "../assets/images/logo.png";
 
 const solutions = [
   {

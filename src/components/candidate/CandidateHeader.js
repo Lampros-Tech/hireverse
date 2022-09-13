@@ -9,7 +9,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import logo from "../styles/logo.png";
+import logo from "../assets/images/logo.png";
 
 const solutions = [
   {
@@ -88,7 +88,7 @@ export default function CandidateHeader() {
     <>
       <Popover className="relative bg-white">
         <div className=" px-4 sm:px-6">
-          <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+          <div className="flex items-center justify-between border-b-2 border-gray-100 py-3 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <Link to="/">
                 <span className="sr-only">Workflow</span>

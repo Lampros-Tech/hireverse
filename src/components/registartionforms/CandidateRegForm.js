@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "./regform.css";
-import logo from "../styles/logo.png";
+import logo from "../assets/images/logo.png";
 import { countryArr } from "./CountryList";
 
 function CandidateRegForm() {

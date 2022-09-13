@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./styles/login.css";
-import logo from "./styles/logo.png";
+import logo from "./assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 

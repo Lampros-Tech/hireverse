@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./styles/login.css";
 
 import { useNavigate } from "react-router-dom";
-import logo from "./styles/logo.png";
+import logo from "./assets/images/logo.png";
 import su_image from "./assets/images/signup_image_2.svg";
 
 // import emailpic from "./styles/email_pic.webp";
