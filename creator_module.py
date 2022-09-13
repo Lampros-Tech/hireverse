@@ -5,6 +5,7 @@ from queries import *
 import datetime
 import json
 from flask import Blueprint, render_template, abort
+from flask.globals import request
 
 load_dotenv()
 
@@ -33,3 +34,18 @@ def creator_registration(creator_data):
 
     except Exception as e:
         return e
+
+
+@creator.route('/creator/addTableNames', methods=['POST'])
+def addTableNames():
+    try:
+        update_values = request.json['data']
+        # print(update_values)
+        walletAddress = request.json['walletAddress']
+        tablename = os.environ['creators_table']
+        condition = f"""wallet_address='{walletAddress}'"""
+        data = update_query(tablename, update_values, condition, True)
+        return "Data updated successfully!!", 200
+    except Exception as e:
+        print(e)
+        return "Something went wrong !!", 500

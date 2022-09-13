@@ -99,8 +99,8 @@ def add_sector():
 def addCreatorSector():
     try:
         company_sectors = os.environ['company_sectors']
-        fields = "(login_id, sector_id)"
-        login_id = request.json['login_id']
+        fields = "(company_id, sector_id)"
+        company_id = request.json['company_id']
         sector_names = request.json['sector_name']
         sector_table = os.environ['sector']
         sector_ids = request.json['sector_ids']
@@ -114,7 +114,7 @@ def addCreatorSector():
 
         values = ''
         for ids in sector_ids:
-            values +=  f"""({login_id},{ids}),"""
+            values +=  f"""({company_id},{ids}),"""
         data = insert_query(company_sectors,fields,values[0:-1])    
         response_body = {
             "status":200,
