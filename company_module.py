@@ -55,3 +55,12 @@ def update():
     except Exception as e:
         print(e)
         return "Something went wrong !!", 500
+
+
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Update Company Sectors
+@company.route('/company/add_sectors', methods=['POST'])
+def add_sector():
+    name = request.json['name']
