@@ -24,6 +24,7 @@ app = Flask(__name__)
 
 
 app.register_blueprint(candidate)
+app.register_blueprint(company)
 
 cors = CORS(app)
 app.config['Access-Control-Allow-Origin'] = '*'
@@ -233,9 +234,22 @@ def insertRole():
     final_data = json.loads(data.decode('utf-8'))
     if (len(final_data['rows']) == 0):
         response_body = {
-            "status": 200,
+            "status": 409,
             "data": "User Does Not Exists !"
-        }
+        }, 409
+        return response_body
+    if (final_data['rows'][0][6] == None):
+        response_body = {
+            "status": 409,
+            "data": "User Does Not Exists !"
+        }, 409
+        return response_body
+
+    if (final_data['rows'][0][4] != None):
+        response_body = {
+            "status": 409,
+            "data": "user role already selected !"
+        }, 409
         return response_body
 
     fields = f"""role='{role}'"""
@@ -243,6 +257,7 @@ def insertRole():
 
     # Update Query
     data = update_query(tablename, fields, condition)
+
     response_body = {
         "status": 200,
         "data": "User's Role Updated Successfully !"
@@ -317,6 +332,9 @@ def registration():
         role = getWalletRole(walletAddress)
         if role[0]=='Candidate':
             data = (request.json['loginId'],request.json['name'],request.json['bio'],request.json['profileImage'],request.json['coverImage'],walletAddress,request.json['address'],request.json['country'],request.json['contactNumber'])
+
+        if role[0]=='Company':
+            data = (request.json['login_id'],request.json['name'],request.json['logo'],request.json['cover_image'],walletAddress,request.json['description'],request.json['company_url'],request.json['year_of_establishment'], request.json['number_of_employees'],request.json['address'],request.json['contry'],request.json['contect_number'])
         
         role_functions = {
 
