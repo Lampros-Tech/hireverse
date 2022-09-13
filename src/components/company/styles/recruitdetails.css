@@ -8,11 +8,23 @@
   height: 80%;
   min-width: 300px;
   margin: 0 auto;
-  border: 1px solid black;
-  margin-top: 10%;
-  padding: 50px;
-  padding-right: 5%;
+  border-radius: 20px;
+
+  box-shadow: 0px 0px 6px 5px #eff0ee;
+  margin-top: 3%;
+  padding: 30px;
+  padding-bottom: 30px;
 }
+.recruitment-details-main-form {
+  color: black;
+}
+.recruitment-content {
+  padding-right: 40px;
+}
+.radio-remote {
+  margin-left: 5px;
+}
+
 #recruit-label {
   display: flex;
   padding-left: 10%;
@@ -29,7 +41,8 @@
 .recruit-details {
   margin: 0;
   margin-bottom: 5%;
-  margin-left: 30%;
+  margin-left: 32%;
+  /* font-family: "Montserrat"; */
 }
 #question-submit {
   padding: 5px 10px 5px 10px;
@@ -70,35 +83,81 @@
 #submit-job {
   display: inline;
   margin-left: 10px;
+  background-color: #282133;
+  font-size: medium;
+}
+#jobquestion-inputfield {
+  margin-left: 10px;
+}
+.recruit-save-continue-button {
+  background-color: #ff6150;
+  font-size: larger;
+}
+.jobdescription-textarea {
+  border-color: #282133;
+}
+.all-inputfield {
+  width: 75%;
+}
+input[type="radio"]:checked:after {
+  width: 12px;
+  height: 13px;
+  border-radius: 10px;
+  background-color: #134e6f;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+}
+.recruit-components-question {
+  margin-bottom: 20px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 65%;
+  margin-left: 70px;
+}
+.img-input-submit-section {
+  display: flex;
+  margin-left: 10%;
+  margin-bottom: 20px;
 }
 /* --------------For Responsive------------------------ */
 @media only screen and (max-width: 768px) {
-  /* For mobile phones: */
   .recruit-details {
     margin: 0;
     margin-bottom: 5%;
-    margin-left: 20%;
+    margin-left: 25%;
   }
-
+  .recruitment-content {
+    padding-right: 0px;
+  }
+  .img-input-submit-section {
+    display: flex;
+    margin-left: 10%;
+    margin-bottom: 20px;
+  }
+  .all-inputfield {
+    width: 95%;
+  }
+  .plus-icon {
+    display: flex;
+  }
   .recruitment-header {
-    /* width: 70vw; */
     max-width: 600px;
     height: 80%;
-    /* min-width: 350px; */
+
     margin: 0 auto;
     border: 1px solid black;
     margin-top: 10%;
-    /* padding: 20px;
-    padding-right: 5%; */
   }
   #recruit-label {
     display: flex;
     padding-left: 5px;
     padding-bottom: 10px;
   }
-  #recruitment-details-main-form {
-    margin-right: 20px;
-  }
+
   .recruit-submit {
     margin-left: 20%;
     padding: 15px;
@@ -106,10 +165,56 @@
     margin: auto;
     justify-content: center;
   }
+
+  .recruit-components {
+    display: flex;
+    margin-left: 5px;
+    margin-bottom: 20px;
+  }
+}
+/*-------------------- for mobile---------------------------- */
+@media only screen and (max-width: 320px) {
   .recruit-details {
     margin: 0;
     margin-bottom: 5%;
+    margin-left: 5%;
   }
+  .recruitment-content {
+    padding-right: 0px;
+  }
+  .img-input-submit-section {
+    display: flex;
+    margin-left: 10%;
+    margin-bottom: 20px;
+  }
+  .all-inputfield {
+    width: 95%;
+  }
+  .plus-icon {
+    display: flex;
+  }
+  .recruitment-header {
+    max-width: 600px;
+    height: 80%;
+
+    margin: 0 auto;
+    border: 1px solid black;
+    margin-top: 10%;
+  }
+  #recruit-label {
+    display: flex;
+    padding-left: 5px;
+    padding-bottom: 10px;
+  }
+
+  .recruit-submit {
+    margin-left: 20%;
+    padding: 15px;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+  }
+
   .recruit-components {
     display: flex;
     margin-left: 5px;

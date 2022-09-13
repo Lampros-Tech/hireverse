@@ -138,13 +138,13 @@ export default function CompanyHeader() {
               className="hidden space-x-10 md:flex items-center"
             >
               <Link
-                to="/company/tests"
+                to="/company"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Feed
               </Link>
               <Link
-                to="/company"
+                to="/company/creators"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Creators

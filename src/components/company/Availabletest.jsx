@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import "../company/styles/availabletest.css";
+import avtar from "../company/styles/companyprofile.png";
+const types = ["Cash", "Credit Card", "Bitcoin"];
 
 function AvailableTest() {
-  const [purchased, setPurchased] = useState();
+  const [purchased, setPurchased] = useState(true);
   const [created, setCreated] = useState();
 
   return (
     <>
       <div className="availabletest-main-content">
         <div className="availabletest-header">
-          <h2 class="font-medium leading-tight text-4xl mt-0 mb-2 text-blue-600 invitecandidate-title">
+          <h2 class="font-medium leading-tight text-4xl mt-0 mb-2 text-blue-600 availabletest-main-title">
             AVAILABLE TEST
           </h2>
         </div>
@@ -20,7 +22,11 @@ function AvailableTest() {
               setCreated(false);
             }}
             for="first_name"
-            class="block text-large font-medium text-gray-900 dark:text-gray-300 purchased-name"
+            className={
+              purchased
+                ? "block text-large font-medium text-gray-900 dark:text-gray-300 purchased-name pc-tab-button"
+                : "block text-large font-medium text-gray-900 dark:text-gray-300 purchased-name"
+            }
             value={purchased}
           >
             Purchased
@@ -32,7 +38,11 @@ function AvailableTest() {
               setPurchased(false);
             }}
             for="first_name"
-            class="block text-large font-medium text-gray-900 dark:text-gray-300 created-name"
+            className={
+              created
+                ? "block text-large font-medium text-gray-900 dark:text-gray-300 created-name pc-tab-button"
+                : "block text-large font-medium text-gray-900 dark:text-gray-300 created-name"
+            }
             value={created}
           >
             Created
@@ -62,24 +72,17 @@ function AvailableTest() {
                 </div>
 
                 <div className="availabletest-user-icon">
-                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
-                    <svg
-                      class=""
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
+                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
+                    <img
+                      class="w-10 h-10 rounded-full"
+                      src={avtar}
+                      alt="Rounded avatar"
+                    />
                   </div>
                   <div className="available-creator-name">
                     <label
                       for="first_name"
-                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300  availabletest-creator-block"
                     >
                       Creator Name
                     </label>
@@ -88,7 +91,7 @@ function AvailableTest() {
                   <div className="availabletest-usetest-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3 text-center    dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      class="text-white   font-medium rounded-lg text-sm px-8 py-3 text-center  availabletest-creator-cost-button"
                     >
                       Cost: $50
                     </button>
@@ -118,24 +121,17 @@ function AvailableTest() {
                 </div>
 
                 <div className="availabletest-user-icon">
-                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
-                    <svg
-                      class=""
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
+                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
+                    <img
+                      class="w-10 h-10 rounded-full"
+                      src={avtar}
+                      alt="Rounded avatar"
+                    />
                   </div>
                   <div className="available-creator-name">
                     <label
                       for="first_name"
-                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300  availabletest-creator-block"
                     >
                       Creator Name
                     </label>
@@ -144,7 +140,7 @@ function AvailableTest() {
                   <div className="availabletest-usetest-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3 text-center    dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      class="text-white font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button"
                     >
                       Cost: $30
                     </button>
@@ -174,24 +170,17 @@ function AvailableTest() {
                 </div>
 
                 <div className="availabletest-user-icon">
-                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
-                    <svg
-                      class=""
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
+                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
+                    <img
+                      class="w-10 h-10 rounded-full"
+                      src={avtar}
+                      alt="Rounded avatar"
+                    />
                   </div>
                   <div className="available-creator-name">
                     <label
                       for="first_name"
-                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300  availabletest-creator-block"
                     >
                       Creator Name
                     </label>
@@ -200,7 +189,7 @@ function AvailableTest() {
                   <div className="availabletest-usetest-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3 text-center    dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      class="text-white font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button"
                     >
                       Cost: $14
                     </button>
@@ -230,24 +219,17 @@ function AvailableTest() {
                 </div>
 
                 <div className="availabletest-user-icon">
-                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
-                    <svg
-                      class=""
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
+                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
+                    <img
+                      class="w-10 h-10 rounded-full"
+                      src={avtar}
+                      alt="Rounded avatar"
+                    />
                   </div>
                   <div className="available-creator-name">
                     <label
                       for="first_name"
-                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300  availabletest-creator-block"
                     >
                       Creator Name
                     </label>
@@ -256,7 +238,7 @@ function AvailableTest() {
                   <div className="availabletest-usetest-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3 text-center    dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      class="text-white   font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button"
                     >
                       Cost: $20
                     </button>
@@ -286,24 +268,17 @@ function AvailableTest() {
                 </div>
 
                 <div className="availabletest-user-icon">
-                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
-                    <svg
-                      class=""
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
+                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
+                    <img
+                      class="w-10 h-10 rounded-full"
+                      src={avtar}
+                      alt="Rounded avatar"
+                    />
                   </div>
                   <div className="available-creator-name">
                     <label
                       for="first_name"
-                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300  availabletest-creator-block"
                     >
                       Creator Name
                     </label>
@@ -312,27 +287,27 @@ function AvailableTest() {
                   <div className="availabletest-usetest-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3 text-center    dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      class="text-white   font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button"
                     >
                       Cost: $35
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="availabletest-submit">
-                <a
-                  href="/company/invite-candidate"
-                  target="_blank"
-                  rel="noreferrer"
+            </div>
+            <div className="availabletest-submit">
+              <a
+                href="/company/invite-candidate"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <button
+                  type="button"
+                  class="text-white  font-medium rounded-lg text-sm px-8 py-3 text-center    availabletest-save-button"
                 >
-                  <button
-                    type="button"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3 text-center    dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 availabletest-save-button"
-                  >
-                    Save & Continue
-                  </button>
-                </a>
-              </div>
+                  Save & Continue
+                </button>
+              </a>
             </div>
           </div>
         ) : (
@@ -373,24 +348,17 @@ function AvailableTest() {
                 </div>
 
                 <div className="availabletest-user-icon">
-                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
-                    <svg
-                      class=""
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
+                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
+                    <img
+                      class="w-10 h-10 rounded-full"
+                      src={avtar}
+                      alt="Rounded avatar"
+                    />
                   </div>
                   <div className="available-creator-name">
                     <label
                       for="first_name"
-                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300 availabletest-creator-block"
                     >
                       Creator Name
                     </label>
@@ -399,7 +367,7 @@ function AvailableTest() {
                   <div className="availabletest-usetest-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3 text-center    dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 use-test-button"
+                      class="text-white   font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button use-test-button"
                     >
                       Use This Test
                     </button>
@@ -443,24 +411,17 @@ function AvailableTest() {
                 </div>
 
                 <div className="availabletest-user-icon">
-                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
-                    <svg
-                      class=""
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
+                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
+                    <img
+                      class="w-10 h-10 rounded-full"
+                      src={avtar}
+                      alt="Rounded avatar"
+                    />
                   </div>
                   <div className="available-creator-name">
                     <label
                       for="first_name"
-                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300  availabletest-creator-block"
                     >
                       Creator Name
                     </label>
@@ -469,7 +430,7 @@ function AvailableTest() {
                   <div className="availabletest-usetest-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3 text-center    dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 use-test-button"
+                      class="text-white font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button use-test-button"
                     >
                       Use This Test
                     </button>
@@ -513,24 +474,17 @@ function AvailableTest() {
                 </div>
 
                 <div className="availabletest-user-icon">
-                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
-                    <svg
-                      class=""
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
+                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
+                    <img
+                      class="w-10 h-10 rounded-full"
+                      src={avtar}
+                      alt="Rounded avatar"
+                    />
                   </div>
                   <div className="available-creator-name">
                     <label
                       for="first_name"
-                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300  availabletest-creator-block"
                     >
                       Creator Name
                     </label>
@@ -539,7 +493,7 @@ function AvailableTest() {
                   <div className="availabletest-usetest-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3 text-center    dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 use-test-button"
+                      class="text-white  font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button use-test-button"
                     >
                       Use This Test
                     </button>
@@ -584,24 +538,17 @@ function AvailableTest() {
                 </div>
 
                 <div className="availabletest-user-icon">
-                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
-                    <svg
-                      class=""
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
+                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
+                    <img
+                      class="w-10 h-10 rounded-full"
+                      src={avtar}
+                      alt="Rounded avatar"
+                    />
                   </div>
                   <div className="available-creator-name">
                     <label
                       for="first_name"
-                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300  availabletest-creator-block"
                     >
                       Creator Name
                     </label>
@@ -610,7 +557,7 @@ function AvailableTest() {
                   <div className="availabletest-usetest-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3 text-center    dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 use-test-button"
+                      class="text-white   font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button use-test-button"
                     >
                       Use This Test
                     </button>
@@ -654,24 +601,17 @@ function AvailableTest() {
                 </div>
 
                 <div className="availabletest-user-icon">
-                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
-                    <svg
-                      class=""
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
+                  <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
+                    <img
+                      class="w-10 h-10 rounded-full"
+                      src={avtar}
+                      alt="Rounded avatar"
+                    />
                   </div>
                   <div className="available-creator-name">
                     <label
                       for="first_name"
-                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300  availabletest-creator-block"
                     >
                       Creator Name
                     </label>
@@ -680,27 +620,27 @@ function AvailableTest() {
                   <div className="availabletest-usetest-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 use-test-button"
+                      class="text-white  font-medium rounded-lg text-sm px-8 py-3 text-center availabletest-creator-cost-button use-test-button"
                     >
                       Use This Test
                     </button>
                   </div>
                 </div>
               </div>
-              <div className="availabletest-submit">
-                <a
-                  href="/company/invite-candidate"
-                  target="_blank"
-                  rel="noreferrer"
+            </div>
+            <div className="availabletest-submit">
+              <a
+                href="/company/invitecandidates"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <button
+                  type="button"
+                  class="text-white font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button availabletest-save-button"
                 >
-                  <button
-                    type="button"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3 text-center    dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 availabletest-save-button"
-                  >
-                    Save & Continue
-                  </button>
-                </a>
-              </div>
+                  Save & Continue
+                </button>
+              </a>
             </div>
           </div>
         )}

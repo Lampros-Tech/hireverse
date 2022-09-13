@@ -97,8 +97,8 @@ function App() {
               path="recruitment-details"
               element={<RecruitmentDetails />}
             />
-            <Route path="tests" element={<TestsFeed />} />
-            <Route path="" element={<CreatorsList />} />
+            <Route path="" element={<TestsFeed />} />
+            <Route path="creators" element={<CreatorsList />} />
             <Route path="testdescrption" element={<TestDescription />} />
             <Route path="jobpost" element={<Jobpost />} />
             <Route path="availabletests" element={<AvailableTest />} />

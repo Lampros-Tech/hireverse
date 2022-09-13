@@ -7,7 +7,7 @@ function RecruitmentDetails() {
   const [selectedOptions, setSelectedOptions] = useState();
   const [jobLocation, setJoblocation] = useState("");
   const [counter1, setCounter1] = useState(0);
-  const [plusIcon, setPlusIcon] = useState("");
+  const [counter, setCounter] = useState(0);
 
   const optionList = [
     { value: "java", label: "Java" },
@@ -21,15 +21,13 @@ function RecruitmentDetails() {
     // { value: "Nodejs", label: "Nodejs" },
     // { value: "dotnet", label: "DotNet" },
   ];
-  useEffect(
-    () => {
-      console.log(jobLocation);
-      console.log(plusIcon);
-    },
-    [jobLocation],
-    [plusIcon]
-  );
-
+  // useEffect(() => {
+  //   console.log(jobLocation);
+  // }, [jobLocation]);
+  const handleClick = () => {
+    setCounter(counter + 1);
+    console.log(counter);
+  };
   function handleSelect(data) {
     setSelectedOptions(data);
   }
@@ -38,8 +36,20 @@ function RecruitmentDetails() {
     setJoblocation(e.target.value);
   };
 
-  const showInput = (inputfield) => {
-    setPlusIcon(inputfield);
+  // const showInput = (inputfield) => {
+  //   setPlusIcon(inputfield);
+  // };
+
+  const style = {
+    control: (base, state) => ({
+      ...base,
+      border: "1px solid gray",
+
+      boxShadow: "none",
+      "&:hover": {
+        border: "1px solid gray",
+      },
+    }),
   };
 
   return (
@@ -47,7 +57,7 @@ function RecruitmentDetails() {
       <div className="recruitment-main">
         <div className="recruitment-header">
           <div className="recruitment-content">
-            <h2 className="font-medium leading-tight text-4xl mt-0 mb-2 text-blue-600 recruit-details">
+            <h2 className="font-medium leading-tight text-4xl mt-0 mb-2 text-600 recruit-details">
               JOB DETAILS
             </h2>
 
@@ -66,14 +76,14 @@ function RecruitmentDetails() {
                     py-1.5
                     text-base
                     font-normal
-                    text-gray-700
+                    text-700
                     bg-white bg-clip-padding
-                    border border-solid border-gray-300
+                    border border-solid border-gray-500
                     rounded
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                    focus:text-700 focus:bg-white focus:border-600 focus:outline-none
                       "
                   id="jobtitle-inputfield"
                 />
@@ -94,12 +104,12 @@ function RecruitmentDetails() {
                       font-normal
                       text-gray-700
                       bg-white bg-clip-padding
-                      border border-solid border-gray-300
+                      border border-solid border-gray-500
                       rounded
                       transition
                       ease-in-out
                       m-0
-                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                      focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none
                     "
                   id="jobdescription-textarea"
                   rows="3"
@@ -110,70 +120,78 @@ function RecruitmentDetails() {
                 <label id="recruit-label">Additional Questions:</label>
               </div>
 
-              <div className="recruit-components">
-                <button onClick={(inputfield) => showInput(inputfield)}>
-                  <img src={plus} alt="file" className="plus-icon" id={plus} />
-                </button>
+              <div className="recruit-components-question">
+                <div className="img-input-submit-section">
+                  <img
+                    onClick={handleClick}
+                    src={plus}
+                    alt="file"
+                    className="plus-icon"
+                    id={plus}
+                  />
 
-                {plusIcon === "plus" ? (
                   <input
                     type="text"
-                    // onClick={(e) => handleClick1(e)}
                     className="
                       form-control
-                      block
-                      w-full
+                  
+                      
                       px-3
                       py-1.5
                       text-base
                       font-normal
                       text-gray-700
                       bg-white bg-clip-padding
-                      border border-solid border-gray-300
+                      border border-solid border-gray-500
                       rounded
                       transition
                       ease-in-out
                       m-0
-                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                      focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none all-inputfield
                     "
+
                     // id="job-radio"
                   />
-                ) : (
-                  <input
-                    type="text"
-                    className="
-                    form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    font-normal
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                  "
-                    id="jobquestion-inputfield"
-                  />
-                )}
-
-                <button
-                  type="button"
-                  id="submit-job"
-                  className="inline-block px-6 py-2.5 bg-blue-600
-                text-white font-medium text-xs leading-tight  rounded-full
+                  <button
+                    type="button"
+                    id="submit-job"
+                    className="inline-block px-6 py-2.5 bg-blue-600
+                text-white font-medium text-xs leading-tight  rounded-lg
                 shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700
                 focus:shadow-lg focus:outline-none focus:ring-0
                 active:bg-blue-800 active:shadow-lg transition duration-150
                 ease-in-out"
-                >
-                  Submit
-                </button>
+                  >
+                    Submit
+                  </button>
+                </div>
+                <div className="grid grid-col-2">
+                  {Array.from(Array(counter)).map((c, index) => {
+                    return (
+                      <input
+                        type="text"
+                        className="
+                        form-control
+                    
+                        
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding
+                        border border-solid border-gray-500
+                        rounded
+                        
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none
+                      "
+                        key={c}
+                        // id="job-radio"
+                      />
+                    );
+                  })}
+                </div>
               </div>
 
               <div className="recruit-location">
@@ -184,21 +202,24 @@ function RecruitmentDetails() {
                   <input
                     type="radio"
                     name="location"
-                    className="inline"
+                    className="inline-radio"
                     onClick={(e) => handleClick1(e)}
                     value="Remote"
+                    id="radio-location"
                   />{" "}
-                  Remote
+                  <span className="radio-remote">Remote</span>
                 </label>
+
                 <label id="recruit-label">
                   <input
                     type="radio"
                     name="location"
-                    className="inline"
+                    className="inline-radio "
                     onClick={(e) => handleClick1(e)}
                     value="Onsite"
+                    id="radio-location"
                   />{" "}
-                  Onsite
+                  <span className="radio-remote">Onsite</span>
                 </label>
 
                 {jobLocation === "Onsite" ? (
@@ -215,12 +236,12 @@ function RecruitmentDetails() {
                       font-normal
                       text-gray-700
                       bg-white bg-clip-padding
-                      border border-solid border-gray-300
+                      border border-solid border-gray-500
                       rounded
                       transition
                       ease-in-out
                       m-0
-                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                      focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none
                     "
                     id="job-radio"
                   />
@@ -230,13 +251,14 @@ function RecruitmentDetails() {
                   <input
                     type="radio"
                     name="location"
-                    className="inline"
+                    className="inline-radio"
                     value="Hybrid"
+                    id="radio-location"
                     onClick={(e) => {
                       handleClick1(e);
                     }}
                   />
-                  Hybrid
+                  <span className="radio-remote">Hybrid</span>
                 </label>
                 {jobLocation === "Hybrid" ? (
                   <input
@@ -252,12 +274,12 @@ function RecruitmentDetails() {
                       font-normal
                       text-gray-700
                       bg-white bg-clip-padding
-                      border border-solid border-gray-300
+                      border border-solid border-gray-500
                       rounded
                       transition
                       ease-in-out
                       m-0
-                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                      focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none
                       "
                     id="job-radio"
                   />
@@ -283,12 +305,12 @@ function RecruitmentDetails() {
                       font-normal
                       text-gray-700
                       bg-white bg-clip-padding
-                      border border-solid border-gray-300
+                      border border-solid border-gray-500
                       rounded
                       transition
                       ease-in-out
                       m-0
-                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                      focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none
                     "
                 />
                 <label id="number-label">To</label>
@@ -307,12 +329,12 @@ function RecruitmentDetails() {
                   font-normal
                   text-gray-700
                   bg-white bg-clip-padding
-                  border border-solid border-gray-300
+                  border border-solid border-gray-500
                   rounded
                   transition
                   ease-in-out
                   m-0
-                  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                  focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none
                 "
                 />
               </div>
@@ -329,19 +351,21 @@ function RecruitmentDetails() {
                     onChange={handleSelect}
                     isSearchable={true}
                     isMulti
+                    styles={style}
                   />
                 </div>
               </div>
 
               <div className="recruit-submit">
                 <a
-                  href="/company/job-availabletest"
+                  href="/company/availabletests"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <button
                     type="button"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-8 py-3 text-center    dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className="text-white    font-medium rounded-lg text-sm px-8 py-3 text-center  recruit-save-continue-button
+                    "
                   >
                     Save & Continue
                   </button>

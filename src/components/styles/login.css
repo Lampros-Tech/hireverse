@@ -101,14 +101,17 @@ option.role-options:hover {
   font-family: Poppins-Medium;
   font-size: 1.2rem;
   line-height: 1.5;
-  color: black;
+  color: #134e6f;
   display: block;
   width: 100%;
-  background: #fff;
+  background: #eff0ee;
   height: 50px;
   border-radius: 25px;
   padding: 0 2rem;
   margin: 1rem 0;
+  -webkit-box-shadow: 3px 3px 10px 10px #ddd;
+  -moz-box-shadow: 3px 3px 10px 10px #ddd;
+  box-shadow: 3px 3px 10px 10px #ddd;
 }
 .focus-input {
   display: block;

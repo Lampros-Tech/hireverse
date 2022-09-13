@@ -5,6 +5,9 @@ function JobApplicant() {
   return (
     <>
       <div className="jobapplicant-main-content1">
+        <h2 class="font-medium leading-tight text-4xl mt-0  text-black-600 jobapplicant-title2">
+          JOB APPLICANTS
+        </h2>
         <div className="myjobpost-information-header">
           <label
             for="first_name"
@@ -12,10 +15,8 @@ function JobApplicant() {
           >
             Candidates Requesting Approval:
           </label>
-          <h2 class="font-medium leading-tight text-4xl mt-0 mb-2 text-blue-600 jobapplicant-title2">
-            JOB APPLICANTS
-          </h2>
         </div>
+
         <div className="jobapplicant-main-form">
           <div className="jobapplicant-information">
             <div className="jobapplicant-user-icon">
@@ -37,7 +38,7 @@ function JobApplicant() {
               <div className="jobapplicant-username">
                 <label
                   for="first_name"
-                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300 applicant-username-block"
                 >
                   Username
                 </label>
@@ -49,7 +50,7 @@ function JobApplicant() {
                 <div className="jobapplicant-year">
                   <label
                     for="first_name"
-                    class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-name"
+                    class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-name "
                   >
                     Year of Exprience:
                   </label>
@@ -84,7 +85,7 @@ function JobApplicant() {
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-9 py-3 mr-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 jobapplicant-invite-button1"
+                        class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3 jobapplicant-invite-button1"
                       >
                         Approve
                       </button>
@@ -99,7 +100,7 @@ function JobApplicant() {
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-9 py-3 mr-3  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 jobapplicant-invite-button2"
+                        class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3  jobapplicant-invite-button2"
                       >
                         Disapprove
                       </button>
@@ -140,7 +141,7 @@ function JobApplicant() {
               <div className="jobapplicant-username">
                 <label
                   for="first_name"
-                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300  applicant-username-block"
                 >
                   Username
                 </label>
@@ -187,7 +188,7 @@ function JobApplicant() {
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-9 py-3 mr-3 mb-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 jobapplicant-invite-button1"
+                        class="text-white   font-medium rounded-lg text-sm px-9 py-3 mr-3 mb-3   jobapplicant-invite-button1"
                       >
                         Approve
                       </button>
@@ -202,7 +203,7 @@ function JobApplicant() {
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-9 py-3 mr-3 mb-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 jobapplicant-invite-button2"
+                        class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3 mb-3   jobapplicant-invite-button2"
                       >
                         Disapprove
                       </button>
@@ -243,7 +244,7 @@ function JobApplicant() {
               <div className="jobapplicant-username">
                 <label
                   for="first_name"
-                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300  applicant-username-block"
                 >
                   Username
                 </label>
@@ -290,7 +291,7 @@ function JobApplicant() {
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-9 py-3 mr-3 mb-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 jobapplicant-invite-button1"
+                        class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3 mb-3  jobapplicant-invite-button1"
                       >
                         Approve
                       </button>
@@ -305,7 +306,7 @@ function JobApplicant() {
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-9 py-3 mr-3 mb-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 jobapplicant-invite-button2"
+                        class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3 mb-3  jobapplicant-invite-button2"
                       >
                         Disapprove
                       </button>
@@ -345,7 +346,7 @@ function JobApplicant() {
               <div className="jobapplicant-username">
                 <label
                   for="first_name"
-                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300  applicant-username-block"
                 >
                   Username
                 </label>
@@ -392,7 +393,7 @@ function JobApplicant() {
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-9 py-3 mr-3  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 jobapplicant-invite-button1"
+                        class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3  jobapplicant-invite-button1"
                       >
                         Approve
                       </button>
@@ -407,7 +408,7 @@ function JobApplicant() {
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-9 py-3 mr-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 jobapplicant-invite-button2"
+                        class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3 jobapplicant-invite-button2"
                       >
                         Disapprove
                       </button>
@@ -461,7 +462,7 @@ function JobApplicant() {
               <div className="jobapplicant-username">
                 <label
                   for="first_name"
-                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300  applicant-username-block"
                 >
                   Username
                 </label>
@@ -503,7 +504,7 @@ function JobApplicant() {
                   <div className="jobapplicant-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-400 dark:bg-blue-500 cursor-not-allowed font-medium rounded-lg text-sm px-9 py-3 mr-3 text-center jobapplicant-approved-button01"
+                      class="text-white  cursor-not-allowed font-medium rounded-lg text-sm px-9 py-3 mr-3 text-center jobapplicant-approved-button01"
                       disabled=""
                     >
                       Approved
@@ -543,7 +544,7 @@ function JobApplicant() {
               <div className="jobapplicant-username">
                 <label
                   for="first_name"
-                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300  applicant-username-block"
                 >
                   Username
                 </label>
@@ -585,7 +586,7 @@ function JobApplicant() {
                   <div className="jobapplicant-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-400 dark:bg-blue-500 cursor-not-allowed font-medium rounded-lg text-sm px-9 py-3 mr-3 text-center jobapplicant-approved-button01"
+                      class="text-white cursor-not-allowed font-medium rounded-lg text-sm px-9 py-3 mr-3 text-center jobapplicant-approved-button01"
                       disabled=""
                     >
                       Approved
@@ -625,7 +626,7 @@ function JobApplicant() {
               <div className="jobapplicant-username">
                 <label
                   for="first_name"
-                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300  applicant-username-block"
                 >
                   Username
                 </label>
@@ -667,7 +668,7 @@ function JobApplicant() {
                   <div className="jobapplicant-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-400 dark:bg-blue-500 cursor-not-allowed font-medium rounded-lg text-sm px-9 py-3 mr-3 text-center jobapplicant-approved-button01"
+                      class="text-white cursor-not-allowed font-medium rounded-lg text-sm px-9 py-3 mr-3 text-center jobapplicant-approved-button01"
                       disabled=""
                     >
                       Approved
@@ -707,7 +708,7 @@ function JobApplicant() {
               <div className="jobapplicant-username">
                 <label
                   for="first_name"
-                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300  applicant-username-block"
                 >
                   Username
                 </label>
@@ -749,7 +750,7 @@ function JobApplicant() {
                   <div className="jobapplicant-button">
                     <button
                       type="button"
-                      class="text-white bg-blue-400 dark:bg-blue-500 cursor-not-allowed font-medium rounded-lg text-sm px-9 py-3 mr-3 text-center jobapplicant-approved-button01"
+                      class="text-white cursor-not-allowed font-medium rounded-lg text-sm px-9 py-3 mr-3 text-center jobapplicant-approved-button01"
                       disabled=""
                     >
                       Approved
