@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import data from "../data";
 import Popup from "../popup/popup";
-import Upload from "./upload";
+// import Upload from "./upload";
+import CompanyLogo from "../../assets/images/profile.png";
+import Upload from "../../assets/images/uploadimg.svg";
 import "./feed.css";
 
 const CandidateFeed = () => {
@@ -14,7 +16,7 @@ const CandidateFeed = () => {
     console.log(data[newId]);
     setIsOpen(!isOpen);
   };
-
+  const upload_img = useRef(null);
   const [isForm, setIsForm] = useState(false);
 
   const [formData, setFormData] = useState();
@@ -36,16 +38,34 @@ const CandidateFeed = () => {
   return (
     <>
       <div>
-        <div className="feed-header">Application Feed</div>
+        <div className="candidate-jobfeed-header">Job Feed</div>
         {data.map((jobs) => {
           return (
-            <div className="feed-outer">
-              <div className="basic-title">{jobs.title}</div>
-              <div className="basic-des">{jobs.description}</div>
+            <div className="candidate-jobfeed-outer">
+              <div className="candidate-jobfeed-top">
+                <img
+                  className="candidate-jobfeed-logo"
+                  src={CompanyLogo}
+                  alt="company-logo"
+                />
+                <div className="candidate-jobfeed-title">{jobs.title}</div>
+              </div>
+              <div className="candidate-jobfeed-middle">
+                <h2 className="candidate-jobfeed-companyname">
+                  {jobs.companyName}
+                </h2>
+                <h2 className="candidate-jobfeed-location">{jobs.location}</h2>
+                <h2 className="candidate-jobfeed-experience">
+                  {jobs.experience}
+                </h2>
+              </div>
+              <div className="candidate-jobfeed-basic-des">
+                {jobs.description}
+              </div>
 
               <button
                 onClick={() => togglePopup(jobs.id)}
-                className="feed-button"
+                className="candidate-jobfeed-button-more"
               >
                 More
               </button>
@@ -54,15 +74,54 @@ const CandidateFeed = () => {
                   content={
                     <>
                       <div>
-                        <b>{newData.title}</b>
-                        <p>{newData.description}</p>
-                        <button
-                          onClick={() => {
-                            formPopup(jobs.id);
-                          }}
-                        >
-                          Apply
-                        </button>
+                        <div className="candidate-more-top">
+                          <img
+                            className="candidate-more-logo"
+                            src={CompanyLogo}
+                            alt="company-logo"
+                          />
+                          <div className="candidate-more-title">
+                            {newData.title}
+                          </div>
+                        </div>
+                        <div className="candidate-more-middle">
+                          <div className="candidate-more-companyname">
+                            {newData.companyName}
+                          </div>
+                          <div className="candidate-more-location">
+                            {newData.location}
+                          </div>
+                          <div className="candidate-more-experience">
+                            {newData.experience}
+                          </div>
+                        </div>
+                        <div className="candidate-more-desc">
+                          {newData.moredescription}
+                        </div>
+                        <div className="candidate-more-skills-tag">
+                          <div className="candidate-more-skills">
+                            {newData.Skills1}
+                          </div>
+                          <div className="candidate-more-skills">
+                            {newData.Skills2}
+                          </div>
+                          <div className="candidate-more-skills">
+                            {newData.Skills3}
+                          </div>
+                          <div className="candidate-more-skills">
+                            {newData.Skills4}
+                          </div>
+                        </div>
+                        <div className="candidate-more-btn-size">
+                          <button
+                            className="candidate-more-button"
+                            onClick={() => {
+                              formPopup(jobs.id);
+                            }}
+                          >
+                            Apply
+                          </button>
+                        </div>
                       </div>
                     </>
                   }
@@ -71,7 +130,7 @@ const CandidateFeed = () => {
               )}
 
               <button
-                className="feed-button"
+                className="candidate-jobfeed-button"
                 onClick={() => {
                   formPopup(jobs.id);
                 }}
@@ -83,38 +142,85 @@ const CandidateFeed = () => {
                   content={
                     <>
                       <div>
-                        <div className="form-header">Application Form</div>
-                        <div>{formData.title}</div>
-                        <div>{formData.description}</div>
-                        <div className="skills-header">
+                        <div className="candidate-form-header">
+                          Application Form
+                        </div>
+                        <div className="candidate-form-title">
+                          {formData.title}
+                        </div>
+                        <div className="candidate-form-desc">
+                          {formData.description}
+                        </div>
+                        <div className="candidate-skills-header">
                           Skills and Expertise
                         </div>
-                        <div>{formData.Skills}</div>
-                        <div className="cover-header">Cover Letter</div>
+                        <div className="candidate-more-skills-tag">
+                          <div className="candidate-form-skills">
+                            {formData.Skills1}
+                          </div>
+                          <div className="candidate-form-skills">
+                            {formData.Skills2}
+                          </div>
+                          <div className="candidate-form-skills">
+                            {formData.Skills3}
+                          </div>
+                          <div className="candidate-form-skills">
+                            {formData.Skills4}
+                          </div>
+                        </div>
+                        <div className="candidate-cover-header">
+                          Cover Letter
+                        </div>
                         <textarea
-                          className="text-box"
+                          className="candidate-text-box"
                           name="message"
                           onChange={handleChange}
                           value={message}
                         />
-                        <div>{formData.Question1}</div>
+                        <div className="candidate-form-question">
+                          {formData.Question1}
+                        </div>
                         <textarea
-                          className="question-box"
+                          className="candidate-form-question-box"
                           name="message"
                           onChange={handleChange}
                           value={message}
                         />
-                        <div>{formData.Question2}</div>
+                        <div className="candidate-form-question">
+                          {formData.Question2}
+                        </div>
                         <textarea
-                          className="question-box"
+                          className="candidate-form-question-box"
                           name="message"
                           onChange={handleChange}
                           value={message}
                         />
-                        <div>Attachments</div>
-                        <div>Upload</div>
-                        <Upload />
-                        <button className="form-btn">Apply</button>
+                        <div className="candidate-form-attachment-header">
+                          Attachments
+                        </div>
+                        {/* <input className="form-upload-btn" type="file" /> */}
+                        <div
+                          className="candidate-form-upload-imgdiv"
+                          onClick={(e) => {
+                            upload_img.current.click();
+                          }}
+                        >
+                          <img
+                            src={Upload}
+                            className="candidate-form-upload-img"
+                            alt="upload_img"
+                          />
+                        </div>
+                        <input
+                          className="candidate-form-upload-imginput"
+                          type="file"
+                          hidden
+                          // defaultValue={nameOfUser}
+                          ref={upload_img}
+                        />
+                        <div className="candidate-more-btn-size">
+                          <button className="candidate-form-btn">Submit</button>
+                        </div>
                       </div>
                     </>
                   }

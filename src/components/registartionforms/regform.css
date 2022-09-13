@@ -136,7 +136,7 @@ input.f-input:focus {
   display: grid;
   gap: 0.5rem;
   max-width: 80%;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   /* background-color: #2196f3; */
   padding: 25px 0;
 }
@@ -152,13 +152,18 @@ input.f-input:focus {
   cursor: pointer;
   color: #134e6f;
   border: 1px solid #134d6fa4;
+  height: 50px;
 
   /* text-align: center; */
 }
 .f-grid-item:hover {
   background-color: #2e5f7c2a;
 }
+span.f-option-name {
+  font-size: 1rem;
+}
 span.f-option-tag {
+  font-size: 1.2rem;
   white-space: nowrap;
   font-weight: 700;
   /* color: transparent; */
@@ -310,7 +315,11 @@ span.f-press-enter {
 }
 span.f-enter {
   opacity: 0.9;
-  font-weight: 500;
+  font-weight: 600;
+}
+span.f-ctrl-enter {
+  opacity: 0.9;
+  font-weight: 600;
 }
 @media (max-width: 768px) {
   .f-inside-section {

@@ -1,7 +1,7 @@
 export const Users = [
   {
     id: 1,
-    profilePicture: "./assets/person/1.jpeg",
+    profilePicture: "src/components/images/person/1.jpeg",
     username: "John Smith",
   },
 ];
@@ -16,7 +16,7 @@ export const Posts = [
 export const Experience = [
   {
     id: 1,
-    photo: "assets/logo.png",
+    photo: "./images/logo.png",
     companyname: "company1",
     duration: "1 year",
     location: "Random City",
@@ -25,7 +25,7 @@ export const Experience = [
   },
   {
     id: 2,
-    photo: "assets/logo.png",
+    photo: "./images/logo.png",
     companyname: "company2",
     duration: "1 year 6 Months",
     location: "Some Random City",
@@ -83,5 +83,28 @@ export const Skills = [
     photo: "assets/mongodb.svg",
     skills: "Mongo DB",
     edit: "assets/edit.svg",
+  },
+];
+
+export const UserNFTData = [
+  {
+    id: 1,
+    testname: "NFT for Test 1",
+  },
+  {
+    id: 2,
+    testname: "NFT for Test 2",
+  },
+  {
+    id: 3,
+    testname: "NFT for Test 3",
+  },
+  {
+    id: 4,
+    testname: "NFT for Test 4",
+  },
+  {
+    id: 5,
+    testname: "NFT for Test 5",
   },
 ];

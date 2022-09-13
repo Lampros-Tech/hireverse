@@ -88,11 +88,11 @@ export default function CandidateHeader() {
     <>
       <Popover className="relative bg-white">
         <div className=" px-4 sm:px-6">
-          <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+          <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <Link to="MyQuestion">
                 <span className="sr-only">Workflow</span>
-                <img className="h-12 w-auto sm:h-16" src={logo} alt="" />
+                <img className="h-12 w-auto sm:h-20" src={logo} alt="" />
               </Link>
             </div>
             <div className="grow"></div>
@@ -109,7 +109,7 @@ export default function CandidateHeader() {
               className="hidden space-x-10 md:flex items-center"
             >
               <Link
-                to="/creator/MyQuestion"
+                to="/creator/"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Feed
@@ -311,7 +311,7 @@ export default function CandidateHeader() {
                             >
                               <div className="ml-4">
                                 <p className="text-base font-medium text-gray-900">
-                                  View Question
+                                  View My Questions
                                 </p>
                               </div>
                             </Link>
@@ -398,7 +398,7 @@ export default function CandidateHeader() {
                 </button>
 
                 {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
+                <Menu as="div" className="relative ml-3 z-50">
                   <div>
                     <Menu.Button className="flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900">
                       <span className="sr-only">Open user menu</span>
@@ -553,7 +553,7 @@ export default function CandidateHeader() {
               <div className="space-y-6 py-6 px-5">
                 <div className="grid grid-cols-2 gap-y-4 gap-x-8">
                   <Link
-                    to="/#"
+                    to="/creator/"
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                   >
                     Feed

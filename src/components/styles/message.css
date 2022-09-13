@@ -184,7 +184,7 @@
 }
 
 .message__right .conversation {
-  height: calc(98vh - 90px);
+  height: calc(85vh - 90px);
   overflow: auto;
 }
 

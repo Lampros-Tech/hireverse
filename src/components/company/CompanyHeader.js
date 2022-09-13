@@ -22,7 +22,7 @@ const solutions = [
   {
     name: "Posted Jobs",
     description: "Speak directly to your customers in a more meaningful way.",
-    href: "#",
+    href: "jobpost",
     icon: ClipboardDocumentListIcon,
   },
   //   {
@@ -88,11 +88,11 @@ export default function CompanyHeader() {
     <>
       <Popover className="relative bg-white">
         <div className=" px-4 sm:px-6">
-          <div className="flex items-center justify-between border-b-2 border-gray-100 py-3 md:justify-start md:space-x-10">
+          <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <Link to="/">
                 <span className="sr-only">Workflow</span>
-                <img className="h-12 w-auto sm:h-16 " src={logo} alt="logo" />
+                <img className="h-12 w-auto sm:h-20 " src={logo} alt="logo" />
               </Link>
             </div>
             <div className="grow"></div>
@@ -138,13 +138,13 @@ export default function CompanyHeader() {
               className="hidden space-x-10 md:flex items-center"
             >
               <Link
-                to="/company"
+                to="/company/tests"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Feed
               </Link>
               <Link
-                to="/#"
+                to="/company"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Creators
@@ -251,7 +251,7 @@ export default function CompanyHeader() {
                 </button>
 
                 {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
+                <Menu as="div" className="relative ml-3 z-50">
                   <div>
                     <Menu.Button className="flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900">
                       <span className="sr-only">Open user menu</span>

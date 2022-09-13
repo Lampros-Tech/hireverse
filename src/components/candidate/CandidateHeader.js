@@ -88,11 +88,11 @@ export default function CandidateHeader() {
     <>
       <Popover className="relative bg-white">
         <div className=" px-4 sm:px-6">
-          <div className="flex items-center justify-between border-b-2 border-gray-100 py-3 md:justify-start md:space-x-10">
+          <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <Link to="/">
                 <span className="sr-only">Workflow</span>
-                <img className="h-12 w-auto sm:h-16" src={logo} alt="logo" />
+                <img className="h-12 w-auto sm:h-20" src={logo} alt="logo" />
               </Link>
             </div>
             {/* <div className="grow"></div> */}
@@ -267,7 +267,7 @@ export default function CandidateHeader() {
                 </button>
 
                 {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
+                <Menu as="div" className="relative ml-3 z-50">
                   <div>
                     <Menu.Button className="flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900">
                       <span className="sr-only">Open user menu</span>

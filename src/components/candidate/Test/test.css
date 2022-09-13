@@ -1,40 +1,54 @@
-.test-header {
+.candidate-test-header {
   text-align: center;
   font-size: xx-large;
   margin-bottom: 50px;
+  font-weight: bold;
+  font-family: "Montserrat";
 }
 
-.candidate-name {
+.candidate-test-name {
   text-align: center;
   font-size: x-large;
+  font-weight: bold;
   margin-bottom: 50px;
   margin-top: 50px;
 }
 
-.test-outer {
+.candidate-test-outer {
   border-radius: 10px;
   margin: 0 auto;
-  background-color: #189ad3;
+  background: #eff0ee;
+  box-shadow: 0px 0px 6px 5px #dddddd;
   height: 50%;
   width: auto;
   max-width: 60%;
   margin-bottom: 20px;
   text-align: center;
-  color: aliceblue;
+  font-family: "OpenSans";
 }
 
 .candidate-info {
-  column-count: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 3fr));
+  font-family: "OpenSans";
 }
 
-.test-info {
+.candidate-test-info {
   font-size: large;
 }
 
-.all-info {
-  margin-bottom: 20px;
+.candidate-all-info {
+  margin: 18px;
 }
 
-.result-info {
-  margin-bottom: 20px;
+.candidate-result-info {
+  margin: 18px;
+}
+
+.candidate-test-nft {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  margin: 0 auto;
 }

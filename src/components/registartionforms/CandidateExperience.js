@@ -1039,7 +1039,11 @@ function CandidateExperience() {
                       </svg>
                     </button>
                     <span className="f-press-enter">
-                      press <span className="f-enter">Enter ↵</span>
+                      press{" "}
+                      <span className="f-enter">
+                        <span className="f-ctrl-enter">Ctrl</span> +{" "}
+                        <span className="f-ctrl-enter">Enter</span> ↵
+                      </span>
                     </span>
                   </div>
                 </div>

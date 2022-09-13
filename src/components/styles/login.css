@@ -199,6 +199,7 @@ select.role-select::-ms-expand {
 .wrap-role {
   min-height: 70vh;
   min-width: 60vw;
+  max-width: 70vw;
   background: #eff0ee;
   border-radius: 30px;
   overflow: hidden;
@@ -217,7 +218,41 @@ select.role-select::-ms-expand {
 .role-guide {
   border-right: 2px solid #d3d3d3;
 }
+button.table-button {
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: block;
+  background-color: #eff0ee;
+  border: 1px solid #134e6f;
+  color: #134e6f;
+  margin: 10px auto;
+  width: 40%;
+  cursor: pointer;
+  padding: 1rem 1.2rem;
+  border-radius: 5px;
+}
+button.table-button:hover {
+  background-color: #134e6f;
+  border: 1px solid #134e6f;
+  color: #eff0ee;
+}
+.role-item {
+  margin: 20px 0;
+}
 
+h1.role-title-h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+h2.role-title-h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+p.role-p {
+  padding-right: 10px;
+}
 @media (max-width: 768px) {
   .wrap-email {
     align-items: center;

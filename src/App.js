@@ -31,7 +31,7 @@ import CandidateExperience from "./components/registartionforms/CandidateExperie
 import CreatorExperience from "./components/registartionforms/CreatorExperience";
 import CandidateTestResults from "./components/candidate/Test/CandidateTestResults";
 import CandidateTest from "./components/candidate/Test/CandidateTest";
-import Home from "./components/Profile/candidateprofile/Home";
+import Profile from "./components/Profile/Profile";
 import Jobpost from "./components/company/Jobpost";
 import AvailableTest from "./components/company/Availabletest";
 import InviteCandidate from "./components/company/Invitecandidate";
@@ -43,6 +43,7 @@ import CompanyMessage from "./components/company/CompanyMessages";
 import EditQuestion from "./components/creator/EditQuestion";
 import QuestionFeed from "./components/creator/questionFeed";
 import CreatorEducation from "./components/registartionforms/CreatorEducation";
+import CreatorSignRequest from "./components/CreatorSignRequest";
 
 function App() {
   // const client_ = createClient({
@@ -56,6 +57,7 @@ function App() {
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="signup/ev" element={<EmailVeficationPage />}></Route>
           <Route path="role" element={<RoleSelector />}></Route>
+          <Route path="role/creator" element={<CreatorSignRequest />}></Route>
 
           <Route path="companyregform" element={<CompanyRegForm />}></Route>
           <Route path="creatorregform" element={<CreatorRegForm />}></Route>
@@ -77,21 +79,24 @@ function App() {
             element={<CandidateExperience />}
           ></Route>
 
-          <Route path="creator" element={<CreatorHeader/>}>
-            <Route path="createrepo" element={<Createrepo/>}/>
-            <Route path="assesment" element={<CreateAssesment/>}/>
-            <Route path="question" element={<AddQuestion/>}/>
-            <Route path="MyQuestion" element={<Viewquestion/>}/>
-            <Route path="myrepo" element={<Myrepos/>}/>
-            <Route path="myassessment" element={<MyAssesments/>}/>
-            <Route path="editrepo" element={<Editrepo/>}/>
-            <Route path="editAssesment" element={<EditAssesment/>}/>
-            <Route path="message" element={<CreatorMessage />}/>
-            <Route path="questionFeed" element={<QuestionFeed/>}/>
+          <Route path="creator" element={<CreatorHeader />}>
+            <Route path="createrepo" element={<Createrepo />} />
+            <Route path="assesment" element={<CreateAssesment />} />
+            <Route path="question" element={<AddQuestion />} />
+            <Route path="MyQuestion" element={<Viewquestion />} />
+            <Route path="myrepo" element={<Myrepos />} />
+            <Route path="myassessment" element={<MyAssesments />} />
+            <Route path="editrepo" element={<Editrepo />} />
+            <Route path="editAssesment" element={<EditAssesment />} />
+            <Route path="message" element={<CreatorMessage />} />
+            <Route path="" element={<QuestionFeed />} />
           </Route>
 
           <Route path="company" element={<CompanyHeader />}>
-            <Route path="recruitment-details" element={<RecruitmentDetails />}/>
+            <Route
+              path="recruitment-details"
+              element={<RecruitmentDetails />}
+            />
             <Route path="tests" element={<TestsFeed />} />
             <Route path="" element={<CreatorsList />} />
             <Route path="testdescrption" element={<TestDescription />} />
@@ -110,7 +115,7 @@ function App() {
               path="candidate-test-results"
               element={<CandidateTestResults />}
             />
-            <Route path="candidate-profile" element={<Home />} />
+            <Route path="candidate-profile" element={<Profile />} />
             <Route path="testtakenpage" element={<TestTakenpage />} />
             <Route path="testInstruction" element={<TestInstructionpage />} />
             <Route path="message" element={<CandidateMessage />} />

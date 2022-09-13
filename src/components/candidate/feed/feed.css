@@ -1,50 +1,250 @@
-.feed-header {
+.candidate-jobfeed-header {
   text-align: center;
   font-size: xx-large;
+  font-weight: bold;
   margin-bottom: 50px;
+  font-family: "Montserrat";
 }
 
-.form-header {
-  text-align: center;
-  font-size: xx-large;
-  margin-bottom: 50px;
-}
-
-.feed-outer {
-  border-radius: 10px;
+.candidate-jobfeed-outer {
   margin: 0 auto;
-  background-color: #189ad3;
-  height: 50%;
+  border-radius: 10px;
+  background: #eff0ee;
+  box-shadow: 0px 0px 6px 5px #dddddd;
+  padding: 20px;
+  height: 30%;
   width: 50%;
   margin-bottom: 20px;
-  text-align: center;
-  color: aliceblue;
+  font-family: "OpenSans";
 }
 
-.feed-button {
+.candidate-jobfeed-top {
+  display: flex;
+}
+
+.candidate-jobfeed-logo {
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+}
+
+.candidate-jobfeed-title {
+  font-family: "Montserrat";
+  font-size: x-large;
+  font-weight: bold;
+  margin: auto 2.5%;
+  /* margin: 2.5%; */
+}
+
+.candidate-jobfeed-middle {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 2fr));
+  font-weight: 600;
+}
+
+.candidate-jobfeed-companyname {
+  font-size: larger;
   margin: 10px;
-  height: 25px;
-  width: 50px;
 }
 
-.text-box {
+.candidate-jobfeed-location {
+  font-size: larger;
+  margin: 10px;
+}
+
+.candidate-jobfeed-experience {
+  font-size: larger;
+  margin: 10px;
+}
+
+.candidate-jobfeed-basic-des {
+  margin: 10px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.candidate-jobfeed-button-more {
+  margin: 10px;
+  height: 40px;
+  width: 150px;
+  background-color: #134e6f;
+  border: none;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: larger;
+  box-shadow: 0px 0px 6px 5px #d3d3d3;
+}
+
+.candidate-more-top {
+  display: flex;
+}
+
+.candidate-more-logo {
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+}
+
+.candidate-more-title {
+  font-size: x-large;
+  font-weight: bold;
+  margin: 2.5%;
+}
+
+.candidate-more-middle {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 2fr));
+  font-weight: 600;
+}
+
+.candidate-more-companyname {
+  font-size: larger;
+  margin: 10px;
+}
+
+.candidate-more-location {
+  font-size: larger;
+  margin: 10px;
+}
+
+.candidate-more-experience {
+  font-size: larger;
+  margin: 10px;
+}
+
+.candidate-more-desc {
+  margin: 10px;
+}
+
+.candidate-more-skills-tag {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 2fr));
+}
+
+.candidate-more-skills {
+  font-size: large;
+  margin: 15px;
+  background-color: #1ac0c6;
+  color: #ffffff;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.candidate-more-btn-size {
+  width: 100%;
+  text-align: center;
+}
+
+.candidate-more-button {
+  margin: 10px;
+  height: 40px;
+  width: 150px;
+  background-color: #ff6150;
+  border: none;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: larger;
+  box-shadow: 0px 0px 6px 5px #d3d3d3;
+}
+
+.candidate-jobfeed-button {
+  margin: 10px;
+  height: 40px;
+  width: 150px;
+  background-color: #ff6150;
+  border: none;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: larger;
+  box-shadow: 0px 0px 6px 5px #d3d3d3;
+}
+
+.candidate-form-header {
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+  margin: 10px;
+  font-family: "Montserrat" !important;
+}
+
+.candidate-form-title {
+  font-size: larger;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.candidate-form-desc {
+  margin: 10px;
+}
+
+.candidate-skills-header {
+  font-size: larger;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.candidate-form-skills {
+  font-size: large;
+  margin: 10px;
+  background-color: #1ac0c6;
+  color: #ffffff;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.candidate-cover-header {
+  font-size: larger;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.candidate-text-box {
   height: 100px;
   width: 50%;
+  margin: 10px;
+  background-color: #eff0ee;
+  border-radius: 10px;
+  border: solid 2px #d3d3d3;
 }
 
-.question-box {
+.candidate-form-question {
+  font-size: larger;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.candidate-form-question-box {
   height: 30px;
   width: 50%;
+  margin: 10px;
+  background-color: #eff0ee;
+  border-radius: 10px;
+  border: solid 2px #d3d3d3;
 }
 
-.form-btn {
+.candidate-form-attachment-header {
+  font-size: larger;
+  font-weight: bold;
   margin: 10px;
-  height: 25px;
-  width: 60px;
 }
 
-.upload-btn {
+.candidate-form-upload-imgdiv {
   margin: 10px;
-  height: 25px;
-  width: 92px;
+}
+
+.candidate-form-upload-img {
+  height: 80px;
+  width: 80px;
+}
+
+.candidate-form-btn {
+  margin: 10px;
+  height: 40px;
+  width: 150px;
+  background-color: #ff6150;
+  border: none;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: larger;
+  box-shadow: 0px 0px 6px 5px #d3d3d3;
 }

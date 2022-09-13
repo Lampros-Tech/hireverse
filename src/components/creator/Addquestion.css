@@ -110,7 +110,7 @@
 .tox-notification--warning {
   display: none !important;
 }
-.img,
+/* .img,
 svg,
 video,
 canvas,
@@ -119,4 +119,4 @@ embed,
 object {
   display: none;
   vertical-align: middle;
-}
+} */

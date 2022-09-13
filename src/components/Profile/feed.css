@@ -1,0 +1,29 @@
+.profile-feed {
+  flex: 5.5;
+}
+
+.profile-feed-header {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+.profile-feedWrapper {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+
+.profile-skills-feedWrapper {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 2fr));
+}
+
+.profile-usernft-feedWrapper {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+}

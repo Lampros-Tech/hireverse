@@ -105,6 +105,13 @@ function CompanyRegForm() {
       handleClick(num);
     }
   };
+  const newTarget = (e, num) => {
+    if ((e.ctrlKey || e.metaKey) && (e.keyCode === 13 || e.keyCode === 10)) {
+      setTimeout(() => {
+        handleClick(num);
+      }, 200);
+    }
+  };
 
   useEffect(() => {
     inputRefOne.current.focus();
@@ -238,7 +245,7 @@ function CompanyRegForm() {
                     }
                     onKeyUp={(e) => {
                       e.preventDefault();
-                      target(e, 1);
+                      newTarget(e, 1);
                     }}
                     cols="30"
                     rows="5"
@@ -292,7 +299,11 @@ function CompanyRegForm() {
                       </svg>
                     </button>
                     <span className="f-press-enter">
-                      press <span className="f-enter">Enter ↵</span>
+                      press{" "}
+                      <span className="f-enter">
+                        <span className="f-ctrl-enter">Ctrl</span> +{" "}
+                        <span className="f-ctrl-enter">Enter</span> ↵
+                      </span>
                     </span>
                   </div>
                 </div>
@@ -655,7 +666,7 @@ function CompanyRegForm() {
                     }
                     onKeyUp={(e) => {
                       e.preventDefault();
-                      target(e, 5);
+                      newTarget(e, 5);
                     }}
                     cols="30"
                     rows="5"
@@ -710,7 +721,11 @@ function CompanyRegForm() {
                       </svg>
                     </button>
                     <span className="f-press-enter">
-                      press <span className="f-enter">Enter ↵</span>
+                      press{" "}
+                      <span className="f-enter">
+                        <span className="f-ctrl-enter">Ctrl</span> +{" "}
+                        <span className="f-ctrl-enter">Enter</span> ↵
+                      </span>
                     </span>
                   </div>
                 </div>

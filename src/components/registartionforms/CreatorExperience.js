@@ -103,6 +103,13 @@ function CreatorExperience() {
       handleClick(num);
     }
   };
+  const newTarget = (e, num) => {
+    if ((e.ctrlKey || e.metaKey) && (e.keyCode === 13 || e.keyCode === 10)) {
+      setTimeout(() => {
+        handleClick(num);
+      }, 200);
+    }
+  };
 
   useEffect(() => {
     inputRefOne.current.focus();
@@ -974,7 +981,7 @@ function CreatorExperience() {
                     }
                     onKeyUp={(e) => {
                       e.preventDefault();
-                      target(e, 7);
+                      newTarget(e, 7);
                     }}
                     cols="30"
                     rows="5"
@@ -1031,7 +1038,11 @@ function CreatorExperience() {
                       </svg>
                     </button>
                     <span className="f-press-enter">
-                      press <span className="f-enter">Enter ↵</span>
+                      press{" "}
+                      <span className="f-enter">
+                        <span className="f-ctrl-enter">Ctrl</span> +{" "}
+                        <span className="f-ctrl-enter">Enter</span> ↵
+                      </span>
                     </span>
                   </div>
                 </div>

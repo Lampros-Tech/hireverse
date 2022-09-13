@@ -88,6 +88,13 @@ function CandidateEducation() {
       handleClick(num);
     }
   };
+  const newTarget = (e, num) => {
+    if ((e.ctrlKey || e.metaKey) && (e.keyCode === 13 || e.keyCode === 10)) {
+      setTimeout(() => {
+        handleClick(num);
+      }, 200);
+    }
+  };
 
   useEffect(() => {
     inputRefOne.current.focus();
@@ -740,7 +747,7 @@ function CandidateEducation() {
                     }
                     onKeyUp={(e) => {
                       e.preventDefault();
-                      target(e, 6);
+                      newTarget(e, 6);
                     }}
                     cols="30"
                     rows="5"
@@ -797,7 +804,11 @@ function CandidateEducation() {
                       </svg>
                     </button>
                     <span className="f-press-enter">
-                      press <span className="f-enter">Enter ↵</span>
+                      press{" "}
+                      <span className="f-enter">
+                        <span className="f-ctrl-enter">Ctrl</span> +{" "}
+                        <span className="f-ctrl-enter">Enter</span> ↵
+                      </span>
                     </span>
                   </div>
                 </div>

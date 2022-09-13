@@ -27,6 +27,7 @@ body {
     "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: #eff0ee; */
 }
 h1 {
   font-family: "Montserrat";

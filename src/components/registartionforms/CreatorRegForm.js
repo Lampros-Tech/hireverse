@@ -86,6 +86,13 @@ function CreatorRegForm() {
       handleClick(num);
     }
   };
+  const newTarget = (e, num) => {
+    if ((e.ctrlKey || e.metaKey) && (e.keyCode === 13 || e.keyCode === 10)) {
+      setTimeout(() => {
+        handleClick(num);
+      }, 200);
+    }
+  };
 
   useEffect(() => {
     inputRefOne.current.focus();
@@ -219,7 +226,7 @@ function CreatorRegForm() {
                     }
                     onKeyUp={(e) => {
                       e.preventDefault();
-                      target(e, 1);
+                      newTarget(e, 1);
                     }}
                     cols="30"
                     rows="5"
@@ -272,7 +279,11 @@ function CreatorRegForm() {
                       </svg>
                     </button>
                     <span className="f-press-enter">
-                      press <span className="f-enter">Enter ↵</span>
+                      press{" "}
+                      <span className="f-enter">
+                        <span className="f-ctrl-enter">Ctrl</span> +{" "}
+                        <span className="f-ctrl-enter">Enter</span> ↵
+                      </span>
                     </span>
                   </div>
                 </div>
@@ -322,7 +333,7 @@ function CreatorRegForm() {
                       setAll({ ...showAll, address: e.target.value })
                     }
                     onKeyUp={(e) => {
-                      target(e, 2);
+                      newTarget(e, 2);
                     }}
                     cols="30"
                     rows="5"
@@ -375,7 +386,11 @@ function CreatorRegForm() {
                       </svg>
                     </button>
                     <span className="f-press-enter">
-                      press <span className="f-enter">Enter ↵</span>
+                      press{" "}
+                      <span className="f-enter">
+                        <span className="f-ctrl-enter">Ctrl</span> +{" "}
+                        <span className="f-ctrl-enter">Enter</span> ↵
+                      </span>
                     </span>
                   </div>
                 </div>
