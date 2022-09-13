@@ -22,8 +22,8 @@ load_dotenv()
 
 app = Flask(__name__)
 
-
 app.register_blueprint(candidate)
+app.register_blueprint(creator)
 app.register_blueprint(company)
 
 cors = CORS(app)
@@ -204,9 +204,11 @@ def verify():
         print(otp)
         try:
             if final_data['rows'][0][0] == str(otp):
-                fields = f"""varified=1"""
-
-                data = update_query(tablename, fields, condition)
+                fields ={
+                    "varified":1
+                }
+                
+                data = update_query(tablename, fields, condition,False)
                 return render_template("verified.html")
             else:
                 return render_template("not_verified.html")
@@ -330,14 +332,19 @@ def registration():
     try:
         walletAddress = request.json['walletAddress']
         role = getWalletRole(walletAddress)
-        if role[0]=='Candidate':
-            data = (request.json['loginId'],request.json['name'],request.json['bio'],request.json['profileImage'],request.json['coverImage'],walletAddress,request.json['address'],request.json['country'],request.json['contactNumber'])
+        if role[0] == 'Candidate':
+            data = (request.json['loginId'], request.json['name'], request.json['bio'], request.json['profileImage'],
+                    request.json['coverImage'], walletAddress, request.json['address'], request.json['country'], request.json['contactNumber'])
 
-        if role[0]=='Company':
-            data = (request.json['login_id'],request.json['name'],request.json['logo'],request.json['cover_image'],walletAddress,request.json['description'],request.json['company_url'],request.json['year_of_establishment'], request.json['number_of_employees'],request.json['address'],request.json['contry'],request.json['contect_number'])
-        
+        if role[0] == 'Company':
+            data = (request.json['login_id'], request.json['name'], request.json['logo'], request.json['cover_image'], walletAddress, request.json['description'], request.json['company_url'],
+                    request.json['year_of_establishment'], request.json['number_of_employees'], request.json['address'], request.json['contry'], request.json['contect_number'])
+
+        if role[0] == 'Creator':
+            data = (request.json['login_id'], request.json['wallet_address'], request.json['name'], request.json['bio'], request.json['profile_image'], request.json['cover_image'],
+                    request.json['address'], request.json['country'], request.json['contact_number'], request.json['question_table_name'], request.json['repo_table_name'], request.json['creators_table'])
+
         role_functions = {
-
             'Candidate': "candidate_registration",
             'Creator': "creator_registration",
             'Company': "company_registration"
