@@ -82,9 +82,37 @@ def addAchivement():
         return str(e),403
 
 
-# @candidate.route('/user/addSkill', methods=["POST"])
-# def addSkill():
-#     try:
+@candidate.route('/user/addSkill', methods=["POST"])
+def addSkill():
+    try:
+        user_skill_tablename = os.environ['user_skill_table']
+        fields = "(login_id,wallet_addres, skill_id)"
+        login_id = request.json['login_id']
+        wallet_address = request.json['wallet_address']
+        skill_names = request.json['skill_name']
+        skill_tablename = os.environ['skill_table']
+        skill_ids = request.json['skill_ids']
+        for skill in skill_names:
+            data = insert_query(skill_tablename,"(skill_name)",f"""('{skill}')""")    
+            condition = f"""skill_name='{skill}'"""
+            data = select_query("(skill_id)", skill_tablename, condition)
+            final_data = json.loads(data.decode('utf-8'))
+            if len(final_data['rows']) > 0:
+                skill_ids.append(final_data['rows'][0][0])
 
+        values = ''
+        for ids in skill_ids:
+            values +=  f"""({login_id},'{wallet_address}',{ids}),"""
+        data = insert_query(user_skill_tablename,fields,values[0:-1])    
+        response_body = {
+            "status":200,
+            "data":"User's Skill Addedd Successfully !"
+        },200    
+        return response_body
 
-#     except:    
+    except Exception as e:   
+        response_body = {
+            "status":401,
+            "data":str(e)
+        },401
+        return response_body
