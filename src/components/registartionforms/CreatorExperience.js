@@ -2,11 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "react-phone-input-2/lib/style.css";
-import "./landing.css";
+import "./regform.css";
+import logo from "../styles/logo.png";
+import correct_ar from "../assets/images/correct_arrow.svg";
+
 import { useRef } from "react";
 
 function CreatorExperience() {
   let navigate = useNavigate();
+
+  const [onsite, setOnsite] = useState(false);
+  const [remote, setRemote] = useState(false);
+  const [hybrid, setHybrid] = useState(false);
+  const [working, setWorking] = useState(false);
+  const [notWorking, setNotWorking] = useState(false);
 
   const refOne = useRef(null);
   const refTwo = useRef(null);
@@ -106,6 +115,8 @@ function CreatorExperience() {
   return (
     <>
       <section className="f-background">
+        <img className="f-logo-img" src={logo} alt="logo" />
+
         <section className="f-container">
           {/* *********************************************************** */}
           {/* 1st input field */}
@@ -217,20 +228,77 @@ function CreatorExperience() {
                   </p>
                   <span className="f-co">Choose one Option</span>
                   <div className="f-options-grid-main">
-                    <div class="f-grid-item">
+                    <div
+                      className={
+                        onsite ? "f-grid-item f-selected-grid" : "f-grid-item"
+                      }
+                      onClick={() => {
+                        setOnsite(true);
+                        setRemote(false);
+                        setHybrid(false);
+                      }}
+                    >
                       <span className="f-option-tag">A</span>
                       <span className="f-option-name">Onsite</span>
-                      <span>Y</span>
+                      <div className="correct-arrow">
+                        {onsite ? (
+                          <>
+                            <img
+                              className="correct-arrow"
+                              src={correct_ar}
+                              alt="correct arrow"
+                            />
+                          </>
+                        ) : null}
+                      </div>
                     </div>
-                    <div class="f-grid-item">
+                    <div
+                      className={
+                        remote ? "f-grid-item f-selected-grid" : "f-grid-item"
+                      }
+                      onClick={() => {
+                        setOnsite(false);
+                        setRemote(true);
+                        setHybrid(false);
+                      }}
+                    >
                       <span className="f-option-tag">B</span>
                       <span className="f-option-name">Remote</span>
-                      <span>Y</span>
+                      <div className="correct-arrow">
+                        {remote ? (
+                          <>
+                            <img
+                              className="correct-arrow"
+                              src={correct_ar}
+                              alt="correct arrow"
+                            />
+                          </>
+                        ) : null}
+                      </div>
                     </div>
-                    <div class="f-grid-item">
+                    <div
+                      className={
+                        hybrid ? "f-grid-item f-selected-grid" : "f-grid-item"
+                      }
+                      onClick={() => {
+                        setOnsite(false);
+                        setRemote(false);
+                        setHybrid(true);
+                      }}
+                    >
                       <span className="f-option-tag">C</span>
                       <span className="f-option-name">Hybrid</span>
-                      <span>Y</span>
+                      <div className="correct-arrow">
+                        {hybrid ? (
+                          <>
+                            <img
+                              className="correct-arrow"
+                              src={correct_ar}
+                              alt="correct arrow"
+                            />
+                          </>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
                   {/* <input
@@ -752,32 +820,55 @@ function CreatorExperience() {
                 </div>
                 <div className="f-form-div">
                   <p className="f-p">Current Status</p>
-
-                  {/* <input
-                    className="f-input"
-                    id="firstInput"
-                    type="text"
-                    required
-                    ref={inputRefSeven}
-                    placeholder="Type your answer here..."
-                    onChange={(e) => {
-                      setAll({ ...showAll, cstatus: e.target.value });
-                    }}
-                    onKeyUp={(e) => {
-                      target(e, 6);
-                    }}
-                  /> */}
                   <span className="f-co">Choose one Option</span>
                   <div className="f-options-grid-main">
-                    <div class="f-grid-item">
+                    <div
+                      className={
+                        working ? "f-grid-item f-selected-grid" : "f-grid-item"
+                      }
+                      onClick={() => {
+                        setWorking(true);
+                        setNotWorking(false);
+                      }}
+                    >
                       <span className="f-option-tag">A</span>
                       <span className="f-option-name">Working</span>
-                      <span>Y</span>
+                      <div className="correct-arrow">
+                        {working ? (
+                          <>
+                            <img
+                              className="correct-arrow"
+                              src={correct_ar}
+                              alt="correct arrow"
+                            />
+                          </>
+                        ) : null}
+                      </div>
                     </div>
-                    <div class="f-grid-item">
+                    <div
+                      className={
+                        notWorking
+                          ? "f-grid-item f-selected-grid"
+                          : "f-grid-item"
+                      }
+                      onClick={() => {
+                        setWorking(false);
+                        setNotWorking(true);
+                      }}
+                    >
                       <span className="f-option-tag">B</span>
                       <span className="f-option-name">Not Working</span>
-                      <span>Y</span>
+                      <div className="correct-arrow">
+                        {notWorking ? (
+                          <>
+                            <img
+                              className="correct-arrow"
+                              src={correct_ar}
+                              alt="correct arrow"
+                            />
+                          </>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
 
@@ -886,7 +977,7 @@ function CreatorExperience() {
                       target(e, 7);
                     }}
                     cols="30"
-                    rows="10"
+                    rows="5"
                   />
                   <div className="f-btn-flex">
                     <button
@@ -922,7 +1013,7 @@ function CreatorExperience() {
                       className="f-next-btn"
                       onClick={() => {
                         // handleClick(7);
-                        navigate("/creator");
+                        navigate("/creator/myquestion");
                       }}
                     >
                       <span>NEXT</span>

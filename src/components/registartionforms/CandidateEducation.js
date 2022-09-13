@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "react-phone-input-2/lib/style.css";
-import "./landing.css";
+import "./regform.css";
+import logo from "../styles/logo.png";
+
 import { useRef } from "react";
 
 function CandidateEducation() {
@@ -98,6 +100,7 @@ function CandidateEducation() {
   return (
     <>
       <section className="f-background">
+        <img className="f-logo-img" src={logo} alt="logo" />
         <section className="f-container">
           {/* *********************************************************** */}
           {/* 1st input field */}
@@ -740,7 +743,7 @@ function CandidateEducation() {
                       target(e, 6);
                     }}
                     cols="30"
-                    rows="10"
+                    rows="5"
                   />
                   <div className="f-btn-flex">
                     <button

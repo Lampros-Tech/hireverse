@@ -1,6 +1,6 @@
-import { WagmiConfig, createClient } from "wagmi";
-import { getDefaultProvider } from "ethers";
-import Profile from "./components/xmtp/xmtp";
+// import { WagmiConfig, createClient } from "wagmi";
+// import { getDefaultProvider } from "ethers";
+// import Profile from "./components/xmtp/xmtp";
 import Createrepo from "./components/creator/CreateRepo";
 import CreatorHeader from "./components/creator/CreatorHeader";
 import CreateAssesment from "./components/creator/CreateAssesment";
@@ -42,11 +42,13 @@ import CandidateMessage from "./components/candidate/CandidateMessages";
 import CompanyMessage from "./components/company/CompanyMessages";
 import EditQuestion from "./components/creator/EditQuestion";
 import QuestionFeed from "./components/creator/questionFeed";
+import CreatorEducation from "./components/registartionforms/CreatorEducation";
+
 function App() {
-  const client_ = createClient({
-    autoConnect: true,
-    provider: getDefaultProvider(),
-  });
+  // const client_ = createClient({
+  //   autoConnect: true,
+  //   provider: getDefaultProvider(),
+  // });
   return (
     <div className="App">
       <Router>
@@ -57,6 +59,10 @@ function App() {
 
           <Route path="companyregform" element={<CompanyRegForm />}></Route>
           <Route path="creatorregform" element={<CreatorRegForm />}></Route>
+          <Route
+            path="creatorregform/creator-education"
+            element={<CreatorEducation />}
+          ></Route>
           <Route
             path="creatorregform/creator-experience"
             element={<CreatorExperience />}
@@ -89,21 +95,25 @@ function App() {
             <Route path="tests" element={<TestsFeed />} />
             <Route path="" element={<CreatorsList />} />
             <Route path="testdescrption" element={<TestDescription />} />
-            <Route path="jobpost" element={<Jobpost/>}/>
-            <Route path="availabletests" element={<AvailableTest/>}/>
-            <Route path="invitecandidates" element={<InviteCandidate/>}/>
-            <Route path="jobapplicant" element={<JobApplicant/>}/>
-            <Route path="jobinsights" element={<Jobinsights/>}/>
-            <Route path="message" element={<CompanyMessage/>}/>
+            <Route path="jobpost" element={<Jobpost />} />
+            <Route path="availabletests" element={<AvailableTest />} />
+            <Route path="invitecandidates" element={<InviteCandidate />} />
+            <Route path="jobapplicant" element={<JobApplicant />} />
+            <Route path="jobinsights" element={<Jobinsights />} />
+            <Route path="message" element={<CompanyMessage />} />
           </Route>
+
           <Route path="candidate" element={<CandidateHeader />}>
             <Route path="" element={<CandidateFeed />} />
             <Route path="candidate-test" element={<CandidateTest />} />
-            <Route path="candidate-test-results" element={<CandidateTestResults />}/>
-            <Route path="candidate-profile" element={<Home/>}/>
+            <Route
+              path="candidate-test-results"
+              element={<CandidateTestResults />}
+            />
+            <Route path="candidate-profile" element={<Home />} />
             <Route path="testtakenpage" element={<TestTakenpage />} />
-            <Route path="testInstruction" element={<TestInstructionpage/>} />
-            <Route path="message" element={<CandidateMessage/>}/>
+            <Route path="testInstruction" element={<TestInstructionpage />} />
+            <Route path="message" element={<CandidateMessage />} />
           </Route>
         </Routes>
       </Router>

@@ -1,17 +1,19 @@
 import React from "react";
+
 import "./styles/login.css";
+import logo from "./styles/logo.png";
 import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 function RoleSelector() {
   let navigate = useNavigate();
 
-  const options = [
-    { label: "Select Option", value: " " },
-    { label: "Company", value: "company" },
-    { label: "Creator", value: "creator" },
-    { label: "Candidate", value: "candidate" },
-  ];
+  // const options = [
+  //   { label: "Select your role", value: "" },
+  //   { label: "Creator", value: "creator" },
+  //   { label: "Candidate", value: "candidate" },
+  //   { label: "Company", value: "company" },
+  // ];
 
   const [value, setValue] = React.useState("");
 
@@ -22,25 +24,36 @@ function RoleSelector() {
   return (
     <>
       <section className="login-main">
+        <img className="f-logo-img" src={logo} alt="logo" />
         <section className="login-inside">
           <section className="wrap-role">
             <div className="email-pic role-guide">
               Guidance About Roles
               {/* <img src={emailpic} alt="img" /> */}
             </div>
+
             <form action="" className="email-form">
-              <span className="email-form-title">
-                What represents you well?
-              </span>
+              <h1 className="email-form-title">What represents you well?</h1>
               <div className="wrap-input validate-input">
                 <select
                   className="role-select"
-                  value={value}
                   onChange={handleChange}
+                  value={value}
+                  required
                 >
-                  {options.map((option) => (
-                    <option value={option.value}>{option.label}</option>
-                  ))}
+                  <option value="" disabled hidden>
+                    Select your role
+                  </option>
+
+                  <option className="role-options" value="creator">
+                    Creator
+                  </option>
+                  <option className="role-options" value="candidate">
+                    Candidate
+                  </option>
+                  <option className="role-options" value="company">
+                    Company
+                  </option>
                 </select>
                 <span className="focus-input"></span>
               </div>
@@ -50,17 +63,15 @@ function RoleSelector() {
                   onClick={() => {
                     if (value === "company") {
                       navigate("/companyregform");
-                    }
-                    if (value === "creator") {
+                    } else if (value === "creator") {
                       navigate("/creatorregform");
-                    }
-
-                    if (value === "candidate") {
+                    } else if (value === "candidate") {
                       navigate("/candidateregform");
+                    } else {
                     }
                   }}
                 >
-                  Submit
+                  Next
                 </button>
               </div>
             </form>

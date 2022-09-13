@@ -6,6 +6,7 @@
   height: 100vh;
   width: 100vw;
   overflow: scroll;
+  overflow-x: hidden;
   z-index: -1;
 }
 
@@ -22,6 +23,14 @@
 /* .hidden {
   display: none;
 } */
+
+img.f-logo-img {
+  width: 10rem;
+  height: 5rem;
+  position: fixed;
+  top: 10px;
+  left: 20px;
+}
 .f-first {
   /* height: auto; */
   display: flex;
@@ -93,36 +102,46 @@ input.f-input {
   background: none;
   border: none;
   width: 100%;
-  color: rgb(83, 147, 102);
+  color: #134e6f;
 }
 input::placeholder {
-  color: rgb(83, 147, 102);
-  opacity: 0.5;
+  color: #134e6f;
+  opacity: 0.8;
 }
 input[type="number"] {
   overflow: hidden;
+}
+input[type="date"] {
+  border: 1px solid #134e6f;
+  border-radius: 5px;
+  padding: 5px;
+  width: 50%;
 }
 input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
   /* display: none; */
   /* background: red; */
   outline: #c85000;
+  cursor: pointer;
+
+  /* border: 1px solid #134e6f; */
 }
 
 input.f-input:focus {
   outline: none !important;
-  border-bottom: 2px solid rgb(83, 147, 102);
+  border-bottom: 2px solid #134e6f;
   /* background-color: yellowgreen; */
 }
 .f-options-grid-main {
   display: grid;
   gap: 0.5rem;
+  max-width: 80%;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   /* background-color: #2196f3; */
   padding: 25px 0;
 }
 .f-grid-item {
-  background-color: rgba(83, 147, 102, 0.1);
+  background-color: #2e5f7c0f;
   /* border: 1px solid rgba(0, 0, 0, 0.8); */
   border-radius: 4px;
   padding: 10px;
@@ -130,35 +149,78 @@ input.f-input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
+  color: #134e6f;
+  border: 1px solid #134d6fa4;
+
   /* text-align: center; */
+}
+.f-grid-item:hover {
+  background-color: #2e5f7c2a;
 }
 span.f-option-tag {
   white-space: nowrap;
   font-weight: 700;
   /* color: transparent; */
   padding: 0 10px;
+  background-color: transparent;
+  color: #134e6f;
+  border: 0.5px solid #134d6fa4;
+  border-radius: 5px;
   /* background-color: rgb(202, 204, 195); */
   /* background-color: rgb(83, 147, 102); */
+}
+.f-selected-grid {
+  border: 2px solid #134e6f;
+  animation: flash linear 0.5s 1 0.2s;
+}
+.correct-arrow {
+  width: 1rem;
+}
+
+.f-selected-grid .f-option-tag {
+  background-color: #134e6f;
+  border: 1px solid #134d6f7d;
+  color: #fff;
 }
 textarea.f-textarea {
   resize: none;
   font-size: 1.5rem;
   width: 100%;
+  padding: 5px;
   /* padding-top: 1rem;
   padding-bottom: 0.5rem; */
   background: none;
   border: none;
-  color: black;
-}
-textarea::placeholder {
-  color: rgb(83, 147, 102);
-  opacity: 1;
+  color: #134e6f;
+  border: 1px solid #134e6f;
+  border-radius: 5px;
 }
 
-textarea.f-textarea :focus {
+textarea::placeholder {
+  color: #134e6f;
+  opacity: 0.8;
+}
+
+textarea.f-textarea:focus {
   outline: none !important;
-  border-bottom: 2px solid rgb(83, 147, 102);
+  border-radius: 5px;
+  border: 2px solid #134e6f;
   /* background-color: yellowgreen; */
+}
+.react-tel-input .form-control {
+  height: 3rem;
+  background-color: transparent;
+  font-size: 1.3rem;
+  /* border-radius: 0%; */
+  border: 1px solid #134e6f;
+}
+.react-tel-input .flag-dropdown {
+  background-color: transparent;
+  border: none;
+}
+.react-tel-input .flag-dropdown:hover {
+  background-color: #134e6f;
 }
 .f-btn-flex {
   display: flex;
@@ -169,7 +231,7 @@ textarea.f-textarea :focus {
 button.f-next-btn {
   align-items: center;
   background-clip: padding-box;
-  background-color: #fa6400;
+  background-color: #ff6150;
   border: 1px solid transparent;
   border-radius: 0.25rem;
   box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
@@ -198,7 +260,7 @@ button.f-next-btn {
 }
 button.f-next-btn:hover,
 button.f-next-btn:focus {
-  background-color: #fb8332;
+  background-color: #ff6150;
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   opacity: 0.95;
 }
@@ -211,11 +273,34 @@ button.f-next-btn:focus {
 button.f-next-btn:hover {
   transform: translateY(-1px);
 }
-
+select.f-select {
+  appearance: none;
+  border: 1px solid #134e6f;
+  outline: 0;
+  width: 100%;
+  font-weight: 600;
+  padding: 0 1rem;
+  height: 2.5rem;
+  border-radius: 5px;
+  background: url("../assets/images/down_arrow.svg") no-repeat right 0.8em
+      center / 1em,
+    transparent;
+  cursor: pointer;
+  color: #134e6f;
+  /* -webkit-box-shadow: 3px 3px 10px 10px #ddd;
+  -moz-box-shadow: 3px 3px 10px 10px #ddd;
+  box-shadow: 3px 3px 10px 10px #ddd; */
+}
+select.f-select:focus {
+  outline: none;
+}
+select.f-select::-ms-expand {
+  display: none;
+}
 /* CSS */
 
 button.f-next-btn:active {
-  background-color: #c85000;
+  background-color: #ff6150;
   box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
   transform: translateY(0);
 }
@@ -262,5 +347,17 @@ span.f-enter {
   }
   textarea.f-textarea {
     font-size: 1rem;
+  }
+}
+
+@keyframes flash {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
   }
 }
