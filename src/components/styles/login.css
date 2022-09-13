@@ -170,14 +170,11 @@ button.email-verify-button:hover {
 }
 
 select.role-select {
-<<<<<<< HEAD
   border: 1px solid black;
-=======
   /* border: 1px solid black; */
   appearance: none;
   border: 0;
   outline: 0;
->>>>>>> 9cd7c30e5a938ebfd57612a4fa1745da535b8e0d
   width: 100%;
   font-weight: 600;
   padding: 0 1rem;

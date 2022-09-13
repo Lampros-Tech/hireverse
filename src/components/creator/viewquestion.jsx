@@ -1,23 +1,22 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from "react";
 // import EditQuestion from '../'
 // import Questions from './Data/Question'
 
-import "./viewquestion.scss"
-import EditQuestion from './EditQuestion';
-import $ from 'jquery'
-import 'jquery/dist/jquery.min.js'
-import 'datatables.net-dt/js/dataTables.dataTables'
-import 'datatables.net-dt/css/jquery.dataTables.min.css'
+import "./viewquestion.css";
+import EditQuestion from "./EditQuestion";
+import $ from "jquery";
+import "jquery/dist/jquery.min.js";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
 import { useNavigate } from "react-router-dom";
 import Backlogo from "./Images/back_logo";
-import axios from 'axios';
-import Cookies from 'universal-cookie';
+import axios from "axios";
+import Cookies from "universal-cookie";
 import env from "react-dotenv";
 import parse from "html-react-parser";
 import closebtn from "../creator/Images/closebtn.png";
-import Editimg from './Images/edit.png';
-import Delete from './Images/delete.png';
-
+import Editimg from "./Images/edit.png";
+import Delete from "./Images/delete.png";
 
 function Viewquestion() {
   // console.log(Questions)
@@ -39,25 +38,31 @@ function Viewquestion() {
   // }, []);
 
   function Editquestion() {
-    console.log("hello")
+    console.log("hello");
     setEdit(true);
   }
 
   const getAllQuestions = () => {
-    axios.get(`${env.API_URI}/show_questions`, { headers: { token: cookie.get("AdminToken") } })
+    axios
+      .get(`${env.API_URI}/show_questions`, {
+        headers: { token: cookie.get("AdminToken") },
+      })
       .then((res) => {
         console.log(res.data.data);
         setQuestions(res.data.data);
-      })
-  }
+      });
+  };
 
   const deleteQuestion = (index, category) => {
     console.log(index, category);
     const data = {
       id: index,
-      category: category
-    }
-    axios.post(`${env.API_URI}/delete_question_by_id`, data, { headers: { token: cookie.get("AdminToken") } })
+      category: category,
+    };
+    axios
+      .post(`${env.API_URI}/delete_question_by_id`, data, {
+        headers: { token: cookie.get("AdminToken") },
+      })
       .then((res) => {
         // console.log(res);
         showDeleteAlert(false);
@@ -65,8 +70,8 @@ function Viewquestion() {
       })
       .catch((err) => {
         console.log(err);
-      })
-  }
+      });
+  };
 
   function closeEdit() {
     setEdit(false);
@@ -75,90 +80,96 @@ function Viewquestion() {
     // navigate("/landing")
   }
   useEffect(() => {
-    console.log(showEdit)
-  }, [showEdit])
+    console.log(showEdit);
+  }, [showEdit]);
 
   useEffect(() => {
     $(document).ready(function () {
-      $('#table_id').DataTable({
-        columnDefs: [{
-          orderable: false,
-          className: 'select-checkbox',
-          targets: 0,
-        }],
+      $("#table_id").DataTable({
+        columnDefs: [
+          {
+            orderable: false,
+            className: "select-checkbox",
+            targets: 0,
+          },
+        ],
         select: {
-          style: 'os',
-          selector: 'td:first-child',
+          style: "os",
+          selector: "td:first-child",
         },
-        order: [[1, 'asc']],
+        order: [[1, "asc"]],
         retrieve: true,
         // lengthMenu: [[25, 35, 50, -1], [25, 35, 50, "All"]]
-      })
-    })
-  }, [questions])
+      });
+    });
+  }, [questions]);
 
-    return (
-      <>
-        <div className='Content '>
-          <div className='title text-center font-primary font-bold my-8'>
-              View Question
-          </div>
-          <div className='Questions'>
-            <div className='card-background uplift h-52 p-2 px-8 rounded-md'>
-              <div className='Tittle font-primary'>
-                  Question 1
-              </div>
-              <div className='font-secondary description'>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime quaerat vero a voluptatibus ratione quidem quo dignissimos dolor libero vitae iusto odit facilis.
-              </div>
-              <div className='text-center w-full'>
-                <button className='Edit-Question p-3 rounded-md ' onClick={() => { Editquestion() }} >
-                    Edit Question
-                </button>
-              </div>
-              
+  return (
+    <>
+      <div className="Content ">
+        <div className="title text-center font-primary font-bold my-8">
+          View Question
+        </div>
+        <div className="Questions">
+          <div className="card-background uplift h-52 p-2 px-8 rounded-md">
+            <div className="Tittle font-primary">Question 1</div>
+            <div className="font-secondary description">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime
+              quaerat vero a voluptatibus ratione quidem quo dignissimos dolor
+              libero vitae iusto odit facilis.
             </div>
-          </div>
-
-
-
-
-          <div className='Questions my-10'>
-            <div className='card-background uplift h-52 p-2 px-8 rounded-md'>
-              <div className='Tittle font-primary'>
-                  Question 1
-              </div>
-              <div className='font-secondary overflow-x-auto description'>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime quaerat vero a voluptatibus ratione quidem quo dignissimos dolor libero vitae iusto odit facilis.
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime quaerat vero a voluptatibus ratione quidem quo dignissimos dolor libero vitae iusto odit facilis.
-
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime quaerat vero a voluptatibus ratione quidem quo dignissimos dolor libero vitae iusto odit facilis.
-
-              </div>
-
-              <div className='text-center w-full'>
-                <button className='Edit-Question p-3 rounded-md ' onClick={() => { Editquestion() }} >
-                    Edit Question
-                </button>
-              </div>
-              
+            <div className="text-center w-full">
+              <button
+                className="Edit-Question p-3 rounded-md "
+                onClick={() => {
+                  Editquestion();
+                }}
+              >
+                Edit Question
+              </button>
             </div>
           </div>
         </div>
-        
-        {
-          showEdit
-          ?
-          <div className='editquestion'>
-            <EditQuestion/>
+
+        <div className="Questions my-10">
+          <div className="card-background uplift h-52 p-2 px-8 rounded-md">
+            <div className="Tittle font-primary">Question 1</div>
+            <div className="font-secondary overflow-x-auto description">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime
+              quaerat vero a voluptatibus ratione quidem quo dignissimos dolor
+              libero vitae iusto odit facilis. Lorem, ipsum dolor sit amet
+              consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam
+              laudantium odio neque, maxime quaerat vero a voluptatibus ratione
+              quidem quo dignissimos dolor libero vitae iusto odit facilis.
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime
+              quaerat vero a voluptatibus ratione quidem quo dignissimos dolor
+              libero vitae iusto odit facilis.
+            </div>
+
+            <div className="text-center w-full">
+              <button
+                className="Edit-Question p-3 rounded-md "
+                onClick={() => {
+                  Editquestion();
+                }}
+              >
+                Edit Question
+              </button>
+            </div>
           </div>
-          :
-          null
-        }
-      </>
-    )
+        </div>
+      </div>
 
-  } 
+      {showEdit ? (
+        <div className="editquestion">
+          <EditQuestion />
+        </div>
+      ) : null}
+    </>
+  );
+}
 
-
-export default Viewquestion
+export default Viewquestion;

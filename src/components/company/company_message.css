@@ -1,14 +1,8 @@
 .message__main {
-<<<<<<< HEAD
-    display: inline-flex;
-    min-height:calc(100px - 100vh) ;
-    width: 100%;
-    position: inherit;
-=======
   display: inline-flex;
+  min-height: calc(100px - 100vh);
   width: 100%;
   position: inherit;
->>>>>>> 9cd7c30e5a938ebfd57612a4fa1745da535b8e0d
 }
 
 .message__left {
