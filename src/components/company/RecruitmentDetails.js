@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../company/styles/recruitdetails.css";
+// import "../company/styles/recruitdetails.css";
 import Select from "react-select";
 import plus from "../company/styles/plus.svg";
 

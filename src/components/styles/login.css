@@ -66,9 +66,14 @@ img.signup_image {
   text-align: center;
   width: 100%;
   display: block;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
 }
-
+h2.email-wallet-name {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
 .validate-input {
   position: relative;
 }

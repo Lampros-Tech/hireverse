@@ -1,5 +1,5 @@
 import React from "react";
-import "./popup.css";
+import "./candidatepopup.css";
 
 const popup = (props) => {
   return (

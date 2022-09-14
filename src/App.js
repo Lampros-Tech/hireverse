@@ -44,84 +44,138 @@ import EditQuestion from "./components/creator/EditQuestion";
 import QuestionFeed from "./components/creator/questionFeed";
 import CreatorEducation from "./components/registartionforms/CreatorEducation";
 import CreatorSignRequest from "./components/CreatorSignRequest";
+import {
+  WagmiConfig,
+  createClient,
+  defaultChains,
+  configureChains,
+} from "wagmi";
+
+import { alchemyProvider } from "wagmi/providers/alchemy";
+import { publicProvider } from "wagmi/providers/public";
+
+// import { getDefaultProvider } from "ethers";
+// import Profile from "./xmtp/xmtp";
+import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
+// import { InjectedConnector } from "wagmi/connectors/injected";
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+
+import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 
 function App() {
+  const { chains, provider, webSocketProvider } = configureChains(
+    defaultChains,
+    [alchemyProvider({ apiKey: "yourAlchemyApiKey" }), publicProvider()]
+  );
+
+  const client = createClient({
+    autoConnect: true,
+    connectors: [
+      new MetaMaskConnector({ chains }),
+      new CoinbaseWalletConnector({
+        chains,
+        options: {
+          appName: "wagmi",
+        },
+      }),
+      new WalletConnectConnector({
+        chains,
+        options: {
+          qrcode: true,
+        },
+      }),
+      // new InjectedConnector({
+      //   chains,
+      //   options: {
+      //     name: "Injected",
+      //     shimDisconnect: true,
+      //   },
+      // }),
+    ],
+    provider,
+    webSocketProvider,
+  });
   // const client_ = createClient({
   //   autoConnect: true,
   //   provider: getDefaultProvider(),
   // });
   return (
     <div className="App">
-      <Router>
-        <Routes>
-          <Route path="/" element={<LandingPage />}></Route>
-          <Route path="signup/ev" element={<EmailVeficationPage />}></Route>
-          <Route path="role" element={<RoleSelector />}></Route>
-          <Route path="role/creator" element={<CreatorSignRequest />}></Route>
+      <WagmiConfig client={client}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<LandingPage />}></Route>
+            <Route path="signup/ev" element={<EmailVeficationPage />}></Route>
+            <Route path="role" element={<RoleSelector />}></Route>
+            <Route path="role/creator" element={<CreatorSignRequest />}></Route>
 
-          <Route path="companyregform" element={<CompanyRegForm />}></Route>
-          <Route path="creatorregform" element={<CreatorRegForm />}></Route>
-          <Route
-            path="creatorregform/creator-education"
-            element={<CreatorEducation />}
-          ></Route>
-          <Route
-            path="creatorregform/creator-experience"
-            element={<CreatorExperience />}
-          ></Route>
-          <Route path="candidateregform" element={<CandidateRegForm />}></Route>
-          <Route
-            path="candidateregform/candidate-education"
-            element={<CandidateEducation />}
-          ></Route>
-          <Route
-            path="candidateregform/candidate-experience"
-            element={<CandidateExperience />}
-          ></Route>
-
-          <Route path="creator" element={<CreatorHeader />}>
-            <Route path="createrepo" element={<Createrepo />} />
-            <Route path="assesment" element={<CreateAssesment />} />
-            <Route path="question" element={<AddQuestion />} />
-            <Route path="MyQuestion" element={<Viewquestion />} />
-            <Route path="myrepo" element={<Myrepos />} />
-            <Route path="myassessment" element={<MyAssesments />} />
-            <Route path="editrepo" element={<Editrepo />} />
-            <Route path="editAssesment" element={<EditAssesment />} />
-            <Route path="message" element={<CreatorMessage />} />
-            <Route path="" element={<QuestionFeed />} />
-          </Route>
-
-          <Route path="company" element={<CompanyHeader />}>
+            <Route path="companyregform" element={<CompanyRegForm />}></Route>
+            <Route path="creatorregform" element={<CreatorRegForm />}></Route>
             <Route
-              path="recruitment-details"
-              element={<RecruitmentDetails />}
-            />
-            <Route path="" element={<TestsFeed />} />
-            <Route path="creators" element={<CreatorsList />} />
-            <Route path="testdescrption" element={<TestDescription />} />
-            <Route path="jobpost" element={<Jobpost />} />
-            <Route path="availabletests" element={<AvailableTest />} />
-            <Route path="invitecandidates" element={<InviteCandidate />} />
-            <Route path="jobapplicant" element={<JobApplicant />} />
-            <Route path="jobinsights" element={<Jobinsights />} />
-            <Route path="message" element={<CompanyMessage />} />
-          </Route>
-
-          <Route path="candidate" element={<CandidateHeader />}>
-            <Route path="" element={<CandidateFeed />} />
-            <Route path="candidate-test" element={<CandidateTest />} />
+              path="creatorregform/creator-education"
+              element={<CreatorEducation />}
+            ></Route>
             <Route
-              path="candidate-test-results"
-              element={<CandidateTestResults />}
-            />
-            <Route path="candidate-profile" element={<Profile />} />
-            <Route path="testtakenpage" element={<TestTakenpage />} />
-            <Route path="testInstruction" element={<TestInstructionpage />} />
-            <Route path="message" element={<CandidateMessage />} />
-          </Route>
-        </Routes>
-      </Router>
+              path="creatorregform/creator-experience"
+              element={<CreatorExperience />}
+            ></Route>
+            <Route
+              path="candidateregform"
+              element={<CandidateRegForm />}
+            ></Route>
+            <Route
+              path="candidateregform/candidate-education"
+              element={<CandidateEducation />}
+            ></Route>
+            <Route
+              path="candidateregform/candidate-experience"
+              element={<CandidateExperience />}
+            ></Route>
+
+            <Route path="creator" element={<CreatorHeader />}>
+              <Route path="createrepo" element={<Createrepo />} />
+              <Route path="assesment" element={<CreateAssesment />} />
+              <Route path="question" element={<AddQuestion />} />
+              <Route path="MyQuestion" element={<Viewquestion />} />
+              <Route path="myrepo" element={<Myrepos />} />
+              <Route path="myassessment" element={<MyAssesments />} />
+              <Route path="editrepo" element={<Editrepo />} />
+              <Route path="editAssesment" element={<EditAssesment />} />
+              <Route path="message" element={<CreatorMessage />} />
+              <Route path="" element={<QuestionFeed />} />
+            </Route>
+
+            <Route path="company" element={<CompanyHeader />}>
+              <Route
+                path="recruitment-details"
+                element={<RecruitmentDetails />}
+              />
+              <Route path="" element={<TestsFeed />} />
+              <Route path="creators" element={<CreatorsList />} />
+              <Route path="testdescrption" element={<TestDescription />} />
+              <Route path="jobpost" element={<Jobpost />} />
+              <Route path="availabletests" element={<AvailableTest />} />
+              <Route path="invitecandidates" element={<InviteCandidate />} />
+              <Route path="jobapplicant" element={<JobApplicant />} />
+              <Route path="jobinsights" element={<Jobinsights />} />
+              <Route path="message" element={<CompanyMessage />} />
+            </Route>
+
+            <Route path="candidate" element={<CandidateHeader />}>
+              <Route path="" element={<CandidateFeed />} />
+              <Route path="candidate-test" element={<CandidateTest />} />
+              <Route
+                path="candidate-test-results"
+                element={<CandidateTestResults />}
+              />
+              <Route path="candidate-profile" element={<Profile />} />
+              <Route path="testtakenpage" element={<TestTakenpage />} />
+              <Route path="testInstruction" element={<TestInstructionpage />} />
+              <Route path="message" element={<CandidateMessage />} />
+            </Route>
+          </Routes>
+        </Router>
+      </WagmiConfig>
     </div>
   );
 }

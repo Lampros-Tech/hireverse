@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./styles/login.css";
+
+import { useAccount } from "wagmi";
 
 import { useNavigate } from "react-router-dom";
 import logo from "./assets/images/logo.png";
@@ -10,10 +13,45 @@ import su_image from "./assets/images/signup_image_2.svg";
 // import { Link } from "react-router-dom";
 
 function EmailVeficationPage() {
+  const { address, isConnected } = useAccount();
+  console.log(isConnected);
+  console.log(address);
+
   let navigate = useNavigate();
 
   // let navigate = useNavigate();
-  const [credentials, setCredentials] = useState({ email: "", username: "" });
+  const [credentials, setCredentials] = useState({
+    email: "",
+    username: "",
+    walletAddress: address,
+  });
+
+  // post request for email & username
+  const sendEU = (username, email, walletaddress) => {
+    console.log(walletaddress);
+    var data = JSON.stringify({
+      username: username,
+      email: email,
+      walletAddress: walletaddress,
+    });
+
+    var config = {
+      method: "post",
+      url: "http://192.168.1.32:5000/signup",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     console.log(credentials);
@@ -31,16 +69,14 @@ function EmailVeficationPage() {
                 src={su_image}
                 alt="signup_illustration"
               />
-
-              {/* <div id="container">
-                <div className="ev-box">
-                  <div className="image"></div>
-                  <div className="shadow"></div>
-                </div>
-              </div> */}
-              {/* <img className="" src={emailpic} alt="img" /> */}
             </div>
-            <form action="" className="email-form">
+            <div className="email-form">
+              <h2 className="email-wallet-name">
+                Welcome{" "}
+                {address.substring(0, 6) +
+                  "..." +
+                  address.substring(address.length - 6, address.length)}
+              </h2>
               <h1 className="email-form-title">Sign Up</h1>
               <div className="wrap-input validate-input">
                 <input
@@ -52,6 +88,7 @@ function EmailVeficationPage() {
                     setCredentials({
                       email: event.target.value,
                       username: credentials.username,
+                      walletAddress: credentials.walletAddress,
                     })
                   }
                 />
@@ -64,11 +101,10 @@ function EmailVeficationPage() {
                     setCredentials({
                       email: credentials.email,
                       username: event.target.value,
+                      walletAddress: credentials.walletAddress,
                     })
                   }
                 />
-
-                {/* <span className="symbol-input"></span> */}
               </div>
 
               <div className="btn-container">
@@ -79,12 +115,19 @@ function EmailVeficationPage() {
                       credentials.email
                     )
                   }
-                  onClick={() => navigate("/role")}
+                  onClick={() =>
+                    sendEU(
+                      credentials.username,
+                      credentials.email,
+                      credentials.walletAddress
+                    )
+                  }
                 >
+                  {/* navigate("/role") */}
                   Next
                 </button>
               </div>
-            </form>
+            </div>
           </section>
         </section>
       </section>

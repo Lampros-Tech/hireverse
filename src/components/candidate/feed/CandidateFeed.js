@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import data from "../data";
-import Popup from "../popup/popup";
+import CandidatePopup from "../popup/CandidatePopup";
 // import Upload from "./upload";
 import CompanyLogo from "../../assets/images/profile.png";
 import Upload from "../../assets/images/uploadimg.svg";
@@ -70,7 +70,7 @@ const CandidateFeed = () => {
                 More
               </button>
               {isOpen && (
-                <Popup
+                <CandidatePopup
                   content={
                     <>
                       <div>
@@ -138,7 +138,7 @@ const CandidateFeed = () => {
                 Apply
               </button>
               {isForm && (
-                <Popup
+                <CandidatePopup
                   content={
                     <>
                       <div>
