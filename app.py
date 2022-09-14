@@ -32,10 +32,6 @@ app.config["Access-Control-Allow-Headers"] = "Content-Type"
 app.config['DEBUG'] = os.getenv('DEBUG')
 
 app.config["JWT_HEADER_NAME"] = "X-Forwarded-Authorization"
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-os.environ["TBL_PRIVATE_KEY"] = "b2f174428045bfece6d2d830f4b3f48a902b4f8800c7ff10a056cd6c80d3fb71"
-os.environ["TBL_CHAIN"] = "polygon-mumbai"
-os.environ['TBL_ALCHEMY'] = "ALbcNieoFrIRYYNDrcr4dAASXUCZbm-i"
 
 smtp = smtplib.SMTP('smtp.gmail.com', 587)
 
@@ -55,15 +51,15 @@ def send_verification_mail(client_mail):
 
         # Generate OTP
         otp = random.randint(1000, 9999)
-        hostname = os.environ['APP_URL'] + "/verify?otp=" + \
+        hostname = os.environ.get('APP_URL') + "/verify?otp=" + \
             str(otp) + "&" + "email=" + client_mail
         # Invoking smtp to send mail
         smtp.starttls()
-        smtp.login(os.environ['APP_MAIL'], os.environ['APP_PASSWORD'])
+        smtp.login(os.environ.get('APP_MAIL'), os.environ.get('APP_PASSWORD'))
 
         msg = MIMEMultipart('alternative')
         msg['Subject'] = "Dehitas email verification."
-        msg['From'] = os.environ['APP_MAIL']
+        msg['From'] = os.environ.get('APP_MAIL')
         msg['To'] = client_mail
 
         html = f"""
@@ -77,7 +73,7 @@ def send_verification_mail(client_mail):
 
         msg.attach(part1)
 
-        smtp.sendmail(os.environ['APP_MAIL'], client_mail, msg.as_string())
+        smtp.sendmail(os.environ.get('APP_MAIL'), client_mail, msg.as_string())
         smtp.close()
         return otp
 
@@ -99,7 +95,7 @@ def check_username():
 
     # Checking if the User Already Exists or Not
     fields = '*'
-    tablename = os.environ['login_table']
+    tablename = os.environ.get('login_table')
     condition = "username='" + username + "'"
     # Select Query
     data = select_query(fields, tablename, condition)
@@ -128,7 +124,7 @@ def check_email():
 
     # Checking if the User Already Exists or Not
     fields = '*'
-    tablename = os.environ['login_table']
+    tablename = os.environ.get('login_table')
     condition = "email='" + email + "'"
     # Select Query
     data = select_query(fields, tablename, condition)
@@ -157,7 +153,7 @@ def signup():
 
     # Checking if the User Already Exists or Not
     fields = '*'
-    tablename = os.environ['login_table']
+    tablename = os.environ.get('login_table')
     condition = tablename + "." + "username='" + username + "' OR " + tablename + "." + \
         "email='" + email + "' OR " + tablename + "." + \
         "walletAddress='" + walletAddress + "'"
@@ -196,7 +192,7 @@ def verify():
         otp = request.args['otp']
         email = request.args['email']
         fields = '(otp)'
-        tablename = os.environ['login_table']
+        tablename = os.environ.get('login_table')
         condition = f"""email='{email}'"""
         data = select_query(fields, tablename, condition)
         final_data = json.loads(data.decode('utf-8'))
@@ -228,7 +224,7 @@ def insertRole():
     walletAddress = request.json['walletAddress']
     role = request.json['role']
     fields = '*'
-    tablename = os.environ['login_table']
+    tablename = os.environ.get('login_table')
 
     # Checking If the Address is Exists Or Not
     condition = f"""walletAddress='{walletAddress}'"""
@@ -272,7 +268,7 @@ def insertRole():
 
 def getWalletRole(walletAddress):
     fields = '(role)'
-    tablename = os.environ['login_table']
+    tablename = os.environ.get('login_table')
     condition = f"""walletaddress='{walletAddress}'"""
     data = select_query(fields, tablename, condition)
     final_data = json.loads(data.decode('utf-8'))
@@ -307,7 +303,7 @@ def getRole():
 def getLoginId():
     walletAddress = request.json['walletAddress']
     fields = '(loginid)'
-    tablename = os.environ['login_table']
+    tablename = os.environ.get('login_table')
     condition = f"""walletAddress='{walletAddress}'"""
     data = select_query(fields, tablename, condition)
     final_data = json.loads(data.decode('utf-8'))

@@ -18,14 +18,14 @@ company = Blueprint('company', __name__)
 def company_registration(company_data):
     try:
         fields = '*'
-        tablename = os.environ['company_table']
+        tablename = os.environ.get('company_table')
         # Checking If the Address is Exists Or Not
         condition = f"""wallet_address='{company_data[5]}'"""
         data = select_query(fields, tablename, condition)
         final_data = json.loads(data.decode('utf-8'))
         print(final_data)
         if (len(final_data['rows']) == 0):
-            tablename = os.environ['company_table']
+            tablename = os.environ.get('company_table')
             fields = "(login_id,name,logo,cover_image,wallet_address,description,company_url,year_of_establishment,number_of_employees,address,contry,contect_number,created_at,modified_at)"
             values = company_data + (int(datetime.datetime.now().timestamp()),
                                      int(datetime.datetime.now().timestamp()))
@@ -49,7 +49,7 @@ def update():
         update_values = request.json['data']
         # print(update_values)
         walletAddress = request.json['walletAddress']
-        tablename = os.environ['company_table']
+        tablename = os.environ.get('company_table')
         condition = f"""wallet_address='{walletAddress}'"""
         data = update_query(tablename, update_values, condition, True)
         # print(walletAddress)
@@ -68,7 +68,7 @@ def add_sector():
     try:
         name = request.json['name']
         fields = "*"
-        tablename = os.environ['sector']
+        tablename = os.environ.get('sector')
         condition = f""" sector_name='{name}'"""
         check = select_query(fields, tablename, condition)
         final_data = json.loads(check.decode('utf-8'))
@@ -98,11 +98,11 @@ def add_sector():
 @company.route('/company/addCreatorSectors', methods=['POST'])
 def addCreatorSector():
     try:
-        company_sectors = os.environ['company_sectors']
+        company_sectors = os.environ.get('company_sectors')
         fields = "(company_id, sector_id)"
         company_id = request.json['company_id']
         sector_names = request.json['sector_name']
-        sector_table = os.environ['sector']
+        sector_table = os.environ.get('sector')
         sector_ids = request.json['sector_ids']
         for sector in sector_names:
             data = insert_query(sector_table,"(sector_name)",f"""('{sector}')""")    
