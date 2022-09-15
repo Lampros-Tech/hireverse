@@ -6,7 +6,9 @@
   top: 0;
   left: 0;
 }
-
+.invite-success-popup {
+  padding-left: 30%;
+}
 .box {
   position: relative;
   width: 20%;
@@ -19,7 +21,7 @@
   padding: 20px;
   color: white;
   border: 1px solid #999;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .close-icon {

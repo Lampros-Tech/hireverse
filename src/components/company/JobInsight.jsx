@@ -1,10 +1,8 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import "../company/styles/jobinsights.css";
 import avtar from "../company/styles/companyprofile.png";
 
 function Jobinsights() {
-  const datePickerRef = useRef();
-
   return (
     <>
       <div className="jobinsights-title">
@@ -257,7 +255,7 @@ function Jobinsights() {
               <input
                 type="date"
                 placeholder="date"
-                className="jobinsight-select-date-input"
+                className="jobinsight-select-date-input-btn"
               />
             </div>
 

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+// import env from "react-dotenv";
 import "./styles/login.css";
 
 import { useAccount } from "wagmi";
@@ -20,6 +22,8 @@ function EmailVeficationPage() {
   let navigate = useNavigate();
 
   // let navigate = useNavigate();
+
+  const [btnloading, setbtnLoading] = useState(false);
   const [credentials, setCredentials] = useState({
     email: "",
     username: "",
@@ -28,34 +32,41 @@ function EmailVeficationPage() {
 
   // post request for email & username
   const sendEU = (username, email, walletaddress) => {
-    console.log(walletaddress);
+    // console.log(walletaddress);
     var data = JSON.stringify({
       username: username,
       email: email,
       walletAddress: walletaddress,
     });
 
-    var config = {
-      method: "post",
-      url: "http://192.168.1.32:5000/signup",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
+    // const headers = {
+    //   "Content-Type": "application/json",
+    // };
 
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // var config = {
+    //   method: "post",
+    //   url: `${env.API_URL}/signup`,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   data: data,
+    // };
+    // console.log(config.url);
+    // axios(config)
+    //   .then(function (response) {
+    //     console.log(JSON.stringify(response.data));
+    //     setbtnLoading(false);
+    //     // navigate("/role");
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //     setbtnLoading(false);
+    //   });
   };
 
-  useEffect(() => {
-    console.log(credentials);
-  }, [credentials]);
+  // useEffect(() => {
+  //   console.log(credentials);
+  // }, [credentials]);
 
   return (
     <>
@@ -115,16 +126,34 @@ function EmailVeficationPage() {
                       credentials.email
                     )
                   }
-                  onClick={() =>
-                    sendEU(
-                      credentials.username,
-                      credentials.email,
-                      credentials.walletAddress
-                    )
-                  }
+                  onClick={() => {
+                    navigate("/role");
+                    // setbtnLoading(true);
+                    // sendEU(
+                    //   credentials.username,
+                    //   credentials.email,
+                    //   credentials.walletAddress
+                    // );
+                  }}
                 >
                   {/* navigate("/role") */}
                   Next
+                  {/* {btnloading ? (
+                    <svg
+                      className="animate-spin button-spin-svg"
+                      version="1.1"
+                      id="L9"
+                      xmlns="http://www.w3.org/2000/svg"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 100 100"
+                    >
+                      <path
+                        fill="#fff"
+                        d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"
+                      ></path>
+                    </svg>
+                  ) : null} */}
                 </button>
               </div>
             </div>

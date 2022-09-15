@@ -52,7 +52,7 @@ function JobApplicant() {
                     for="first_name"
                     class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-name "
                   >
-                    Year of Exprience:
+                    Years of Exprience:
                   </label>
 
                   <label
@@ -67,7 +67,7 @@ function JobApplicant() {
                   for="first_name"
                   class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-name jobapplicant-qualification-main"
                 >
-                  Qualification:
+                  Qualifications:
                 </label>
                 <label
                   for="first_name"
@@ -155,7 +155,7 @@ function JobApplicant() {
                     for="first_name"
                     class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-name"
                   >
-                    Year of Exprience:
+                    Years of Exprience:
                   </label>
 
                   <label
@@ -170,7 +170,7 @@ function JobApplicant() {
                   for="first_name"
                   class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-name jobapplicant-qualification-main"
                 >
-                  Qualification:
+                  Qualifications:
                 </label>
                 <label
                   for="first_name"
@@ -258,7 +258,7 @@ function JobApplicant() {
                     for="first_name"
                     class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-name"
                   >
-                    Year of Exprience:
+                    Years of Exprience:
                   </label>
 
                   <label
@@ -273,7 +273,7 @@ function JobApplicant() {
                   for="first_name"
                   class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-name jobapplicant-qualification-main"
                 >
-                  Qualification:
+                  Qualifications:
                 </label>
                 <label
                   for="first_name"
@@ -360,7 +360,7 @@ function JobApplicant() {
                     for="first_name"
                     class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-name"
                   >
-                    Year of Exprience:
+                    Years of Exprience:
                   </label>
 
                   <label
@@ -375,7 +375,7 @@ function JobApplicant() {
                   for="first_name"
                   class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-name jobapplicant-qualification-main"
                 >
-                  Qualification:
+                  Qualifications:
                 </label>
                 <label
                   for="first_name"
@@ -491,7 +491,7 @@ function JobApplicant() {
                   for="first_name"
                   class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-name jobapplicant-qualification-main"
                 >
-                  Qualification:
+                  Qualifications:
                 </label>
                 <label
                   for="first_name"
@@ -558,7 +558,7 @@ function JobApplicant() {
                     for="first_name"
                     class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-name"
                   >
-                    Year of Exprience:
+                    Years of Exprience:
                   </label>
 
                   <label
@@ -573,7 +573,7 @@ function JobApplicant() {
                   for="first_name"
                   class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-name jobapplicant-qualification-main"
                 >
-                  Qualification:
+                  Qualifications:
                 </label>
                 <label
                   for="first_name"
@@ -640,7 +640,7 @@ function JobApplicant() {
                     for="first_name"
                     class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-name"
                   >
-                    Year of Exprience:
+                    Years of Exprience:
                   </label>
 
                   <label
@@ -655,7 +655,7 @@ function JobApplicant() {
                   for="first_name"
                   class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-name jobapplicant-qualification-main"
                 >
-                  Qualification:
+                  Qualifications:
                 </label>
                 <label
                   for="first_name"
@@ -722,7 +722,7 @@ function JobApplicant() {
                     for="first_name"
                     class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-name"
                   >
-                    Year of Exprience:
+                    Years of Exprience:
                   </label>
 
                   <label
@@ -737,7 +737,7 @@ function JobApplicant() {
                   for="first_name"
                   class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-name jobapplicant-qualification-main"
                 >
-                  Qualification:
+                  Qualifications:
                 </label>
                 <label
                   for="first_name"

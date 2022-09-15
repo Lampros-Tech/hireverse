@@ -4,13 +4,10 @@ import "../company/styles/jobpost.css";
 function Jobpost() {
   return (
     <>
+      <div className="myjobpost-title">
+        <h2 class="font-medium leading-tight text-4xl mt-0 ">POSTED JOBS</h2>
+      </div>
       <div className="myjobpost-main-content">
-        <div className="myjobpost-title">
-          <h2 class="font-medium leading-tight text-4xl mt-0 mb-2 text-blue-600">
-            POSTED JOBS
-          </h2>
-        </div>
-
         <div className="myjobpost-main-form">
           <div className="myjobpost-information">
             <div className="jobpost-username">
@@ -56,13 +53,13 @@ function Jobpost() {
                 <div className="myjobpost-main-button">
                   <div className="myjobpost-button">
                     <a
-                      href="/company/job-insights"
+                      href="/company/jobinsights"
                       target="_blank"
                       rel="noreferrer"
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 job-insights-button"
+                        class="text-white  font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3   focus:outline-none job-insights-button"
                       >
                         Insights
                       </button>
@@ -70,13 +67,13 @@ function Jobpost() {
                   </div>
                   <div className="myjobpost-button">
                     <a
-                      href="/company/job-applicant"
+                      href="/company/jobapplicant"
                       target="_blank"
                       rel="noreferrer"
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 jobpost-applicant-button"
+                        class="text-white   font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3  focus:outline-none  jobpost-applicant-button"
                       >
                         Applicants
                       </button>
@@ -144,13 +141,13 @@ function Jobpost() {
                 <div className="myjobpost-main-button">
                   <div className="myjobpost-button">
                     <a
-                      href="/company/job-insights"
+                      href="/company/jobinsights"
                       target="_blank"
                       rel="noreferrer"
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 job-insights-button"
+                        class="text-white   font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3    job-insights-button"
                       >
                         Insights
                       </button>
@@ -158,13 +155,13 @@ function Jobpost() {
                   </div>
                   <div className="myjobpost-button">
                     <a
-                      href="/company/job-applicant"
+                      href="/company/jobapplicant"
                       target="_blank"
                       rel="noreferrer"
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 jobpost-applicant-button"
+                        class="text-white   font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3  focus:outline-none  jobpost-applicant-button"
                       >
                         Applicants
                       </button>
@@ -232,13 +229,13 @@ function Jobpost() {
                 <div className="myjobpost-main-button">
                   <div className="myjobpost-button">
                     <a
-                      href="/company/job-insights"
+                      href="/company/jobinsights"
                       target="_blank"
                       rel="noreferrer"
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 job-insights-button"
+                        class="text-white  font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3   job-insights-button"
                       >
                         Insights
                       </button>
@@ -246,13 +243,13 @@ function Jobpost() {
                   </div>
                   <div className="myjobpost-button">
                     <a
-                      href="/company/job-applicant"
+                      href="/company/jobapplicant"
                       target="_blank"
                       rel="noreferrer"
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 jobpost-applicant-button"
+                        class="text-white  font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3  focus:outline-none  jobpost-applicant-button"
                       >
                         Applicants
                       </button>
@@ -320,13 +317,13 @@ function Jobpost() {
                 <div className="myjobpost-main-button">
                   <div className="myjobpost-button">
                     <a
-                      href="/company/job-insights"
+                      href="/company/jobinsights"
                       target="_blank"
                       rel="noreferrer"
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 job-insights-button"
+                        class="text-white font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3 focus:outline-none dark:focus:ring-blue-800 job-insights-button"
                       >
                         Insights
                       </button>
@@ -334,13 +331,13 @@ function Jobpost() {
                   </div>
                   <div className="myjobpost-button">
                     <a
-                      href="/company/job-applicant"
+                      href="/company/jobapplicant"
                       target="_blank"
                       rel="noreferrer"
                     >
                       <button
                         type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 jobpost-applicant-button"
+                        class="text-white  focus:ring-4 font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3   focus:outline-none  jobpost-applicant-button"
                       >
                         Applicants
                       </button>

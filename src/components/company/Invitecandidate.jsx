@@ -64,7 +64,7 @@ function InviteCandidate() {
                         for="first_name"
                         class="block  text-sm font-medium text-gray-900 dark:text-gray-300 candidate-year-name"
                       >
-                        Year of Exprience:
+                        Years of Exprience:
                       </label>
 
                       <label
@@ -79,7 +79,7 @@ function InviteCandidate() {
                       for="first_name"
                       class="block text-sm font-medium text-gray-900 dark:text-gray-300 qualification-name qualification-main"
                     >
-                      Qualification:
+                      Qualifications:
                     </label>
                     <label
                       for="first_name"
@@ -141,7 +141,7 @@ function InviteCandidate() {
                         for="first_name"
                         class="block  text-sm font-medium text-gray-900 dark:text-gray-300 candidate-year-name"
                       >
-                        Year of Exprience:
+                        Years of Exprience:
                       </label>
 
                       <label
@@ -156,7 +156,7 @@ function InviteCandidate() {
                       for="first_name"
                       class="block text-sm font-medium text-gray-900 dark:text-gray-300 qualification-name qualification-main"
                     >
-                      Qualification:
+                      Qualifications:
                     </label>
                     <label
                       for="first_name"
@@ -218,7 +218,7 @@ function InviteCandidate() {
                         for="first_name"
                         class="block  text-sm font-medium text-gray-900 dark:text-gray-300 candidate-year-name"
                       >
-                        Year of Exprience:
+                        Years of Exprience:
                       </label>
 
                       <label
@@ -233,7 +233,7 @@ function InviteCandidate() {
                       for="first_name"
                       class="block text-sm font-medium text-gray-900 dark:text-gray-300 qualification-name qualification-main"
                     >
-                      Qualification:
+                      Qualifications:
                     </label>
                     <label
                       for="first_name"
@@ -295,7 +295,7 @@ function InviteCandidate() {
                         for="first_name"
                         class="block  text-sm font-medium text-gray-900 dark:text-gray-300 candidate-year-name"
                       >
-                        Year of Exprience:
+                        Years of Exprience:
                       </label>
 
                       <label
@@ -310,7 +310,7 @@ function InviteCandidate() {
                       for="first_name"
                       class="block text-sm font-medium text-gray-900 dark:text-gray-300 qualification-name qualification-main"
                     >
-                      Qualification:
+                      Qualifications:
                     </label>
                     <label
                       for="first_name"
@@ -372,7 +372,7 @@ function InviteCandidate() {
                         for="first_name"
                         class="block  text-sm font-medium text-gray-900 dark:text-gray-300 candidate-year-name"
                       >
-                        Year of Exprience:
+                        Years of Exprience:
                       </label>
 
                       <label
@@ -387,7 +387,7 @@ function InviteCandidate() {
                       for="first_name"
                       class="block text-sm font-medium text-gray-900 dark:text-gray-300 qualification-name qualification-main"
                     >
-                      Qualification:
+                      Qualifications:
                     </label>
                     <label
                       for="first_name"
@@ -429,7 +429,6 @@ function InviteCandidate() {
                 >
                   Publish
                 </button>
-                <div class="btn-particles"></div>
               </div>
             </div>
           </div>
@@ -437,7 +436,7 @@ function InviteCandidate() {
             <Successpopup
               content={
                 <>
-                  <b>Successfull Invited</b>
+                  <b className="invite-success-popup">Successfull Invited</b>
                 </>
               }
               handleClose={togglePopup}

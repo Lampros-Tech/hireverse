@@ -1,9 +1,9 @@
 .availabletest-main-content {
   height: 100%;
   width: 100%;
-
+  padding: 50px;
   margin: 0 auto;
-  margin-top: 70px;
+  margin-top: 2%;
 }
 .availabletest-creator-cost-button {
   background-color: #282155;
@@ -17,19 +17,22 @@
 }
 .availabletest-main-information {
   margin-top: 2%;
-  margin-left: 25%;
-  width: 50%;
+  margin: 0 auto;
+  width: 100%;
   margin-bottom: 5%;
+  max-width: 1024px;
 }
 .avilabletest-front-buttons {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  margin-right: 43%;
-  /* margin-top: 2%; */
+  margin: auto;
+  width: 80%;
+  max-width: 1024px;
+  padding-top: 50px;
 }
 .availabletest-description {
-  margin-left: 3em;
+  /* margin-left: 3em; */
   text-align: justify;
   /* margin-top: 5%; */
   /* width: 60%; */
@@ -63,7 +66,7 @@
 }
 
 .availabletest-title {
-  margin-left: 50px;
+  /* margin-left: 50px; */
   margin-top: 10px;
 }
 .availabletest-main-title {
@@ -81,7 +84,8 @@
   box-shadow: 0px 0px 6px 5px #eff0ee;
   /* padding-bottom: 10px; */
   padding-top: 5px;
-  padding-right: 30px;
+  padding-left: 30px;
+  padding-right: 20px;
   margin-top: 20px;
 }
 .variable-cost-name {
@@ -89,12 +93,15 @@
 }
 .availabletest-variable-cost {
   display: flex;
-  margin-left: 50%;
+  /* margin-left: 24em; */
+  margin-right: 28em;
+  align-items: center;
+  justify-content: flex-end;
 }
 .availabletest-submit {
-  margin-left: 40%;
   margin-bottom: 5%;
   margin-top: 5%;
+  text-align: center;
 }
 .jobinsight-select-date {
   margin-left: 10px;
@@ -108,153 +115,122 @@
   background-color: #ff6150;
   font-size: larger;
 }
-/* ---------------responsive---------------------------------- */
+
 @media only screen and (max-width: 768px) {
-  .availabletest-main-information {
-    margin-top: 5%;
-    margin-left: 10%;
-    width: 80%;
-    margin-bottom: 5%;
-    /* background-color: aliceblue; */
-  }
-  .availabletest-variable-cost {
-    display: flex;
-    margin-left: 5%;
-  }
-  .availabletest-title {
-    margin-left: 5%;
-    margin-top: 10px;
-  }
-  .availabletest-description {
-    margin-left: 5%;
-    text-align: justify;
+  .availabletest-main-content {
+    height: 100%;
+    width: 100%;
 
-    width: 90%;
-    margin-bottom: 10px;
+    margin: 0 auto;
+    margin-top: 5%;
   }
-  .available-information {
-    padding: 5px;
-    border-radius: 20px;
-    box-shadow: 0px 0px 6px 5px #eff0ee;
+  .availabletest-creator-cost-button {
+    background-color: #282155;
+    font-size: medium;
   }
-  .availabletest-description-to-button {
-    display: block;
-    align-items: center;
-    justify-content: center;
+  .availabletest-creator-block {
+    background-color: #134e6f;
+    color: white;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
   }
-  .availabletest-user-icon {
-    /* display: block; */
-    align-items: center;
-    justify-content: center;
-    /* margin-left: 5px; */
+  .availabletest-main-information {
+    margin-top: 2%;
+    margin: 0 auto;
+    width: 100%;
     margin-bottom: 5%;
-  }
-  .availabletest-usetest-button {
-    white-space: nowrap;
-    margin-left: 0em;
-  }
-  .use-test-button {
-    padding: 10px;
-    margin-top: 10px;
-    margin-right: 10px;
-  }
-  .availabletest-submit {
-    /* margin-left: 15%;
-    margin-bottom: 5%;
-    margin-top: 15%; */
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 5%;
-    margin-top: 10%;
-  }
-  .available-creator-name {
-    white-space: nowrap;
-    margin-right: 55%;
+    max-width: 1024px;
   }
   .avilabletest-front-buttons {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    /* margin-right: 58%; */
-    margin-top: 2%;
-  }
-}
-
-/* ----------------------mobile responsive-------------------- */
-@media only screen and (max-width: 320px) {
-  .availabletest-main-information {
-    margin-top: 5%;
-    margin-left: 10%;
+    margin: auto;
     width: 80%;
-    margin-bottom: 5%;
-    /* background-color: aliceblue; */
-  }
-  .availabletest-variable-cost {
-    display: flex;
-    margin-left: 5%;
-  }
-  .availabletest-title {
-    margin-left: 5%;
-    margin-top: 10px;
+    max-width: 1024px;
   }
   .availabletest-description {
-    margin-left: 5%;
+    /* margin-left: 3em; */
     text-align: justify;
-
-    width: 90%;
-    margin-bottom: 10px;
-  }
-  .available-information {
-    padding: 5px;
-    border-radius: 20px;
-    box-shadow: 0px 0px 6px 5px #eff0ee;
-  }
-  .availabletest-description-to-button {
-    display: block;
-    align-items: center;
-    justify-content: center;
+    /* margin-top: 5%; */
+    /* width: 60%; */
+    margin-bottom: 40px;
   }
   .availabletest-user-icon {
-    display: block;
-    align-items: center;
-    justify-content: center;
-    /* margin-left: 5px; */
-    margin-bottom: 5%;
-  }
-  .availabletest-usetest-button {
-    white-space: nowrap;
-    margin-left: 0em;
-  }
-  .use-test-button {
-    padding: 10px;
-    margin-top: 10px;
-    margin-right: 10px;
-  }
-  .availabletest-submit {
-    /* margin-left: 15%;
-    margin-bottom: 5%;
-    margin-top: 15%; */
-    margin: auto;
     display: flex;
-    justify-content: center;
+    align-items: center;
+
+    flex-direction: row;
+    margin-right: 15em;
+    justify-content: flex-start;
     margin-bottom: 5%;
-    margin-top: 10%;
   }
   .available-creator-name {
     white-space: nowrap;
-    margin-right: 55%;
   }
-  .avilabletest-front-buttons {
+  .availabletest-usetest-button {
+    white-space: nowrap;
+    margin-left: 5em;
+  }
+  .purchased-name {
+    border-right: 1px solid black;
+    padding: 10px;
+  }
+  .created-name {
+    padding: 10px;
+  }
+
+  .pc-tab-button {
+    background-color: #282155;
+    color: white;
+  }
+
+  .availabletest-title {
+    /* margin-left: 50px; */
+    margin-top: 10px;
+  }
+  .availabletest-main-title {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    color: black;
+  }
+  .availabletest-description-to-button {
+    display: flex;
+    flex-wrap: wrap;
+
     align-items: center;
-    /* margin-right: 58%; */
-    margin-top: 2%;
+    justify-content: center;
+  }
+  .available-information {
+    border-radius: 20px;
+    box-shadow: 0px 0px 6px 5px #eff0ee;
+    /* padding-bottom: 10px; */
+    padding-top: 5px;
+    padding-left: 30px;
+    padding-right: 20px;
+    margin-top: 20px;
+  }
+  .variable-cost-name {
+    font-weight: 700;
+  }
+  .availabletest-variable-cost {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .availabletest-submit {
+    margin-bottom: 5%;
+    margin-top: 5%;
+    text-align: center;
+  }
+  .jobinsight-select-date {
+    margin-left: 10px;
+  }
+  .jobinsight-select-date-input {
+    border: 1px solid black;
   }
   .availabletest-save-button {
     /* padding: 10px; */
-    padding: 15px 30px 15px 30px;
+    padding: 15px 60px 15px 60px;
     background-color: #ff6150;
     font-size: larger;
   }

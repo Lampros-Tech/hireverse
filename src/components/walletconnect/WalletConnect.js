@@ -13,6 +13,7 @@ import Coin from "../assets/images/Coinbase.svg";
 import WallConn from "../assets/images/walletconnect.svg";
 import NewPopup from "./NewPopup";
 import "./walletconnect.css";
+import { useNavigate } from "react-router-dom";
 
 export function WalletConnect() {
   const { address, connector, isConnected } = useAccount();
@@ -23,7 +24,7 @@ export function WalletConnect() {
   const { disconnect } = useDisconnect();
 
   const inputRef = useRef();
-
+  const navigate = useNavigate();
   const { data } = useSigner();
 
   // const [client, setClient] = useState(null);
@@ -111,7 +112,13 @@ export function WalletConnect() {
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
+  const wallectConnected = () => {
+    setTimeout(() => {
+      navigate("/signup/ev");
+    }, 2000);
 
+    return "connected";
+  };
   if (isConnected) {
     // return (
     //   <div>
@@ -172,7 +179,7 @@ export function WalletConnect() {
     //     </div>
     //   </div>
     // );
-    return "Connected";
+    return wallectConnected();
   }
 
   return (

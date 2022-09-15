@@ -1,7 +1,7 @@
 .invticandidate-header {
   height: 100%;
   width: 100%;
-  max-width: fit-content;
+  max-width: 1024px;
   padding: 50px;
   margin: 0 auto;
   margin-top: 20px;
@@ -21,7 +21,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-right: 15px;
+  text-align: center;
+  margin: 0 auto;
 }
 #file-span {
   margin-left: 42%;
@@ -33,7 +34,7 @@
 }
 .invitecandidate-information {
   margin-top: 10px;
-  margin-left: 8%;
+  /* margin-left: 8%; */
   width: 55%;
   /* display: flex;
   flex-direction: row; */
@@ -54,13 +55,13 @@
 }
 .invitecandidate-years-qualification {
   display: flex;
-  margin-left: 43px;
+  /* margin-left: 43px; */
 }
-.candidate-qualification {
+/* .candidate-qualification {
   margin-left: 5em;
-}
+} */
 .candidate-description {
-  margin-left: 3em;
+  /* margin-left: 3em; */
   text-align: justify;
   margin-top: 5%;
 }
@@ -80,14 +81,14 @@
 .invitecandidate-main-form {
   /* background-color: aliceblue; */
   padding-bottom: 15px;
-  padding-top: 5px;
+  padding-top: 15px;
   border-radius: 20px;
   box-shadow: 0px 0px 6px 5px #eff0ee;
-  /* padding-left: 30px; */
-  margin-top: 30px;
+  padding-left: 40px;
+  margin-top: 40px;
 }
 .candidate-year-name {
-  margin-left: 5px;
+  /* margin-left: 5px; */
   font-weight: 700;
 }
 .candidate-invite-button {
@@ -109,7 +110,7 @@
 }
 .qualification-name {
   font-weight: 700;
-  margin-left: 18em;
+  margin-left: 13em;
 }
 .qualification-bech {
   margin-left: 5px;
@@ -120,8 +121,9 @@
 }
 
 .invitecandidate-button-published {
-  margin-left: 25em;
+  /* margin-left: 25em; */
   padding: 15px;
+  text-align: center;
 }
 .candidate-button-published {
   padding: 15px 60px 15px 60px;
@@ -138,7 +140,6 @@
     padding: 50px;
     margin: 0 auto;
     margin-top: 20px;
-    /* border: 1px solid black; */
   }
   .upload-image {
     width: 5vw;
@@ -166,10 +167,8 @@
   }
   .invitecandidate-information {
     margin-top: 10px;
-    margin-left: 2%;
-    width: 55%;
-    /* display: flex;
-    flex-direction: row; */
+
+    width: 60%;
   }
   .invitecandidate-fileupload {
     margin-left: 30%;
@@ -199,7 +198,7 @@
   }
   .candidate-qualification {
     display: inline-flex;
-    /* position: absolute; */
+
     align-items: center;
     justify-content: center;
     margin: 0;
@@ -209,15 +208,14 @@
   .invitecandidate-button {
     display: flex;
 
-    margin-left: 8em;
+    margin-left: 5em;
   }
   .invitecandidate-main-form {
-    /* background-color: aliceblue; */
     padding-bottom: 15px;
     padding-top: 5px;
     border-radius: 20px;
     box-shadow: 0px 0px 6px 5px #eff0ee;
-    /* padding-left: 30px; */
+    padding-left: 20px;
     margin-top: 30px;
   }
   .candidate-year-name {
@@ -254,7 +252,7 @@
   }
 
   .invitecandidate-button-published {
-    margin-left: 15em;
+    text-align: center;
     padding: 15px;
   }
   .candidate-button-published {

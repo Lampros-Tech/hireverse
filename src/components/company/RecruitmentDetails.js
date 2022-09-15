@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import "../company/styles/recruitdetails.css";
+import "../company/styles/recruitdetails.css";
 import Select from "react-select";
 import plus from "../company/styles/plus.svg";
 
@@ -57,7 +57,7 @@ function RecruitmentDetails() {
       <div className="recruitment-main">
         <div className="recruitment-header">
           <div className="recruitment-content">
-            <h2 className="font-medium leading-tight text-4xl mt-0 mb-2 text-600 recruit-details">
+            <h2 className="font-medium leading-tight text-4xl  text-600 recruit-details">
               JOB DETAILS
             </h2>
 
@@ -165,7 +165,7 @@ function RecruitmentDetails() {
                     Submit
                   </button>
                 </div>
-                <div className="grid grid-col-2">
+                <div className="grid-recruitdetails grid-col-2">
                   {Array.from(Array(counter)).map((c, index) => {
                     return (
                       <input
@@ -202,10 +202,9 @@ function RecruitmentDetails() {
                   <input
                     type="radio"
                     name="location"
-                    className="inline-radio"
+                    className="inline-radio radio-location"
                     onClick={(e) => handleClick1(e)}
                     value="Remote"
-                    id="radio-location"
                   />{" "}
                   <span className="radio-remote">Remote</span>
                 </label>
@@ -214,10 +213,9 @@ function RecruitmentDetails() {
                   <input
                     type="radio"
                     name="location"
-                    className="inline-radio "
+                    className="inline-radio radio-location "
                     onClick={(e) => handleClick1(e)}
                     value="Onsite"
-                    id="radio-location"
                   />{" "}
                   <span className="radio-remote">Onsite</span>
                 </label>
@@ -251,9 +249,8 @@ function RecruitmentDetails() {
                   <input
                     type="radio"
                     name="location"
-                    className="inline-radio"
+                    className="inline-radio radio-location"
                     value="Hybrid"
-                    id="radio-location"
                     onClick={(e) => {
                       handleClick1(e);
                     }}
