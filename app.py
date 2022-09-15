@@ -149,6 +149,9 @@ def check_email():
 def signup():
     username = request.json['username']
     email = request.json['email']
+    
+    print(username, email)
+
     walletAddress = request.json['walletAddress']
 
     # Checking if the User Already Exists or Not
@@ -363,4 +366,4 @@ def registration():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=3200, host="0.0.0.0")
+    app.run(debug=True, port=5000, host="0.0.0.0")
