@@ -724,7 +724,10 @@ def addDisapprovalCount():
 def getRole():
     walletAddress = request.json["walletAddress"]
     role = getWalletRole(walletAddress)
-    response_body = {"status": 200, "data": {"role": role}}
+    if role:
+        response_body = {"status": 200, "data": {"role": role}}
+    else:
+        response_body = {"status": 404, "data": {"role": role}}
     return response_body
 
 
@@ -810,7 +813,7 @@ def registration():
         print(data_)
         response_body = {"status": 200, "data": data_}, 200
     except Exception as e:
-        response_body = {"status": 501, "data": str(e)}, 501
+        response_body = {"status": 501, "data": str(e)}, 404
     return response_body
 
 
