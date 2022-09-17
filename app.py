@@ -580,6 +580,145 @@ def getWalletRole(walletAddress):
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
+# Add Global Questions
+@app.route("/addGlobalQuestions", methods=["POST"])
+def addGlobalQuestions():
+    try:
+        # get verification table details from id
+        verification_id = request.json["verification_id"]
+        to_be_varified_question_table = os.environ.get("to_be_verified_question")
+        query = f"""
+                    tableland read "
+                    SELECT
+                        *
+                    FROM
+                        {to_be_varified_question_table}
+                    WHERE
+                        verification_id = '{verification_id}'"
+                    """
+        data = subprocess.check_output([query], shell=True)
+        verified_final_data = json.loads(data.decode("utf-8"))
+
+        # get question details using question_id
+        creators_question_table = os.environ.get("creators_question")
+        query = f"""
+                    tableland read "
+                    SELECT
+                        *
+                    FROM
+                        {creators_question_table}
+                    WHERE
+                        creators_question_id = '{verified_final_data["rows"][0][1]}'"
+                    """
+        data = subprocess.check_output([query], shell=True)
+        final_data = json.loads(data.decode("utf-8"))
+
+        # add data into global question table
+        global_question_id = os.environ.get("global_question")
+        fields = "(creators_id,creators_question_id,question,option1,option2,option3,option4,option5,answer,solution,added_at,difficulty_level,verifier_name,genuineness_score)"
+        verifier_name = request.json["verifier_name"]
+        score = verified_final_data["rows"][0][2] / verified_final_data["rows"][0][3]
+        print(score)
+        values = f"""({final_data["rows"][0][1]}, {final_data["rows"][0][0]},'{final_data["rows"][0][2]}','{final_data["rows"][0][3]}','{final_data["rows"][0][4]}',
+        '{final_data["rows"][0][5]}','{final_data["rows"][0][6]}','{final_data["rows"][0][7]}','{final_data["rows"][0][8]}','{final_data["rows"][0][9]}',
+        {final_data["rows"][0][10]},'{final_data["rows"][0][11]}','{verifier_name}',{score})"""
+        data = insert_query(global_question_id, fields, values)
+        response_body = {
+            "status": 200,
+            "data": "User's Record Added Successfully !",
+        }, 200
+        return response_body
+    except Exception as e:
+        print(e)
+        response_body = {"status": 500}, 500
+        return response_body
+
+
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Add into to_be_verified_question table
+@app.route("/toBeVerified", methods=["POST"])
+def addVerified():
+    try:
+        creators_question_id = request.json["creators_question_id"]
+        creators_questions_table_name = request.json["creators_questions_table_name"]
+        to_be_verified_question_table = os.environ.get("to_be_verified_question")
+        fields = "(creators_question_id,creator_question_table_name,approval_count,disapproval_count)"
+        values = (
+            f"""({creators_question_id},'{creators_questions_table_name}',{0},{0})"""
+        )
+        data = insert_query(to_be_verified_question_table, fields, values)
+        response_body = {
+            "status": 200,
+            "data": "User's Record Added Successfully !",
+        }, 200
+        return response_body
+    except Exception as e:
+        print(e)
+        response_body = {"status": 500}, 500
+        return response_body
+
+
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Add approval count
+@app.route("/addApprovalCount", methods=["POST"])
+def addApprovalCount():
+    try:
+        verification_id = request.json["verification_id"]
+        to_be_verified_question_table = os.environ.get("to_be_verified_question")
+        fields = "(approval_count)"
+        condition = f"""verification_id='{verification_id}'"""
+        id_data = select_query(fields, to_be_verified_question_table, condition)
+        final_id_data = json.loads(id_data.decode("utf-8"))
+        add_count = final_id_data["rows"][0][0] + 1
+        fields1 = {"approval_count": f"{add_count}"}
+        added_data = update_query(to_be_verified_question_table, fields1, condition)
+        final_id_data = json.loads(added_data.decode("utf-8"))
+        response_body = {
+            "status": 200,
+            "data": "User's Record Added Successfully !",
+        }, 200
+        return response_body
+    except Exception as e:
+        print(e)
+        response_body = {"status": 500}, 500
+        return response_body
+
+
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Add approval count
+@app.route("/addDisapprovalCount", methods=["POST"])
+def addDisapprovalCount():
+    try:
+        verification_id = request.json["verification_id"]
+        to_be_verified_question_table = os.environ.get("to_be_verified_question")
+        fields = "(disapproval_count)"
+        condition = f"""verification_id='{verification_id}'"""
+        id_data = select_query(fields, to_be_verified_question_table, condition)
+        final_id_data = json.loads(id_data.decode("utf-8"))
+        add_count = final_id_data["rows"][0][0] + 1
+        fields1 = {"disapproval_count": f"{add_count}"}
+        added_data = update_query(to_be_verified_question_table, fields1, condition)
+        final_id_data = json.loads(added_data.decode("utf-8"))
+        response_body = {
+            "status": 200,
+            "data": "User's Record Added Successfully !",
+        }, 200
+        return response_body
+    except Exception as e:
+        print(e)
+        response_body = {"status": 500}, 500
+        return response_body
+
+
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
 # Get Role Of User By Address
 @app.route("/getRole", methods=["GET"])
 def getRole():
