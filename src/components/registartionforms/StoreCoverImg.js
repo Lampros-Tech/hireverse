@@ -3,25 +3,23 @@ import { useState, useRef } from "react";
 import { Web3Storage } from "web3.storage";
 import UploadSVG from "../assets/images/uploadsvg.svg";
 import "./storefile.css";
+import env from "react-dotenv";
 
-const API_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGZiNzE4QzgwYmJlYUQwNTAzYThFMjgzMmI2MDU0RkVmOUU4MzA2NzQiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjE0MTEzNjczNTAsIm5hbWUiOiJUcnkifQ.srPPE7JD3gn8xEBCgQQs_8wyo6rDrXaDWC0QM8FtChA";
+const client = new Web3Storage({ token: env.API_TOKEN });
 
-const client = new Web3Storage({ token: API_TOKEN });
-
-function StoreFile(props) {
-  const chooseFile = useRef("");
+function StoreCoverImg({ setFileCid2 }) {
+  const chooseFile2 = useRef("");
 
   const [file, setFile] = useState("");
 
   async function uploadImage(e) {
-    console.log(document.getElementById("input").files[0]);
+    console.log(document.getElementById("input2").files[0]);
     console.log(URL.createObjectURL(e.target.files[0]));
     setFile(URL.createObjectURL(e.target.files[0]));
   }
 
   async function handleupload() {
-    var fileInput = document.getElementById("input");
+    var fileInput = document.getElementById("input2");
     const rootCid = await client.put(fileInput.files, {
       name: "cat pics",
       maxRetries: 3,
@@ -32,6 +30,10 @@ function StoreFile(props) {
     console.log(files);
     const url = URL.createObjectURL(files[0]);
     console.log(url);
+    console.log(files[0].cid);
+
+    setFileCid2(files[0].cid);
+
     // setFile(url);
   }
 
@@ -48,9 +50,9 @@ function StoreFile(props) {
       ) : null}
       <div className="input_type">
         <div
-          className={props.divClass}
+          className="cover-img-div"
           onClick={() => {
-            chooseFile.current.click();
+            chooseFile2.current.click();
           }}
         >
           {file ? (
@@ -58,21 +60,14 @@ function StoreFile(props) {
               <img src={file} className="uploaded-img" alt="uploadsvg" />
             </>
           ) : (
-            <img
-              src={UploadSVG}
-              // onClick={() => {
-              //   chooseFile.current.click();
-              // }}
-              className="uploadSVG"
-              alt="uploadsvg"
-            />
+            <img src={UploadSVG} className="uploadSVG" alt="uploadsvg" />
           )}
 
           <input
             type="file"
-            ref={chooseFile}
+            ref={chooseFile2}
             name="fileupload"
-            id="input"
+            id="input2"
             hidden
             onChange={(e) => uploadImage(e)}
           ></input>
@@ -82,7 +77,7 @@ function StoreFile(props) {
             Reset
           </button>
         ) : null}
-        <button className="upload-file-btn" onClick={handleupload}>
+        <button className="upload-file-btn" onClick={() => handleupload()}>
           Upload File
         </button>
       </div>
@@ -90,4 +85,4 @@ function StoreFile(props) {
   );
 }
 
-export default StoreFile;
+export default StoreCoverImg;

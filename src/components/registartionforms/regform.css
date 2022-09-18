@@ -83,7 +83,7 @@ svg.f-correct-ar {
 }
 .f-form-div {
   margin-left: 0.5rem;
-  min-width: 50vw;
+  min-width: 60vw;
   /* width: 50%;
   height: 50%; */
   /* margin: auto; */
@@ -322,6 +322,7 @@ span.f-ctrl-enter {
   font-weight: 600;
 }
 p.upload-img-instruction {
+  max-width: 80%;
   font-size: 15px;
   margin-top: 0;
   margin: 10px 0;

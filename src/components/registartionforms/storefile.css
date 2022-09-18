@@ -12,6 +12,7 @@ img.uploadSVG {
   position: relative;
 }
 .profile-img-div {
+  padding: 1%;
   border: 2px dashed #ff6150;
   border-radius: 5px;
   margin-right: 10px;
@@ -35,6 +36,7 @@ button.rg-reset-img-btn {
   border-radius: 2px;
 }
 .cover-img-div {
+  padding: 1%;
   border: 2px dashed #ff6150;
   border-radius: 5px;
   margin-right: 10px;

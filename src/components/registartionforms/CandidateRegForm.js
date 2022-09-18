@@ -7,10 +7,13 @@ import "react-phone-input-2/lib/style.css";
 import "./regform.css";
 import logo from "../assets/images/logo.png";
 import { countryArr } from "./CountryList";
-import StoreFile from "./StoreFile";
+import StoreProfileImg from "./StoreProfileImg";
+import StoreCoverImg from "./StoreCoverImg";
 
 function CandidateRegForm() {
   let navigate = useNavigate();
+  const [fileCID, setFileCID] = useState("");
+  const [fileCID2, setFileCID2] = useState("");
 
   const refOne = useRef(null);
   const refTwo = useRef(null);
@@ -34,8 +37,8 @@ function CandidateRegForm() {
     address: "",
     country: "",
     contact: "",
-    profilepic: "",
-    coverpic: "",
+    profilepic: { fileCID },
+    coverpic: { fileCID2 },
   });
 
   const refArr = [
@@ -59,6 +62,10 @@ function CandidateRegForm() {
       alert("Select country pls");
     } else if (e === 4 && showAll.contact === "") {
       alert("Enter contact num pls");
+    } else if (e === 5 && showAll.profilepic === "") {
+      alert("Enter profile img pls");
+    } else if (e === 6 && showAll.coverpic === "") {
+      alert("Enter cover img pls");
     } else {
       // console.log(refArr[e + 1].section);
       const test = refArr[e + 1].section;
@@ -95,10 +102,13 @@ function CandidateRegForm() {
       }, 200);
     }
   };
-
-  useEffect(() => {
-    inputRefOne.current.focus();
-  }, []);
+  const printTwo = () => {
+    console.log(showAll);
+  };
+  // useEffect(() => {
+  //   // inputRefOne.current.focus();
+  //   console.log(fileCID);
+  // }, [fileCID]);
 
   useEffect(() => {
     console.log(showAll);
@@ -669,7 +679,7 @@ function CandidateRegForm() {
                       "upload file" button to upload your image
                     </p>
 
-                    <StoreFile divClass="profile-img-div" />
+                    <StoreProfileImg setFileCid={setFileCID} />
                   </div>
 
                   <div className="f-btn-flex">
@@ -770,7 +780,7 @@ function CandidateRegForm() {
                       * click on image box to choose image and then press
                       "upload file" button to upload your image
                     </p>
-                    <StoreFile divClass="cover-img-div" />
+                    <StoreCoverImg setFileCid2={setFileCID2} />
                   </div>
 
                   <div className="f-btn-flex">
@@ -806,7 +816,8 @@ function CandidateRegForm() {
                     <button
                       className="f-next-btn"
                       onClick={() => {
-                        handleClick(6);
+                        // handleClick(6);
+                        printTwo();
                         navigate("/candidateregform/candidate-education");
                       }}
                     >
