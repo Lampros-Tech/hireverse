@@ -1,3 +1,4 @@
+from ssl import PROTOCOL_TLSv1_1, PROTOCOL_TLSv1_2
 from termios import TAB1
 from types import resolve_bases
 from flask import Flask, render_template
@@ -705,6 +706,141 @@ def addDisapprovalCount():
         fields1 = {"disapproval_count": f"{add_count}"}
         added_data = update_query(to_be_verified_question_table, fields1, condition)
         final_id_data = json.loads(added_data.decode("utf-8"))
+        response_body = {
+            "status": 200,
+            "data": "User's Record Added Successfully !",
+        }, 200
+        return response_body
+    except Exception as e:
+        print(e)
+        response_body = {"status": 500}, 500
+        return response_body
+
+
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Add job
+@app.route("/addJob", methods=["POST"])
+def addJob():
+    try:
+        company_id = request.json["company_id"]
+        assesment_id = request.json["assesment_id"]
+        title = request.json["title"]
+        description = request.json["description"]
+        location = request.json["location"]
+        type = request.json["type"]
+        addition_question = request.json["addition_question"]
+        experience_level = request.json["experience_level"]
+        primary_skill1 = request.json["primary_skill1"]
+        primary_skill2 = request.json["primary_skill2"]
+        primary_skill3 = request.json["primary_skill3"]
+        primary_skill4 = request.json["primary_skill4"]
+        primary_skill5 = request.json["primary_skill5"]
+        secondary_skills = request.json["secondary_skills"]
+        final_skills = ",".join(str(bit) for bit in secondary_skills)
+        print(final_skills)
+        job_table = os.environ.get("job_table")
+        fields = "(company_id,assesment_id,title,description,location,status,type,addition_question,experience_level,primary_skill1,primary_skill2,primary_skill3,primary_skill4,primary_skill5,secondary_skills)"
+        values = f"""({company_id},{assesment_id},'{title}','{description}','{location}',{1},'{type}','{addition_question}','{experience_level}','{primary_skill1}','{primary_skill2}','{primary_skill3}','{primary_skill4}','{primary_skill5}','{final_skills}');"""
+        data = insert_query(job_table, fields, values)
+        response_body = {
+            "status": 200,
+            "data": "User's Record Added Successfully !",
+        }, 200
+        return response_body
+    except Exception as e:
+        print(e)
+        response_body = {"status": 500}, 500
+        return response_body
+
+
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Add job
+@app.route("/updateJob", methods=["POST"])
+def updateJob():
+    try:
+        job_id = request.json["job_id"]
+        location = request.json["location"]
+        status = request.json["status"]
+        type = request.json["type"]
+        job_table = os.environ.get("job_table")
+        condition = f"""job_id='{job_id}'"""
+        print(status)
+        fields1 = {}
+        if location:
+            fields1["location"] = f"{location}"
+        if status == 1:
+            fields1["status"] = 1
+        elif status == 0:
+            fields1["status"] = 0
+        if type:
+            fields1["type"] = f"{type}"
+
+        added_data = update_query(job_table, fields1, condition)
+        final_id_data = json.loads(added_data.decode("utf-8"))
+        print(final_id_data)
+        response_body = {
+            "status": 200,
+            "data": "User's Record Added Successfully !",
+        }, 200
+        return response_body
+    except Exception as e:
+        print(e)
+        response_body = {"status": 500}, 500
+        return response_body
+
+
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Add job application
+@app.route("/addJobApplication", methods=["POST"])
+def addJobApplication():
+    try:
+        candidate_id = request.json["candidate_id"]
+        job_id = request.json["job_id"]
+        ans_of_addition_q = request.json["ans_of_addition_q"]
+        resume_cid = request.json["resume_cid"]
+        cover_latter = request.json["cover_latter"]
+        assesment_log_id = request.json["assesment_log_id"]
+        schedule_interview = request.json["schedule_interview"]
+        job_table = os.environ.get("application_details")
+        fields = "(candidate_id,job_id,ans_of_addition_q,resume_cid,cover_latter,assesment_log_id,status,schedule_interview)"
+        values = f"""({candidate_id},{job_id},'{ans_of_addition_q}','{resume_cid}','{cover_latter}',{assesment_log_id},{0},{schedule_interview});"""
+        data = insert_query(job_table, fields, values)
+        response_body = {
+            "status": 200,
+            "data": "User's Record Added Successfully !",
+        }, 200
+        return response_body
+    except Exception as e:
+        print(e)
+        response_body = {"status": 500}, 500
+        return response_body
+
+
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Update approve/disapprove in job application
+@app.route("/updateApproveDisapprove", methods=["POST"])
+def updateApproveDisapprove():
+    try:
+        application_id = request.json["application_id"]
+        status = request.json["status"]
+        application_details = os.environ.get("application_details")
+        condition = f"""application_id='{application_id}'"""
+        fields1 = {}
+        if status == 1:
+            fields1["status"] = 1
+        else:
+            fields1["status"] = 0
+        added_data = update_query(application_details, fields1, condition)
+        final_id_data = json.loads(added_data.decode("utf-8"))
+        print(final_id_data)
         response_body = {
             "status": 200,
             "data": "User's Record Added Successfully !",

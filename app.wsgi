@@ -36,6 +36,6 @@ os.environ['creators_assesment_table']='creators_assesment_table_80001_1476'
 os.environ['assesment_skill']='assesment_skill_table_80001_1477'
 os.environ['job_skill']='job_skill_table_80001_1478'
 os.environ['assesment_logs']='assesment_log_table_80001_1479'
-os.environ['job_table']='ajob_table_80001_1480'
-os.environ['application_details']='application_details_table_80001_1481'
+os.environ['job_table']='job_table_80001_2018'
+os.environ['application_details']='application_details_table_80001_2024'
 from app import app as application
