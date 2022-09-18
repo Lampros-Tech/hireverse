@@ -1,5 +1,5 @@
 .f-background {
-  background: url(../assets/images/large.jpg);
+  background: url(../assets/images/large01.jpg);
   background-size: cover;
   /* background-repeat: no-repeat; */
   position: fixed;
@@ -111,7 +111,7 @@ input::placeholder {
 input[type="number"] {
   overflow: hidden;
 }
-input[type="date"] {
+input[type="date"].f-input {
   border: 1px solid #134e6f;
   border-radius: 5px;
   padding: 5px;
@@ -321,6 +321,12 @@ span.f-ctrl-enter {
   opacity: 0.9;
   font-weight: 600;
 }
+p.upload-img-instruction {
+  font-size: 15px;
+  margin-top: 0;
+  margin: 10px 0;
+}
+
 @media (max-width: 768px) {
   .f-inside-section {
     justify-content: flex-start;

@@ -116,7 +116,6 @@ export function WalletConnect() {
     setTimeout(() => {
       navigate("/signup/ev");
     }, 2000);
-
     return "connected";
   };
   if (isConnected) {
