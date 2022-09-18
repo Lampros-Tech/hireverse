@@ -599,6 +599,7 @@ def addGlobalQuestions():
                     """
         data = subprocess.check_output([query], shell=True)
         verified_final_data = json.loads(data.decode("utf-8"))
+        print(verified_final_data)
 
         # get question details using question_id
         creators_question_table = os.environ.get("creators_question")
@@ -609,20 +610,25 @@ def addGlobalQuestions():
                     FROM
                         {creators_question_table}
                     WHERE
-                        creators_question_id = '{verified_final_data["rows"][0][1]}'"
+                        creators_question_id = '{verified_final_data["rows"][0][2]}'"
                     """
         data = subprocess.check_output([query], shell=True)
+        print(data)
         final_data = json.loads(data.decode("utf-8"))
 
         # add data into global question table
         global_question_id = os.environ.get("global_question")
-        fields = "(creators_id,creators_question_id,question,option1,option2,option3,option4,option5,answer,solution,added_at,difficulty_level,verifier_name,genuineness_score)"
+        fields = "(creators_id,creators_question_id,question,option1,option2,option3,option4,option5,answer,solution,added_at,difficulty_level,primary_tags,secondary_tags,verifier_name,genuineness_score)"
         verifier_name = request.json["verifier_name"]
-        score = verified_final_data["rows"][0][2] / verified_final_data["rows"][0][3]
+        score = int(
+            (verified_final_data["rows"][0][2] * 100)
+            / verified_final_data["rows"][0][4]
+        )
         print(score)
-        values = f"""({final_data["rows"][0][1]}, {final_data["rows"][0][0]},'{final_data["rows"][0][2]}','{final_data["rows"][0][3]}','{final_data["rows"][0][4]}',
-        '{final_data["rows"][0][5]}','{final_data["rows"][0][6]}','{final_data["rows"][0][7]}','{final_data["rows"][0][8]}','{final_data["rows"][0][9]}',
-        {final_data["rows"][0][10]},'{final_data["rows"][0][11]}','{verifier_name}',{score})"""
+        values = f"""({final_data["rows"][0][1]},{final_data["rows"][0][1]},'{final_data["rows"][0][2]}','{final_data["rows"][0][3]}',
+        '{final_data["rows"][0][4]}','{final_data["rows"][0][5]}','{final_data["rows"][0][6]}','{final_data["rows"][0][7]}',
+        '{final_data["rows"][0][8]}','{final_data["rows"][0][9]}',{final_data["rows"][0][13]},'{final_data["rows"][0][14]}',
+        '{final_data["rows"][0][10]}','{final_data["rows"][0][11]}','{verifier_name}',{score})"""
         data = insert_query(global_question_id, fields, values)
         response_body = {
             "status": 200,
@@ -758,7 +764,7 @@ def addJob():
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
-# Add job
+# Update job
 @app.route("/updateJob", methods=["POST"])
 def updateJob():
     try:
@@ -846,6 +852,87 @@ def updateApproveDisapprove():
             "data": "User's Record Added Successfully !",
         }, 200
         return response_body
+    except Exception as e:
+        print(e)
+        response_body = {"status": 500}, 500
+        return response_body
+
+
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Add schedule interview details
+@app.route("/addInterview", methods=["POST"])
+def addInterview():
+    try:
+        job_id = request.json["job_id"]
+        candidate_id = request.json["candidate_id"]
+        interview_time = request.json["interview_time"]
+        company_id = request.json["company_id"]
+        added_at = request.json["added_at"]
+        name = request.json["name"]
+        interview_table = os.environ.get("interview")
+        fields = "(job_id,candidate_id,interview_time,company_id,added_at)"
+        values = (
+            f"""({job_id},{candidate_id},{interview_time},{company_id},{added_at});"""
+        )
+        data = insert_query(interview_table, fields, values)
+        response_body = {
+            "status": 200,
+            "data": "User's Record Added Successfully !",
+        }, 200
+
+        # take login data from candidate table
+        fields1 = "(login_id)"
+        candidate_table = os.environ.get("candidate_table")
+        condition1 = f"""candidate_id='{candidate_id}'"""
+        data1 = select_query(fields1, candidate_table, condition1)
+        final_data1 = json.loads(data1.decode("utf-8"))
+        loginId = final_data1["rows"][0][0]
+
+        # take email from login table
+        fields1 = "(email)"
+        login_table = os.environ.get("login_table")
+        condition2 = f"""loginid='{loginId}'"""
+        data2 = select_query(fields1, login_table, condition2)
+        final_data2 = json.loads(data2.decode("utf-8"))
+        client_mail = final_data2["rows"][0][0]
+
+        # take company name using company_id
+        fields1 = "(name)"
+        company_table = os.environ.get("company_table")
+        condition3 = f"""company_id='{company_id}'"""
+        data3 = select_query(fields1, company_table, condition3)
+        final_data3 = json.loads(data3.decode("utf-8"))
+        company_name = final_data3["rows"][0][0]
+
+        # Invoking smtp to send mail
+        smtp.starttls()
+        smtp.login(os.environ.get("APP_MAIL"), os.environ.get("APP_PASSWORD"))
+
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = "Dehitas email verification."
+        msg["From"] = os.environ.get("APP_MAIL")
+        msg["To"] = "bhumi.lamprostech@gmail.com"
+
+        epochtime = interview_time
+        scheduled_time = datetime.datetime.fromtimestamp(epochtime)
+        print(scheduled_time)
+        html = f"""
+            Hi {name},<br/>
+                <p>We thank you for applying to '{company_name}'. We want to invite you for an interview on {scheduled_time}</p><br/>.
+                Thank You,<br/>
+                Team DEHITAS
+        """
+        print(html)
+        part1 = MIMEText(html, "html")
+
+        msg.attach(part1)
+
+        smtp.sendmail(os.environ.get("APP_MAIL"), client_mail, msg.as_string())
+        smtp.close()
+        return response_body
+
     except Exception as e:
         print(e)
         response_body = {"status": 500}, 500
