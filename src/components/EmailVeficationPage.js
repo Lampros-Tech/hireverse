@@ -22,6 +22,13 @@ function EmailVeficationPage() {
   // let navigate = useNavigate();
 
   const [btnloading, setbtnLoading] = useState(false);
+
+  const [checker, setChecker] = useState({
+    uname: false,
+    email: false,
+    role: false,
+  });
+
   const [credentials, setCredentials] = useState({
     email: "",
     username: "",
@@ -30,34 +37,42 @@ function EmailVeficationPage() {
 
   // post request for email & username
   const sendEU = (username, email, walletaddress) => {
-    // console.log(walletaddress);
-    var data = JSON.stringify({
-      username: username,
-      email: email,
-      walletAddress: walletaddress,
-    });
-
-    var config = {
-      method: "post",
-      url: `${env.API_URL}/signup`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-    console.log(config.url);
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        setbtnLoading(false);
-        console.log("send email and username");
-        // navigate("/role");
-      })
-      .catch(function (error) {
-        console.log(error);
-        setbtnLoading(false);
-        console.log("problem in sending");
+    if (
+      checker.uname === true &&
+      checker.email === true &&
+      checker.role === true
+    ) {
+      // console.log(walletaddress);
+      var data = JSON.stringify({
+        username: username,
+        email: email,
+        walletAddress: walletaddress,
       });
+
+      var config = {
+        method: "post",
+        url: `${env.API_URL}/signup`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      console.log(config.url);
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          setbtnLoading(false);
+          console.log("send email and username");
+          // navigate("/role");
+        })
+        .catch(function (error) {
+          console.log(error);
+          setbtnLoading(false);
+          console.log("problem in sending");
+        });
+    } else {
+      console.log("email or username found");
+    }
   };
 
   const checkRole = (walletAddress) => {
@@ -81,7 +96,8 @@ function EmailVeficationPage() {
       })
       .catch(function (error) {
         console.log("Role not found");
-        checkEmail(credentials.email);
+        setChecker({ ...checker, role: true });
+        // checkEmail(credentials.email);
         console.log(error);
       });
   };
@@ -107,7 +123,8 @@ function EmailVeficationPage() {
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            checkUsername(credentials.username);
+            setChecker({ ...checker, email: true });
+            // checkUsername(credentials.username);
           }
           console.log("Email doesn't exist. GO ON");
           console.log(JSON.stringify(response.data));
@@ -138,11 +155,12 @@ function EmailVeficationPage() {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          sendEU(
-            credentials.username,
-            credentials.email,
-            credentials.walletAddress
-          );
+          setChecker({ ...checker, uname: true });
+          // sendEU(
+          //   credentials.username,
+          //   credentials.email,
+          //   credentials.walletAddress
+          // );
         }
         console.log("username doesnot exist");
         console.log(JSON.stringify(response.data));
@@ -227,6 +245,11 @@ function EmailVeficationPage() {
                     // navigate("/role");
                     setbtnLoading(true);
                     checkRole(credentials.walletAddress);
+                    sendEU(
+                      credentials.username,
+                      credentials.email,
+                      credentials.walletAddress
+                    );
                   }}
                 >
                   {/* navigate("/role") */}

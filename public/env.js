@@ -207,7 +207,7 @@ window.env = {
   "npm_package_devDependencies_tailwindcss": "^3.1.8",
   "npm_package_eslintConfig_extends_0": "react-app",
   "npm_package_eslintConfig_extends_1": "react-app/jest",
-  "npm_package_gitHead": "1665b5a59f9896835a349e4271ae848ef279636b",
+  "npm_package_gitHead": "69645900776e816587710b924471bfd234f5d6aa",
   "npm_package_name": "dehitas",
   "npm_package_private": "true",
   "npm_package_readmeFilename": "README.md",

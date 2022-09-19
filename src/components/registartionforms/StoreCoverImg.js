@@ -3,9 +3,11 @@ import { useState, useRef } from "react";
 import { Web3Storage } from "web3.storage";
 import UploadSVG from "../assets/images/uploadsvg.svg";
 import "./storefile.css";
-import env from "react-dotenv";
 
-const client = new Web3Storage({ token: env.API_TOKEN });
+const API_TOKEN =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGZiNzE4QzgwYmJlYUQwNTAzYThFMjgzMmI2MDU0RkVmOUU4MzA2NzQiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjE0MTEzNjczNTAsIm5hbWUiOiJUcnkifQ.srPPE7JD3gn8xEBCgQQs_8wyo6rDrXaDWC0QM8FtChA";
+
+const client = new Web3Storage({ token: API_TOKEN });
 
 function StoreCoverImg({ setFileCid2 }) {
   const chooseFile2 = useRef("");
