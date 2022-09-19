@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAccount } from "wagmi";
+import env from "react-dotenv";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -12,6 +15,10 @@ import StoreCoverImg from "./StoreCoverImg";
 
 function CandidateRegForm() {
   let navigate = useNavigate();
+
+  const { address, isConnected } = useAccount();
+
+  const [loginId, setLoginId] = useState(null);
   const [fileCID, setFileCID] = useState("");
   const [fileCID2, setFileCID2] = useState("");
 
@@ -104,6 +111,73 @@ function CandidateRegForm() {
   };
   const printTwo = () => {
     console.log(showAll);
+  };
+
+  const getLoginId = (walletaddress) => {
+    var data = JSON.stringify({
+      walletAddress: walletaddress,
+    });
+
+    var config = {
+      method: "get",
+      url: `${env.API_URL}/getLoginId`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setLoginId(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  getLoginId(address);
+
+  const sendData = (
+    loginid,
+    walletAddress,
+    name,
+    bio,
+    profileimg,
+    coverimg,
+    address,
+    country,
+    contactnum
+  ) => {
+    var data = JSON.stringify({
+      login_id: 4,
+      wallet_address: "1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX",
+      name: "Tester",
+      bio: "Hello User",
+      profile_image: "Test CID",
+      cover_image: "Test CID",
+      address: "Ragnorak",
+      country: "Asgard",
+      contact_number: "9988776655",
+    });
+
+    var config = {
+      method: "post",
+      url: `${env.API_URL}/registration`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   // useEffect(() => {
   //   // inputRefOne.current.focus();
@@ -818,6 +892,17 @@ function CandidateRegForm() {
                       onClick={() => {
                         // handleClick(6);
                         printTwo();
+                        sendData(
+                          loginId,
+                          address,
+                          showAll.name,
+                          showAll.bio,
+                          showAll.profilepic,
+                          showAll.coverpic,
+                          showAll.address,
+                          showAll.country,
+                          showAll.contact
+                        );
                         navigate("/candidateregform/candidate-education");
                       }}
                     >

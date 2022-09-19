@@ -24,6 +24,7 @@
 }
 .avilabletest-front-buttons {
   display: flex;
+  font-family: "Open Sans";
   justify-content: flex-start;
   align-items: center;
   margin: auto;
@@ -32,10 +33,9 @@
   padding-top: 50px;
 }
 .availabletest-description {
-  /* margin-left: 3em; */
   text-align: justify;
-  /* margin-top: 5%; */
-  /* width: 60%; */
+  font-family: "Open Sans";
+
   margin-bottom: 40px;
 }
 .availabletest-user-icon {
@@ -95,6 +95,8 @@
   display: flex;
   /* margin-left: 24em; */
   margin-right: 28em;
+  font-family: "Open Sans";
+
   align-items: center;
   justify-content: flex-end;
 }

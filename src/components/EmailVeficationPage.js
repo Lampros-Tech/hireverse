@@ -107,7 +107,7 @@ function EmailVeficationPage() {
       axios(config)
         .then(function (response) {
           if (response.status === 200) {
-            // checkUsername(credentials.username);
+            checkUsername(credentials.username);
           }
           console.log("Email doesn't exist. GO ON");
           console.log(JSON.stringify(response.data));
@@ -138,11 +138,11 @@ function EmailVeficationPage() {
     axios(config)
       .then(function (response) {
         if (response.status === 200) {
-          // sendEU(
-          //   credentials.username,
-          //   credentials.email,
-          //   credentials.walletAddress
-          // );
+          sendEU(
+            credentials.username,
+            credentials.email,
+            credentials.walletAddress
+          );
         }
         console.log("username doesnot exist");
         console.log(JSON.stringify(response.data));

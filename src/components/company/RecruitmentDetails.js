@@ -6,7 +6,8 @@ import plus from "../company/styles/plus.svg";
 function RecruitmentDetails() {
   const [selectedOptions, setSelectedOptions] = useState();
   const [jobLocation, setJoblocation] = useState("");
-  const [counter1, setCounter1] = useState(0);
+  const [singleQuestion, setSingleQuestion] = useState("");
+  const [additionalQuestion, setAdditionalQuestion] = useState([]);
   const [counter, setCounter] = useState(0);
 
   const optionList = [
@@ -25,8 +26,21 @@ function RecruitmentDetails() {
   //   console.log(jobLocation);
   // }, [jobLocation]);
   const handleClick = () => {
+    setAdditionalQuestion((additionalQuestion) => [
+      ...additionalQuestion,
+      singleQuestion,
+    ]);
+    document.getElementById("question-input").value = "";
+
+    console.log(additionalQuestion);
     setCounter(counter + 1);
     console.log(counter);
+  };
+
+  const deleteTag = (index) => {
+    setAdditionalQuestion((singleQuestion) =>
+      singleQuestion.filter((tag, i) => i !== index)
+    );
   };
   function handleSelect(data) {
     setSelectedOptions(data);
@@ -122,16 +136,20 @@ function RecruitmentDetails() {
 
               <div className="recruit-components-question">
                 <div className="img-input-submit-section">
-                  <img
+                  {/* <img
                     onClick={handleClick}
                     src={plus}
                     alt="file"
                     className="plus-icon"
                     id={plus}
-                  />
+                  /> */}
 
                   <input
+                    id="question-input"
                     type="text"
+                    onChange={(e) => {
+                      setSingleQuestion(e.target.value);
+                    }}
                     className="
                       form-control
                   
@@ -155,6 +173,7 @@ function RecruitmentDetails() {
                   <button
                     type="button"
                     id="submit-job"
+                    onClick={() => handleClick()}
                     className="inline-block px-6 py-2.5 bg-blue-600
                 text-white font-medium text-xs leading-tight  rounded-lg
                 shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700
@@ -166,29 +185,19 @@ function RecruitmentDetails() {
                   </button>
                 </div>
                 <div className="grid-recruitdetails grid-col-2">
-                  {Array.from(Array(counter)).map((c, index) => {
+                  {additionalQuestion.map((c, index) => {
                     return (
-                      <input
-                        type="text"
-                        className="
-                        form-control
-                    
-                        
-                        px-3
-                        py-1.5
-                        text-base
-                        font-normal
-                        text-gray-700
-                        bg-white bg-clip-padding
-                        border border-solid border-gray-500
-                        rounded
-                        
-                        m-0
-                        focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none
-                      "
-                        key={c}
-                        // id="job-radio"
-                      />
+                      <div className="tag-outer">
+                        <span id="tag-span-job" key={index}>
+                          {c}{" "}
+                        </span>
+                        <button
+                          className="tag-input-btn"
+                          onClick={() => deleteTag(index)}
+                        >
+                          x
+                        </button>
+                      </div>
                     );
                   })}
                 </div>

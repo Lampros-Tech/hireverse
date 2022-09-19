@@ -1,4 +1,7 @@
 import React from "react";
+import axios from "axios";
+import env from "react-dotenv";
+import { useAccount } from "wagmi";
 
 import "./styles/login.css";
 import logo from "./assets/images/logo.png";
@@ -7,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 function RoleSelector() {
   let navigate = useNavigate();
+  const { address, isConnected } = useAccount();
 
   // const options = [
   //   { label: "Select your role", value: "" },
@@ -16,6 +20,30 @@ function RoleSelector() {
   // ];
 
   const [value, setValue] = React.useState("");
+
+  const sendRole = (walletAddress, role) => {
+    var data = JSON.stringify({
+      walletAddress: walletAddress,
+      role: role,
+    });
+
+    var config = {
+      method: "post",
+      url: `${env.API_URL}/insertRole`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -84,6 +112,7 @@ function RoleSelector() {
                 <button
                   className="email-verify-button"
                   onClick={() => {
+                    sendRole(address, value);
                     if (value === "company") {
                       navigate("/companyregform");
                     } else if (value === "creator") {

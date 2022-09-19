@@ -3,9 +3,9 @@ import "./Successpopup.css";
 
 const Successpopup = (props) => {
   return (
-    <div className="popup-box">
-      <div className="box">
-        <span className="close-icon" onClick={props.handleClose}>
+    <div className="popup-box-successpopup">
+      <div className="box-successpopup">
+        <span className="close-icon-successpopup" onClick={props.handleClose}>
           x
         </span>
         {props.content}
