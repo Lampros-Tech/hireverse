@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import env from "react-dotenv";
+
 import { useAccount } from "wagmi";
 
 import "./styles/login.css";
@@ -29,7 +29,7 @@ function RoleSelector() {
 
     var config = {
       method: "post",
-      url: `${env.API_URL}/insertRole`,
+      url: `${process.env.REACT_APP_API_URL}/insertRole`,
       headers: {
         "Content-Type": "application/json",
       },

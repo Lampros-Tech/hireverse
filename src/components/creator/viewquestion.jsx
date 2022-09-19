@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Backlogo from "./Images/back_logo";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import env from "react-dotenv";
+
 import parse from "html-react-parser";
 import closebtn from "../creator/Images/closebtn.png";
 import Editimg from "./Images/edit.png";
@@ -44,7 +44,7 @@ function Viewquestion() {
 
   const getAllQuestions = () => {
     axios
-      .get(`${env.API_URI}/show_questions`, {
+      .get(`${process.env.API_URL}/show_questions`, {
         headers: { token: cookie.get("AdminToken") },
       })
       .then((res) => {
@@ -60,7 +60,7 @@ function Viewquestion() {
       category: category,
     };
     axios
-      .post(`${env.API_URI}/delete_question_by_id`, data, {
+      .post(`${process.env.API_URL}/delete_question_by_id`, data, {
         headers: { token: cookie.get("AdminToken") },
       })
       .then((res) => {

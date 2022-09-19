@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import "../creator/Addquestion.css";
 import axios from "axios";
-import env from "react-dotenv";
+
 import { insert_creators_questions_table } from "../TableQueries";
 // import { EditorState, convertToRaw, convertFromHTML, convertFromRaw } from "draft-js";
 // import { useNavigate } from "react-router-dom";
@@ -43,7 +43,7 @@ export default function AddQuestion() {
 
   const getCollections = useCallback(() => {
     axios
-      .get(`${env.API_URI}/get_collection`, {
+      .get(`${process.env.API_URL}/get_collection`, {
         headers: { token: cookies.get("AdminToken") },
       })
       .then((res) => {
@@ -85,7 +85,7 @@ export default function AddQuestion() {
     };
 
     axios
-      .post(`${env.API_URI}/add_questions`, data, {
+      .post(`${process.env.API_URL}/add_questions`, data, {
         headers: { token: cookies.get("AdminToken") },
       })
       .then((res) => {
@@ -121,7 +121,7 @@ export default function AddQuestion() {
       name: customeGener,
     };
     axios
-      .post(`${env.API_URI}/create_collection`, data, {
+      .post(`${process.env.API_URL}/create_collection`, data, {
         headers: { token: cookies.get("AdminToken") },
       })
       .then((res) => {
@@ -164,7 +164,7 @@ export default function AddQuestion() {
     };
 
     axios
-      .post(`${env.API_URI}/add_questions`, data, {
+      .post(`${process.env.API_URL}/add_questions`, data, {
         headers: { token: cookies.get("AdminToken") },
       })
       .then((res) => {
