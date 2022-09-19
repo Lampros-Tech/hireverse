@@ -4,8 +4,8 @@ import { Popover, Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   BellIcon,
-  ChartBarIcon,
-  CursorArrowRaysIcon,
+  BriefcaseIcon,
+  ClipboardDocumentListIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -13,17 +13,17 @@ import logo from "../assets/images/logo.png";
 
 const solutions = [
   {
-    name: "My Tests",
+    name: "Create a Repo",
     description:
       "Get a better understanding of where your traffic is coming from.",
-    href: "#",
-    icon: ChartBarIcon,
+    href: "recruitment-details",
+    icon: BriefcaseIcon,
   },
   {
-    name: "Practice Tests",
+    name: "View Repo",
     description: "Speak directly to your customers in a more meaningful way.",
-    href: "#",
-    icon: CursorArrowRaysIcon,
+    href: "jobpost",
+    icon: ClipboardDocumentListIcon,
   },
   //   {
   //     name: "Security",
@@ -83,287 +83,35 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function CandidateHeader() {
+export default function CompanyHeader() {
   return (
     <>
       <Popover className="relative bg-white">
         <div className=" px-4 sm:px-6">
           <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
-              <Link to="MyQuestion">
+              <Link to="/">
                 <span className="sr-only">Workflow</span>
-                <img className="h-12 w-auto sm:h-20" src={logo} alt="" />
+                <img className="h-12 w-auto custome_logo sm:h-20 " src={logo} alt="logo" />
               </Link>
             </div>
             <div className="grow"></div>
 
             <div className="-my-2 -mr-2 md:hidden">
+              <button
+                type="button"
+                className="rounded-full p-1 text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              >
+                <span className="sr-only">View notifications</span>
+                <BellIcon className="h-6 w-6" aria-hidden="true" />
+              </button>
               <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                 <span className="sr-only">Open menu</span>
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </Popover.Button>
             </div>
-
-            <Popover.Group
-              as="nav"
-              className="hidden space-x-10 md:flex items-center"
-            >
-              <Link
-                to="/creator/"
-                className="text-base font-medium text-gray-500 hover:text-gray-900"
-              >
-                Feed
-              </Link>
-
-              {/* Repository */}
-
-              <Popover className="relative">
-                {({ open }) => (
-                  <>
-                    <Popover.Button
-                      className={classNames(
-                        open ? "text-gray-900" : "text-gray-500",
-                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      )}
-                    >
-                      <span>Repository</span>
-                      <ChevronDownIcon
-                        className={classNames(
-                          open ? "text-gray-600" : "text-gray-400",
-                          "ml-2 h-5 w-5 group-hover:text-gray-500"
-                        )}
-                        aria-hidden="true"
-                      />
-                    </Popover.Button>
-
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-200"
-                      enterFrom="opacity-0 translate-y-1"
-                      enterTo="opacity-100 translate-y-0"
-                      leave="transition ease-in duration-150"
-                      leaveFrom="opacity-100 translate-y-0"
-                      leaveTo="opacity-0 translate-y-1"
-                    >
-                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
-                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                          <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                            {/* {solutions.map((item) => ( */}
-                            <Link
-                              to="createrepo"
-                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                            >
-                              <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">
-                                  Create Repository
-                                </p>
-                              </div>
-                            </Link>
-                            <Link
-                              to="myrepo"
-                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                            >
-                              <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">
-                                  View Repository
-                                </p>
-                              </div>
-                            </Link>
-                          </div>
-                          <div className="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
-                            {callsToAction.map((item) => (
-                              <div key={item.name} className="flow-root">
-                                <Link
-                                  to="/#"
-                                  className="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100"
-                                >
-                                  <item.icon
-                                    className="h-6 w-6 flex-shrink-0 text-gray-400"
-                                    aria-hidden="true"
-                                  />
-                                  <span className="ml-3">{item.name}</span>
-                                </Link>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </Popover.Panel>
-                    </Transition>
-                  </>
-                )}
-              </Popover>
-
-              {/* Assessment */}
-
-              <Popover className="relative">
-                {({ open }) => (
-                  <>
-                    <Popover.Button
-                      className={classNames(
-                        open ? "text-gray-900" : "text-gray-500",
-                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      )}
-                    >
-                      <span>Assessment</span>
-                      <ChevronDownIcon
-                        className={classNames(
-                          open ? "text-gray-600" : "text-gray-400",
-                          "ml-2 h-5 w-5 group-hover:text-gray-500"
-                        )}
-                        aria-hidden="true"
-                      />
-                    </Popover.Button>
-
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-200"
-                      enterFrom="opacity-0 translate-y-1"
-                      enterTo="opacity-100 translate-y-0"
-                      leave="transition ease-in duration-150"
-                      leaveFrom="opacity-100 translate-y-0"
-                      leaveTo="opacity-0 translate-y-1"
-                    >
-                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
-                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                          <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                            {/* {solutions.map((item) => ( */}
-                            <Link
-                              to="assesment"
-                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                            >
-                              <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">
-                                  Create Assessment
-                                </p>
-                              </div>
-                            </Link>
-                            <Link
-                              to="myassessment"
-                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                            >
-                              <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">
-                                  View Assessment
-                                </p>
-                              </div>
-                            </Link>
-                          </div>
-                          <div className="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
-                            {callsToAction.map((item) => (
-                              <div key={item.name} className="flow-root">
-                                <Link
-                                  to="/#"
-                                  className="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100"
-                                >
-                                  <item.icon
-                                    className="h-6 w-6 flex-shrink-0 text-gray-400"
-                                    aria-hidden="true"
-                                  />
-                                  <span className="ml-3">{item.name}</span>
-                                </Link>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </Popover.Panel>
-                    </Transition>
-                  </>
-                )}
-              </Popover>
-
-              {/* Question */}
-
-              <Popover className="relative">
-                {({ open }) => (
-                  <>
-                    <Popover.Button
-                      className={classNames(
-                        open ? "text-gray-900" : "text-gray-500",
-                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      )}
-                    >
-                      <span>Question</span>
-                      <ChevronDownIcon
-                        className={classNames(
-                          open ? "text-gray-600" : "text-gray-400",
-                          "ml-2 h-5 w-5 group-hover:text-gray-500"
-                        )}
-                        aria-hidden="true"
-                      />
-                    </Popover.Button>
-
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-200"
-                      enterFrom="opacity-0 translate-y-1"
-                      enterTo="opacity-100 translate-y-0"
-                      leave="transition ease-in duration-150"
-                      leaveFrom="opacity-100 translate-y-0"
-                      leaveTo="opacity-0 translate-y-1"
-                    >
-                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
-                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                          <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                            {/* {solutions.map((item) => ( */}
-                            <Link
-                              to="MyQuestion"
-                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                            >
-                              <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">
-                                  View My Questions
-                                </p>
-                              </div>
-                            </Link>
-                            <Link
-                              to="question"
-                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
-                            >
-                              <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">
-                                  Add Question
-                                </p>
-                              </div>
-                            </Link>
-                          </div>
-                          <div className="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
-                            {callsToAction.map((item) => (
-                              <div key={item.name} className="flow-root">
-                                <Link
-                                  to="/#"
-                                  className="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100"
-                                >
-                                  <item.icon
-                                    className="h-6 w-6 flex-shrink-0 text-gray-400"
-                                    aria-hidden="true"
-                                  />
-                                  <span className="ml-3">{item.name}</span>
-                                </Link>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </Popover.Panel>
-                    </Transition>
-                  </>
-                )}
-              </Popover>
-
-              <Link
-                to="/#"
-                className="text-base font-medium text-gray-500 hover:text-gray-900"
-              >
-                Messages
-              </Link>
-              <button className="hireverse-btn">
-                <Link to="/#" className=" ">
-                  HireVerse
-                </Link>
-              </button>
-            </Popover.Group>
-            {/* <Popover className="relative"> */}
-            <form className="hidden space-x-10 md:flex items-center">
-              <div className="relative">
+            <form className="hidden space-x-10 md:flex items-center w-1/4">
+              <div className="relative w-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="absolute top-0 bottom-0 w-4 h-4 my-auto text-gray-400 left-3"
@@ -381,10 +129,118 @@ export default function CandidateHeader() {
                 <input
                   type="text"
                   placeholder="Search"
-                  className="w-full py-1 pl-10  text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+                  className="w-full py-2 pl-10  text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
                 />
               </div>
             </form>
+            <Popover.Group
+              as="nav"
+              className="hidden space-x-10 md:flex items-center"
+            >
+              <Link
+                to="/company"
+                className="text-base font-medium text-gray-500 hover:text-gray-900"
+              >
+                Feed
+              </Link>
+              
+{/* _________________—______—___—__—_——_—_—__—_—_—_—_—_—__Repo DD */}
+
+              <Popover className="relative">
+                {({ open }) => (
+                  <>
+                    <Popover.Button
+                      className={classNames(
+                        open ? "text-gray-900" : "text-gray-500",
+                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      )}
+                    >
+                      <span>Repo</span>
+                      <ChevronDownIcon
+                        className={classNames(
+                          open ? "text-gray-600" : "text-gray-400",
+                          "ml-2 h-5 w-5 group-hover:text-gray-500"
+                        )}
+                        aria-hidden="true"
+                      />
+                    </Popover.Button>
+
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-200"
+                      enterFrom="opacity-0 translate-y-1"
+                      enterTo="opacity-100 translate-y-0"
+                      leave="transition ease-in duration-150"
+                      leaveFrom="opacity-100 translate-y-0"
+                      leaveTo="opacity-0 translate-y-1"
+                    >
+                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
+                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                          <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                            {solutions.map((item) => (
+                              <Link
+                                key={item.name}
+                                to={item.href}
+                                className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
+                              >
+                                <item.icon
+                                  className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                  aria-hidden="true"
+                                />
+                                <div className="ml-4">
+                                  <p className="text-base font-medium text-gray-900">
+                                    {item.name}
+                                  </p>
+                                  <p className="mt-1 text-sm text-gray-500">
+                                    {item.description}
+                                  </p>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                          <div className="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
+                            {callsToAction.map((item) => (
+                              <div key={item.name} className="flow-root">
+                                <Link
+                                  to="/#"
+                                  className="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100"
+                                >
+                                  <item.icon
+                                    className="h-6 w-6 flex-shrink-0 text-gray-400"
+                                    aria-hidden="true"
+                                  />
+                                  <span className="ml-3">{item.name}</span>
+                                </Link>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </Popover.Panel>
+                    </Transition>
+                  </>
+                )}
+              </Popover>
+
+
+{/* ______________________________Assessment */}
+
+
+{/* _______________________________Questions */}
+
+              <Link
+                to="message"
+                className="text-base font-medium text-gray-500 hover:text-gray-900"
+              >
+                Messages
+              </Link>
+              <button className="hireverse-btn">
+                <Link to="/#" className=" ">
+                  HireVerse
+                </Link>
+              </button>
+            </Popover.Group>
+            {/* <Popover className="relative"> */}
+
             {/* </Popover> */}
             {/* Profile image and notification icon  */}
             <div className="hidden items-center justify-end md:flex ">
@@ -535,7 +391,7 @@ export default function CandidateHeader() {
                     {solutions.map((item) => (
                       <Link
                         key={item.name}
-                        to="/#"
+                        to={item.href}
                         className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
                       >
                         <item.icon
@@ -553,14 +409,19 @@ export default function CandidateHeader() {
               <div className="space-y-6 py-6 px-5">
                 <div className="grid grid-cols-2 gap-y-4 gap-x-8">
                   <Link
-                    to="/creator/"
+                    to="/#"
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                   >
                     Feed
                   </Link>
-
                   <Link
                     to="/#"
+                    className="text-base font-medium text-gray-900 hover:text-gray-700"
+                  >
+                    Creators
+                  </Link>
+                  <Link
+                    to="message"
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                   >
                     Messages
@@ -571,13 +432,13 @@ export default function CandidateHeader() {
                   >
                     Your Profile
                   </Link>
-                  <button
+                  {/* <button
                     type="button"
                     className="rounded-full p-1 text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
                     <span className="sr-only">View notifications</span>
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
+                  </button> */}
                   {/* {resources.map((item) => (
                   <Link
                     key={item.name}

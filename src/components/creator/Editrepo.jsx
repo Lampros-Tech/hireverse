@@ -71,7 +71,7 @@ function Editrepo() {
   return (
     <>
       <div className="parent-content">
-        <div className="Content  min-h-screen px-0.5 py-10">
+        <div className="C_Content  min-h-screen px-0.5 py-10">
           <div className="top">
             <div className="Heading font-primary text-left py-5 ">
               Edit repository here.

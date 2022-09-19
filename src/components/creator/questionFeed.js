@@ -2,8 +2,8 @@ function Questionfeed ()
 {
     return(
         <>
-            <>
-                <div className="Content">
+            <div className="parent-content">
+                <div className="C_Content">
                     <div className="">
                         <div className="font-primary text-center py-5 bb-2">
                             Question Feed
@@ -36,7 +36,7 @@ function Questionfeed ()
                     </div>
 
                 </div>
-            </>
+            </div>
         </>
     )
 }

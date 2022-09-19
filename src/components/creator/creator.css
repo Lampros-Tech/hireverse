@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
-.Content
+.C_Content
 {
     max-width: 786px;
     margin:0 auto;
-    background-color: #FAFFFD;
+    background-color: #EFF0EE;
 }
 .uplift
 {
@@ -12,7 +12,17 @@
 }
 .parent-content
 {
-    background-color: #FAFFFD;
+    background-color: #EFF0EE;
+    min-height: 100vh;
+}
+.C_entity
+{
+    color: #000;
+    font-weight: 600;
+}
+.values
+{
+    color:#000;
 }
 .Headingassesment
 {
@@ -42,7 +52,11 @@
 {
     width: 200px;
     text-align:center;
-    border: 1px #000 solid;
+    border: 1px #fff solid;
+    color:#fff;
+    background-color: #1AC0C6;
+    align-items: center;
+    align-content: center;
 }
 .heder1
 {
@@ -60,11 +74,30 @@
 }
 .create-assessment-btn
 {
-    background-color: #FAFFFD;
+    background-color: #FF6150;
+    color:#ffff;
+   
+}
+.final-buttom
+{
+    text-align: center;
 }
 .create-assessment-btn:hover
 {
-    background-color: #FF6150 ;
-    color: #FAFFFD;
-}
+    background-color: #ffff ;
+    color: #FF6150;
 
+}
+.Add-btn-custom
+{
+    background-color: #282133;
+    color: #fff;
+}
+.custome_logo
+{
+    max-width:none !important;
+}
+.C_tag
+{
+    background-color:#1AC0C6;
+}

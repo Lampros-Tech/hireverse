@@ -105,62 +105,45 @@ function Viewquestion() {
   }, [questions]);
 
   return (
-    <>
-      <div className="Content ">
+    <div className="parent-content">
+      <div className="C_Content ">
         <div className="title text-center font-primary font-bold my-8">
           View Question
         </div>
         <div className="Questions">
-          <div className="card-background uplift h-52 p-2 px-8 rounded-md">
+          <div className="card-background uplift h-54 p-2 px-8 rounded-md">
+            <div className="flex my-4">
             <div className="Tittle font-primary">Question 1</div>
+            <div className="flex-grow"></div>
+            <button
+                  className="Edit-Question px-3 py-1 rounded-md "
+                  onClick={() => {
+                    Editquestion();
+                  }}
+                >
+                  Edit Question
+                </button>
+                </div>
             <div className="font-secondary description">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit.
               Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime
               quaerat vero a voluptatibus ratione quidem quo dignissimos dolor
               libero vitae iusto odit facilis.
             </div>
-            <div className="text-center w-full">
-              <button
-                className="Edit-Question p-3 rounded-md "
-                onClick={() => {
-                  Editquestion();
-                }}
-              >
-                Edit Question
-              </button>
+            <div className="flex my-2">
+              <div className="mx-2 p-1 px-3 C_tag rounded-md">
+                Tag
+              </div>
+              <div className="mx-2 p-1  px-3 C_tag rounded-md">
+                Tag
+              </div>
+              <div className="mx-2 p-1 px-3 C_tag rounded-md">
+                Tag
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="Questions my-10">
-          <div className="card-background uplift h-52 p-2 px-8 rounded-md">
-            <div className="Tittle font-primary">Question 1</div>
-            <div className="font-secondary overflow-x-auto description">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime
-              quaerat vero a voluptatibus ratione quidem quo dignissimos dolor
-              libero vitae iusto odit facilis. Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam
-              laudantium odio neque, maxime quaerat vero a voluptatibus ratione
-              quidem quo dignissimos dolor libero vitae iusto odit facilis.
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime
-              quaerat vero a voluptatibus ratione quidem quo dignissimos dolor
-              libero vitae iusto odit facilis.
-            </div>
-
-            <div className="text-center w-full">
-              <button
-                className="Edit-Question p-3 rounded-md "
-                onClick={() => {
-                  Editquestion();
-                }}
-              >
-                Edit Question
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
 
       {showEdit ? (
@@ -168,7 +151,7 @@ function Viewquestion() {
           <EditQuestion />
         </div>
       ) : null}
-    </>
+    </div>
   );
 }
 
