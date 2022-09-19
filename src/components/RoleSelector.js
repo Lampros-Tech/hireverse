@@ -39,6 +39,14 @@ function RoleSelector() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        if (value === "company") {
+          navigate("/companyregform");
+        } else if (value === "creator") {
+          navigate("/role/creator");
+        } else if (value === "candidate") {
+          navigate("/candidateregform");
+        } else {
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -83,7 +91,7 @@ function RoleSelector() {
               {/* <img src={emailpic} alt="img" /> */}
             </div>
 
-            <form action="" className="email-form">
+            <div className="email-form">
               <h1 className="email-form-title">What represents you well?</h1>
               <div className="wrap-input validate-input">
                 <select
@@ -113,20 +121,12 @@ function RoleSelector() {
                   className="email-verify-button"
                   onClick={() => {
                     sendRole(address, value);
-                    if (value === "company") {
-                      navigate("/companyregform");
-                    } else if (value === "creator") {
-                      navigate("/role/creator");
-                    } else if (value === "candidate") {
-                      navigate("/candidateregform");
-                    } else {
-                    }
                   }}
                 >
                   Next
                 </button>
               </div>
-            </form>
+            </div>
           </section>
         </section>
       </section>

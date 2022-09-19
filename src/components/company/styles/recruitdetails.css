@@ -12,6 +12,7 @@
   box-shadow: 0px 0px 6px 5px #eff0ee;
   margin-top: 3%;
   padding: 30px;
+  margin-bottom: 3%;
   padding-bottom: 30px;
 }
 
@@ -91,7 +92,7 @@
   padding: 10px 15% 10px 0;
 }
 .dropdown-container {
-  width: 300px;
+  width: 100%;
 }
 .plus-icon {
   display: flex;
@@ -102,9 +103,12 @@
   text-align: center;
 }
 #job-radio {
-  margin-left: 10%;
+  /* margin-left: 10%; */
   width: 50%;
 }
+/* .ex-level-select {
+  width: 60%;
+} */
 #submit-job {
   display: inline;
   margin-left: 10px;
@@ -124,7 +128,7 @@
 .all-inputfield {
   width: 75%;
 }
-input[type="radio"].radio-location:checked:after {
+/* input[type="radio"].radio-location:checked:after {
   width: 11px;
   height: 12px;
   border-radius: 10px;
@@ -132,7 +136,7 @@ input[type="radio"].radio-location:checked:after {
   content: "";
   display: inline-block;
   visibility: visible;
-}
+} */
 .recruit-components-question {
   margin-bottom: 20px;
 }

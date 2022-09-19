@@ -23,11 +23,9 @@ function EmailVeficationPage() {
 
   const [btnloading, setbtnLoading] = useState(false);
 
-  const [checker, setChecker] = useState({
-    uname: false,
-    email: false,
-    role: false,
-  });
+  const [checker_uname, setChecker_uname] = useState(false);
+  const [checker_email, setChecker_email] = useState(false);
+  const [checker_role, setChecker_role] = useState(false);
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -37,42 +35,34 @@ function EmailVeficationPage() {
 
   // post request for email & username
   const sendEU = (username, email, walletaddress) => {
-    if (
-      checker.uname === true &&
-      checker.email === true &&
-      checker.role === true
-    ) {
-      // console.log(walletaddress);
-      var data = JSON.stringify({
-        username: username,
-        email: email,
-        walletAddress: walletaddress,
-      });
+    // console.log(walletaddress);
+    var data = JSON.stringify({
+      username: username,
+      email: email,
+      walletAddress: walletaddress,
+    });
 
-      var config = {
-        method: "post",
-        url: `${env.API_URL}/signup`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: data,
-      };
-      console.log(config.url);
-      axios(config)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-          setbtnLoading(false);
-          console.log("send email and username");
-          // navigate("/role");
-        })
-        .catch(function (error) {
-          console.log(error);
-          setbtnLoading(false);
-          console.log("problem in sending");
-        });
-    } else {
-      console.log("email or username found");
-    }
+    var config = {
+      method: "post",
+      url: `${env.API_URL}/signup`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+    console.log(config.url);
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setbtnLoading(false);
+        console.log("send email and username");
+        navigate("/role");
+      })
+      .catch(function (error) {
+        console.log(error);
+        setbtnLoading(false);
+        console.log("problem in sending");
+      });
   };
 
   const checkRole = (walletAddress) => {
@@ -96,7 +86,7 @@ function EmailVeficationPage() {
       })
       .catch(function (error) {
         console.log("Role not found");
-        setChecker({ ...checker, role: true });
+        setChecker_role(true);
         // checkEmail(credentials.email);
         console.log(error);
       });
@@ -122,10 +112,8 @@ function EmailVeficationPage() {
 
       axios(config)
         .then(function (response) {
-          if (response.status === 200) {
-            setChecker({ ...checker, email: true });
-            // checkUsername(credentials.username);
-          }
+          setChecker_email(true);
+          // checkUsername(credentials.username);
           console.log("Email doesn't exist. GO ON");
           console.log(JSON.stringify(response.data));
         })
@@ -154,14 +142,13 @@ function EmailVeficationPage() {
 
     axios(config)
       .then(function (response) {
-        if (response.status === 200) {
-          setChecker({ ...checker, uname: true });
-          // sendEU(
-          //   credentials.username,
-          //   credentials.email,
-          //   credentials.walletAddress
-          // );
-        }
+        setChecker_uname(true);
+        // sendEU(
+        //   credentials.username,
+        //   credentials.email,
+        //   credentials.walletAddress
+        // );
+
         console.log("username doesnot exist");
         console.log(JSON.stringify(response.data));
       })
@@ -245,11 +232,21 @@ function EmailVeficationPage() {
                     // navigate("/role");
                     setbtnLoading(true);
                     checkRole(credentials.walletAddress);
-                    sendEU(
-                      credentials.username,
-                      credentials.email,
-                      credentials.walletAddress
-                    );
+                    console.log(checker_uname, checker_email, checker_role);
+                    if (
+                      checker_uname === true &&
+                      checker_email === true &&
+                      checker_role === true
+                    ) {
+                      console.log("entering in the sending data");
+                      sendEU(
+                        credentials.username,
+                        credentials.email,
+                        credentials.walletAddress
+                      );
+                    } else {
+                      console.log("error in sending data to the db");
+                    }
                   }}
                 >
                   {/* navigate("/role") */}

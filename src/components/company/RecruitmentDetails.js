@@ -4,23 +4,49 @@ import Select from "react-select";
 import plus from "../company/styles/plus.svg";
 
 function RecruitmentDetails() {
-  const [selectedOptions, setSelectedOptions] = useState();
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions1, setSelectedOptions1] = useState();
+  const [selectedOptionsLocation, setSelectedOptionsLocation] = useState();
   const [jobLocation, setJoblocation] = useState("");
   const [singleQuestion, setSingleQuestion] = useState("");
   const [additionalQuestion, setAdditionalQuestion] = useState([]);
   const [counter, setCounter] = useState(0);
 
-  const optionList = [
+  const optionListPrimary = [
     { value: "java", label: "Java" },
     { value: "python", label: "Python" },
     { value: "oracle", label: "Oracle" },
     { value: "C++", label: "C++" },
     { value: "blockchain", label: "Blockchain" },
     { value: "Reactjs", label: "ReactJs" },
-    // { value: "angular", label: "Angular" },
-    // { value: "data structure", label: "Data Structure" },
-    // { value: "Nodejs", label: "Nodejs" },
-    // { value: "dotnet", label: "DotNet" },
+    { value: "angular", label: "Angular" },
+    { value: "data structure", label: "Data Structure" },
+    { value: "Nodejs", label: "Nodejs" },
+    { value: "dotnet", label: "DotNet" },
+  ];
+  const optionListSecondary = [
+    { value: "Java", label: "Java" },
+    { value: "python", label: "Python" },
+    { value: "oracle", label: "Oracle" },
+    { value: "C++", label: "C++" },
+    { value: "blockchain", label: "Blockchain" },
+    { value: "Reactjs", label: "ReactJs" },
+    { value: "angular", label: "Angular" },
+    { value: "data structure", label: "Data Structure" },
+    { value: "Nodejs", label: "Nodejs" },
+    { value: "dotnet", label: "DotNet" },
+  ];
+  const optionListLocation = [
+    { value: "Brazil", label: "Brazil" },
+    { value: "Canada", label: "Canada" },
+    { value: "India", label: "India" },
+    { value: "Bhutan", label: "Bhutan" },
+    { value: "Japan", label: "Japan" },
+    { value: "Nepal", label: "Nepal" },
+    { value: "France", label: "France" },
+    { value: "Astrallia", label: "Australlia" },
+    { value: "China", label: "China" },
+    { value: "Mexico", label: "Mexico" },
   ];
   // useEffect(() => {
   //   console.log(jobLocation);
@@ -43,7 +69,17 @@ function RecruitmentDetails() {
     );
   };
   function handleSelect(data) {
-    setSelectedOptions(data);
+    if (selectedOptions.length > 4) {
+      alert("not selected");
+    } else {
+      setSelectedOptions(data);
+    }
+  }
+  function handleSelect1(data) {
+    setSelectedOptions1(data);
+  }
+  function handleSelectLocation(data) {
+    setSelectedOptionsLocation(data);
   }
 
   const handleClick1 = (e) => {
@@ -82,6 +118,7 @@ function RecruitmentDetails() {
               <div className="recruit-components">
                 <input
                   type="text"
+                  required
                   className="
                     form-control
                     block
@@ -108,6 +145,7 @@ function RecruitmentDetails() {
               </div>
               <div className="recruit-components">
                 <textarea
+                  required
                   className="
                       form-control
                       block
@@ -147,6 +185,7 @@ function RecruitmentDetails() {
                   <input
                     id="question-input"
                     type="text"
+                    required
                     onChange={(e) => {
                       setSingleQuestion(e.target.value);
                     }}
@@ -205,7 +244,7 @@ function RecruitmentDetails() {
 
               <div className="recruit-location">
                 <div>
-                  <label id="recruit-label">Job Location:</label>
+                  <label id="recruit-label">Job Type:</label>
                 </div>
                 <label id="recruit-label">
                   <input
@@ -293,12 +332,13 @@ function RecruitmentDetails() {
               </div>
 
               <div>
-                <label id="recruit-label">Year Of Experience: </label>
+                <label id="recruit-label">Experience Level: </label>
               </div>
               <div className="recruit-components">
                 <input
                   type="number"
                   min="0"
+                  required
                   max="10"
                   id="number"
                   className="
@@ -316,10 +356,10 @@ function RecruitmentDetails() {
                       transition
                       ease-in-out
                       m-0
-                      focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none
+                      focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none ex-level-select
                     "
                 />
-                <label id="number-label">To</label>
+                {/* <label id="number-label">To</label>
                 <input
                   type="number"
                   min="0"
@@ -342,19 +382,54 @@ function RecruitmentDetails() {
                   m-0
                   focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none
                 "
-                />
+                /> */}
               </div>
-
               <div>
-                <label id="recruit-label">Area Of Expertise: </label>
+                <label id="recruit-label">Job Location: </label>
               </div>
               <div className="recruit-components">
                 <div className="dropdown-container">
                   <Select
-                    options={optionList}
+                    options={optionListLocation}
                     placeholder=""
+                    required
+                    value={selectedOptionsLocation}
+                    onChange={handleSelectLocation}
+                    isSearchable={true}
+                    isMulti
+                    styles={style}
+                  />
+                </div>
+              </div>
+              <div>
+                <label id="recruit-label">Primary Skills: </label>
+              </div>
+              <div className="recruit-components">
+                <div className="dropdown-container">
+                  <Select
+                    options={optionListPrimary}
+                    placeholder=""
+                    required
                     value={selectedOptions}
                     onChange={handleSelect}
+                    isSearchable={true}
+                    isOptionDisabled={() => selectedOptions.length >= 4}
+                    isMulti
+                    styles={style}
+                  />
+                </div>
+              </div>
+              <div>
+                <label id="recruit-label">Secondary Skills: </label>
+              </div>
+              <div className="recruit-components">
+                <div className="dropdown-container">
+                  <Select
+                    options={optionListSecondary}
+                    placeholder=""
+                    required
+                    value={selectedOptions1}
+                    onChange={handleSelect1}
                     isSearchable={true}
                     isMulti
                     styles={style}
@@ -365,11 +440,11 @@ function RecruitmentDetails() {
               <div className="recruit-submit">
                 <a
                   href="/company/availabletests"
-                  target="_blank"
+                  // target="_blank"
                   rel="noreferrer"
                 >
                   <button
-                    type="button"
+                    type="submit"
                     className="text-white    font-medium rounded-lg text-sm px-8 py-3 text-center  recruit-save-continue-button
                     "
                   >

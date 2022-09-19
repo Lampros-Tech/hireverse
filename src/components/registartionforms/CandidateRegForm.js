@@ -19,8 +19,8 @@ function CandidateRegForm() {
   const { address, isConnected } = useAccount();
 
   const [loginId, setLoginId] = useState(null);
-  const [fileCID, setFileCID] = useState("");
-  const [fileCID2, setFileCID2] = useState("");
+  const [profileCID, setProfileCID] = useState("");
+  const [coverCID, setCoverCID] = useState("");
 
   const refOne = useRef(null);
   const refTwo = useRef(null);
@@ -44,8 +44,6 @@ function CandidateRegForm() {
     address: "",
     country: "",
     contact: "",
-    profilepic: { fileCID },
-    coverpic: { fileCID2 },
   });
 
   const refArr = [
@@ -69,9 +67,9 @@ function CandidateRegForm() {
       alert("Select country pls");
     } else if (e === 4 && showAll.contact === "") {
       alert("Enter contact num pls");
-    } else if (e === 5 && showAll.profilepic === "") {
+    } else if (e === 5 && profileCID === "") {
       alert("Enter profile img pls");
-    } else if (e === 6 && showAll.coverpic === "") {
+    } else if (e === 6 && coverCID === "") {
       alert("Enter cover img pls");
     } else {
       // console.log(refArr[e + 1].section);
@@ -110,6 +108,7 @@ function CandidateRegForm() {
     }
   };
   const printTwo = () => {
+    console.log(profileCID, coverCID);
     console.log(showAll);
   };
 
@@ -130,14 +129,16 @@ function CandidateRegForm() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        setLoginId(response.data);
+        // setLoginId(response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
 
-  getLoginId(address);
+  useEffect(() => {
+    getLoginId(address);
+  }, []);
 
   const sendData = (
     loginid,
@@ -151,15 +152,15 @@ function CandidateRegForm() {
     contactnum
   ) => {
     var data = JSON.stringify({
-      login_id: 4,
-      wallet_address: "1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX",
-      name: "Tester",
-      bio: "Hello User",
-      profile_image: "Test CID",
-      cover_image: "Test CID",
-      address: "Ragnorak",
-      country: "Asgard",
-      contact_number: "9988776655",
+      login_id: 2,
+      wallet_address: walletAddress,
+      name: name,
+      bio: bio,
+      profile_image: profileimg,
+      cover_image: coverimg,
+      address: address,
+      country: country,
+      contact_number: contactnum,
     });
 
     var config = {
@@ -753,7 +754,7 @@ function CandidateRegForm() {
                       "upload file" button to upload your image
                     </p>
 
-                    <StoreProfileImg setFileCid={setFileCID} />
+                    <StoreProfileImg setFileCid={setProfileCID} />
                   </div>
 
                   <div className="f-btn-flex">
@@ -854,7 +855,7 @@ function CandidateRegForm() {
                       * click on image box to choose image and then press
                       "upload file" button to upload your image
                     </p>
-                    <StoreCoverImg setFileCid2={setFileCID2} />
+                    <StoreCoverImg setFileCid2={setCoverCID} />
                   </div>
 
                   <div className="f-btn-flex">
@@ -893,17 +894,18 @@ function CandidateRegForm() {
                         // handleClick(6);
                         printTwo();
                         sendData(
-                          loginId,
+                          // loginId,
+                          2,
                           address,
                           showAll.name,
                           showAll.bio,
-                          showAll.profilepic,
-                          showAll.coverpic,
+                          profileCID,
+                          coverCID,
                           showAll.address,
                           showAll.country,
                           showAll.contact
                         );
-                        navigate("/candidateregform/candidate-education");
+                        // navigate("/candidateregform/candidate-education");
                       }}
                     >
                       <span>NEXT</span>
