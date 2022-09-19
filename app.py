@@ -1041,15 +1041,15 @@ def registration():
         role = getWalletRole(walletAddress)
         if role[0].lower() == "candidate":
             data = (
-                request.json["loginId"],
+                request.json["login_id"],
                 request.json["name"],
                 request.json["bio"],
-                request.json["profileImage"],
-                request.json["coverImage"],
+                request.json["profile_image"],
+                request.json["cover_image"],
                 walletAddress,
                 request.json["address"],
                 request.json["country"],
-                request.json["contactNumber"],
+                request.json["contact_number"],
             )
 
         if role[0].lower() == "company":
@@ -1065,7 +1065,7 @@ def registration():
                 request.json["number_of_employees"],
                 request.json["address"],
                 request.json["contry"],
-                request.json["contect_number"],
+                request.json["contact_number"],
             )
 
         if role[0].lower() == "creator":
