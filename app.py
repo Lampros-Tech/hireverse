@@ -1051,7 +1051,6 @@ def registration():
                 request.json["country"],
                 request.json["contact_number"],
             )
-
         if role[0].lower() == "company":
             data = (
                 request.json["login_id"],
@@ -1086,9 +1085,10 @@ def registration():
             "creator": "creator_registration",
             "company": "company_registration",
         }
-        data_ = eval(str(role_functions[role[0]]) + str(f"({data})"))
+        print(data)
+        data_ = eval(role_functions[role[0]] + str(f"({data})"))
         print(data_)
-        response_body = {"status": 200, "data": data_}, 200
+        response_body = {"status": 200, "data": "Inserted Succesfully !"}, 200
     except Exception as e:
         response_body = {"status": 501, "data": str(e)}, 404
     return response_body

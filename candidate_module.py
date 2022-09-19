@@ -12,18 +12,19 @@ load_dotenv()
 candidate = Blueprint('candidate', __name__)
 
 
-def candidate_registration(data):
+def candidate_registration(candidate_data):
     try:
         fields = '*'
         tablename = os.environ.get('candidate_table')
         #Checking If the Address is Exists Or Not
-        condition =  f"""wallet_address='{data[5]}'"""
+        print(candidate_data[5])
+        condition =  f"""wallet_address='{candidate_data[5]}'"""
         data = select_query(fields,tablename, condition)
         final_data = json.loads(data.decode('utf-8'))
         if(len(final_data['rows']) == 0):
             tablename = os.environ.get('candidate_table')
             fields = "(login_id, name, bio, profile_image, cover_image, wallet_address, address, country, contect_number, created_at, modified_at)"
-            values = data + (int(datetime.datetime.now().timestamp()), int(datetime.datetime.now().timestamp()))
+            values = candidate_data + (int(datetime.datetime.now().timestamp()), int(datetime.datetime.now().timestamp()))
             data = insert_query(tablename, fields ,values)
             return "Registration Successfully !"
         else:

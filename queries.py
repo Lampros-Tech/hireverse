@@ -26,11 +26,13 @@ def select_query(fields, tablename, condition):
 
 
 def insert_query(tablename, fields, values):
+    print("in")
     query = f"""
             tableland write "INSERT INTO {tablename} {fields} VALUES { values }"
             """
-    print(query)
     data = subprocess.check_output([query], shell=True)
+    print(data)
+
     return data
 
 
