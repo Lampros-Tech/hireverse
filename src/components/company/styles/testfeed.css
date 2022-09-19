@@ -1,0 +1,111 @@
+/* /* .myjobpost-main-content {
+    height: 100%;
+    width: 100%;
+  
+    margin: 0 auto;
+  
+    max-width: 1024px;
+    padding: 50px;
+  } */
+
+/* .testfeed-outer-header {
+  display: flex;
+  flex-direction: row;
+} */
+.td-main-content{
+  height: 100%;
+  width: 100%;
+
+  margin: 0 auto;
+  padding: 20px;
+} 
+.td-title{
+  display: flex;
+  justify-content: space-around;
+  color: black;
+  margin-top: 2%;
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 2%;
+}
+.td-main{
+  border-radius: 20px;
+  box-shadow: 0px 0px 6px 5px #eff0ee;
+  padding-bottom: 10px;
+  padding-top: 1px;
+  padding-left: 30px;
+  margin: auto;
+   width: 70%;
+ 
+}
+.user-img{
+  margin: 0 0 0 20px;
+}
+.td-name{
+  font-size: larger;
+    font-weight: bold;
+}
+
+.td-outer-heading{
+  display: flex;
+  flex-direction: row;
+  padding: 0 15px;
+  
+
+}
+.td-row{
+  display: flex;
+ 
+  flex-direction: row;
+}
+.user-avatar{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  width: 40%;
+  padding: 0 20px;
+  
+}
+.td-main-content{
+  display: flex;
+  
+}
+.td-main-1{
+width: 70%;
+
+
+}
+.td-paragraph{
+  padding: 0 20px ;
+}
+.tag-button{
+  background-color: #1ac0c6;
+  margin: 5px;
+ 
+}
+.tag-and-btn{
+ width: 60%;
+  margin: 10px;
+}
+.td-btn-main{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  width: 100%;
+  justify-content: space-around;
+}
+.cost-button{
+  display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: space-around;
+    width: 30%;
+    justify-content: flex-end;
+    align-items: center;
+}
+.arreow-buttton{
+  background-color: #FF6150;
+}
+.arreow-buttton :hover {
+  background-color: #1ac0c6;
+}
