@@ -1039,7 +1039,7 @@ def registration():
     try:
         walletAddress = request.json["wallet_address"]
         role = getWalletRole(walletAddress)
-        if role[0] == "Candidate":
+        if role[0].lower() == "candidate":
             data = (
                 request.json["loginId"],
                 request.json["name"],
@@ -1052,7 +1052,7 @@ def registration():
                 request.json["contactNumber"],
             )
 
-        if role[0] == "Company":
+        if role[0].lower() == "company":
             data = (
                 request.json["login_id"],
                 request.json["name"],
@@ -1068,7 +1068,7 @@ def registration():
                 request.json["contect_number"],
             )
 
-        if role[0] == "Creator":
+        if role[0].lower() == "creator":
             data = (
                 request.json["login_id"],
                 request.json["wallet_address"],
@@ -1082,9 +1082,9 @@ def registration():
             )
 
         role_functions = {
-            "Candidate": "candidate_registration",
-            "Creator": "creator_registration",
-            "Company": "company_registration",
+            "candidate": "candidate_registration",
+            "creator": "creator_registration",
+            "company": "company_registration",
         }
         data_ = eval(str(role_functions[role[0]]) + str(f"({data})"))
         print(data_)
