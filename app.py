@@ -1,5 +1,6 @@
 from ssl import PROTOCOL_TLSv1_1, PROTOCOL_TLSv1_2
 from termios import TAB1
+from threading import currentThread
 from types import resolve_bases
 from flask import Flask, render_template
 from flask_jwt_extended import (
@@ -745,7 +746,6 @@ def addJob():
         primary_skill5 = request.json["primary_skill5"]
         secondary_skills = request.json["secondary_skills"]
         final_skills = ",".join(str(bit) for bit in secondary_skills)
-        print(final_skills)
         job_table = os.environ.get("job_table")
         fields = "(company_id,assesment_id,title,description,location,status,type,addition_question,experience_level,primary_skill1,primary_skill2,primary_skill3,primary_skill4,primary_skill5,secondary_skills)"
         values = f"""({company_id},{assesment_id},'{title}','{description}','{location}',{1},'{type}','{addition_question}','{experience_level}','{primary_skill1}','{primary_skill2}','{primary_skill3}','{primary_skill4}','{primary_skill5}','{final_skills}');"""
@@ -933,6 +933,60 @@ def addInterview():
         smtp.close()
         return response_body
 
+    except Exception as e:
+        print(e)
+        response_body = {"status": 500}, 500
+        return response_body
+
+
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# Add into to_be_verified_question table
+@app.route("/addCreatorAssessment", methods=["POST"])
+def addCreatorAssessment():
+    try:
+        creators_id = request.json["creators_id"]
+        title = request.json["title"]
+        fixed_cost = request.json["fixed_cost"]
+        variable_cost = request.json["variable_cost"]
+        duration = request.json["duration"]
+        question = request.json["question"]
+        number_of_question = request.json["number_of_question"]
+        created_at = request.json["created_at"]
+        experiance_level = request.json["experiance_level"]
+        primary_skill1 = request.json["primary_skill1"]
+        primary_skill2 = request.json["primary_skill2"]
+        primary_skill3 = request.json["primary_skill3"]
+        secondary_skills = request.json["secondary_skills"]
+        final_skills = ",".join(str(bit) for bit in secondary_skills)
+        creators_assesment_table = os.environ.get("creators_assesment_table")
+        fields = "(creators_id,title,fixed_cost,variable_cost,duration,question,number_of_question,created_at,experiance_level,primary_skill1,primary_skill2,primary_skill3,secondary_skills)"
+        values = f"""({creators_id},'{title}',{fixed_cost},{variable_cost},{duration},'{question}',{number_of_question},{created_at},{experiance_level},'{primary_skill1}','{primary_skill2}','{primary_skill3}','{final_skills}');"""
+        data = insert_query(creators_assesment_table, fields, values)
+
+        # get assessment id
+        fields1 = "(assesment_id)"
+        creators_assesment_table = os.environ.get("creators_assesment_table")
+        condition1 = f"""creators_id='{creators_id}' and created_at={created_at}"""
+        data1 = select_query(fields1, creators_assesment_table, condition1)
+        final_data1 = json.loads(data1.decode("utf-8"))
+        assessment_id = final_data1["rows"][0][0]
+        print(assessment_id)
+
+        # insert data into assessment log table
+        # current_time = datetime.datetime.now().timestamp()
+        # print(current_time)
+        assesment_logs = os.environ.get("assesment_logs")
+        fields = "(assesment_id,event,creator_id,added_at)"
+        values = f"""({assessment_id},'created',{creators_id},{int(datetime.datetime.now().timestamp())});"""
+        data = insert_query(assesment_logs, fields, values)
+        response_body = {
+            "status": 200,
+            "data": "User's Record Added Successfully !",
+        }, 200
+
+        return response_body
     except Exception as e:
         print(e)
         response_body = {"status": 500}, 500
