@@ -1080,7 +1080,7 @@ def getId():
 @app.route("/getStage", methods=["GET"])
 def getStage():
     try:
-        walletaddress = request.json["walletaddress"]
+        walletaddress = request.args["walletaddress"]   
         fields = "*"
         login_table = os.environ.get("login_table")
         condition = f"""walletaddress='{walletaddress}'"""
