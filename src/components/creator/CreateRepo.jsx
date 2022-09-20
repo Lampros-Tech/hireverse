@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./creator.css";
-import DD_repo from "./Dropdowns/DD_rep
+import DD_repo from "./Dropdowns/DD_repo";
 
 import { insert_creators_repo_table } from "../TableQueries";
 
@@ -17,9 +17,7 @@ function CreateRepo() {
   useEffect(() => {
     console.log(data);
   }, [data]);
-  useEffect(()=>{
-  
-  },[])
+  useEffect(() => {}, []);
   return (
     <>
       <div className="parent-content">
