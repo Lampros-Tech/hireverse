@@ -120,7 +120,7 @@ function CreateRepo() {
             </div>
           </div>
           <div className="privacy my-4 border-b-2 dotted pb-4">
-            <div className="Instruction font-secondary font-semibold text-left">
+            <div className="Instruction mb-2 font-secondary font-semibold text-left">
               Select privacy option
             </div>
             <div className="flex items-center mb-4">

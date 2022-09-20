@@ -172,9 +172,9 @@ function Editrepo() {
             Make changes
           </button>
         </div>
-        <div className='Content'>
+        <div className='C_Content pb-10'>
         <div className='title text-center font-primary font-bold my-8'>
-              View Question
+              Question in this repository
           </div>
           <div className='Questions my-10'>
               <div className='card-background uplift h-52 p-2 px-8 rounded-md'>
