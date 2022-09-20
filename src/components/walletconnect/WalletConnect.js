@@ -62,6 +62,7 @@ export function WalletConnect() {
         // console.log(response.data);
         userData = response.data;
         console.log(userData);
+        cookies.set("loginID", userData.login_id);
         if (userData.stage === 0) {
           navigate("/signup/ev");
         } else if (userData.stage === 1) {

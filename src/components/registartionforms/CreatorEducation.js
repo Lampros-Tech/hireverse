@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAccount } from "wagmi";
+import Cookies from "universal-cookie";
 
 import "react-phone-input-2/lib/style.css";
 import "./regform.css";
@@ -11,8 +12,10 @@ import { useRef } from "react";
 
 function CreatorEducation() {
   let navigate = useNavigate();
+  const cookies = new Cookies();
 
   const { address, isConnected } = useAccount();
+  const [loginId, setLoginId] = useState(null);
 
   const refOne = useRef(null);
   const refTwo = useRef(null);
@@ -113,7 +116,7 @@ function CreatorEducation() {
   ) => {
     var data = JSON.stringify({
       login_id: loginid,
-      wallet_address: "0xFB0452B041Ff304acE9957b195C5a20057939004",
+      wallet_address: walletAddress,
       institute_name: iname,
       degree: degree,
       filed_of_study: fos,
@@ -142,6 +145,8 @@ function CreatorEducation() {
       });
   };
   useEffect(() => {
+    setLoginId(cookies.get("loginID"));
+    console.log(cookies.get("loginID"));
     inputRefOne.current.focus();
   }, []);
 
@@ -842,7 +847,7 @@ function CreatorEducation() {
                       onClick={() => {
                         // handleClick(6);
                         sendCandidateEduData(
-                          5,
+                          loginId,
                           address,
                           showAll.iname,
                           showAll.degree,

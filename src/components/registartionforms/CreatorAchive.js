@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAccount } from "wagmi";
+import Cookies from "universal-cookie";
 
 import "react-phone-input-2/lib/style.css";
 import "./regform.css";
@@ -11,6 +12,7 @@ import StoreCoverImg from "./StoreCoverImg";
 
 function CreatorAchive() {
   let navigate = useNavigate();
+  const cookies = new Cookies();
 
   const { address, isConnected } = useAccount();
 
@@ -108,8 +110,8 @@ function CreatorAchive() {
     score
   ) => {
     var data = JSON.stringify({
-      login_id: 5,
-      wallet_address: "0xFB0452B041Ff304acE9957b195C5a20057939004",
+      login_id: loginid,
+      wallet_address: walletAddress,
       title: title,
       description: desc,
       image: coverimg,
@@ -139,7 +141,10 @@ function CreatorAchive() {
   //   // inputRefOne.current.focus();
   //   console.log(fileCID);
   // }, [fileCID]);
-
+  useEffect(() => {
+    setLoginId(cookies.get("loginID"));
+    console.log(cookies.get("loginID"));
+  }, []);
   useEffect(() => {
     console.log(showAll);
   }, [showAll]);
@@ -636,7 +641,7 @@ function CreatorAchive() {
                           // handleClick(4);
                           printTwo();
                           sendData(
-                            2,
+                            loginId,
                             address,
                             showAll.title,
                             showAll.a_desc,
