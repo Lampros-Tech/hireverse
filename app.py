@@ -1165,20 +1165,19 @@ def registration():
     try:
         walletAddress = request.json["wallet_address"]
         role = getWalletRole(walletAddress)
-        if role[0] == "Candidate":
+        if role[0].lower() == "candidate":
             data = (
-                request.json["loginId"],
+                request.json["login_id"],
                 request.json["name"],
                 request.json["bio"],
-                request.json["profileImage"],
-                request.json["coverImage"],
+                request.json["profile_image"],
+                request.json["cover_image"],
                 walletAddress,
                 request.json["address"],
                 request.json["country"],
-                request.json["contactNumber"],
+                request.json["contact_number"],
             )
-
-        if role[0] == "Company":
+        if role[0].lower() == "company":
             data = (
                 request.json["login_id"],
                 request.json["name"],
@@ -1191,10 +1190,10 @@ def registration():
                 request.json["number_of_employees"],
                 request.json["address"],
                 request.json["contry"],
-                request.json["contect_number"],
+                request.json["contact_number"],
             )
 
-        if role[0] == "Creator":
+        if role[0].lower() == "creator":
             data = (
                 request.json["login_id"],
                 request.json["wallet_address"],
@@ -1208,13 +1207,14 @@ def registration():
             )
 
         role_functions = {
-            "Candidate": "candidate_registration",
-            "Creator": "creator_registration",
-            "Company": "company_registration",
+            "candidate": "candidate_registration",
+            "creator": "creator_registration",
+            "company": "company_registration",
         }
-        data_ = eval(str(role_functions[role[0]]) + str(f"({data})"))
+        print(data)
+        data_ = eval(role_functions[role[0]] + str(f"({data})"))
         print(data_)
-        response_body = {"status": 200, "data": data_}, 200
+        response_body = {"status": 200, "data": "Inserted Succesfully !"}, 200
     except Exception as e:
         response_body = {"status": 501, "data": str(e)}, 404
     return response_body
