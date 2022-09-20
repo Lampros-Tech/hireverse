@@ -282,7 +282,7 @@ def insertRole():
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # Get Role Of User By Address
-@app.route("/getProfile", methods=["GET"])
+@app.route("/getProfile", methods=["POST"])
 def getProfile():
     try:
         walletAddress = request.json["wallet_address"]
@@ -1028,7 +1028,7 @@ def addCreatorAssessment():
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # Get id using wallet address
-@app.route("/getId", methods=["GET"])
+@app.route("/getId", methods=["POST"])
 def getId():
     try:
         walletAddress = request.json["walletaddress"]
@@ -1080,7 +1080,7 @@ def getId():
 @app.route("/getStage", methods=["GET"])
 def getStage():
     try:
-        walletaddress = request.json["walletaddress"]
+        walletaddress = request.args["walletaddress"]   
         fields = "*"
         login_table = os.environ.get("login_table")
         condition = f"""walletaddress='{walletaddress}'"""
@@ -1157,7 +1157,7 @@ def getStage():
 # ---------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------
 # Get Role Of User By Address
-@app.route("/getRole", methods=["GET"])
+@app.route("/getRole", methods=["POST"])
 def getRole():
     walletAddress = request.json["walletAddress"]
     role = getWalletRole(walletAddress)
