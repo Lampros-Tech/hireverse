@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import "../company/styles/recruitdetails.css";
 import Select from "react-select";
 import plus from "../company/styles/plus.svg";
+import env from "react-dotenv";
+import axios from "axios";
 
 function RecruitmentDetails() {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [selectedOptions1, setSelectedOptions1] = useState();
-  const [selectedOptionsLocation, setSelectedOptionsLocation] = useState();
+  const [selectedOptionsLocation, setSelectedOptionsLocation] = useState([]);
   const [jobLocation, setJoblocation] = useState("");
   const [singleQuestion, setSingleQuestion] = useState("");
   const [additionalQuestion, setAdditionalQuestion] = useState([]);
@@ -48,6 +50,66 @@ function RecruitmentDetails() {
     { value: "China", label: "China" },
     { value: "Mexico", label: "Mexico" },
   ];
+
+  const [btnloading, setbtnLoading] = useState(false);
+  const [credentials, setCredentials] = useState({
+    company_id: 2,
+    assesment_id: "",
+    title: "",
+    description: "",
+    location: [],
+    status: 1,
+    type: "",
+    addition_question: "",
+    experience_level: "",
+    primary_skill1: "",
+    primary_skill2: "",
+    primary_skill3: "",
+    primary_skill4: "",
+    primary_skill5: "",
+    secondary_skills: "",
+  });
+
+  const addJobDetails = () => {
+    var data = JSON.stringify({
+      company_id: 2,
+      assesment_id: "",
+      title: credentials.title,
+      description: credentials.description,
+      location: credentials.location,
+      status: 1,
+      type: credentials.type,
+      addition_question: credentials.addition_question,
+      experience_level: credentials.experience_level,
+      primary_skill1: credentials.primary_skill1,
+      primary_skill2: credentials.primary_skill2,
+      primary_skill3: credentials.primary_skill3,
+      primary_skill4: credentials.primary_skill4,
+      primary_skill5: credentials.primary_skill5,
+      secondary_skills: credentials.secondary_skills,
+    });
+    console.log("hey");
+    console.log(env.API_URL);
+
+    var config = {
+      method: "post",
+      url: `${env.API_URL}/addJob`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+    console.log(config.url);
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setbtnLoading(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+        setbtnLoading(false);
+      });
+  };
   // useEffect(() => {
   //   console.log(jobLocation);
   // }, [jobLocation]);
@@ -58,9 +120,7 @@ function RecruitmentDetails() {
     ]);
     document.getElementById("question-input").value = "";
 
-    console.log(additionalQuestion);
     setCounter(counter + 1);
-    console.log(counter);
   };
 
   const deleteTag = (index) => {
@@ -68,20 +128,71 @@ function RecruitmentDetails() {
       singleQuestion.filter((tag, i) => i !== index)
     );
   };
-  function handleSelect(data) {
-    if (selectedOptions.length > 4) {
+  function handleSelect(selectedOptions) {
+    if (selectedOptions.length > 5) {
       alert("not selected");
     } else {
-      setSelectedOptions(data);
+      setSelectedOptions(selectedOptions);
+      if (selectedOptions[0]["value"]) {
+        setCredentials({
+          ...credentials,
+          primary_skill1: selectedOptions[0]["value"],
+        });
+      }
+      if (selectedOptions[1]["value"]) {
+        setCredentials({
+          ...credentials,
+          primary_skill2: selectedOptions[1]["value"],
+        });
+      }
+      if (selectedOptions[2]["value"]) {
+        setCredentials({
+          ...credentials,
+          primary_skill3: selectedOptions[2]["value"],
+        });
+      }
+      if (selectedOptions[3]["value"]) {
+        setCredentials({
+          ...credentials,
+          primary_skill4: selectedOptions[3]["value"],
+        });
+      }
+      if (selectedOptions[4]["value"]) {
+        setCredentials({
+          ...credentials,
+          primary_skill5: selectedOptions[4]["value"],
+        });
+      }
     }
   }
-  function handleSelect1(data) {
-    setSelectedOptions1(data);
+  function handleSelect1(selectedOptions1) {
+    setSelectedOptions1(selectedOptions1);
+    let myarr = [];
+    for (let i = 0; i < selectedOptions1.length; i++) {
+      myarr.push(selectedOptions1[i]["value"]);
+    }
+    setCredentials({
+      ...credentials,
+      secondary_skills: myarr,
+    });
   }
-  function handleSelectLocation(data) {
-    setSelectedOptionsLocation(data);
+  function handleSelectLocation(selectedOptionsLocation) {
+    setSelectedOptionsLocation(selectedOptionsLocation);
+    let myarr = [];
+    for (let i = 0; i < selectedOptionsLocation.length; i++) {
+      myarr.push(selectedOptionsLocation[i]["value"]);
+    }
+    setCredentials({
+      ...credentials,
+      location: myarr,
+    });
   }
 
+  // const handleSelectLocation = (e) => {
+  //   selectedOptionsLocation.push(e.target.value);
+  //   setSelectedOptionsLocation(selectedOptionsLocation);
+  //   console.log(selectedOptionsLocation);
+  // };
   const handleClick1 = (e) => {
     setJoblocation(e.target.value);
   };
@@ -101,6 +212,12 @@ function RecruitmentDetails() {
       },
     }),
   };
+
+  useEffect(() => {
+    console.log(credentials);
+  }, [credentials]);
+
+  useEffect(() => {}, [selectedOptionsLocation]);
 
   return (
     <>
@@ -137,6 +254,10 @@ function RecruitmentDetails() {
                     focus:text-700 focus:bg-white focus:border-600 focus:outline-none
                       "
                   id="jobtitle-inputfield"
+                  defaultValue={credentials.title}
+                  onChange={(e) => {
+                    setCredentials({ ...credentials, title: e.target.value });
+                  }}
                 />
               </div>
 
@@ -165,6 +286,13 @@ function RecruitmentDetails() {
                     "
                   id="jobdescription-textarea"
                   rows="3"
+                  defaultValue={credentials.description}
+                  onChange={(e) => {
+                    setCredentials({
+                      ...credentials,
+                      description: e.target.value,
+                    });
+                  }}
                 ></textarea>
               </div>
 
@@ -186,7 +314,12 @@ function RecruitmentDetails() {
                     id="question-input"
                     type="text"
                     required
+                    defaultValue={credentials.addition_question}
                     onChange={(e) => {
+                      setCredentials({
+                        ...credentials,
+                        addition_question: e.target.value,
+                      });
                       setSingleQuestion(e.target.value);
                     }}
                     className="
@@ -252,7 +385,13 @@ function RecruitmentDetails() {
                     name="location"
                     className="inline-radio radio-location"
                     onClick={(e) => handleClick1(e)}
-                    value="Remote"
+                    defaultValue="Remote"
+                    onChange={(e) => {
+                      setCredentials({
+                        ...credentials,
+                        type: e.target.value,
+                      });
+                    }}
                   />{" "}
                   <span className="radio-remote">Remote</span>
                 </label>
@@ -263,7 +402,13 @@ function RecruitmentDetails() {
                     name="location"
                     className="inline-radio radio-location "
                     onClick={(e) => handleClick1(e)}
-                    value="Onsite"
+                    defaultValue="Onsite"
+                    onChange={(e) => {
+                      setCredentials({
+                        ...credentials,
+                        type: e.target.value,
+                      });
+                    }}
                   />{" "}
                   <span className="radio-remote">Onsite</span>
                 </label>
@@ -298,7 +443,13 @@ function RecruitmentDetails() {
                     type="radio"
                     name="location"
                     className="inline-radio radio-location"
-                    value="Hybrid"
+                    defaultValue="Hybrid"
+                    onChange={(e) => {
+                      setCredentials({
+                        ...credentials,
+                        type: e.target.value,
+                      });
+                    }}
                     onClick={(e) => {
                       handleClick1(e);
                     }}
@@ -358,6 +509,13 @@ function RecruitmentDetails() {
                       m-0
                       focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none ex-level-select
                     "
+                  defaultValue={credentials.experience_level}
+                  onChange={(e) => {
+                    setCredentials({
+                      ...credentials,
+                      experience_level: e.target.value,
+                    });
+                  }}
                 />
                 {/* <label id="number-label">To</label>
                 <input
@@ -394,7 +552,12 @@ function RecruitmentDetails() {
                     placeholder=""
                     required
                     value={selectedOptionsLocation}
-                    onChange={handleSelectLocation}
+                    onChange={(e) => {
+                      handleSelectLocation(e);
+                    }}
+                    // onChange={(e) => {
+                    //   handleSelectLocation(e);
+                    // }}
                     isSearchable={true}
                     isMulti
                     styles={style}
@@ -411,9 +574,11 @@ function RecruitmentDetails() {
                     placeholder=""
                     required
                     value={selectedOptions}
-                    onChange={handleSelect}
+                    onChange={(e) => {
+                      handleSelect(e);
+                    }}
                     isSearchable={true}
-                    isOptionDisabled={() => selectedOptions.length >= 4}
+                    isOptionDisabled={() => selectedOptions.length >= 5}
                     isMulti
                     styles={style}
                   />
@@ -429,7 +594,9 @@ function RecruitmentDetails() {
                     placeholder=""
                     required
                     value={selectedOptions1}
-                    onChange={handleSelect1}
+                    onChange={(e) => {
+                      handleSelect1(e);
+                    }}
                     isSearchable={true}
                     isMulti
                     styles={style}
@@ -447,6 +614,10 @@ function RecruitmentDetails() {
                     type="submit"
                     className="text-white    font-medium rounded-lg text-sm px-8 py-3 text-center  recruit-save-continue-button
                     "
+                    onClick={() => {
+                      setbtnLoading(true);
+                      addJobDetails();
+                    }}
                   >
                     Save & Continue
                   </button>
