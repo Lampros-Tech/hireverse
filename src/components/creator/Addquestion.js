@@ -212,12 +212,12 @@ export default function AddQuestion() {
               {generPlus === true ? (
                 <div className="Add-custome_gener flex">
                   <input
-                    type="number"
-                    className="Add-addgener uplift"
+                    type="text"
+                    className=" rounded-md uplift"
                     onChange={(e) => setCoustomeGener(e.target.value)}
                   />
                   <button
-                    className="Add-add_gener_btn"
+                    className="rounded-md px-10 py-2 Add-btn-custom mx-2"
                     onClick={() => {
                       addGenre();
                     }}
@@ -228,7 +228,7 @@ export default function AddQuestion() {
               ) : (
                 <img
                   src={Addbtn}
-                  className="Add-AddGenre"
+                  className="Add-AddGenre "
                   alt="Genre"
                   onClick={() => {
                     setGenerPlus(true);

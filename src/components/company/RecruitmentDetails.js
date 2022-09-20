@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "../company/styles/recruitdetails.css";
 import Select from "react-select";
+<<<<<<< HEAD
+=======
+import plus from "../company/styles/plus.svg";
+
+>>>>>>> 4887b84e5e22aaedd7714a4f30824474c9d42e32
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 

@@ -16,14 +16,14 @@ export const create_creators_question_table = async () => {
   });
   console.log(tableland);
 
-  const { name } = await tableland.create(
+  const name = await tableland.create(
     `creators_question_id integer primary key, creators_id integer, question text, option1 text, option2 text, option3 text, option4 text, option5 text, answer text, solution text, added_at int, difficulty_level text, repo_name text, privacy int`, // Table schema definition
     {
       prefix: `creators_question_table`, // Optional `prefix` used to define a human-readable string
     }
   );
-
   console.log(name);
+    return name;
 };
 
 export const create_creators_assessment_table = async () => {
@@ -40,6 +40,7 @@ export const create_creators_assessment_table = async () => {
   );
 
   console.log(name);
+  return name;
 };
 
 export const create_creators_repo_table = async () => {
@@ -56,6 +57,7 @@ export const create_creators_repo_table = async () => {
   );
 
   console.log(name);
+  return name;
 };
 
 export const insert_creators_repo_table = async (
@@ -115,6 +117,7 @@ function TableQueries() {
     );
 
     console.log(name);
+    return name;
   };
 
   //create assessment table
@@ -127,6 +130,7 @@ function TableQueries() {
     );
 
     console.log(name);
+    return name;
   };
   //create repo table
   const create_creators_repo_table = async () => {
@@ -138,6 +142,7 @@ function TableQueries() {
     );
 
     console.log(name);
+    return name;
   };
   return <div>TableQueries</div>;
 }

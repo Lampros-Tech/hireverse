@@ -11,6 +11,7 @@ function CreateAssesment() {
   const resetToInput = useRef(null)
 
 
+  const [totalQuestion, setTotalQuestion] = useState();
 
 
   const [genres, setGenres] = useState([])
@@ -187,12 +188,12 @@ function CreateAssesment() {
             </div>
             <div className="user-type">
               <div className="Instruction  font-secondary font-semibold text-left pt-3  ">
-                Who is this test for.
+                Enter the type of candidate who can appear for the test.
               </div>
               <div>
                 <input
                   type="text"
-                  className="uplift rounded-md border my-2"
+                  className="uplift rounded-md border my-2 p-1"
                 ></input>
               </div>
             </div>
@@ -203,7 +204,8 @@ function CreateAssesment() {
               <input
                 type="number"
                 min="0"
-                className=" uplift rounded-md my-2"
+                className=" uplift rounded-md my-2 p-1"
+                onChange={(e)=>{setTotalQuestion(e.target.value)}}
               />
             </div>
             <div className="flex mt-7">
@@ -410,7 +412,7 @@ function CreateAssesment() {
                       type="number"
                       name="Max-score"
                       placeholder="Enter Max-score"
-                      className="uplift rounded-md"
+                      className="uplift rounded-md p-1"
                     />
                   </div>
                   <div className="font-secondary font-semibold ml-9">Min Score:</div>
@@ -419,21 +421,21 @@ function CreateAssesment() {
                       type="number"
                       name="Min-score"
                       placeholder="Min-score"
-                      className="uplift rounded-md"
+                      className="uplift rounded-md p-1"
                     />
                   </div>
                 </div>
                 <div className="flex my-4">
                   <div className="font-secondary font-semibold">Fix fees:</div>
-                  <div className="mr-5 ml-2">
+                  <div className="mr-5 ml-8">
                     <input
                       type="number"
                       name="Fix fees"
                       placeholder="Enter Fix-fees"
-                      className="uplift rounded-md"
+                      className="uplift rounded-md p-1"
                     />
                   </div>
-                  <div className="font-secondary font-semibold">
+                  <div className="font-secondary font-semibold ml-1">
                     Price per user:
                   </div>
                   <div className="mr-5 ml-2">
@@ -441,7 +443,7 @@ function CreateAssesment() {
                       type="number"
                       name="PPU"
                       placeholder="Price per-user"
-                      className="uplift rounded-md"
+                      className="uplift rounded-md p-1"
                     />
                   </div>
                 </div>

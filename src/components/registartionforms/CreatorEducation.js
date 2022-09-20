@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAccount } from "wagmi";
 
 import "react-phone-input-2/lib/style.css";
 import "./regform.css";
@@ -9,6 +11,8 @@ import { useRef } from "react";
 
 function CreatorEducation() {
   let navigate = useNavigate();
+
+  const { address, isConnected } = useAccount();
 
   const refOne = useRef(null);
   const refTwo = useRef(null);
@@ -58,7 +62,7 @@ function CreatorEducation() {
     } else if (e === 4 && showAll.edate === "") {
       alert("Select End date of your degree pls");
     } else if (e === 5 && showAll.grade === "") {
-      alert("Enter Grade pls");
+      alert("Enter score pls");
     } else {
       // console.log(refArr[e + 1].section);
       const test = refArr[e + 1].section;
@@ -96,6 +100,47 @@ function CreatorEducation() {
     }
   };
 
+  const sendCandidateEduData = (
+    loginid,
+    walletAddress,
+    iname,
+    degree,
+    fos,
+    sdate,
+    edate,
+    score,
+    desc
+  ) => {
+    var data = JSON.stringify({
+      login_id: loginid,
+      wallet_address: "0xFB0452B041Ff304acE9957b195C5a20057939004",
+      institute_name: iname,
+      degree: degree,
+      filed_of_study: fos,
+      start_date: sdate,
+      end_date: edate,
+      score: score,
+      description: desc,
+    });
+
+    var config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/user/addEducation`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        navigate("/creatorregform/creator-experience");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   useEffect(() => {
     inputRefOne.current.focus();
   }, []);
@@ -429,7 +474,8 @@ function CreatorEducation() {
                     ref={inputRefFour}
                     placeholder="Type your answer here..."
                     onChange={(e) => {
-                      setAll({ ...showAll, sdate: e.target.value });
+                      let epoch = new Date(e.target.value).getTime() / 1000;
+                      setAll({ ...showAll, sdate: epoch });
                     }}
                     onKeyUp={(e) => {
                       target(e, 3);
@@ -533,7 +579,8 @@ function CreatorEducation() {
                     ref={inputRefFive}
                     placeholder="Type your answer here..."
                     onChange={(e) => {
-                      setAll({ ...showAll, edate: e.target.value });
+                      let epoch = new Date(e.target.value).getTime() / 1000;
+                      setAll({ ...showAll, edate: epoch });
                     }}
                     onKeyUp={(e) => {
                       target(e, 4);
@@ -628,16 +675,24 @@ function CreatorEducation() {
                   </svg>
                 </div>
                 <div className="f-form-div">
-                  <p className="f-p">Enter Grade</p>
+                  <p className="f-p">Enter Score (0 - 10)</p>
 
                   <input
                     className="f-input"
                     id="firstInput"
-                    type="text"
+                    type="number"
+                    min="1"
+                    max="10"
                     required
                     ref={inputRefSix}
                     placeholder="Type your answer here..."
                     onChange={(e) => {
+                      if (e.target.value > 10) {
+                        e.target.value = 10;
+                      }
+                      if (e.target.value < 0) {
+                        e.target.value = 0;
+                      }
                       setAll({ ...showAll, grade: e.target.value });
                     }}
                     onKeyUp={(e) => {
@@ -786,7 +841,17 @@ function CreatorEducation() {
                       className="f-next-btn"
                       onClick={() => {
                         // handleClick(6);
-                        navigate("/creatorregform/creator-experience");
+                        sendCandidateEduData(
+                          5,
+                          address,
+                          showAll.iname,
+                          showAll.degree,
+                          showAll.fos,
+                          showAll.sdate,
+                          showAll.edate,
+                          showAll.grade,
+                          showAll.edesc
+                        );
                       }}
                     >
                       <span>NEXT</span>

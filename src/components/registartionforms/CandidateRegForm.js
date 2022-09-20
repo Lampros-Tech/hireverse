@@ -111,35 +111,35 @@ function CandidateRegForm() {
     console.log(showAll);
   };
 
-  const getLoginId = (walletaddress) => {
-    var data = JSON.stringify({
-      walletAddress: walletaddress,
-    });
+  // const getLoginId = (walletaddress) => {
+  //   var data = JSON.stringify({
+  //     walletAddress: walletaddress,
+  //   });
 
-    var config = {
-      method: "get",
-      url: `${process.env.REACT_APP_API_URL}/getLoginId`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
+  //   var config = {
+  //     method: "get",
+  //     url: `${process.env.REACT_APP_API_URL}/getLoginId`,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     data: data,
+  //   };
 
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        navigate("/candidateregform/candidate-education");
+  //   axios(config)
+  //     .then(function (response) {
+  //       console.log(JSON.stringify(response.data));
+  //       navigate("/candidateregform/candidate-education");
 
-        // setLoginId(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  //       // setLoginId(response.data);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // };
 
-  useEffect(() => {
-    getLoginId(address);
-  }, []);
+  // useEffect(() => {
+  //   getLoginId(address);
+  // }, []);
 
   const sendData = (
     loginid,
@@ -176,6 +176,7 @@ function CandidateRegForm() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        navigate("/candidateregform/candidate-education");
       })
       .catch(function (error) {
         console.log(error);
@@ -189,6 +190,7 @@ function CandidateRegForm() {
   useEffect(() => {
     console.log(showAll);
   }, [showAll]);
+
   if (isConnected) {
     return (
       <>

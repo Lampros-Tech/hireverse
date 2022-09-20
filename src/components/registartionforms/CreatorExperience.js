@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAccount } from "wagmi";
 
 import "react-phone-input-2/lib/style.css";
 import "./regform.css";
@@ -9,6 +11,8 @@ import correct_ar from "../assets/images/correct_arrow.svg";
 import { useRef } from "react";
 
 function CreatorExperience() {
+  const { address, isConnected } = useAccount();
+
   let navigate = useNavigate();
 
   const [onsite, setOnsite] = useState(false);
@@ -42,7 +46,7 @@ function CreatorExperience() {
     clocation: "",
     sdate: "",
     edate: "",
-    cstatus: "",
+    cstatus: -1,
     cdesc: "",
   });
 
@@ -60,8 +64,8 @@ function CreatorExperience() {
   const handleClick = (e) => {
     if (e === 0 && showAll.title === "") {
       alert("Enter title pls");
-      // } else if (e === 1 && showAll.emptype === "") {
-      //   //   alert("Enter Employment type pls");
+    } else if (e === 1 && showAll.emptype === "") {
+      alert("Enter Employment type pls");
     } else if (e === 2 && showAll.cname === "") {
       alert("Enter Company Name pls");
     } else if (e === 3 && showAll.clocation === "") {
@@ -70,11 +74,9 @@ function CreatorExperience() {
       alert("Experience Start Date");
     } else if (e === 5 && showAll.edate === "") {
       alert("Experience End Date");
-      // } else if (e === 6 && showAll.cstatus === "") {
-      //   alert("Employment Status");
-    } else if (e === 7 && showAll.cdesc === "") {
-      alert("Any other Details");
-    } else {
+    } else if (e === 6 && showAll.cstatus !== 0 && showAll.cstatus !== 1) {
+      alert("Enter Employment Status pls");
+    } else if (e < 7) {
       // console.log(refArr[e + 1].section);
       const test = refArr[e + 1].section;
       // console.log(test);
@@ -83,6 +85,21 @@ function CreatorExperience() {
         const inputFocus = refArr[e + 1].input;
         inputFocus.current.focus();
       }, 500);
+    } else if (e === 7 && showAll.cdesc === "") {
+      alert("Any other Details");
+    } else {
+      sendCreatorExpData(
+        5,
+        address,
+        showAll.title,
+        showAll.emptype,
+        showAll.cname,
+        showAll.clocation,
+        showAll.sdate,
+        showAll.edate,
+        showAll.cstatus,
+        showAll.cdesc
+      );
     }
   };
 
@@ -109,6 +126,50 @@ function CreatorExperience() {
         handleClick(num);
       }, 200);
     }
+  };
+
+  const sendCreatorExpData = (
+    login_id,
+    walletAddress,
+    title,
+    employement_type,
+    company_name,
+    location,
+    sdate,
+    edate,
+    cstatus,
+    desc
+  ) => {
+    var data = JSON.stringify({
+      login_id: 5,
+      wallet_address: walletAddress,
+      title: title,
+      employement_type: employement_type,
+      company_name: company_name,
+      location: location,
+      start_date: sdate,
+      end_date: edate,
+      status: cstatus,
+      description: desc,
+    });
+
+    var config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/user/addExperience`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        navigate("/creator");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -243,6 +304,7 @@ function CreatorExperience() {
                         setOnsite(true);
                         setRemote(false);
                         setHybrid(false);
+                        setAll({ ...showAll, emptype: "onsite" });
                       }}
                     >
                       <span className="f-option-tag">A</span>
@@ -267,6 +329,7 @@ function CreatorExperience() {
                         setOnsite(false);
                         setRemote(true);
                         setHybrid(false);
+                        setAll({ ...showAll, emptype: "remote" });
                       }}
                     >
                       <span className="f-option-tag">B</span>
@@ -291,6 +354,7 @@ function CreatorExperience() {
                         setOnsite(false);
                         setRemote(false);
                         setHybrid(true);
+                        setAll({ ...showAll, emptype: "hybrid" });
                       }}
                     >
                       <span className="f-option-tag">C</span>
@@ -626,7 +690,8 @@ function CreatorExperience() {
                     ref={inputRefFive}
                     placeholder="Type your answer here..."
                     onChange={(e) => {
-                      setAll({ ...showAll, sdate: e.target.value });
+                      let epoch = new Date(e.target.value).getTime() / 1000;
+                      setAll({ ...showAll, sdate: epoch });
                     }}
                     onKeyUp={(e) => {
                       target(e, 4);
@@ -731,7 +796,8 @@ function CreatorExperience() {
                     ref={inputRefSix}
                     placeholder="Type your answer here..."
                     onChange={(e) => {
-                      setAll({ ...showAll, edate: e.target.value });
+                      let epoch = new Date(e.target.value).getTime() / 1000;
+                      setAll({ ...showAll, edate: epoch });
                     }}
                     onKeyUp={(e) => {
                       target(e, 5);
@@ -836,6 +902,7 @@ function CreatorExperience() {
                       onClick={() => {
                         setWorking(true);
                         setNotWorking(false);
+                        setAll({ ...showAll, cstatus: 1 });
                       }}
                     >
                       <span className="f-option-tag">A</span>
@@ -861,6 +928,7 @@ function CreatorExperience() {
                       onClick={() => {
                         setWorking(false);
                         setNotWorking(true);
+                        setAll({ ...showAll, cstatus: 0 });
                       }}
                     >
                       <span className="f-option-tag">B</span>
@@ -1019,8 +1087,8 @@ function CreatorExperience() {
                     <button
                       className="f-next-btn"
                       onClick={() => {
-                        // handleClick(7);
-                        navigate("/creator/myquestion");
+                        handleClick(7);
+                        // navigate("/creator/myquestion");
                       }}
                     >
                       <span>NEXT</span>

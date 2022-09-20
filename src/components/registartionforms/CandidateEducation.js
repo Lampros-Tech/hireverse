@@ -62,7 +62,7 @@ function CandidateEducation() {
     } else if (e === 4 && showAll.edate === "") {
       alert("Select End date of your degree pls");
     } else if (e === 5 && showAll.grade === "") {
-      alert("Enter Grade pls");
+      alert("Enter score pls");
     } else {
       // console.log(refArr[e + 1].section);
       const test = refArr[e + 1].section;
