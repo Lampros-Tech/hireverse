@@ -17,7 +17,9 @@ function CreateRepo() {
   useEffect(() => {
     console.log(data);
   }, [data]);
-
+  useEffect(()=>{
+  
+  },[])
   return (
     <>
       <div className="parent-content">

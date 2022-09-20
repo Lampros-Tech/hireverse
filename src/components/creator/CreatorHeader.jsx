@@ -11,40 +11,51 @@ import {
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import logo from "../assets/images/logo.png";
 
-const solutions = [
+const REPO = [
   {
     name: "Create a Repo",
-    description:
-      "Get a better understanding of where your traffic is coming from.",
-    href: "recruitment-details",
+    description: "create a private/public repo to add questions.",
+    href: "creator_repo",
     icon: BriefcaseIcon,
   },
   {
     name: "View Repo",
-    description: "Speak directly to your customers in a more meaningful way.",
-    href: "jobpost",
+    description: "View all the created repo.",
+    href: "my_repo",
     icon: ClipboardDocumentListIcon,
   },
-  //   {
-  //     name: "Security",
-  //     description: "Your customers' data will be safe and secure.",
-  //     href: "#",
-  //     icon: ShieldCheckIcon,
-  //   },
-  //   {
-  //     name: "Integrations",
-  //     description: "Connect with third-party tools that you're already using.",
-  //     href: "#",
-  //     icon: Squares2X2Icon,
-  //   },
-  //   {
-  //     name: "Automations",
-  //     description:
-  //       "Build strategic funnels that will drive your customers to convert",
-  //     href: "#",
-  //     icon: ArrowPathIcon,
-  //   },
 ];
+
+const ASSESSMENT = [
+  {
+    name: "Create an Assessment",
+    description: "Create an assessment using the private/public repository.",
+    href: "assessment",
+    icon: BriefcaseIcon,
+  },
+  {
+    name: "View Assessment",
+    description: "View the created assessment.",
+    href: "my_assessment",
+    icon: ClipboardDocumentListIcon,
+  },
+];
+
+const QUESTIONS = [
+  {
+    name: "Add Question",
+    description: "Add questions to the repository.",
+    href: "question",
+    icon: BriefcaseIcon,
+  },
+  {
+    name: "View Questions",
+    description: "View the created questions.",
+    href: "my_question",
+    icon: ClipboardDocumentListIcon,
+  },
+];
+
 const callsToAction = [
   //   { name: "Watch Demo", href: "#", icon: PlayIcon },
   //   { name: "Contact Sales", href: "#", icon: PhoneIcon },
@@ -83,7 +94,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function CompanyHeader() {
+export default function CreatorHeader() {
   return (
     <>
       <Popover className="relative bg-white">
@@ -92,7 +103,11 @@ export default function CompanyHeader() {
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <Link to="/">
                 <span className="sr-only">Workflow</span>
-                <img className="h-12 w-auto custome_logo sm:h-20 " src={logo} alt="logo" />
+                <img
+                  className="h-12 w-auto custome_logo sm:h-20 "
+                  src={logo}
+                  alt="logo"
+                />
               </Link>
             </div>
             <div className="grow"></div>
@@ -110,7 +125,7 @@ export default function CompanyHeader() {
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </Popover.Button>
             </div>
-            <form className="hidden space-x-10 md:flex items-center w-1/4">
+            <form className="hidden space-x-10 md:flex items-center w-auto">
               <div className="relative w-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -138,13 +153,13 @@ export default function CompanyHeader() {
               className="hidden space-x-10 md:flex items-center"
             >
               <Link
-                to="/company"
+                to="/creator"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Feed
               </Link>
-              
-{/* _________________—______—___—__—_——_—_—__—_—_—_—_—_—__Repo DD */}
+
+              {/* _________________—______—___—__—_——_—_—__—_—_—_—_—_—__Repo DD */}
 
               <Popover className="relative">
                 {({ open }) => (
@@ -177,7 +192,7 @@ export default function CompanyHeader() {
                       <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                            {solutions.map((item) => (
+                            {REPO.map((item) => (
                               <Link
                                 key={item.name}
                                 to={item.href}
@@ -221,11 +236,161 @@ export default function CompanyHeader() {
                 )}
               </Popover>
 
+              {/* ______________________________Assessment */}
 
-{/* ______________________________Assessment */}
+              {/* _________________—______—___—__—_——_—_—__—_—_—_—_—_—__Repo DD */}
 
+              <Popover className="relative">
+                {({ open }) => (
+                  <>
+                    <Popover.Button
+                      className={classNames(
+                        open ? "text-gray-900" : "text-gray-500",
+                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      )}
+                    >
+                      <span>Assessment</span>
+                      <ChevronDownIcon
+                        className={classNames(
+                          open ? "text-gray-600" : "text-gray-400",
+                          "ml-2 h-5 w-5 group-hover:text-gray-500"
+                        )}
+                        aria-hidden="true"
+                      />
+                    </Popover.Button>
 
-{/* _______________________________Questions */}
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-200"
+                      enterFrom="opacity-0 translate-y-1"
+                      enterTo="opacity-100 translate-y-0"
+                      leave="transition ease-in duration-150"
+                      leaveFrom="opacity-100 translate-y-0"
+                      leaveTo="opacity-0 translate-y-1"
+                    >
+                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
+                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                          <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                            {ASSESSMENT.map((item) => (
+                              <Link
+                                key={item.name}
+                                to={item.href}
+                                className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
+                              >
+                                <item.icon
+                                  className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                  aria-hidden="true"
+                                />
+                                <div className="ml-4">
+                                  <p className="text-base font-medium text-gray-900">
+                                    {item.name}
+                                  </p>
+                                  <p className="mt-1 text-sm text-gray-500">
+                                    {item.description}
+                                  </p>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                          <div className="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
+                            {callsToAction.map((item) => (
+                              <div key={item.name} className="flow-root">
+                                <Link
+                                  to="/#"
+                                  className="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100"
+                                >
+                                  <item.icon
+                                    className="h-6 w-6 flex-shrink-0 text-gray-400"
+                                    aria-hidden="true"
+                                  />
+                                  <span className="ml-3">{item.name}</span>
+                                </Link>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </Popover.Panel>
+                    </Transition>
+                  </>
+                )}
+              </Popover>
+
+              {/* _______________________________Questions */}
+
+              <Popover className="relative">
+                {({ open }) => (
+                  <>
+                    <Popover.Button
+                      className={classNames(
+                        open ? "text-gray-900" : "text-gray-500",
+                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      )}
+                    >
+                      <span>Question</span>
+                      <ChevronDownIcon
+                        className={classNames(
+                          open ? "text-gray-600" : "text-gray-400",
+                          "ml-2 h-5 w-5 group-hover:text-gray-500"
+                        )}
+                        aria-hidden="true"
+                      />
+                    </Popover.Button>
+
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-200"
+                      enterFrom="opacity-0 translate-y-1"
+                      enterTo="opacity-100 translate-y-0"
+                      leave="transition ease-in duration-150"
+                      leaveFrom="opacity-100 translate-y-0"
+                      leaveTo="opacity-0 translate-y-1"
+                    >
+                      <Popover.Panel className="absolute z-10 -ml-4 mt-3 w-screen max-w-md transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
+                        <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                          <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                            {QUESTIONS.map((item) => (
+                              <Link
+                                key={item.name}
+                                to={item.href}
+                                className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
+                              >
+                                <item.icon
+                                  className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                  aria-hidden="true"
+                                />
+                                <div className="ml-4">
+                                  <p className="text-base font-medium text-gray-900">
+                                    {item.name}
+                                  </p>
+                                  <p className="mt-1 text-sm text-gray-500">
+                                    {item.description}
+                                  </p>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                          <div className="space-y-6 bg-gray-50 px-5 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
+                            {callsToAction.map((item) => (
+                              <div key={item.name} className="flow-root">
+                                <Link
+                                  to="/#"
+                                  className="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100"
+                                >
+                                  <item.icon
+                                    className="h-6 w-6 flex-shrink-0 text-gray-400"
+                                    aria-hidden="true"
+                                  />
+                                  <span className="ml-3">{item.name}</span>
+                                </Link>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </Popover.Panel>
+                    </Transition>
+                  </>
+                )}
+              </Popover>
 
               <Link
                 to="message"
@@ -233,11 +398,11 @@ export default function CompanyHeader() {
               >
                 Messages
               </Link>
-              <button className="hireverse-btn">
+              {/* <button className="hireverse-btn">
                 <Link to="/#" className=" ">
                   HireVerse
                 </Link>
-              </button>
+              </button> */}
             </Popover.Group>
             {/* <Popover className="relative"> */}
 
@@ -258,11 +423,13 @@ export default function CompanyHeader() {
                   <div>
                     <Menu.Button className="flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900">
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
+                      <span className="w-8">
+                        <img
+                          className="h-8 w-8 rounded-full object-cover"
+                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          alt=""
+                        />
+                      </span>
                     </Menu.Button>
                   </div>
                   <Transition
@@ -388,7 +555,7 @@ export default function CompanyHeader() {
                   </form>
                   {/* </Popover> */}
                   <nav className="grid gap-y-8 ">
-                    {solutions.map((item) => (
+                    {REPO.map((item) => (
                       <Link
                         key={item.name}
                         to={item.href}

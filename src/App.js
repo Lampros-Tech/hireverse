@@ -133,14 +133,14 @@ function App() {
             ></Route>
 
             <Route path="creator" element={<CreatorHeader />}>
-              <Route path="createrepo" element={<Createrepo />} />
-              <Route path="assesment" element={<CreateAssesment />} />
+              <Route path="creator_repo" element={<Createrepo />} />
+              <Route path="assessment" element={<CreateAssesment />} />
               <Route path="question" element={<AddQuestion />} />
-              <Route path="MyQuestion" element={<Viewquestion />} />
-              <Route path="myrepo" element={<Myrepos />} />
-              <Route path="myassessment" element={<MyAssesments />} />
-              <Route path="editrepo" element={<Editrepo />} />
-              <Route path="editAssesment" element={<EditAssesment />} />
+              <Route path="my_question" element={<Viewquestion />} />
+              <Route path="my_repo" element={<Myrepos />} />
+              <Route path="my_assessment" element={<MyAssesments />} />
+              <Route path="edit_repo" element={<Editrepo />} />
+              <Route path="edit_assesment" element={<EditAssesment />} />
               <Route path="message" element={<CreatorMessage />} />
               <Route path="" element={<QuestionFeed />} />
             </Route>
@@ -166,8 +166,7 @@ function App() {
               <Route path="candidate-test" element={<CandidateTest />} />
               <Route
                 path="candidate-test-results"
-                element={<CandidateTestResults />}
-              />
+                element={<CandidateTestResults />}/>
               <Route path="candidate-profile" element={<Profile />} />
               <Route path="testtakenpage" element={<TestTakenpage />} />
               <Route path="testInstruction" element={<TestInstructionpage />} />
