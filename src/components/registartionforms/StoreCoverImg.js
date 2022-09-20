@@ -14,6 +14,7 @@ function StoreCoverImg({ setFileCid2 }) {
 
   const [file, setFile] = useState("");
   const [btnloading, setbtnLoading] = useState(false);
+  const [uploaded, setUploaded] = useState("Upload File");
 
   async function uploadImage(e) {
     console.log(document.getElementById("input2").files[0]);
@@ -36,6 +37,7 @@ function StoreCoverImg({ setFileCid2 }) {
     console.log(files[0].cid);
 
     setFileCid2(files[0].cid);
+    setUploaded("Uploaded");
     setbtnLoading(false);
     // setFile(url);
   }
@@ -89,7 +91,7 @@ function StoreCoverImg({ setFileCid2 }) {
         >
           {btnloading ? (
             <svg
-              className="animate-spin button-spin-svg"
+              className="animate-spin button-spin-svg-pic"
               version="1.1"
               id="L9"
               xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +102,7 @@ function StoreCoverImg({ setFileCid2 }) {
               <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
             </svg>
           ) : (
-            "Upload File"
+            <>{uploaded}</>
           )}
         </button>
       </div>

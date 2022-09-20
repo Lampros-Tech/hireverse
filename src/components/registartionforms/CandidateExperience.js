@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAccount } from "wagmi";
+import Cookies from "universal-cookie";
 
 import "react-phone-input-2/lib/style.css";
 import "./regform.css";
@@ -12,8 +13,10 @@ import { useRef } from "react";
 
 function CandidateExperience() {
   const { address, isConnected } = useAccount();
+  const cookies = new Cookies();
 
   const [btnloading, setbtnLoading] = useState(false);
+  const [loginId, setLoginId] = useState(null);
 
   let navigate = useNavigate();
 
@@ -91,7 +94,7 @@ function CandidateExperience() {
       alert("Any other Details");
     } else {
       sendCandidateExpData(
-        2,
+        loginId,
         address,
         showAll.title,
         showAll.emptype,
@@ -143,7 +146,7 @@ function CandidateExperience() {
     desc
   ) => {
     var data = JSON.stringify({
-      login_id: 2,
+      login_id: login_id,
       wallet_address: walletAddress,
       title: title,
       employement_type: employement_type,
@@ -176,6 +179,8 @@ function CandidateExperience() {
       });
   };
   useEffect(() => {
+    setLoginId(cookies.get("loginID"));
+    console.log(cookies.get("loginID"));
     inputRefOne.current.focus();
   }, []);
 

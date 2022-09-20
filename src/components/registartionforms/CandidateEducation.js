@@ -8,11 +8,14 @@ import "./regform.css";
 import logo from "../assets/images/logo.png";
 
 import { useRef } from "react";
+import Cookies from "universal-cookie";
 
 function CandidateEducation() {
   const { address, isConnected } = useAccount();
+  const cookies = new Cookies();
 
   const [btnloading, setbtnLoading] = useState(false);
+  const [loginId, setLoginId] = useState(null);
 
   let navigate = useNavigate();
 
@@ -147,6 +150,8 @@ function CandidateEducation() {
   };
 
   useEffect(() => {
+    setLoginId(cookies.get("loginID"));
+    console.log(cookies.get("loginID"));
     inputRefOne.current.focus();
   }, []);
 
@@ -849,7 +854,7 @@ function CandidateEducation() {
                           setbtnLoading(true);
                           // handleClick(6);
                           sendCandidateEduData(
-                            2,
+                            loginId,
                             address,
                             showAll.iname,
                             showAll.degree,

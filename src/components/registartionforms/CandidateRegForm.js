@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAccount } from "wagmi";
+import Cookies from "universal-cookie";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -14,6 +15,7 @@ import StoreCoverImg from "./StoreCoverImg";
 
 function CandidateRegForm() {
   let navigate = useNavigate();
+  const cookies = new Cookies();
 
   const { address, isConnected } = useAccount();
 
@@ -138,9 +140,10 @@ function CandidateRegForm() {
   //     });
   // };
 
-  // useEffect(() => {
-  //   getLoginId(address);
-  // }, []);
+  useEffect(() => {
+    setLoginId(cookies.get("loginID"));
+    console.log(cookies.get("loginID"));
+  }, []);
 
   const sendData = (
     loginid,
@@ -154,7 +157,7 @@ function CandidateRegForm() {
     contactnum
   ) => {
     var data = JSON.stringify({
-      login_id: 2,
+      login_id: loginid,
       wallet_address: walletAddress,
       name: name,
       bio: bio,
@@ -903,7 +906,7 @@ function CandidateRegForm() {
                           printTwo();
                           sendData(
                             // loginId,
-                            2,
+                            loginId,
                             address,
                             showAll.name,
                             showAll.bio,
