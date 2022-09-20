@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./creator.css";
-import DD_repo from "./Dropdowns/DD_rep
-
+import DD_repo from "./Dropdowns/DD_repo"
+import axios from "axios";
+import {useConnect,useDisconnect, useAccount } from "wagmi";
 import { insert_creators_repo_table } from "../TableQueries";
-
+import { InjectedConnector } from "@wagmi/core";
+import { useNavigate } from "react-router-dom";
 function CreateRepo() {
   const [data, setData] = useState({
     t_name: "creators_repo_table_80001_1808",
@@ -13,15 +15,57 @@ function CreateRepo() {
     desc: "",
     privacy: "private",
   });
-
+  const navigate = useNavigate();
+  const {address} = useAccount();
+  const {connect} = useConnect({
+    connector: new InjectedConnector(),
+  });
+  const {disconnect} = useDisconnect();
   useEffect(() => {
     console.log(data);
   }, [data]);
+  const [TableName,setTableName] = useState({})
   useEffect(()=>{
-  
+    connect();
+    console.log(address);
+    var data = JSON.stringify({
+      "walletAddress": address
+    });
+    
+    var config = {
+      method: 'post',
+      url: 'http://api.dehitas.xyz/creator/getTables',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      setTableName(response.data);
+      // if(TabelName === "none")
+      // {
+      //   navigate("/role/creator")
+      // }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   },[])
+
+  useEffect(()=>{
+    if(TableName){
+      console.log(TableName);
+      if(TableName.question_table === "none" && TableName.repo_table === "none"){
+        navigate("/role/creator")
+      }
+    }
+  },[TableName])
   return (
     <>
+
       <div className="parent-content">
         <div className="C_Content  min-h-screen px-0.5 py-10">
           <div className="top">
