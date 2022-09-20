@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./creator.css";
-import DD_repo from "./Dropdowns/DD_repo";
+import DD_repo from "./Dropdowns/DD_rep
 
 import { insert_creators_repo_table } from "../TableQueries";
 
@@ -17,11 +17,13 @@ function CreateRepo() {
   useEffect(() => {
     console.log(data);
   }, [data]);
-
+  useEffect(()=>{
+  
+  },[])
   return (
     <>
       <div className="parent-content">
-        <div className="Content  min-h-screen px-0.5 py-10">
+        <div className="C_Content  min-h-screen px-0.5 py-10">
           <div className="top">
             <div className="Heading font-primary text-left py-5 ">
               Create new repository here.
