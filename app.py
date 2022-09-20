@@ -1105,6 +1105,7 @@ def getStage():
                                 "rows"
                             ][0][0]
                             final_data["stage"] = 4
+                            final_data["role"] = role[0]
                     elif role[0].lower() == "candidate":
                         fields = "(candidate_id)"
                         candidate_table = os.environ.get("candidate_table")
@@ -1120,6 +1121,7 @@ def getStage():
                                 "rows"
                             ][0][0]
                             final_data["stage"] = 4
+                            final_data["role"] = role[0]
                     elif role[0].lower() == "creator":
                         fields = "(creator_id)"
                         creators_table = os.environ.get("creators_table")
@@ -1135,6 +1137,7 @@ def getStage():
                                 "rows"
                             ][0][0]
                             final_data["stage"] = 4
+                            final_data["role"] = role[0]
                     print("hey")
                     final_data["login_id"] = final_id_data["rows"][0][0]
                     return final_data
