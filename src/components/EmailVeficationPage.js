@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-import env from "react-dotenv";
 import "./styles/login.css";
 
 import { useAccount } from "wagmi";
@@ -44,7 +43,7 @@ function EmailVeficationPage() {
 
     var config = {
       method: "post",
-      url: `${env.API_URL}/signup`,
+      url: `${process.env.REACT_APP_API_URL}/signup`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -72,7 +71,7 @@ function EmailVeficationPage() {
 
     var config = {
       method: "get",
-      url: `${env.API_URL}/getRole`,
+      url: `${process.env.REACT_APP_API_URL}/getRole`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -103,7 +102,7 @@ function EmailVeficationPage() {
 
       var config = {
         method: "post",
-        url: `${env.API_URL}/check_email`,
+        url: `${process.env.REACT_APP_API_URL}/check_email`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -133,7 +132,7 @@ function EmailVeficationPage() {
 
     var config = {
       method: "post",
-      url: `${env.API_URL}/check_username`,
+      url: `${process.env.REACT_APP_API_URL}/check_username`,
       headers: {
         "Content-Type": "application/json",
       },

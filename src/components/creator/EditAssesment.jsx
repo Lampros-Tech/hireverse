@@ -85,7 +85,7 @@ function EditAssesment ()
   }, [questions])
     return(
         <div className="parent-content">
-        <div className="Content min-h-screen px-0.5 py-10">
+        <div className="C_Content min-h-screen px-0.5 py-10">
           <div className="top">
               <div className="Headingassesmenth font-primary text-left py-5 ">
                 Edit  assesment here.

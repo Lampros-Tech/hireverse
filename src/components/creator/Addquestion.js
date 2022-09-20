@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import "../creator/Addquestion.css";
 import axios from "axios";
-import env from "react-dotenv";
+
 import { insert_creators_questions_table } from "../TableQueries";
 // import { EditorState, convertToRaw, convertFromHTML, convertFromRaw } from "draft-js";
 // import { useNavigate } from "react-router-dom";
@@ -43,7 +43,7 @@ export default function AddQuestion() {
 
   const getCollections = useCallback(() => {
     axios
-      .get(`${env.API_URI}/get_collection`, {
+      .get(`${process.env.API_URL}/get_collection`, {
         headers: { token: cookies.get("AdminToken") },
       })
       .then((res) => {
@@ -85,7 +85,7 @@ export default function AddQuestion() {
     };
 
     axios
-      .post(`${env.API_URI}/add_questions`, data, {
+      .post(`${process.env.API_URL}/add_questions`, data, {
         headers: { token: cookies.get("AdminToken") },
       })
       .then((res) => {
@@ -121,7 +121,7 @@ export default function AddQuestion() {
       name: customeGener,
     };
     axios
-      .post(`${env.API_URI}/create_collection`, data, {
+      .post(`${process.env.API_URL}/create_collection`, data, {
         headers: { token: cookies.get("AdminToken") },
       })
       .then((res) => {
@@ -164,7 +164,7 @@ export default function AddQuestion() {
     };
 
     axios
-      .post(`${env.API_URI}/add_questions`, data, {
+      .post(`${process.env.API_URL}/add_questions`, data, {
         headers: { token: cookies.get("AdminToken") },
       })
       .then((res) => {
@@ -208,12 +208,12 @@ export default function AddQuestion() {
                 </option>
               ))}
             </select>
-            <div>
+            <div className="Add-Question-type">
               {generPlus === true ? (
-                <div className="Add-custome_gener">
+                <div className="Add-custome_gener flex">
                   <input
-                    type="text"
-                    className="Add-addgener"
+                    type="number"
+                    className="Add-addgener uplift"
                     onChange={(e) => setCoustomeGener(e.target.value)}
                   />
                   <button
@@ -665,6 +665,62 @@ export default function AddQuestion() {
                   />
                 </div>
               </div>
+            </div>
+            <div className="repo-stroring-option my-9 px-4 ">
+                    <div className="">
+                      <div className="privacy my-4   pb-4">
+                        <div className="Instruction font-secondary font-semibold text-left">
+                          Select privacy option
+                        </div>
+                        <div className="flex items-center mb-4">
+                          <input
+                            id="default-radio-1"
+                            type="radio"
+                            value="global"
+                            name="privacy-radio"
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+                            
+                          />
+                          <label className="ml-2 font-secondary font-semibold text-left">
+                            Global
+                          </label>
+                        </div>
+                        <div className="flex items-center mb-4">
+                          <input
+                            id="default-radio-1"
+                            type="radio"
+                            value="local"
+                            name="privacy-radio"
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+                            
+                          />
+                          <label className="ml-2 font-secondary font-semibold text-left">
+                            Local
+                          </label>
+                        </div>
+                        <div className="flex items-center ">
+                          <input
+                            defaultChecked
+                            id="default-radio-1"
+                            type="radio"
+                            value="private"
+                            name="privacy-radio"
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
+                            
+                          />
+                          <label className="ml-2 font-secondary font-semibold text-left">
+                            Private
+                          </label>
+                        </div>
+                      </div>
+                      <select defaultValue={""} name="repos" className="uplift rounded p-3" id="repos">
+                          <option value="" selected disabled>Select your repository</option>
+                          <option value="saab">Repository2</option>
+                          <option value="mercedes">Repository3</option>
+                          <option value="audi">Repository4</option>
+                      </select>
+                    </div>
+
             </div>
             <button
               className="Add-submit"

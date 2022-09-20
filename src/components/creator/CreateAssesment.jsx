@@ -136,7 +136,7 @@ function CreateAssesment() {
   return (
     <>
       <div className="parent-content">
-        <div className="Content min-h-screen px-0.5 py-10">
+        <div className="C_Content min-h-screen px-0.5 py-10">
           <div className="top">
             <div className="Headingassesmenth font-primary text-left py-5 ">
               Create new assesment here.
@@ -146,20 +146,20 @@ function CreateAssesment() {
             </div>
           </div>
           <div className="repo-details py-5 border-b-2">
-            <div className="Labels flex">
-              <div className="w-44 px-2 py-1 font-secondary font-semibold">
+            <div className="Labels flex mb-1">
+              <div className="w-44 py-1 font-secondary font-semibold">
                 Owner
                 <span className="">*</span>
               </div>
-              <div className="px-4 py-1 font-semibold font-secondary">
+              <div className="px-1 py-1 font-semibold font-secondary">
                 Repository name
               </div>
             </div>
-            <div className="repo-name flex">
-              <div className="uplift">
-                <DD_repo  />
+            <div className="repo-name  flex">
+              <div className="font-primary-sm items-center">
+                Owner name
               </div>
-              <h1 className="mx-4  text-3xl">/</h1>
+              <h1 className="mx-10  text-3xl">/</h1>
               <div className="Repo-name">
                 <input
                   type="text"
@@ -213,16 +213,16 @@ function CreateAssesment() {
                   type="number"
                   name="Duration"
                   placeholder="Enter minutes"
-                  className="uplift  rounded-md"
+                  className="uplift  rounded-md p-1"
                 />
               </div>
-              <div className="font-secondary font-semibold ml-7">Experiance:</div>
+              <div className="font-secondary font-semibold ml-7">Experience:</div>
               <div className="mr-5 ml-3">
                 <input
                   type="number"
-                  name="experiance"
+                  name="experience"
                   placeholder="Enter Years"
-                  className="uplift rounded-md"
+                  className="uplift rounded-md p-1"
                 />
               </div>
             </div>
@@ -232,7 +232,7 @@ function CreateAssesment() {
               Scoring format of the Test.
             </div>
             <div className="formating">
-              <div className="flex  my-4">
+              <div className="flex  my-4 ">
                 <input
                   type="text"
                   onChange={(e) => {
@@ -241,7 +241,7 @@ function CreateAssesment() {
                   name="genre"
                   placeholder="Enter genre"
                   defaultValue={genreList.name}
-                  className="p-1 uplift text-sm  mx-2 rounded-md border border-gray-300"
+                  className=" uplift text-sm mr-8 pl-1  mx-2 rounded-md border border-gray-300"
                 />
                 <input
                   type="number"
@@ -251,7 +251,7 @@ function CreateAssesment() {
                   name="numberOfQuestion"
                   placeholder="enter number of question"
                   defaultValue={genreList.number}
-                  className="p-1 mx-2 w-52 rounded-md uplift"
+                  className="p-1 mr-8 w-52 rounded-md uplift"
                 />
                 <select
                   name="Repository"
@@ -260,7 +260,7 @@ function CreateAssesment() {
                   }}
                   defaultValue={genreList.repo}
                   id="repos"
-                  className="p-1 uplift rounded-md border border-gray-300"
+                  className="p-1 mr-8 uplift rounded-md border border-gray-300"
                 >
                   <option value="" disabled hidden>
                     Select repository
@@ -270,7 +270,7 @@ function CreateAssesment() {
                   <option value="repo4">Repository4</option>
                 </select>
                 <button
-                  class="bg-transparent hover:bg-black font-semibold hover:text-white px-8 border  hover:border-transparent rounded mx-2"
+                  class=" rounded-md px-10 Add-btn-custom"
                   onClick={() => {
                     addGenre()
                   }}
@@ -281,7 +281,7 @@ function CreateAssesment() {
 
               <div className="border-b-2 pb-4 w-full  ">
                 <div className="heading grid grid-cols-3 w-full">
-                  <div className="heder font-secondary font-semibold border rounded-md">
+                  <div className="heder  font-secondary font-semibold border rounded-md">
                     Question type
                   </div>
                   <div className="heder font-secondary font-semibold rounded-md">
@@ -328,7 +328,7 @@ function CreateAssesment() {
                       type="number"
                       name="experiance"
                       placeholder="Enter minutes"
-                      className="border border-gray-300 rounded-md w-14"
+                      className="border border-gray-300 uplift pl-1 rounded-md w-14"
                       min = {from}
                       value = {to}
                       onChange={(e) => {
@@ -342,7 +342,7 @@ function CreateAssesment() {
                     type="number"
                     name="experiance"
                     placeholder="Marks for each"
-                    className="border border-gray-300 rounded-md w-32 mr-2"
+                    className="border border-gray-300 uplift pl-1 rounded-md w-32 mr-4"
                     onChange={(e) => {
                       setMark(e.target.value)
                     }}
@@ -351,7 +351,7 @@ function CreateAssesment() {
                     type="number"
                     name="experiance"
                     placeholder="-ve score"
-                    className="border border-gray-300 rounded-md w-24 pl-1"
+                    className="border border-gray-300 uplift rounded-md w-24 pl-1"
                     onChange={(e) => {
                       setNegativemarks(e.target.value)
                     }}
@@ -360,7 +360,7 @@ function CreateAssesment() {
               </div>
               <div>
                 <button
-                  className="bg-transparent hover:bg-black text-black font-semibold hover:text-white  px-9 border border-black-500 hover:border-transparent rounded mx-2 mb-4"
+                  className=" mx-2 mb-4 py-1 rounded-md px-10 Add-btn-custom"
                   onClick={() => {
                     addSection()
                   }}
@@ -402,7 +402,7 @@ function CreateAssesment() {
                   </div>
                 )}
               </div>
-              <div className="border-b-2  ">
+              <div className="  ">
                 <div className="flex my-4 ">
                   <div className="font-secondary font-semibold">Max Score:</div>
                   <div className="mr-5 ml-2">
@@ -446,8 +446,8 @@ function CreateAssesment() {
                   </div>
                 </div>
               </div>
-              <div>
-                <button className=" create-assessment-btn text-black-700 font-semibold py-2 px-4 border border-black-500  rounded mx-2 mt-4 mb-4">
+              <div className='final-buttom'>
+                <button className="create-assessment-btn text-black-700 font-semibold py-2 px-4 border border-black-500  rounded mx-2 mt-4 mb-4">
                   Create assessment
                 </button>
               </div>

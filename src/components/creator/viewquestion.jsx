@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Backlogo from "./Images/back_logo";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import env from "react-dotenv";
+
 import parse from "html-react-parser";
 import closebtn from "../creator/Images/closebtn.png";
 import Editimg from "./Images/edit.png";
@@ -44,7 +44,7 @@ function Viewquestion() {
 
   const getAllQuestions = () => {
     axios
-      .get(`${env.API_URI}/show_questions`, {
+      .get(`${process.env.API_URL}/show_questions`, {
         headers: { token: cookie.get("AdminToken") },
       })
       .then((res) => {
@@ -60,7 +60,7 @@ function Viewquestion() {
       category: category,
     };
     axios
-      .post(`${env.API_URI}/delete_question_by_id`, data, {
+      .post(`${process.env.API_URL}/delete_question_by_id`, data, {
         headers: { token: cookie.get("AdminToken") },
       })
       .then((res) => {
@@ -105,62 +105,45 @@ function Viewquestion() {
   }, [questions]);
 
   return (
-    <>
-      <div className="Content ">
+    <div className="parent-content">
+      <div className="C_Content ">
         <div className="title text-center font-primary font-bold my-8">
           View Question
         </div>
         <div className="Questions">
-          <div className="card-background uplift h-52 p-2 px-8 rounded-md">
+          <div className="card-background uplift h-54 p-2 px-8 rounded-md">
+            <div className="flex my-4">
             <div className="Tittle font-primary">Question 1</div>
+            <div className="flex-grow"></div>
+            <button
+                  className="Edit-Question px-3 py-1 rounded-md "
+                  onClick={() => {
+                    Editquestion();
+                  }}
+                >
+                  Edit Question
+                </button>
+                </div>
             <div className="font-secondary description">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit.
               Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime
               quaerat vero a voluptatibus ratione quidem quo dignissimos dolor
               libero vitae iusto odit facilis.
             </div>
-            <div className="text-center w-full">
-              <button
-                className="Edit-Question p-3 rounded-md "
-                onClick={() => {
-                  Editquestion();
-                }}
-              >
-                Edit Question
-              </button>
+            <div className="flex my-2">
+              <div className="mx-2 p-1 px-3 C_tag rounded-md">
+                Tag
+              </div>
+              <div className="mx-2 p-1  px-3 C_tag rounded-md">
+                Tag
+              </div>
+              <div className="mx-2 p-1 px-3 C_tag rounded-md">
+                Tag
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="Questions my-10">
-          <div className="card-background uplift h-52 p-2 px-8 rounded-md">
-            <div className="Tittle font-primary">Question 1</div>
-            <div className="font-secondary overflow-x-auto description">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime
-              quaerat vero a voluptatibus ratione quidem quo dignissimos dolor
-              libero vitae iusto odit facilis. Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Veritatis, ducimus. Nesciunt ullam
-              laudantium odio neque, maxime quaerat vero a voluptatibus ratione
-              quidem quo dignissimos dolor libero vitae iusto odit facilis.
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime
-              quaerat vero a voluptatibus ratione quidem quo dignissimos dolor
-              libero vitae iusto odit facilis.
-            </div>
-
-            <div className="text-center w-full">
-              <button
-                className="Edit-Question p-3 rounded-md "
-                onClick={() => {
-                  Editquestion();
-                }}
-              >
-                Edit Question
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
 
       {showEdit ? (
@@ -168,7 +151,7 @@ function Viewquestion() {
           <EditQuestion />
         </div>
       ) : null}
-    </>
+    </div>
   );
 }
 
