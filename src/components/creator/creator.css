@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+
 .C_Content
 {
     max-width: 786px;
@@ -30,22 +31,22 @@
 }
 .font-primary
 {
-    font-family: 'Lato';
+    font-family: "Montserrat";
     font-size: 2rem;
 }
 .font-primary-sm
 {
-    font-family: 'Lato';
+    font-family: "Montserrat";
     font-size: 1rem;
 }
 .font-secondary
 {
-    font-family: 'Roboto Mono', monospace;
+    font-family: "Open Sans" !important;
     font-size: 1rem;
 }
 .font-secondary-sm
 {
-    font-family: 'Roboto Mono', monospace;
+    font-family: "Open Sans" !important;
     font-size: 1rem;
 }
 .heder

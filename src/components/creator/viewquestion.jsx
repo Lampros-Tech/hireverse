@@ -107,7 +107,7 @@ function Viewquestion() {
   return (
     <div className="parent-content">
       <div className="C_Content ">
-        <div className="title text-center font-primary font-bold my-8">
+        <div className="title text-center font-primary font-bold py-8">
           View Question
         </div>
         <div className="Questions">
