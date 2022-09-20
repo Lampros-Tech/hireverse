@@ -12,8 +12,34 @@
   box-shadow: 0px 0px 6px 5px #eff0ee;
   margin-top: 3%;
   padding: 30px;
+  margin-bottom: 3%;
   padding-bottom: 30px;
 }
+
+.tag-outer {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+#tag-span-job {
+  /* margin: 10px; */
+  background-color: lightgray;
+  padding: 5px 10px;
+  border-radius: 5px;
+  width: 73%;
+}
+
+.tag-input-btn {
+  background-color: #282133;
+  color: white;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: -23px;
+  height: 50%;
+  margin-top: 5px;
+}
+
 .recruitment-details-main-form {
   color: black;
 }
@@ -23,6 +49,8 @@
 }
 #recruit-label {
   display: flex;
+  font-family: "Open Sans";
+
   padding-bottom: 10px;
 }
 #recruitment-details-main-form {
@@ -64,7 +92,7 @@
   padding: 10px 15% 10px 0;
 }
 .dropdown-container {
-  width: 300px;
+  width: 100%;
 }
 .plus-icon {
   display: flex;
@@ -75,9 +103,12 @@
   text-align: center;
 }
 #job-radio {
-  margin-left: 10%;
+  /* margin-left: 10%; */
   width: 50%;
 }
+/* .ex-level-select {
+  width: 60%;
+} */
 #submit-job {
   display: inline;
   margin-left: 10px;
@@ -97,7 +128,7 @@
 .all-inputfield {
   width: 75%;
 }
-input[type="radio"].radio-location:checked:after {
+/* input[type="radio"].radio-location:checked:after {
   width: 11px;
   height: 12px;
   border-radius: 10px;
@@ -105,17 +136,18 @@ input[type="radio"].radio-location:checked:after {
   content: "";
   display: inline-block;
   visibility: visible;
-}
+} */
 .recruit-components-question {
   margin-bottom: 20px;
 }
 .grid-recruitdetails {
-  display: grid;
+  /* display: grid; */
   grid-template-columns: 1fr;
   gap: 1rem;
-  width: 70%;
-  margin-left: 30px;
+  /* width: auto; */
+  /* margin-left: 30px; */
 }
+
 .img-input-submit-section {
   display: flex;
   margin-bottom: 20px;

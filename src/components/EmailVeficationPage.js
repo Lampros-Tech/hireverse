@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-// import env from "react-dotenv";
 import "./styles/login.css";
 
 import { useAccount } from "wagmi";
@@ -16,14 +15,17 @@ import su_image from "./assets/images/signup_image_2.svg";
 
 function EmailVeficationPage() {
   const { address, isConnected } = useAccount();
-  console.log(isConnected);
-  console.log(address);
 
   let navigate = useNavigate();
 
   // let navigate = useNavigate();
 
   const [btnloading, setbtnLoading] = useState(false);
+
+  const [checker_uname, setChecker_uname] = useState(false);
+  const [checker_email, setChecker_email] = useState(false);
+  const [checker_role, setChecker_role] = useState(false);
+
   const [credentials, setCredentials] = useState({
     email: "",
     username: "",
@@ -39,31 +41,121 @@ function EmailVeficationPage() {
       walletAddress: walletaddress,
     });
 
-    // const headers = {
-    //   "Content-Type": "application/json",
-    // };
-
-    // var config = {
-    //   method: "post",
-    //   url: `${env.API_URL}/signup`,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   data: data,
-    // };
-    // console.log(config.url);
-    // axios(config)
-    //   .then(function (response) {
-    //     console.log(JSON.stringify(response.data));
-    //     setbtnLoading(false);
-    //     // navigate("/role");
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //     setbtnLoading(false);
-    //   });
+    var config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/signup`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+    console.log(config.url);
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setbtnLoading(false);
+        console.log("send email and username");
+        navigate("/role");
+      })
+      .catch(function (error) {
+        console.log(error);
+        setbtnLoading(false);
+        console.log("problem in sending");
+      });
   };
 
+  const checkRole = (walletAddress) => {
+    var data = JSON.stringify({
+      walletAddress: walletAddress,
+    });
+
+    var config = {
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}/getRole`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log("Role Found");
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log("Role not found");
+        setChecker_role(true);
+        // checkEmail(credentials.email);
+        console.log(error);
+      });
+  };
+
+  const checkEmail = (email) => {
+    const emailFormat =
+      /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/.test(email);
+
+    if (emailFormat) {
+      var data = JSON.stringify({
+        email: email,
+      });
+
+      var config = {
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}/check_email`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      axios(config)
+        .then(function (response) {
+          setChecker_email(true);
+          // checkUsername(credentials.username);
+          console.log("Email doesn't exist. GO ON");
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log("Email exist. Enter new one");
+          console.log(error);
+        });
+    } else {
+      console.log("Please enter email in proper format");
+    }
+  };
+
+  const checkUsername = (username) => {
+    var data = JSON.stringify({
+      username: username,
+    });
+
+    var config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/check_username`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        setChecker_uname(true);
+        // sendEU(
+        //   credentials.username,
+        //   credentials.email,
+        //   credentials.walletAddress
+        // );
+
+        console.log("username doesnot exist");
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log("username exist");
+        console.log(error);
+      });
+  };
   // useEffect(() => {
   //   console.log(credentials);
   // }, [credentials]);
@@ -102,7 +194,11 @@ function EmailVeficationPage() {
                       walletAddress: credentials.walletAddress,
                     })
                   }
+                  onBlur={() => checkEmail(credentials.email)}
                 />
+                <div className="f-after-input-div">
+                  <span className="f-after-input">something</span>
+                </div>
                 <input
                   className="input"
                   value={credentials.username}
@@ -115,7 +211,12 @@ function EmailVeficationPage() {
                       walletAddress: credentials.walletAddress,
                     })
                   }
+                  onBlur={() => checkUsername(credentials.username)}
                 />
+                <div className="f-after-input-div">
+                  <span className="f-after-input">something</span>
+                </div>
+                <div className="f-after-username"></div>
               </div>
 
               <div className="btn-container">
@@ -127,18 +228,29 @@ function EmailVeficationPage() {
                     )
                   }
                   onClick={() => {
-                    navigate("/role");
-                    // setbtnLoading(true);
-                    // sendEU(
-                    //   credentials.username,
-                    //   credentials.email,
-                    //   credentials.walletAddress
-                    // );
+                    // navigate("/role");
+                    setbtnLoading(true);
+                    checkRole(credentials.walletAddress);
+                    console.log(checker_uname, checker_email, checker_role);
+                    if (
+                      checker_uname === true &&
+                      checker_email === true &&
+                      checker_role === true
+                    ) {
+                      console.log("entering in the sending data");
+                      sendEU(
+                        credentials.username,
+                        credentials.email,
+                        credentials.walletAddress
+                      );
+                    } else {
+                      console.log("error in sending data to the db");
+                    }
                   }}
                 >
                   {/* navigate("/role") */}
                   Next
-                  {/* {btnloading ? (
+                  {btnloading ? (
                     <svg
                       className="animate-spin button-spin-svg"
                       version="1.1"
@@ -148,12 +260,9 @@ function EmailVeficationPage() {
                       y="0px"
                       viewBox="0 0 100 100"
                     >
-                      <path
-                        fill="#fff"
-                        d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"
-                      ></path>
+                      <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
                     </svg>
-                  ) : null} */}
+                  ) : null}
                 </button>
               </div>
             </div>

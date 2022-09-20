@@ -17,6 +17,15 @@ module.exports = function override(config, env) {
     buffer: require.resolve("buffer/"),
   };
   config.resolve.extensions = [...config.resolve.extensions, ".ts", ".js"];
+  config.module.rules = [
+    ...config.module.rules,
+    {
+      test: /\.m?js/,
+      resolve: {
+        fullySpecified: false,
+      },
+    },
+  ];
   config.plugins = [
     ...config.plugins,
     new webpack.ProvidePlugin({
@@ -24,5 +33,6 @@ module.exports = function override(config, env) {
       Buffer: ["buffer", "Buffer"],
     }),
   ];
+
   return config;
 };

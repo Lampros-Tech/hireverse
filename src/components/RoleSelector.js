@@ -1,4 +1,7 @@
 import React from "react";
+import axios from "axios";
+
+import { useAccount } from "wagmi";
 
 import "./styles/login.css";
 import logo from "./assets/images/logo.png";
@@ -7,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 function RoleSelector() {
   let navigate = useNavigate();
+  const { address, isConnected } = useAccount();
 
   // const options = [
   //   { label: "Select your role", value: "" },
@@ -16,6 +20,38 @@ function RoleSelector() {
   // ];
 
   const [value, setValue] = React.useState("");
+
+  const sendRole = (walletAddress, role) => {
+    var data = JSON.stringify({
+      walletAddress: walletAddress,
+      role: role,
+    });
+
+    var config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/insertRole`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        if (value === "company") {
+          navigate("/companyregform");
+        } else if (value === "creator") {
+          navigate("/role/creator");
+        } else if (value === "candidate") {
+          navigate("/candidateregform");
+        } else {
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -55,7 +91,7 @@ function RoleSelector() {
               {/* <img src={emailpic} alt="img" /> */}
             </div>
 
-            <form action="" className="email-form">
+            <div className="email-form">
               <h1 className="email-form-title">What represents you well?</h1>
               <div className="wrap-input validate-input">
                 <select
@@ -84,20 +120,13 @@ function RoleSelector() {
                 <button
                   className="email-verify-button"
                   onClick={() => {
-                    if (value === "company") {
-                      navigate("/companyregform");
-                    } else if (value === "creator") {
-                      navigate("/role/creator");
-                    } else if (value === "candidate") {
-                      navigate("/candidateregform");
-                    } else {
-                    }
+                    sendRole(address, value);
                   }}
                 >
                   Next
                 </button>
               </div>
-            </form>
+            </div>
           </section>
         </section>
       </section>

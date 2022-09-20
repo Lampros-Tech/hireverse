@@ -1,5 +1,5 @@
 .f-background {
-  background: url(../assets/images/large.jpg);
+  background: url(../assets/images/large01.jpg);
   background-size: cover;
   /* background-repeat: no-repeat; */
   position: fixed;
@@ -83,7 +83,7 @@ svg.f-correct-ar {
 }
 .f-form-div {
   margin-left: 0.5rem;
-  min-width: 50vw;
+  min-width: 60vw;
   /* width: 50%;
   height: 50%; */
   /* margin: auto; */
@@ -111,7 +111,7 @@ input::placeholder {
 input[type="number"] {
   overflow: hidden;
 }
-input[type="date"] {
+input[type="date"].f-input {
   border: 1px solid #134e6f;
   border-radius: 5px;
   padding: 5px;
@@ -321,6 +321,13 @@ span.f-ctrl-enter {
   opacity: 0.9;
   font-weight: 600;
 }
+p.upload-img-instruction {
+  max-width: 80%;
+  font-size: 15px;
+  margin-top: 0;
+  margin: 10px 0;
+}
+
 @media (max-width: 768px) {
   .f-inside-section {
     justify-content: flex-start;

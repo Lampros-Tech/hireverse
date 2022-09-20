@@ -7,6 +7,7 @@
 }
 .jobinsights-name {
   margin: 10px;
+  font-family: "Open Sans";
 }
 .jobinsight-select-date-input-btn {
   width: 90%;
@@ -56,13 +57,15 @@
 }
 .jobsights-button-interview {
   margin-left: 9em;
-
+  font-family: "Open Sans";
   font-size: medium;
   padding: 15px;
 }
 .jobinsights-score-name {
   font-weight: 700;
+  font-family: "Open Sans";
 }
+
 /* ---------------responsive-------------------------- */
 @media only screen and (max-width: 768px) {
   .jobinsights-main-content {

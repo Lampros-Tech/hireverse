@@ -1,4 +1,4 @@
-.popup-box {
+.popup-box-successpopup {
   position: fixed;
   background: #00000050;
   width: 100%;
@@ -9,7 +9,7 @@
 .invite-success-popup {
   padding-left: 30%;
 }
-.box {
+.box-successpopup {
   position: relative;
   width: 20%;
   margin: 0 auto;
@@ -24,7 +24,7 @@
   overflow: hidden;
 }
 
-.close-icon {
+.close-icon-successpopup {
   content: "x";
   cursor: pointer;
   position: fixed;
