@@ -127,6 +127,7 @@ function CandidateExperience() {
       }, 200);
     }
   };
+
   const sendCandidateExpData = (
     login_id,
     walletAddress,
@@ -164,7 +165,7 @@ function CandidateExperience() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        navigate("/candidate");
+        navigate("/candidateregform/candidate-achivements");
       })
       .catch(function (error) {
         console.log(error);
