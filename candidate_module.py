@@ -55,8 +55,8 @@ def addEducation():
 def addExperience():
     try:
         tablename = os.environ.get('user_experiance_table')
-        fields = "(login_id,wallet_address, employement_type, company_name, location, start_date, end_date,status,description)"
-        values = (request.json['login_id'],request.json['wallet_address'],request.json['employement_type'],request.json['company_name'],request.json['location'],request.json['start_date'],request.json['end_date'],request.json['status'],request.json['description'])
+        fields = "(login_id,wallet_address, title,employement_type, company_name, location, start_date, end_date,status,description)"
+        values = (request.json['login_id'],request.json['wallet_address'], request.json['title'],request.json['employement_type'],request.json['company_name'],request.json['location'],request.json['start_date'],request.json['end_date'],request.json['status'],request.json['description'])
         data = insert_query(tablename, fields ,values)
         response_body = {
             "status":200,
