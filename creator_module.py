@@ -23,7 +23,7 @@ def creator_registration(creator_data):
         print("Inside creators registration:", final_data)
         if len(final_data["rows"]) == 0:
             tablename = os.environ.get("creators_table")
-            fields = "(login_id, wallet_address, name, bio, profile_image, cover_image, address, country, contact_number, created_at, modified_at)"
+            fields = "(login_id, wallet_address, name, bio, profile_image, cover_image, address, contry, contact_number, created_at, modified_at)"
             values = creator_data + (
                 int(datetime.datetime.now().timestamp()),
                 int(datetime.datetime.now().timestamp()),
