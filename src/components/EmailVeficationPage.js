@@ -86,6 +86,20 @@ function EmailVeficationPage() {
       .catch(function (error) {
         console.log("Role not found");
         setChecker_role(true);
+        if (
+          checker_uname === true &&
+          checker_email === true &&
+          checker_role === true
+        ) {
+          console.log("entering in the sending data");
+          sendEU(
+            credentials.username,
+            credentials.email,
+            credentials.walletAddress
+          );
+        } else {
+          console.log("error in sending data to the db");
+        }
         // checkEmail(credentials.email);
         console.log(error);
       });
@@ -232,24 +246,10 @@ function EmailVeficationPage() {
                     setbtnLoading(true);
                     checkRole(credentials.walletAddress);
                     console.log(checker_uname, checker_email, checker_role);
-                    if (
-                      checker_uname === true &&
-                      checker_email === true &&
-                      checker_role === true
-                    ) {
-                      console.log("entering in the sending data");
-                      sendEU(
-                        credentials.username,
-                        credentials.email,
-                        credentials.walletAddress
-                      );
-                    } else {
-                      console.log("error in sending data to the db");
-                    }
                   }}
                 >
                   {/* navigate("/role") */}
-                  Next
+
                   {btnloading ? (
                     <svg
                       className="animate-spin button-spin-svg"
@@ -262,7 +262,9 @@ function EmailVeficationPage() {
                     >
                       <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
                     </svg>
-                  ) : null}
+                  ) : (
+                    "Next"
+                  )}
                 </button>
               </div>
             </div>
