@@ -15,6 +15,9 @@ function CreatorEducation() {
   const cookies = new Cookies();
 
   const { address, isConnected } = useAccount();
+
+  const [btnloading, setbtnLoading] = useState(false);
+
   const [loginId, setLoginId] = useState(null);
 
   const refOne = useRef(null);
@@ -103,7 +106,7 @@ function CreatorEducation() {
     }
   };
 
-  const sendCandidateEduData = (
+  const sendCreatorEduData = (
     loginid,
     walletAddress,
     iname,
@@ -137,10 +140,12 @@ function CreatorEducation() {
 
     axios(config)
       .then(function (response) {
+        setbtnLoading(false);
         console.log(JSON.stringify(response.data));
         navigate("/creatorregform/creator-experience");
       })
       .catch(function (error) {
+        setbtnLoading(false);
         console.log(error);
       });
   };
@@ -845,8 +850,9 @@ function CreatorEducation() {
                     <button
                       className="f-next-btn"
                       onClick={() => {
+                        setbtnLoading(true);
                         // handleClick(6);
-                        sendCandidateEduData(
+                        sendCreatorEduData(
                           loginId,
                           address,
                           showAll.iname,
@@ -859,19 +865,34 @@ function CreatorEducation() {
                         );
                       }}
                     >
-                      <span>NEXT</span>
-
-                      <svg
-                        className="f-correct-ar"
-                        version="1.1"
-                        id="Capa_1"
-                        xmlns="http://www.w3.org/2000/svg"
-                        x="0px"
-                        y="0px"
-                        viewBox="0 0 240.608 240.608"
-                      >
-                        <path d="M208.789,29.972l31.819,31.82L91.763,210.637L0,118.876l31.819-31.82l59.944,59.942L208.789,29.972z" />
-                      </svg>
+                      {btnloading ? (
+                        <svg
+                          className="animate-spin button-spin-svg"
+                          version="1.1"
+                          id="L9"
+                          xmlns="http://www.w3.org/2000/svg"
+                          x="0px"
+                          y="0px"
+                          viewBox="0 0 100 100"
+                        >
+                          <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
+                        </svg>
+                      ) : (
+                        <>
+                          <span>NEXT</span>
+                          <svg
+                            className="f-correct-ar"
+                            version="1.1"
+                            id="Capa_1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            x="0px"
+                            y="0px"
+                            viewBox="0 0 240.608 240.608"
+                          >
+                            <path d="M208.789,29.972l31.819,31.82L91.763,210.637L0,118.876l31.819-31.82l59.944,59.942L208.789,29.972z" />
+                          </svg>
+                        </>
+                      )}
                     </button>
                     <span className="f-press-enter">
                       press{" "}

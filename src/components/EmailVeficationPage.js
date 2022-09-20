@@ -173,106 +173,109 @@ function EmailVeficationPage() {
   // useEffect(() => {
   //   console.log(credentials);
   // }, [credentials]);
-
-  return (
-    <>
-      <section className="login-main">
-        <section className="login-inside">
-          <section className="wrap-email">
-            <img className="f-logo-img" src={logo} alt="logo" />
-            <div className="email-pic">
-              <img
-                className="signup_image"
-                src={su_image}
-                alt="signup_illustration"
-              />
-            </div>
-            <div className="email-form">
-              <h2 className="email-wallet-name">
-                Welcome{" "}
-                {address.substring(0, 6) +
-                  "..." +
-                  address.substring(address.length - 6, address.length)}
-              </h2>
-              <h1 className="email-form-title">Sign Up</h1>
-              <div className="wrap-input validate-input">
-                <input
-                  className="input"
-                  value={credentials.email}
-                  type="text"
-                  placeholder="Email"
-                  onChange={(event) =>
-                    setCredentials({
-                      email: event.target.value,
-                      username: credentials.username,
-                      walletAddress: credentials.walletAddress,
-                    })
-                  }
-                  onBlur={() => checkEmail(credentials.email)}
+  if (isConnected) {
+    return (
+      <>
+        <section className="login-main">
+          <section className="login-inside">
+            <section className="wrap-email">
+              <img className="f-logo-img" src={logo} alt="logo" />
+              <div className="email-pic">
+                <img
+                  className="signup_image"
+                  src={su_image}
+                  alt="signup_illustration"
                 />
-                <div className="f-after-input-div">
-                  <span className="f-after-input">something</span>
-                </div>
-                <input
-                  className="input"
-                  value={credentials.username}
-                  type="text"
-                  placeholder="Username"
-                  onChange={(event) =>
-                    setCredentials({
-                      email: credentials.email,
-                      username: event.target.value,
-                      walletAddress: credentials.walletAddress,
-                    })
-                  }
-                  onBlur={() => checkUsername(credentials.username)}
-                />
-                <div className="f-after-input-div">
-                  <span className="f-after-input">something</span>
-                </div>
-                <div className="f-after-username"></div>
               </div>
+              <div className="email-form">
+                <h2 className="email-wallet-name">
+                  Welcome{" "}
+                  {address.substring(0, 6) +
+                    "..." +
+                    address.substring(address.length - 6, address.length)}
+                </h2>
+                <h1 className="email-form-title">Sign Up</h1>
+                <div className="wrap-input validate-input">
+                  <input
+                    className="input"
+                    value={credentials.email}
+                    type="text"
+                    placeholder="Email"
+                    onChange={(event) =>
+                      setCredentials({
+                        email: event.target.value,
+                        username: credentials.username,
+                        walletAddress: credentials.walletAddress,
+                      })
+                    }
+                    onBlur={() => checkEmail(credentials.email)}
+                  />
+                  <div className="f-after-input-div">
+                    <span className="f-after-input">something</span>
+                  </div>
+                  <input
+                    className="input"
+                    value={credentials.username}
+                    type="text"
+                    placeholder="Username"
+                    onChange={(event) =>
+                      setCredentials({
+                        email: credentials.email,
+                        username: event.target.value,
+                        walletAddress: credentials.walletAddress,
+                      })
+                    }
+                    onBlur={() => checkUsername(credentials.username)}
+                  />
+                  <div className="f-after-input-div">
+                    <span className="f-after-input">something</span>
+                  </div>
+                  <div className="f-after-username"></div>
+                </div>
 
-              <div className="btn-container">
-                <button
-                  className="email-verify-button"
-                  disabled={
-                    !/^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/.test(
-                      credentials.email
-                    )
-                  }
-                  onClick={() => {
-                    // navigate("/role");
-                    setbtnLoading(true);
-                    checkRole(credentials.walletAddress);
-                    console.log(checker_uname, checker_email, checker_role);
-                  }}
-                >
-                  {/* navigate("/role") */}
+                <div className="btn-container">
+                  <button
+                    className="email-verify-button"
+                    disabled={
+                      !/^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/.test(
+                        credentials.email
+                      )
+                    }
+                    onClick={() => {
+                      // navigate("/role");
+                      setbtnLoading(true);
+                      checkRole(credentials.walletAddress);
+                      console.log(checker_uname, checker_email, checker_role);
+                    }}
+                  >
+                    {/* navigate("/role") */}
 
-                  {btnloading ? (
-                    <svg
-                      className="animate-spin button-spin-svg"
-                      version="1.1"
-                      id="L9"
-                      xmlns="http://www.w3.org/2000/svg"
-                      x="0px"
-                      y="0px"
-                      viewBox="0 0 100 100"
-                    >
-                      <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
-                    </svg>
-                  ) : (
-                    "Next"
-                  )}
-                </button>
+                    {btnloading ? (
+                      <svg
+                        className="animate-spin button-spin-svg"
+                        version="1.1"
+                        id="L9"
+                        xmlns="http://www.w3.org/2000/svg"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 100 100"
+                      >
+                        <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
+                      </svg>
+                    ) : (
+                      "Next"
+                    )}
+                  </button>
+                </div>
               </div>
-            </div>
+            </section>
           </section>
         </section>
-      </section>
-    </>
-  );
+      </>
+    );
+  } else {
+    navigate("/");
+  }
 }
 
 export default EmailVeficationPage;
