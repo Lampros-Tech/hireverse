@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAccount } from "wagmi";
 
 import PhoneInput from "react-phone-input-2";
 import { countryArr } from "./CountryList";
@@ -9,9 +11,16 @@ import "./regform.css";
 import logo from "../assets/images/logo.png";
 
 import { useRef } from "react";
+import StoreProfileImg from "./StoreProfileImg";
+import StoreCoverImg from "./StoreCoverImg";
 
 function CompanyRegForm() {
   let navigate = useNavigate();
+
+  const { address, isConnected } = useAccount();
+
+  const [logoCID, setLogoCID] = useState("");
+  const [coverCID, setCoverCID] = useState("");
 
   const refOne = useRef(null);
   const refTwo = useRef(null);
@@ -22,6 +31,7 @@ function CompanyRegForm() {
   const refSeven = useRef(null);
   const refEight = useRef(null);
   const refNine = useRef(null);
+  const refTen = useRef(null);
 
   const inputRefOne = useRef(null);
   const inputRefTwo = useRef(null);
@@ -32,6 +42,7 @@ function CompanyRegForm() {
   const inputRefSeven = useRef(null);
   const inputRefEight = useRef(null);
   const inputRefNine = useRef(null);
+  const inputRefTen = useRef(null);
 
   const [showAll, setAll] = useState({
     cname: "",
@@ -42,7 +53,6 @@ function CompanyRegForm() {
     caddress: "",
     cnum: "",
     ccountry: "",
-    csector: [],
   });
 
   const refArr = [
@@ -112,6 +122,59 @@ function CompanyRegForm() {
       }, 200);
     }
   };
+
+  const sendCompanyRegData = (
+    loginid,
+    name,
+    logo,
+    coverImg,
+    walletAddress,
+    desc,
+    curl,
+    yoe,
+    noe,
+    address,
+    country,
+    contactnum
+  ) => {
+    var data = JSON.stringify({
+      login_id: 4,
+      name: name,
+      logo: logo,
+      cover_image: coverImg,
+      wallet_address: "0x408402F30618a6985c56cF9608E04CEA12CddC37",
+      description: desc,
+      company_url: curl,
+      year_of_establishment: yoe,
+      number_of_employees: noe,
+      address: address,
+      contry: country,
+      contact_number: contactnum,
+    });
+
+    var config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/registration`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        navigate("/company");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  // const printData = () => {
+  //   console.log(logoCID, coverCID);
+  //   // console.log(showAll);
+  // };
 
   useEffect(() => {
     inputRefOne.current.focus();
@@ -950,7 +1013,7 @@ function CompanyRegForm() {
           {/* *********************************************************** */}
           {/* 9th input field */}
 
-          <section className="f-first" ref={refNine}>
+          {/* <section className="f-first" ref={refNine}>
             <div className="f-outside-div">
               <div className="f-inside-section">
                 <div className="f-left">
@@ -1030,6 +1093,224 @@ function CompanyRegForm() {
                       onClick={() => {
                         // handleClick(8);
                         navigate("/company");
+                      }}
+                    >
+                      <span>NEXT</span>
+
+                      <svg
+                        className="f-correct-ar"
+                        version="1.1"
+                        id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 240.608 240.608"
+                      >
+                        <path d="M208.789,29.972l31.819,31.82L91.763,210.637L0,118.876l31.819-31.82l59.944,59.942L208.789,29.972z" />
+                      </svg>
+                    </button>
+                    <span className="f-press-enter">
+                      press <span className="f-enter">Enter ↵</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section> */}
+
+          {/* *********************************************************** */}
+
+          {/* 10th input field */}
+
+          <section className="f-first" ref={refNine}>
+            <div className="f-outside-div">
+              <div className="f-inside-section">
+                <div className="f-left">
+                  <span className="f-num">9</span>
+                  <svg
+                    className="f-right-ar"
+                    version="1.1"
+                    id="Capa_1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 31.143 31.143"
+                  >
+                    <g>
+                      <g id="c100_arrow">
+                        <path
+                          d="M0,15.571c0.001,1.702,1.383,3.081,3.085,3.083l17.528-0.002l-4.738,4.739c-1.283,1.284-1.349,3.301-0.145,4.507
+			c1.205,1.201,3.222,1.138,4.507-0.146l9.896-9.898c1.287-1.283,1.352-3.301,0.146-4.506c-0.033-0.029-0.068-0.051-0.1-0.08
+			c-0.041-0.043-0.07-0.094-0.113-0.139l-9.764-9.762c-1.268-1.266-3.27-1.316-4.474-0.111c-1.205,1.205-1.153,3.208,0.111,4.476
+			l4.755,4.754H3.085C1.381,12.485,0,13.865,0,15.571z"
+                        />
+                      </g>
+                      <g id="Capa_1_46_"></g>
+                    </g>
+                  </svg>
+                </div>
+                <div className="f-form-div">
+                  <p className="f-p">Upload logo of your company</p>
+
+                  <div ref={inputRefNine}>
+                    <p className="upload-img-instruction">
+                      * click on image box to choose image and then press
+                      "upload file" button to upload your image
+                    </p>
+
+                    <StoreProfileImg setFileCid={setLogoCID} />
+                  </div>
+
+                  <div className="f-btn-flex">
+                    <button
+                      className="f-next-btn"
+                      onClick={() => handleClickPrevious(9)}
+                    >
+                      <svg
+                        className="f-back-ar"
+                        version="1.1"
+                        id="Layer_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 492 492"
+                      >
+                        <g>
+                          <g>
+                            <path
+                              d="M464.344,207.418l0.768,0.168H135.888l103.496-103.724c5.068-5.064,7.848-11.924,7.848-19.124
+			c0-7.2-2.78-14.012-7.848-19.088L223.28,49.538c-5.064-5.064-11.812-7.864-19.008-7.864c-7.2,0-13.952,2.78-19.016,7.844
+			L7.844,226.914C2.76,231.998-0.02,238.77,0,245.974c-0.02,7.244,2.76,14.02,7.844,19.096l177.412,177.412
+			c5.064,5.06,11.812,7.844,19.016,7.844c7.196,0,13.944-2.788,19.008-7.844l16.104-16.112c5.068-5.056,7.848-11.808,7.848-19.008
+			c0-7.196-2.78-13.592-7.848-18.652L134.72,284.406h329.992c14.828,0,27.288-12.78,27.288-27.6v-22.788
+			C492,219.198,479.172,207.418,464.344,207.418z"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+
+                      <span>GO BACK</span>
+                    </button>
+                    <button
+                      className="f-next-btn"
+                      onClick={() => {
+                        // handleClick(9);
+                        // navigate("/company");
+                      }}
+                    >
+                      <span>NEXT</span>
+
+                      <svg
+                        className="f-correct-ar"
+                        version="1.1"
+                        id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 240.608 240.608"
+                      >
+                        <path d="M208.789,29.972l31.819,31.82L91.763,210.637L0,118.876l31.819-31.82l59.944,59.942L208.789,29.972z" />
+                      </svg>
+                    </button>
+                    <span className="f-press-enter">
+                      press <span className="f-enter">Enter ↵</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* *********************************************************** */}
+
+          {/* 11th input field */}
+
+          <section className="f-first" ref={refTen}>
+            <div className="f-outside-div">
+              <div className="f-inside-section">
+                <div className="f-left">
+                  <span className="f-num">10</span>
+                  <svg
+                    className="f-right-ar"
+                    version="1.1"
+                    id="Capa_1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 31.143 31.143"
+                  >
+                    <g>
+                      <g id="c100_arrow">
+                        <path
+                          d="M0,15.571c0.001,1.702,1.383,3.081,3.085,3.083l17.528-0.002l-4.738,4.739c-1.283,1.284-1.349,3.301-0.145,4.507
+			c1.205,1.201,3.222,1.138,4.507-0.146l9.896-9.898c1.287-1.283,1.352-3.301,0.146-4.506c-0.033-0.029-0.068-0.051-0.1-0.08
+			c-0.041-0.043-0.07-0.094-0.113-0.139l-9.764-9.762c-1.268-1.266-3.27-1.316-4.474-0.111c-1.205,1.205-1.153,3.208,0.111,4.476
+			l4.755,4.754H3.085C1.381,12.485,0,13.865,0,15.571z"
+                        />
+                      </g>
+                      <g id="Capa_1_46_"></g>
+                    </g>
+                  </svg>
+                </div>
+                <div className="f-form-div">
+                  <p className="f-p">Please upload cover image</p>
+
+                  <div ref={inputRefTen}>
+                    <p className="upload-img-instruction">
+                      * click on image box to choose image and then press
+                      "upload file" button to upload your image
+                    </p>
+                    <StoreCoverImg setFileCid2={setCoverCID} />
+                  </div>
+
+                  <div className="f-btn-flex">
+                    <button
+                      className="f-next-btn"
+                      onClick={() => handleClickPrevious(10)}
+                    >
+                      <svg
+                        className="f-back-ar"
+                        version="1.1"
+                        id="Layer_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 492 492"
+                      >
+                        <g>
+                          <g>
+                            <path
+                              d="M464.344,207.418l0.768,0.168H135.888l103.496-103.724c5.068-5.064,7.848-11.924,7.848-19.124
+			c0-7.2-2.78-14.012-7.848-19.088L223.28,49.538c-5.064-5.064-11.812-7.864-19.008-7.864c-7.2,0-13.952,2.78-19.016,7.844
+			L7.844,226.914C2.76,231.998-0.02,238.77,0,245.974c-0.02,7.244,2.76,14.02,7.844,19.096l177.412,177.412
+			c5.064,5.06,11.812,7.844,19.016,7.844c7.196,0,13.944-2.788,19.008-7.844l16.104-16.112c5.068-5.056,7.848-11.808,7.848-19.008
+			c0-7.196-2.78-13.592-7.848-18.652L134.72,284.406h329.992c14.828,0,27.288-12.78,27.288-27.6v-22.788
+			C492,219.198,479.172,207.418,464.344,207.418z"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+
+                      <span>GO BACK</span>
+                    </button>
+                    <button
+                      className="f-next-btn"
+                      onClick={() => {
+                        // handleClick(10);
+                        sendCompanyRegData(
+                          4,
+                          showAll.cname,
+                          logoCID,
+                          coverCID,
+                          address,
+                          showAll.cdesc,
+                          showAll.curl,
+                          showAll.yoe,
+                          showAll.noe,
+                          showAll.caddress,
+                          showAll.ccountry,
+                          showAll.cnum
+                        );
                       }}
                     >
                       <span>NEXT</span>

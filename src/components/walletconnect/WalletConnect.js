@@ -7,6 +7,9 @@ import {
   useEnsName,
   useSigner,
 } from "wagmi";
+import Cookies from "universal-cookie";
+import axios from "axios";
+
 // import { Client } from "@xmtp/xmtp-js";
 import Meta from "../assets/images/MetaMask.svg";
 import Coin from "../assets/images/Coinbase.svg";
@@ -23,89 +26,70 @@ export function WalletConnect() {
     useConnect();
   const { disconnect } = useDisconnect();
 
+  const cookies = new Cookies();
+
   const inputRef = useRef();
   const navigate = useNavigate();
   const { data } = useSigner();
 
-  // const [client, setClient] = useState(null);
-  // const [getMessage, setGetMessage] = useState([]);
-  // const [getallconversations, setGetAllConversations] = useState([]);
-  // const [sendMessage, setSendMessage] = useState("");
   const [walletLogo] = useState([Meta, Coin, WallConn]);
   const [walletAddress, setWalletAddress] = useState("");
 
-  // const getXmtp = async (wallet) => {
-  //   console.log(data);
-  //   console.log(wallet);
-  //   const xmtp = await Client.create(data);
-  //   console.log(xmtp);
-  //   setClient(xmtp);
-  //   const allConversations = await xmtp.conversations.list();
-  //   console.log(allConversations);
-  //   setGetAllConversations(allConversations);
-  // };
+  useEffect(() => {
+    getStage(address);
+  }, [isConnected]);
 
-  // const startNewConversation = async (xmtp) => {
-  //   const newConversation = await xmtp.conversations.newConversation(
-  //     walletAddress
-  //   );
-  // };
+  var userData = "";
 
-  // const getConversation = async (xmtp) => {
-  //   const conversation = await xmtp.conversations.newConversation(
-  //     "0x81a3d5A8D72e6Ed97767F7482451e8Fd7d7Ae51C"
-  //   );
-  //   // await conversation.send("Hi This is a Test Message! Please Do Not Reply");
-  //   await conversation.send(sendMessage);
-  //   inputRef.current.value = "";
-  // };
+  const getStage = (addre) => {
+    console.log(addre);
+    var data = JSON.stringify({
+      walletaddress: addre,
+    });
 
-  // const listConversation = async (xmtp) => {
-  //   const allConversations = await xmtp.conversations.list();
-  //   // Say gm to everyone you've been chatting with
-  // };
+    var config = {
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}/getStage?walletaddress=${addre}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
 
-  // const allConversation = async (xmtp) => {
-  //   console.log(xmtp.conversations.list());
-  //   for (const conversation of await xmtp.conversations.list()) {
-  //     // All parameters are optional and can be omitted
-  //     const opts = {
-  //       // Only show messages from last 24 hours
-  //       startTime: new Date(new Date().setDate(new Date().getDate() - 1)),
-  //       endTime: new Date(),
-  //     };
-  //     const messagesInConversation = await conversation.messages(opts);
-  //     console.log(messagesInConversation);
-  //     setGetMessage(messagesInConversation);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const revelMessage = async () => {
-  //     const xmtp = await Client.create(data);
-  //     console.log(xmtp);
-  //     setClient(xmtp);
-  //     allConversation(client);
-  //   };
-
-  //   revelMessage();
-  // }, []);
-
-  // const allNewConversations = async (xmtp) => {
-  //   const conversation = await xmtp.conversations.newConversation(
-  //     "0x81a3d5A8D72e6Ed97767F7482451e8Fd7d7Ae51C"
-  //   );
-  //   console.log("in");
-  //   for await (const message of await conversation.streamMessages()) {
-  //     if (message.senderAddress === xmtp.address) {
-  //       // This message was sent from me
-  //       continue;
-  //     }
-  //     console.log(
-  //       `New message from ${message.senderAddress}: ${message.content}`
-  //     );
-  //   }
-  // };
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        // console.log(response.data);
+        userData = response.data;
+        console.log(userData);
+        if (userData.stage === 0) {
+          navigate("/signup/ev");
+        } else if (userData.stage === 1) {
+          navigate("/email-verification");
+        } else if (userData.stage === 2) {
+          navigate("/role");
+        } else if (userData.stage === 3) {
+          if (userData.role === "candidate") {
+            navigate("/candidateregform");
+          } else if (userData.role === "company") {
+            navigate("/companyregform");
+          } else if (userData.role === "creator") {
+            navigate("/creatorregform");
+          }
+        } else if (userData.stage === 4) {
+          if (userData.role === "candidate") {
+            navigate("/candidate");
+          } else if (userData.role === "company") {
+            navigate("/company");
+          } else if (userData.role === "creator") {
+            navigate("/creator");
+          }
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -113,9 +97,11 @@ export function WalletConnect() {
     setIsOpen(!isOpen);
   };
   const wallectConnected = () => {
-    setTimeout(() => {
-      navigate("/signup/ev");
-    }, 2000);
+    // setTimeout(() => {
+
+    //   navigate("/signup/ev");
+    // }, 2000);
+
     return "connected";
   };
   if (isConnected) {
@@ -180,6 +166,7 @@ export function WalletConnect() {
     // );
     return wallectConnected();
   }
+  // cookies.set("loginID", "Pacman");
 
   return (
     <div>
