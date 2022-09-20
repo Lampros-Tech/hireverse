@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../company/styles/recruitdetails.css";
 import Select from "react-select";
 import plus from "../company/styles/plus.svg";
-import env from "react-dotenv";
+
 import axios from "axios";
 
 function RecruitmentDetails() {
@@ -89,11 +89,11 @@ function RecruitmentDetails() {
       secondary_skills: credentials.secondary_skills,
     });
     console.log("hey");
-    console.log(env.API_URL);
+    console.log(process.env.API_URL);
 
     var config = {
       method: "post",
-      url: `${env.API_URL}/addJob`,
+      url: `${process.env.API_URL}/addJob`,
       headers: {
         "Content-Type": "application/json",
       },
