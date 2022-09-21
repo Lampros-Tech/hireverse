@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAccount } from "wagmi";
+import Cookies from "universal-cookie";
 
 import "./regform.css";
 import { useRef } from "react";
@@ -15,9 +16,13 @@ import StoreProfileImg from "./StoreProfileImg";
 
 function CreatorRegForm() {
   let navigate = useNavigate();
+  const cookies = new Cookies();
+
+  const [btnloading, setbtnLoading] = useState(false);
 
   const { address, isConnected } = useAccount();
 
+  const [loginId, setLoginId] = useState(null);
   const [profileCID, setProfileCID] = useState("");
   const [coverCID, setCoverCID] = useState("");
 
@@ -112,6 +117,7 @@ function CreatorRegForm() {
       }, 200);
     }
   };
+
   const sendData = (
     loginid,
     walletAddress,
@@ -124,8 +130,8 @@ function CreatorRegForm() {
     contactnum
   ) => {
     var data = JSON.stringify({
-      login_id: 5,
-      wallet_address: "0xFB0452B041Ff304acE9957b195C5a20057939004",
+      login_id: loginid,
+      wallet_address: walletAddress,
       name: name,
       bio: bio,
       profile_image: profileimg,
@@ -146,14 +152,18 @@ function CreatorRegForm() {
 
     axios(config)
       .then(function (response) {
+        setbtnLoading(false);
         console.log(JSON.stringify(response.data));
         navigate("/creatorregform/creator-education");
       })
       .catch(function (error) {
+        setbtnLoading(false);
         console.log(error);
       });
   };
   useEffect(() => {
+    setLoginId(cookies.get("loginID"));
+    console.log(cookies.get("loginID"));
     inputRefOne.current.focus();
   }, []);
 
@@ -852,11 +862,11 @@ function CreatorRegForm() {
                       <button
                         className="f-next-btn"
                         onClick={() => {
+                          setbtnLoading(true);
                           // handleClick(6);
                           // printTwo();
                           sendData(
-                            // loginId,
-                            2,
+                            loginId,
                             address,
                             showAll.name,
                             showAll.bio,
@@ -869,19 +879,35 @@ function CreatorRegForm() {
                           // navigate("/candidateregform/candidate-education");
                         }}
                       >
-                        <span>NEXT</span>
+                        {btnloading ? (
+                          <svg
+                            className="animate-spin button-spin-svg"
+                            version="1.1"
+                            id="L9"
+                            xmlns="http://www.w3.org/2000/svg"
+                            x="0px"
+                            y="0px"
+                            viewBox="0 0 100 100"
+                          >
+                            <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
+                          </svg>
+                        ) : (
+                          <>
+                            <span>NEXT</span>
 
-                        <svg
-                          className="f-correct-ar"
-                          version="1.1"
-                          id="Capa_1"
-                          xmlns="http://www.w3.org/2000/svg"
-                          x="0px"
-                          y="0px"
-                          viewBox="0 0 240.608 240.608"
-                        >
-                          <path d="M208.789,29.972l31.819,31.82L91.763,210.637L0,118.876l31.819-31.82l59.944,59.942L208.789,29.972z" />
-                        </svg>
+                            <svg
+                              className="f-correct-ar"
+                              version="1.1"
+                              id="Capa_1"
+                              xmlns="http://www.w3.org/2000/svg"
+                              x="0px"
+                              y="0px"
+                              viewBox="0 0 240.608 240.608"
+                            >
+                              <path d="M208.789,29.972l31.819,31.82L91.763,210.637L0,118.876l31.819-31.82l59.944,59.942L208.789,29.972z" />
+                            </svg>
+                          </>
+                        )}
                       </button>
                       <span className="f-press-enter">
                         press <span className="f-enter">Enter ↵</span>

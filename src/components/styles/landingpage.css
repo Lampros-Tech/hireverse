@@ -27,7 +27,7 @@
 
 .d-hero {
   width: 80%;
-  height: 90vh;
+  min-height: 90vh;
   margin: 0 auto;
   position: relative;
 }

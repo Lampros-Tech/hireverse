@@ -13,6 +13,8 @@ function StoreProfileImg({ setFileCid }) {
   const chooseFile = useRef("");
 
   const [file, setFile] = useState("");
+  const [btnloading, setbtnLoading] = useState(false);
+  const [uploaded, setUploaded] = useState("Upload File");
 
   async function uploadImage(e) {
     console.log(document.getElementById("input").files[0]);
@@ -33,8 +35,9 @@ function StoreProfileImg({ setFileCid }) {
     const url = URL.createObjectURL(files[0]);
     console.log(url);
     console.log(files[0].cid);
-
     setFileCid(files[0].cid);
+    setUploaded("Uploaded");
+    setbtnLoading(false);
 
     // setFile(url);
   }
@@ -79,8 +82,28 @@ function StoreProfileImg({ setFileCid }) {
             Reset
           </button>
         ) : null}
-        <button className="upload-file-btn" onClick={() => handleupload()}>
-          Upload File
+        <button
+          className="upload-file-btn"
+          onClick={() => {
+            handleupload();
+            setbtnLoading(true);
+          }}
+        >
+          {btnloading ? (
+            <svg
+              className="animate-spin button-spin-svg-pic"
+              version="1.1"
+              id="L9"
+              xmlns="http://www.w3.org/2000/svg"
+              x="0px"
+              y="0px"
+              viewBox="0 0 100 100"
+            >
+              <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
+            </svg>
+          ) : (
+            <>{uploaded}</>
+          )}
         </button>
       </div>
     </>
