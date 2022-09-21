@@ -68,8 +68,8 @@ def addTableNames():
                         )
                         print(question_table)
                         status_list.append("Question table added successfully!!")
-                else:
-                    status_list.append("Question table already exists!!")
+                    else:
+                        status_list.append("Question table already exists!!")
             except Exception as e:
                 print(e)
             try:
