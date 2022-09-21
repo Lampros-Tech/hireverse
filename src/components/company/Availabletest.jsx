@@ -12,8 +12,10 @@ function AvailableTest() {
   const [jobId, setJobId] = useState();
 
   const updateAssessmentId = (e) => {
+    const currentLocation = window.location.href;
+    const param = currentLocation.split("=");
     var data = JSON.stringify({
-      job_id: jobId,
+      job_id: param[1],
       assesment_id: e.target.id,
     });
 
@@ -42,12 +44,12 @@ function AvailableTest() {
   };
 
   useEffect(() => {
-    const currentLocation = window.location.href;
-    const param = currentLocation.split("=");
-    setJobId(param[1]);
-    console.log(jobId);
-    console.log("hi");
-    console.log(param[1]);
+    // const currentLocation = window.location.href;
+    // const param = currentLocation.split("=");
+    // setJobId(param[1]);
+    // console.log(jobId);
+    // console.log("hi");
+    // console.log(param[1]);
     // console.log(currentLocation);
     // const params = new URLSearchParams(currentLocation.search);
     // console.log(params);

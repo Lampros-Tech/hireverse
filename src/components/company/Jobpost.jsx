@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import "../company/styles/jobpost.css";
 import { connect } from "@tableland/sdk";
 import Jobinsights from "./JobInsight";
+import { useNavigate } from "react-router-dom";
 
 function Jobpost() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  let navigate = useNavigate();
   const showJobPosts = async () => {
     const name = "job_table_80001_2018";
     const tableland = await connect({
@@ -21,11 +23,26 @@ function Jobpost() {
         `SELECT * FROM ${table} where job_id=${jobId}`
       );
       let noOfApplicants = response["rows"].length;
-      data.push([readRes["rows"][i][3], readRes["rows"][i][4], noOfApplicants]);
+      data.push([
+        readRes["rows"][i][3],
+        readRes["rows"][i][4],
+        noOfApplicants,
+        jobId,
+      ]);
     }
     setData(data);
     console.log(data);
     setLoading(true);
+  };
+  const sendThis = (id) => {
+    navigate(`/company/jobapplicant/?dummy=${JSON.stringify(id)}`);
+    console.log("id");
+    console.log(id);
+  };
+  const sendThat = (id) => {
+    navigate(`/company/availabletests/?dummy=${JSON.stringify(id)}`);
+    console.log("id");
+    console.log(id);
   };
   useEffect(() => {
     showJobPosts();
@@ -84,32 +101,22 @@ function Jobpost() {
 
                       <div className="myjobpost-main-button">
                         <div className="myjobpost-button">
-                          <a
-                            href="/company/jobinsights"
-                            target="_blank"
-                            rel="noreferrer"
+                          <button
+                            type="button"
+                            class="text-white  font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3   focus:outline-none job-insights-button"
+                            onClick={() => sendThat(inde[3])}
                           >
-                            <button
-                              type="button"
-                              class="text-white  font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3   focus:outline-none job-insights-button"
-                            >
-                              Insights
-                            </button>
-                          </a>
+                            Insights
+                          </button>
                         </div>
                         <div className="myjobpost-button">
-                          <a
-                            href="/company/jobapplicant"
-                            target="_blank"
-                            rel="noreferrer"
+                          <button
+                            type="button"
+                            class="text-white   font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3  focus:outline-none  jobpost-applicant-button"
+                            onClick={() => sendThis(inde[3])}
                           >
-                            <button
-                              type="button"
-                              class="text-white   font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3  focus:outline-none  jobpost-applicant-button"
-                            >
-                              Applicants
-                            </button>
-                          </a>
+                            Applicants
+                          </button>
                         </div>
                       </div>
                     </div>
