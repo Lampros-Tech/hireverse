@@ -527,7 +527,8 @@ function CompanyRegForm() {
                       ref={inputRefFour}
                       placeholder="Type your answer here..."
                       onChange={(e) => {
-                        setAll({ ...showAll, yoe: e.target.value });
+                        let epoch = new Date(e.target.value).getTime() / 1000;
+                        setAll({ ...showAll, yoe: epoch });
                       }}
                       onKeyUp={(e) => {
                         target(e, 3);
@@ -1174,7 +1175,7 @@ function CompanyRegForm() {
                     <div className="f-btn-flex">
                       <button
                         className="f-next-btn"
-                        onClick={() => handleClickPrevious(9)}
+                        onClick={() => handleClickPrevious(8)}
                       >
                         <svg
                           className="f-back-ar"
@@ -1204,7 +1205,7 @@ function CompanyRegForm() {
                       <button
                         className="f-next-btn"
                         onClick={() => {
-                          // handleClick(9);
+                          handleClick(8);
                           // navigate("/company");
                         }}
                       >
@@ -1276,7 +1277,7 @@ function CompanyRegForm() {
                     <div className="f-btn-flex">
                       <button
                         className="f-next-btn"
-                        onClick={() => handleClickPrevious(10)}
+                        onClick={() => handleClickPrevious(9)}
                       >
                         <svg
                           className="f-back-ar"
