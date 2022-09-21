@@ -57,29 +57,33 @@ def addTableNames():
         if final_data["rows"] == []:
             return {"data": "not exists"}
         else:
-            if data["question_table"]:
-                print(final_data["rows"][0][11])
-                if not final_data["rows"][0][11]:
-                    question_update_values = {"question_table": data["question_table"]}
-                    condition = f"""wallet_address='{walletAddress}'"""
-                    question_table = update_query(
-                        tablename, question_update_values, condition
-                    )
-                    print(question_table)
-                    status_list.append("Question table added successfully!!")
+            try:
+                if data["question_table"]:
+                    print(final_data["rows"][0][11])
+                    if not final_data["rows"][0][11]:
+                        question_update_values = {"question_table": data["question_table"]}
+                        condition = f"""wallet_address='{walletAddress}'"""
+                        question_table = update_query(
+                            tablename, question_update_values, condition
+                        )
+                        print(question_table)
+                        status_list.append("Question table added successfully!!")
                 else:
                     status_list.append("Question table already exists!!")
-
-            if data["repo_table"]:
-                if not final_data["rows"][0][12]:
-                    repo_update_values = {"repo_table": data["repo_table"]}
-                    condition = f"""wallet_address='{walletAddress}'"""
-                    repo_table = update_query(tablename, repo_update_values, condition)
-                    print(repo_table)
-                    status_list.append("Repo table added successfully!!")
-                else:
-                    status_list.append("Repo table already exists!!")
-
+            except Exception as e:
+                print(e)
+            try:
+                if data["repo_table"]:
+                    if not final_data["rows"][0][12]:
+                        repo_update_values = {"repo_table": data["repo_table"]}
+                        condition = f"""wallet_address='{walletAddress}'"""
+                        repo_table = update_query(tablename, repo_update_values, condition)
+                        print(repo_table)
+                        status_list.append("Repo table added successfully!!")
+                    else:
+                        status_list.append("Repo table already exists!!")
+            except:
+                print(e)
             # condition = f"""wallet_address='{walletAddress}' AND """
             # data = update_query(tablename, update_values, condition, True)
             return status_list, 200
