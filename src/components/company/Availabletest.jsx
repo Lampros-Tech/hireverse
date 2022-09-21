@@ -1,11 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import "../company/styles/availabletest.css";
 import avtar from "../company/styles/companyprofile.png";
-const types = ["Cash", "Credit Card", "Bitcoin"];
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AvailableTest() {
+  let navigate = useNavigate();
   const [purchased, setPurchased] = useState(true);
   const [created, setCreated] = useState();
+  const [jobId, setJobId] = useState();
+
+  const updateAssessmentId = (e) => {
+    const currentLocation = window.location.href;
+    const param = currentLocation.split("=");
+    var data = JSON.stringify({
+      job_id: param[1],
+      assesment_id: e.target.id,
+    });
+
+    var config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/addJobAssessment`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        // navigate(
+        //   `/company/invitecandidates/?dummy=${JSON.stringify(
+        //     response.data["job_id"]
+        //   )}`
+        // );
+        navigate("/company/invitecandidates/");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    // const currentLocation = window.location.href;
+    // const param = currentLocation.split("=");
+    // setJobId(param[1]);
+    // console.log(jobId);
+    // console.log("hi");
+    // console.log(param[1]);
+    // console.log(currentLocation);
+    // const params = new URLSearchParams(currentLocation.search);
+    // console.log(params);
+  }, []);
 
   return (
     <>
@@ -48,6 +96,8 @@ function AvailableTest() {
             Created
           </button>
         </div>
+
+        {/* created----------------------------------------------------------------------------------- */}
         {created === true ? (
           <div className="availabletest-main-information">
             <div className="available-information">
@@ -311,6 +361,7 @@ function AvailableTest() {
             </div>
           </div>
         ) : (
+          // purchased----------------------------------------------------------------------
           <div className="availabletest-main-information">
             <div className="available-information">
               <div className="availabletest-title">
@@ -367,7 +418,11 @@ function AvailableTest() {
                   <div className="availabletest-usetest-button">
                     <button
                       type="button"
+                      id="2"
                       class="text-white   font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button use-test-button"
+                      onClick={(e) => {
+                        updateAssessmentId(e);
+                      }}
                     >
                       Use This Test
                     </button>

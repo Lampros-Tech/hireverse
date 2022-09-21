@@ -61,6 +61,8 @@ import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
+import CandidateAchive from "./components/registartionforms/CandidateAchive";
+import CreatorAchive from "./components/registartionforms/CreatorAchive";
 
 function App() {
   const { chains, provider, webSocketProvider } = configureChains(
@@ -120,6 +122,11 @@ function App() {
               element={<CreatorExperience />}
             ></Route>
             <Route
+              path="creatorregform/creator-achivements"
+              element={<CreatorAchive />}
+            ></Route>
+
+            <Route
               path="candidateregform"
               element={<CandidateRegForm />}
             ></Route>
@@ -130,6 +137,10 @@ function App() {
             <Route
               path="candidateregform/candidate-experience"
               element={<CandidateExperience />}
+            ></Route>
+            <Route
+              path="candidateregform/candidate-achivements"
+              element={<CandidateAchive />}
             ></Route>
 
             <Route path="creator" element={<CreatorHeader />}>
@@ -166,7 +177,8 @@ function App() {
               <Route path="candidate-test" element={<CandidateTest />} />
               <Route
                 path="candidate-test-results"
-                element={<CandidateTestResults />}/>
+                element={<CandidateTestResults />}
+              />
               <Route path="candidate-profile" element={<Profile />} />
               <Route path="testtakenpage" element={<TestTakenpage />} />
               <Route path="testInstruction" element={<TestInstructionpage />} />

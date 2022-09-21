@@ -4,8 +4,11 @@ import Select from "react-select";
 import plus from "../company/styles/plus.svg";
 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function RecruitmentDetails() {
+  let navigate = useNavigate();
+
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [selectedOptions1, setSelectedOptions1] = useState();
   const [selectedOptionsLocation, setSelectedOptionsLocation] = useState([]);
@@ -54,7 +57,7 @@ function RecruitmentDetails() {
   const [btnloading, setbtnLoading] = useState(false);
   const [credentials, setCredentials] = useState({
     company_id: 2,
-    assesment_id: "",
+    assesment_id: 1,
     title: "",
     description: "",
     location: [],
@@ -73,7 +76,6 @@ function RecruitmentDetails() {
   const addJobDetails = () => {
     var data = JSON.stringify({
       company_id: 2,
-      assesment_id: "",
       title: credentials.title,
       description: credentials.description,
       location: credentials.location,
@@ -88,12 +90,9 @@ function RecruitmentDetails() {
       primary_skill5: credentials.primary_skill5,
       secondary_skills: credentials.secondary_skills,
     });
-    console.log("hey");
-    console.log(process.env.API_URL);
-
     var config = {
       method: "post",
-      url: `${process.env.API_URL}/addJob`,
+      url: `${process.env.REACT_APP_API_URL}/addJob`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -104,6 +103,11 @@ function RecruitmentDetails() {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         setbtnLoading(false);
+        navigate(
+          `/company/availabletests/?dummy=${JSON.stringify(
+            response.data["job_id"]
+          )}`
+        );
       })
       .catch(function (error) {
         console.log(error);

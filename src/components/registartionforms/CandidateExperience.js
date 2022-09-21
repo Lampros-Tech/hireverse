@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAccount } from "wagmi";
+import Cookies from "universal-cookie";
 
 import "react-phone-input-2/lib/style.css";
 import "./regform.css";
@@ -12,6 +13,10 @@ import { useRef } from "react";
 
 function CandidateExperience() {
   const { address, isConnected } = useAccount();
+  const cookies = new Cookies();
+
+  const [btnloading, setbtnLoading] = useState(false);
+  const [loginId, setLoginId] = useState(null);
 
   let navigate = useNavigate();
 
@@ -89,7 +94,7 @@ function CandidateExperience() {
       alert("Any other Details");
     } else {
       sendCandidateExpData(
-        2,
+        loginId,
         address,
         showAll.title,
         showAll.emptype,
@@ -127,6 +132,7 @@ function CandidateExperience() {
       }, 200);
     }
   };
+
   const sendCandidateExpData = (
     login_id,
     walletAddress,
@@ -140,7 +146,7 @@ function CandidateExperience() {
     desc
   ) => {
     var data = JSON.stringify({
-      login_id: 2,
+      login_id: login_id,
       wallet_address: walletAddress,
       title: title,
       employement_type: employement_type,
@@ -163,14 +169,18 @@ function CandidateExperience() {
 
     axios(config)
       .then(function (response) {
+        setbtnLoading(false);
         console.log(JSON.stringify(response.data));
-        navigate("/candidate");
+        navigate("/candidateregform/candidate-achivements");
       })
       .catch(function (error) {
+        setbtnLoading(false);
         console.log(error);
       });
   };
   useEffect(() => {
+    setLoginId(cookies.get("loginID"));
+    console.log(cookies.get("loginID"));
     inputRefOne.current.focus();
   }, []);
 
@@ -729,7 +739,7 @@ function CandidateExperience() {
                         className="f-next-btn"
                         onClick={() => handleClick(4)}
                       >
-                        <span>NEXT</span>
+                        <span>OK</span>
 
                         <svg
                           className="f-correct-ar"
@@ -835,7 +845,7 @@ function CandidateExperience() {
                         className="f-next-btn"
                         onClick={() => handleClick(5)}
                       >
-                        <span>NEXT</span>
+                        <span>OK</span>
 
                         <svg
                           className="f-correct-ar"
@@ -980,7 +990,7 @@ function CandidateExperience() {
                         className="f-next-btn"
                         onClick={() => handleClick(6)}
                       >
-                        <span>NEXT</span>
+                        <span>OK</span>
 
                         <svg
                           className="f-correct-ar"
@@ -1087,22 +1097,38 @@ function CandidateExperience() {
                       <button
                         className="f-next-btn"
                         onClick={() => {
+                          setbtnLoading(true);
                           handleClick(7);
                         }}
                       >
-                        <span>NEXT</span>
-
-                        <svg
-                          className="f-correct-ar"
-                          version="1.1"
-                          id="Capa_1"
-                          xmlns="http://www.w3.org/2000/svg"
-                          x="0px"
-                          y="0px"
-                          viewBox="0 0 240.608 240.608"
-                        >
-                          <path d="M208.789,29.972l31.819,31.82L91.763,210.637L0,118.876l31.819-31.82l59.944,59.942L208.789,29.972z" />
-                        </svg>
+                        {btnloading ? (
+                          <svg
+                            className="animate-spin button-spin-svg"
+                            version="1.1"
+                            id="L9"
+                            xmlns="http://www.w3.org/2000/svg"
+                            x="0px"
+                            y="0px"
+                            viewBox="0 0 100 100"
+                          >
+                            <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
+                          </svg>
+                        ) : (
+                          <>
+                            <span>NEXT</span>
+                            <svg
+                              className="f-correct-ar"
+                              version="1.1"
+                              id="Capa_1"
+                              xmlns="http://www.w3.org/2000/svg"
+                              x="0px"
+                              y="0px"
+                              viewBox="0 0 240.608 240.608"
+                            >
+                              <path d="M208.789,29.972l31.819,31.82L91.763,210.637L0,118.876l31.819-31.82l59.944,59.942L208.789,29.972z" />
+                            </svg>
+                          </>
+                        )}
                       </button>
                       <span className="f-press-enter">
                         press{" "}

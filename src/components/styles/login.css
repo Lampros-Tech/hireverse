@@ -264,9 +264,15 @@ p.role-p {
 }
 
 svg.button-spin-svg {
-  width: 80%;
+  width: 32px;
   height: 80%;
   fill: #fff;
+}
+
+svg.button-spin-svg-pic {
+  width: 32px;
+  height: 80%;
+  fill: #ff6150;
 }
 button.email-verify-button:hover svg.button-spin-svg {
   fill: #ff6150;

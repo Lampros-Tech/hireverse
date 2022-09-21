@@ -1,366 +1,142 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../company/styles/jobpost.css";
+import { connect } from "@tableland/sdk";
+import Jobinsights from "./JobInsight";
+import { useNavigate } from "react-router-dom";
 
 function Jobpost() {
-  return (
-    <>
-      <div className="myjobpost-title">
-        <h2 class="font-medium leading-tight text-4xl mt-0 ">POSTED JOBS</h2>
-      </div>
-      <div className="myjobpost-main-content">
-        <div className="myjobpost-main-form">
-          <div className="myjobpost-information">
-            <div className="jobpost-username">
-              <label
-                for="first_name"
-                class="block mb-2 text-large font-medium text-gray-900 dark:text-gray-300 jobtitle-name"
-              >
-                Title
-              </label>
-            </div>
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  let navigate = useNavigate();
+  const showJobPosts = async () => {
+    const name = "job_table_80001_2018";
+    const tableland = await connect({
+      network: "testnet",
+      chain: "polygon-mumbai",
+    });
+    const table = "application_details_table_80001_2024";
+    const readRes = await tableland.read(`SELECT * FROM ${name}`);
+    console.log(readRes);
+    for (let i = 0; i < readRes["rows"].length; i++) {
+      let jobId = readRes["rows"][i][0];
+      const response = await tableland.read(
+        `SELECT * FROM ${table} where job_id=${jobId}`
+      );
+      let noOfApplicants = response["rows"].length;
+      data.push([
+        readRes["rows"][i][3],
+        readRes["rows"][i][4],
+        noOfApplicants,
+        jobId,
+      ]);
+    }
+    setData(data);
+    console.log(data);
+    setLoading(true);
+  };
+  const sendThis = (id) => {
+    navigate(`/company/jobapplicant/?dummy=${JSON.stringify(id)}`);
+    console.log("id");
+    console.log(id);
+  };
+  const sendThat = (id) => {
+    navigate(`/company/availabletests/?dummy=${JSON.stringify(id)}`);
+    console.log("id");
+    console.log(id);
+  };
+  useEffect(() => {
+    showJobPosts();
+  }, []);
 
-            <div className="myjobpost-years-qualification">
-              <div className="jobpost-qualification">
-                <div className="jobpost-year">
-                  <label
-                    for="first_name"
-                    class="block  text-sm font-medium text-gray-900 dark:text-gray-300 job-applicant-name"
-                  >
-                    No. of applicants:
-                  </label>
-
-                  <label
-                    for="first_name"
-                    class="block text-sm font-medium text-gray-900 dark:text-gray-300 job-applicant-no"
-                  >
-                    10
-                  </label>
-                </div>
-
-                <label
-                  for="first_name"
-                  class="block text-sm font-medium text-gray-900 dark:text-gray-300 applied-name applied-main"
-                >
-                  Last Applied:
-                </label>
-                <label
-                  for="first_name"
-                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300 applied-time applied-main"
-                >
-                  2 hour ago
-                </label>
-
-                <div className="myjobpost-main-button">
-                  <div className="myjobpost-button">
-                    <a
-                      href="/company/jobinsights"
-                      target="_blank"
-                      rel="noreferrer"
+  if (loading) {
+    return (
+      <>
+        <div className="myjobpost-title">
+          <h2 class="font-medium leading-tight text-4xl mt-0 ">POSTED JOBS</h2>
+        </div>
+        <div className="myjobpost-main-content">
+          {data.map((inde) => {
+            return (
+              <div className="myjobpost-main-form">
+                <div className="myjobpost-information">
+                  <div className="jobpost-username">
+                    <label
+                      for="first_name"
+                      class="block mb-2 text-large font-medium text-gray-900 dark:text-gray-300 jobtitle-name"
                     >
-                      <button
-                        type="button"
-                        class="text-white  font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3   focus:outline-none job-insights-button"
-                      >
-                        Insights
-                      </button>
-                    </a>
+                      {inde[0]}
+                    </label>
                   </div>
-                  <div className="myjobpost-button">
-                    <a
-                      href="/company/jobapplicant"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <button
-                        type="button"
-                        class="text-white   font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3  focus:outline-none  jobpost-applicant-button"
+
+                  <div className="myjobpost-years-qualification">
+                    <div className="jobpost-qualification">
+                      <div className="jobpost-year">
+                        <label
+                          for="first_name"
+                          class="block  text-sm font-medium text-gray-900 dark:text-gray-300 job-applicant-name"
+                        >
+                          No. of applicants:
+                        </label>
+
+                        <label
+                          for="first_name"
+                          class="block text-sm font-medium text-gray-900 dark:text-gray-300 job-applicant-no"
+                        >
+                          {inde[2]}
+                        </label>
+                      </div>
+
+                      <label
+                        for="first_name"
+                        class="block text-sm font-medium text-gray-900 dark:text-gray-300 applied-name applied-main"
                       >
-                        Applicants
-                      </button>
-                    </a>
+                        Last Applied:
+                      </label>
+                      <label
+                        for="first_name"
+                        class="block  text-sm font-medium text-gray-900 dark:text-gray-300 applied-time applied-main"
+                      >
+                        2 hour ago
+                      </label>
+
+                      <div className="myjobpost-main-button">
+                        <div className="myjobpost-button">
+                          <button
+                            type="button"
+                            class="text-white  font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3   focus:outline-none job-insights-button"
+                            onClick={() => sendThat(inde[3])}
+                          >
+                            Insights
+                          </button>
+                        </div>
+                        <div className="myjobpost-button">
+                          <button
+                            type="button"
+                            class="text-white   font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3  focus:outline-none  jobpost-applicant-button"
+                            onClick={() => sendThis(inde[3])}
+                          >
+                            Applicants
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="jobpost-description">
+                    <label
+                      for="first_name"
+                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      {inde[1]}
+                    </label>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="jobpost-description">
-              <label
-                for="first_name"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s,
-              </label>
-            </div>
-          </div>
+            );
+          })}
         </div>
-
-        <div className="myjobpost-main-form">
-          <div className="myjobpost-information">
-            <div className="jobpost-username">
-              <label
-                for="first_name"
-                class="block mb-2 text-large font-medium text-gray-900 dark:text-gray-300 jobtitle-name"
-              >
-                Title
-              </label>
-            </div>
-
-            <div className="myjobpost-years-qualification">
-              <div className="jobpost-qualification">
-                <div className="jobpost-year">
-                  <label
-                    for="first_name"
-                    class="block  text-sm font-medium text-gray-900 dark:text-gray-300 job-applicant-name"
-                  >
-                    No. of applicants:
-                  </label>
-
-                  <label
-                    for="first_name"
-                    class="block text-sm font-medium text-gray-900 dark:text-gray-300 job-applicant-no"
-                  >
-                    10
-                  </label>
-                </div>
-
-                <label
-                  for="first_name"
-                  class="block text-sm font-medium text-gray-900 dark:text-gray-300 applied-name applied-main"
-                >
-                  Last Applied:
-                </label>
-                <label
-                  for="first_name"
-                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300 applied-time applied-main"
-                >
-                  2 hour ago
-                </label>
-
-                <div className="myjobpost-main-button">
-                  <div className="myjobpost-button">
-                    <a
-                      href="/company/jobinsights"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <button
-                        type="button"
-                        class="text-white   font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3    job-insights-button"
-                      >
-                        Insights
-                      </button>
-                    </a>
-                  </div>
-                  <div className="myjobpost-button">
-                    <a
-                      href="/company/jobapplicant"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <button
-                        type="button"
-                        class="text-white   font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3  focus:outline-none  jobpost-applicant-button"
-                      >
-                        Applicants
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="jobpost-description">
-              <label
-                for="first_name"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s,
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div className="myjobpost-main-form">
-          <div className="myjobpost-information">
-            <div className="jobpost-username">
-              <label
-                for="first_name"
-                class="block mb-2 text-large font-medium text-gray-900 dark:text-gray-300 jobtitle-name"
-              >
-                Title
-              </label>
-            </div>
-
-            <div className="myjobpost-years-qualification">
-              <div className="jobpost-qualification">
-                <div className="jobpost-year">
-                  <label
-                    for="first_name"
-                    class="block  text-sm font-medium text-gray-900 dark:text-gray-300 job-applicant-name"
-                  >
-                    No. of applicants:
-                  </label>
-
-                  <label
-                    for="first_name"
-                    class="block text-sm font-medium text-gray-900 dark:text-gray-300 job-applicant-no"
-                  >
-                    10
-                  </label>
-                </div>
-
-                <label
-                  for="first_name"
-                  class="block text-sm font-medium text-gray-900 dark:text-gray-300 applied-name applied-main"
-                >
-                  Last Applied:
-                </label>
-                <label
-                  for="first_name"
-                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300 applied-time applied-main"
-                >
-                  2 hour ago
-                </label>
-
-                <div className="myjobpost-main-button">
-                  <div className="myjobpost-button">
-                    <a
-                      href="/company/jobinsights"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <button
-                        type="button"
-                        class="text-white  font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3   job-insights-button"
-                      >
-                        Insights
-                      </button>
-                    </a>
-                  </div>
-                  <div className="myjobpost-button">
-                    <a
-                      href="/company/jobapplicant"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <button
-                        type="button"
-                        class="text-white  font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3  focus:outline-none  jobpost-applicant-button"
-                      >
-                        Applicants
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="jobpost-description">
-              <label
-                for="first_name"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s,
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div className="myjobpost-main-form">
-          <div className="myjobpost-information">
-            <div className="jobpost-username">
-              <label
-                for="first_name"
-                class="block mb-2 text-large font-medium text-gray-900 dark:text-gray-300 jobtitle-name"
-              >
-                Title
-              </label>
-            </div>
-
-            <div className="myjobpost-years-qualification">
-              <div className="jobpost-qualification">
-                <div className="jobpost-year">
-                  <label
-                    for="first_name"
-                    class="block  text-sm font-medium text-gray-900 dark:text-gray-300 job-applicant-name"
-                  >
-                    No. of applicants:
-                  </label>
-
-                  <label
-                    for="first_name"
-                    class="block text-sm font-medium text-gray-900 dark:text-gray-300 job-applicant-no"
-                  >
-                    10
-                  </label>
-                </div>
-
-                <label
-                  for="first_name"
-                  class="block text-sm font-medium text-gray-900 dark:text-gray-300 applied-name applied-main"
-                >
-                  Last Applied:
-                </label>
-                <label
-                  for="first_name"
-                  class="block  text-sm font-medium text-gray-900 dark:text-gray-300 applied-time applied-main"
-                >
-                  2 hour ago
-                </label>
-
-                <div className="myjobpost-main-button">
-                  <div className="myjobpost-button">
-                    <a
-                      href="/company/jobinsights"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <button
-                        type="button"
-                        class="text-white font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3 focus:outline-none dark:focus:ring-blue-800 job-insights-button"
-                      >
-                        Insights
-                      </button>
-                    </a>
-                  </div>
-                  <div className="myjobpost-button">
-                    <a
-                      href="/company/jobapplicant"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <button
-                        type="button"
-                        class="text-white  focus:ring-4 font-medium rounded-lg text-sm px-6 py-3 mr-3 mb-3   focus:outline-none  jobpost-applicant-button"
-                      >
-                        Applicants
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="jobpost-description">
-              <label
-                for="first_name"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s,
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 }
 export default Jobpost;
