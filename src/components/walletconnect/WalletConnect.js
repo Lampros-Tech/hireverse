@@ -17,6 +17,7 @@ import WallConn from "../assets/images/walletconnect.svg";
 import NewPopup from "./NewPopup";
 import "./walletconnect.css";
 import { useNavigate } from "react-router-dom";
+import LoadingIcon from "./LoadingIcon";
 
 export function WalletConnect() {
   const { address, connector, isConnected } = useAccount();
@@ -103,7 +104,7 @@ export function WalletConnect() {
     //   navigate("/signup/ev");
     // }, 2000);
 
-    return "connected";
+    return <LoadingIcon />;
   };
   if (isConnected) {
     // return (

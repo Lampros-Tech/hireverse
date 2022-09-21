@@ -673,7 +673,7 @@ function CompanyRegForm() {
                         className="f-next-btn"
                         onClick={() => handleClick(4)}
                       >
-                        <span>NEXT</span>
+                        <span>OK</span>
 
                         <svg
                           className="f-correct-ar"
@@ -780,7 +780,7 @@ function CompanyRegForm() {
                         className="f-next-btn"
                         onClick={() => handleClick(5)}
                       >
-                        <span>NEXT</span>
+                        <span>OK</span>
 
                         <svg
                           className="f-correct-ar"
@@ -888,7 +888,7 @@ function CompanyRegForm() {
                         className="f-next-btn"
                         onClick={() => handleClick(6)}
                       >
-                        <span>NEXT</span>
+                        <span>OK</span>
 
                         <svg
                           className="f-correct-ar"
@@ -998,7 +998,7 @@ function CompanyRegForm() {
                         className="f-next-btn"
                         onClick={() => handleClick(7)}
                       >
-                        <span>NEXT</span>
+                        <span>OK</span>
 
                         <svg
                           className="f-correct-ar"
@@ -1209,7 +1209,7 @@ function CompanyRegForm() {
                           // navigate("/company");
                         }}
                       >
-                        <span>NEXT</span>
+                        <span>OK</span>
 
                         <svg
                           className="f-correct-ar"
