@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAccount } from "wagmi";
 import Cookies from "universal-cookie";
+import Select from "react-select";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { connect } from "@tableland/sdk";
+
 import "./regform.css";
 import logo from "../assets/images/logo.png";
 import { countryArr } from "./CountryList";
@@ -31,6 +34,7 @@ function CandidateRegForm() {
   const refFive = useRef(null);
   const refSix = useRef(null);
   const refSeven = useRef(null);
+  const refEight = useRef(null);
 
   const inputRefOne = useRef(null);
   const inputRefTwo = useRef(null);
@@ -39,6 +43,13 @@ function CandidateRegForm() {
   const inputRefFive = useRef(null);
   const inputRefSix = useRef(null);
   const inputRefSeven = useRef(null);
+  const inputRefEight = useRef(null);
+
+  // const [showSkill, setSkills] = useState([]);
+
+  const [skills, setSkills] = useState([]);
+
+  const selectedSkills = [];
 
   const [showAll, setAll] = useState({
     name: "",
@@ -56,6 +67,7 @@ function CandidateRegForm() {
     { section: refFive, input: inputRefFive },
     { section: refSix, input: inputRefSix },
     { section: refSeven, input: inputRefSeven },
+    { section: refEight, input: inputRefEight },
   ];
 
   const handleClick = (e) => {
@@ -69,9 +81,11 @@ function CandidateRegForm() {
       alert("Select country pls");
     } else if (e === 4 && showAll.contact === "") {
       alert("Enter contact num pls");
-    } else if (e === 5 && profileCID === "") {
+    } else if (e === 5 && selectedSkills.length === 0) {
+      alert("Enter skills pls");
+    } else if (e === 6 && profileCID === "") {
       alert("Enter profile img pls");
-    } else if (e === 6 && coverCID === "") {
+    } else if (e === 7 && coverCID === "") {
       alert("Enter cover img pls");
     } else {
       // console.log(refArr[e + 1].section);
@@ -109,38 +123,38 @@ function CandidateRegForm() {
       }, 200);
     }
   };
+
+  const fetchSkill = async () => {
+    const name = "skill_table_80001_1735";
+    const tableland = await connect({
+      network: "testnet",
+      chain: "polygon-mumbai",
+    });
+    const readRes = await tableland.read(`SELECT * FROM ${name}`);
+    console.log(readRes.rows);
+    addingSkills(readRes);
+  };
+
+  const addingSkills = (readRes) => {
+    console.log(readRes.rows.length, skills.length);
+    if (readRes.rows.length !== skills.length) {
+      for (let i = 0; i < readRes.rows.length; i++) {
+        setSkills({
+          value: readRes.rows[i][0],
+          label: `${readRes.rows[i][1]}`,
+        });
+      }
+    }
+    console.log(skills);
+  };
+
   const printTwo = () => {
     console.log(profileCID, coverCID);
     console.log(showAll);
   };
 
-  // const getLoginId = (walletaddress) => {
-  //   var data = JSON.stringify({
-  //     walletAddress: walletaddress,
-  //   });
-
-  //   var config = {
-  //     method: "get",
-  //     url: `${process.env.REACT_APP_API_URL}/getLoginId`,
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     data: data,
-  //   };
-
-  //   axios(config)
-  //     .then(function (response) {
-  //       console.log(JSON.stringify(response.data));
-  //       navigate("/candidateregform/candidate-education");
-
-  //       // setLoginId(response.data);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // };
-
   useEffect(() => {
+    fetchSkill();
     setLoginId(cookies.get("loginID"));
     console.log(cookies.get("loginID"));
   }, []);
@@ -725,7 +739,6 @@ function CandidateRegForm() {
             </section>
 
             {/* *********************************************************** */}
-
             {/* 6th input field */}
 
             <section className="f-first" ref={refSix}>
@@ -756,17 +769,17 @@ function CandidateRegForm() {
                     </svg>
                   </div>
                   <div className="f-form-div">
-                    <p className="f-p">Please upload profile picture</p>
+                    <p className="f-p">Please select skills</p>
 
-                    <div ref={inputRefSix}>
-                      <p className="upload-img-instruction">
-                        * click on image box to choose image and then press
-                        "upload file" button to upload your image
-                      </p>
-
-                      <StoreProfileImg setFileCid={setProfileCID} />
-                    </div>
-
+                    <div ref={inputRefSix}></div>
+                    <Select
+                      defaultValue=""
+                      isMulti
+                      name="colors"
+                      options={skills}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                    />
                     <div className="f-btn-flex">
                       <button
                         className="f-next-btn"
@@ -858,9 +871,111 @@ function CandidateRegForm() {
                     </svg>
                   </div>
                   <div className="f-form-div">
-                    <p className="f-p">Please upload cover image</p>
+                    <p className="f-p">Please upload profile picture</p>
 
                     <div ref={inputRefSeven}>
+                      <p className="upload-img-instruction">
+                        * click on image box to choose image and then press
+                        "upload file" button to upload your image
+                      </p>
+
+                      <StoreProfileImg setFileCid={setProfileCID} />
+                    </div>
+
+                    <div className="f-btn-flex">
+                      <button
+                        className="f-next-btn"
+                        onClick={() => handleClickPrevious(6)}
+                      >
+                        <svg
+                          className="f-back-ar"
+                          version="1.1"
+                          id="Layer_1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          x="0px"
+                          y="0px"
+                          viewBox="0 0 492 492"
+                        >
+                          <g>
+                            <g>
+                              <path
+                                d="M464.344,207.418l0.768,0.168H135.888l103.496-103.724c5.068-5.064,7.848-11.924,7.848-19.124
+			c0-7.2-2.78-14.012-7.848-19.088L223.28,49.538c-5.064-5.064-11.812-7.864-19.008-7.864c-7.2,0-13.952,2.78-19.016,7.844
+			L7.844,226.914C2.76,231.998-0.02,238.77,0,245.974c-0.02,7.244,2.76,14.02,7.844,19.096l177.412,177.412
+			c5.064,5.06,11.812,7.844,19.016,7.844c7.196,0,13.944-2.788,19.008-7.844l16.104-16.112c5.068-5.056,7.848-11.808,7.848-19.008
+			c0-7.196-2.78-13.592-7.848-18.652L134.72,284.406h329.992c14.828,0,27.288-12.78,27.288-27.6v-22.788
+			C492,219.198,479.172,207.418,464.344,207.418z"
+                              />
+                            </g>
+                          </g>
+                        </svg>
+
+                        <span>GO BACK</span>
+                      </button>
+                      <button
+                        className="f-next-btn"
+                        onClick={() => {
+                          handleClick(5);
+                        }}
+                      >
+                        <span>OK</span>
+
+                        <svg
+                          className="f-correct-ar"
+                          version="1.1"
+                          id="Capa_1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          x="0px"
+                          y="0px"
+                          viewBox="0 0 240.608 240.608"
+                        >
+                          <path d="M208.789,29.972l31.819,31.82L91.763,210.637L0,118.876l31.819-31.82l59.944,59.942L208.789,29.972z" />
+                        </svg>
+                      </button>
+                      <span className="f-press-enter">
+                        press <span className="f-enter">Enter ↵</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* *********************************************************** */}
+
+            {/* 8th input field */}
+
+            <section className="f-first" ref={refEight}>
+              <div className="f-outside-div">
+                <div className="f-inside-section">
+                  <div className="f-left">
+                    <span className="f-num">8</span>
+                    <svg
+                      className="f-right-ar"
+                      version="1.1"
+                      id="Capa_1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 31.143 31.143"
+                    >
+                      <g>
+                        <g id="c100_arrow">
+                          <path
+                            d="M0,15.571c0.001,1.702,1.383,3.081,3.085,3.083l17.528-0.002l-4.738,4.739c-1.283,1.284-1.349,3.301-0.145,4.507
+			c1.205,1.201,3.222,1.138,4.507-0.146l9.896-9.898c1.287-1.283,1.352-3.301,0.146-4.506c-0.033-0.029-0.068-0.051-0.1-0.08
+			c-0.041-0.043-0.07-0.094-0.113-0.139l-9.764-9.762c-1.268-1.266-3.27-1.316-4.474-0.111c-1.205,1.205-1.153,3.208,0.111,4.476
+			l4.755,4.754H3.085C1.381,12.485,0,13.865,0,15.571z"
+                          />
+                        </g>
+                        <g id="Capa_1_46_"></g>
+                      </g>
+                    </svg>
+                  </div>
+                  <div className="f-form-div">
+                    <p className="f-p">Please upload cover image</p>
+
+                    <div ref={inputRefEight}>
                       <p className="upload-img-instruction">
                         * click on image box to choose image and then press
                         "upload file" button to upload your image
@@ -871,7 +986,7 @@ function CandidateRegForm() {
                     <div className="f-btn-flex">
                       <button
                         className="f-next-btn"
-                        onClick={() => handleClickPrevious(6)}
+                        onClick={() => handleClickPrevious(7)}
                       >
                         <svg
                           className="f-back-ar"
