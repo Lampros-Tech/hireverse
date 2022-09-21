@@ -10,6 +10,7 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline'
 import CloseIcon from '@mui/icons-material/Close'
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
+import {SyntheticEvent} from 'react';
 
 import phaserGame from '../PhaserGame'
 import Game from '../scenes/Game'

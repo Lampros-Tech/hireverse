@@ -91,17 +91,6 @@ export default function ComputerDialog() {
   const myStream = useAppSelector((state) => state.computer.myStream)
   const peerStreams = useAppSelector((state) => state.computer.peerStreams)
   
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log('in');
-    
-    if (event.key === 'Escape') {
-      // move focus back to the game
-      console.log('in');
-      
-      inputRef.current?.blur()
-      dispatch(closeComputerDialog())
-    }
-  }
 
   return (
     <Backdrop>
@@ -115,9 +104,9 @@ export default function ComputerDialog() {
         </IconButton>
 
         <iframe src="https://demo.dehitas.xyz/"
-            frameborder="0" 
-            marginheight="0" 
-            marginwidth="0" 
+            frameBorder="0" 
+            marginHeight={0} 
+            marginWidth={0} 
             width="100%" 
             height="100%" 
             scrolling="auto">
