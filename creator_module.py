@@ -82,7 +82,7 @@ def addTableNames():
                         status_list.append("Repo table added successfully!!")
                     else:
                         status_list.append("Repo table already exists!!")
-            except:
+            except Exception as e:
                 print(e)
             # condition = f"""wallet_address='{walletAddress}' AND """
             # data = update_query(tablename, update_values, condition, True)
