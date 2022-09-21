@@ -48,8 +48,8 @@ function CandidateRegForm() {
   // const [showSkill, setSkills] = useState([]);
 
   const [skills, setSkills] = useState([]);
-
-  const selectedSkills = [];
+  // const skills = [];
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
   const [showAll, setAll] = useState({
     name: "",
@@ -81,7 +81,7 @@ function CandidateRegForm() {
       alert("Select country pls");
     } else if (e === 4 && showAll.contact === "") {
       alert("Enter contact num pls");
-    } else if (e === 5 && selectedSkills.length === 0) {
+    } else if (e === 5 && filteredSkills.length === 0) {
       alert("Enter skills pls");
     } else if (e === 6 && profileCID === "") {
       alert("Enter profile img pls");
@@ -139,7 +139,7 @@ function CandidateRegForm() {
     console.log(readRes.rows.length, skills.length);
     if (readRes.rows.length !== skills.length) {
       for (let i = 0; i < readRes.rows.length; i++) {
-        setSkills({
+        skills.push({
           value: readRes.rows[i][0],
           label: `${readRes.rows[i][1]}`,
         });
@@ -157,6 +157,7 @@ function CandidateRegForm() {
     fetchSkill();
     setLoginId(cookies.get("loginID"));
     console.log(cookies.get("loginID"));
+    console.log(selectedSkills);
   }, []);
 
   const sendData = (
@@ -208,6 +209,46 @@ function CandidateRegForm() {
   //   console.log(fileCID);
   // }, [fileCID]);
 
+  let filteredSkills = [];
+
+  const handleSelectedOptios = (selectedSkills) => {
+    console.log(selectedSkills);
+
+    filteredSkills = selectedSkills.map((i) => {
+      return i.value;
+    });
+    console.log(filteredSkills);
+    // for (let i = 0; i < setSelectedSkills.length; i++) {
+    //   selectedSkills.push(setSelectedSkills[i]["value"]);
+    // }
+  };
+  const sendUserSkills = () => {
+    var data = JSON.stringify({
+      login_id: loginId,
+      wallet_address: address,
+      skill_ids: filteredSkills,
+      skill_name: [],
+    });
+
+    var config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/user/addSkill`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setbtnLoading(false);
+      })
+      .catch(function (error) {
+        setbtnLoading(false);
+        console.log(error);
+      });
+  };
   useEffect(() => {
     console.log(showAll);
   }, [showAll]);
@@ -777,8 +818,12 @@ function CandidateRegForm() {
                       isMulti
                       name="colors"
                       options={skills}
+                      // value={selectedSkills}
                       className="basic-multi-select"
                       classNamePrefix="select"
+                      onChange={(e) => {
+                        handleSelectedOptios(e);
+                      }}
                     />
                     <div className="f-btn-flex">
                       <button
@@ -814,10 +859,12 @@ function CandidateRegForm() {
                         className="f-next-btn"
                         onClick={() => {
                           handleClick(5);
+                          if (filteredSkills.length > 0) {
+                            sendUserSkills();
+                          }
                         }}
                       >
                         <span>OK</span>
-
                         <svg
                           className="f-correct-ar"
                           version="1.1"

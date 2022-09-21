@@ -555,7 +555,7 @@ function RecruitmentDetails() {
                     options={optionListLocation}
                     placeholder=""
                     required
-                    value={selectedOptionsLocation}
+                    value={setSelectedOptions}
                     onChange={(e) => {
                       handleSelectLocation(e);
                     }}

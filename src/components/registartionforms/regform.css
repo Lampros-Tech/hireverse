@@ -365,6 +365,19 @@ p.upload-img-instruction {
     font-size: 1rem;
   }
 }
+.css-14el2xx-placeholder {
+  color: #134e6f;
+}
+
+.css-1s2u09g-control {
+  background-color: transparent !important;
+  border: 1px solid #134e6f !important;
+  box-shadow: none !important;
+}
+
+.css-1s2u09g-control:hover {
+  background-color: transparent !important;
+}
 
 @keyframes flash {
   0%,
