@@ -257,18 +257,28 @@ h1.role-title-h1 {
 h2.role-title-h2 {
   font-size: 1.2rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-left: 10px;
 }
 p.role-p {
+  margin-top: 20px;
   padding-right: 10px;
 }
-
+.role-item-inside {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
 svg.button-spin-svg {
   width: 32px;
   height: 80%;
   fill: #fff;
 }
-
+svg.role-svg {
+  width: 32px;
+  height: 80%;
+  fill: #134e6f;
+}
 svg.button-spin-svg-pic {
   width: 32px;
   height: 80%;
