@@ -1,0 +1,50 @@
+Creator_Question_Id,wallet_address,Question,Option 1,Option 2,Option 3,Option 4,Option 5,Answer,Solution,Added At,Difficulty Level,Repo Name,Privacy,Primary_Tag,Secondary_Tag_1,Nation_List,Difficulty_Level,Repo_Name,Privacy
+,,"In a certain coding system MOTHER is coded as PQWJHT, how will you code SISTER?",VKUVHT,VKVVHU,VKVVHT,VKVVHS,,3,,,,,,Logical reasoning,,Global,Easy,Reasoning,0
+,,"In a certain coding system PRICE is coded as SVNIL, how will you code COST?",F SXY,FSWY,FTWZ,FSXZ,,4,,,,,,Logical reasoning,,Global,Easy,Reasoning,0
+,,"Look at this series: 2, 1, (1/2), (1/4), ... What number should come next?",(1/3),(1/8),(2/8),(1/16),,2,,,,,,Logical reasoning,,Global,Easy,Reasoning,0
+,,"Look at this series: 7, 10, 8, 11, 9, 12, ... What number should come next?",7,10,12,13,,2,,,,,,Logical reasoning,,Global,Easy,Reasoning,0
+,,"Look at this series: 36, 34, 30, 28, 24, ... What number should come next?",20,22,23,26,,2,,,,,,Logical reasoning,,Global,Easy,Reasoning,0
+,,"Look at this series: 22, 21, 23, 22, 24, 23, ... What number should come next?",22,24,25,26,,3,,,,,,Logical reasoning,,Global,Easy,Reasoning,0
+,,"Look at this series: 53, 53, 40, 40, 27, 27, ... What number should come next?",12,14,27,53,,2,,,,,,Logical reasoning,,Global,Easy,Reasoning,0
+,,"Look at this series: 21, 9, 21, 11, 21, 13, 21, ... What number should come next?",14,15,21,23,,2,,,,,,Logical reasoning,,Global,Easy,Reasoning,0
+,,"Look at this series: 58, 52, 46, 40, 34, ... What number should come next?",26,28,30,32,,2,,,,,,Logical reasoning,,Global,Easy,Reasoning,0
+,,"Look at this series: 3, 4, 7, 8, 11, 12, ... What number should come next?",7,10,14,15,,4,,,,,,Logical reasoning,,Global,Medium,Reasoning,0
+,,"Look at this series: 8, 22, 8, 28, 8, ... What number should come next?",9,29,32,34,,4,,,,,,Logical reasoning,,Global,Medium,Reasoning,0
+,,"Look at this series: 31, 29, 24, 22, 17, ... What number should come next?",15,14,13,12,,1,,,,,,Logical reasoning,,Global,Medium,Reasoning,0
+,,What is the average of first five multiples of 12?,36,38,40,42,,1,,,,,,Quant,,Global,Medium,Quant,0
+,,"Average of five numbers is 20. If each number is multiplied by 2, what will be the new average?",30,40,50,60,,2,,,,,,Quant,,Global,Medium,Quant,0
+,,A running man crosses a bridge of length 500 meters in 4 minutes. At what speed he is running?,8.5 km/hr,7.5 km/hr,9.5 km/hr,6.5 km/hr,,2,,,,,,Quant,,Global,Medium,Quant,0
+,,"A car running at a speed of 140 km/hr reached its destination in 2 hours. If the car wants to reach at its destination in 1 hour, at what speed it needs to travel?",300 km/hr,280 km/hr,250 km/hr,240 km/hr,,2,,,,,,Quant,,Global,Medium,Quant,0
+,,What is the compound interest on Rs. 2500 for 2 years at rate of interest 4% per annum?,Rs. 180,Rs. 204,Rs. 210,Rs. 220,,2,,,,,,Quant,,Global,Medium,Quant,0
+,,What is the amount for a sum of money Rs.7500 at 6% rate of interest C.I. for 2 years?,Rs. 8427,Rs. 8417,Rs. 8400,Rs. 8390,,1,,,,,,Quant,,Global,Medium,Quant,0
+,,"Three of the following four options (a), (b), (c), and (d) are exactly equal. Which option is not equal to the other three options?",1.2* 10 /0.1*100,0.6* 0.5/0.01*0.5,2.4*1000/0.1*0.5,0.2*0.06/0.001*1000,,2,,,,,,Quant,,Global,Medium,Quant,0
+,,The value of (0.333...) * (0.444....) is,0.121212....,1.3333.....,0.777......,0.148148148.....,,4,,,,,,Quant,,Global,Medium,Quant,0
+,,The value of the expression [(0.05)2 + (0.41)2 + (0.073)2]/ [(0.005)2 + (0.041)2 +(0.0073)2] is,100,10,1000,None of these,,1,,,,,,Quant,,Global,Medium,Quant,0
+,,A: B: C is in the ratio of 3: 2: 5. How much money will C get out of Rs 1260?,252,125,503,None of these,,4,,,,,,Quant,,Global,Medium,Quant,0
+,,"In a kilometer race, A beats B by 40 meters or by 5 seconds. What is the time taken by A over the course?",1 minute 57 seconds.,2 minutes.,1.5 minutes.,None of these.,,2,,,,,,Quant,,Global,Medium,Quant,0
+,,What is the probability of getting an even number when a dice is rolled?,1/5,1/2,1/3,1/4,,2,,,,,,Quant,,Global,Medium,Quant,0
+,,An accurate clock indicates 8 O clock in the morning. Through how many degrees the hour hand turns when the clock indicates 3 O clock in the afternoon?,210°,200°,190°,185°,,1,,,,,,Quant,,Global,Medium,Quant,0
+,,A clock is set at 4am. It loses 16 minutes in 24 hours. What will be the correct time when the clock indicates 9pm on the 4th day?,8pm,7pm,10pm,11pm,,3,,,,,,Quant,,Global,Medium,Quant,0
+,,"Pointing to a photograph of a boy Suresh said, He is the son of the only son of my mother. How is Suresh related to that boy?",Brother,Uncle,Cousin,Father,,4,,,,,,Verbal Reasoning,,Global,Medium,Verbal,0
+,,"If A + B means A is the mother of B; A - B means A is the brother B; A % B means A is the father of B and A x B means A is the sister of B, which of the following shows that P is the maternal uncle of Q?",Q - N + M x P,P + S x N - Q,P - M + N x Q,Q - S % P,,3,,,,,,Verbal Reasoning,,Global,Difficult,Verbal,0
+,,"If A is the brother of B; B is the sister of C; and C is the father of D, how D is related to A?",Brother,Sister,Nephew,Cannot be determined,,4,,,,,,Verbal Reasoning,,Global,Difficult,Verbal,0
+,,If A + B means A is the brother of B; A - B means A is the sister of B and A x B means A is the father of B. Which of the following means that C is the son of M?,M - N x C + F,F - C + N x M,N + M - F x C,M x N - C + F,,4,,,,,,Verbal Reasoning,,Global,Difficult,Verbal,0
+,,Doctor : Patient : : Politician : ?,Voter,Chair,Money,Public,,1,,,,,,Verbal Reasoning,,Global,Difficult,Verbal,0
+,,Choose the word which is most nearly the SAME in meaning as the word given: ARDUOUS,Hazardous,Difficult,Different,Pleasurable,,2,,,,,,Verbal Reasoning,,Global,Easy,Verbal,0
+,,Choose the word which is the exact OPPOSITE of the given word: abet,Prevent,Aid,Pacify,Risk,,1,,,,,,Verbal Reasoning,,Global,Easy,Verbal,0
+,,Choose the word which best expresses the meaning of the given word: Ponder,Increase,Anticipate,Evaluate,Think,,4,,,,,,Verbal Reasoning,,Global,Easy,Verbal,0
+,,"A, P, R, X, S and Z are sitting in a row. S and Z are in the centre. A and P are at the ends. R is sitting to the left of A. Who is to the right of P ?",A,X,S,Z,,2,,,,,,Verbal Reasoning,,Global,Easy,Verbal,0
+,,"A, B, C, D and E are sitting on a bench. A is sitting next to B, C is sitting next to D, D is not sitting with E who is on the left end of the bench. C is on the second position from the right. A is to the right of B and E. A and C are sitting together. In which position A is sitting ?",Between B and D,Between B and C,Between E and D,Between C and E,,2,,,,,,Verbal Reasoning,,Global,Easy,Verbal,0
+,,Which one of the following is always found in Bravery?,Experience,Power,Courage,Knowledge,,3,,,,,,Verbal Reasoning,,Global,Easy,Verbal,0
+,,A song always has,Word,Chorus,Musician,Tymbal,,1,,,,,,Verbal Reasoning,,Global,Difficult,Verbal,0
+,,Yesterday I saw an ice cube which had already melted due to heat of a nearby furnace.,Always,Never,Often,Sometimes,,2,,,,,,Verbal Reasoning,,Global,Difficult,Verbal,0
+,,The main system board of the computer is called ____.,Motherboard,Processor,Microchip,None of these,,1,,,,,,Basic Computer,,Global,Difficult,Computer,0
+,,Which of the following system components is the brain of a computer?,Circuit board,CPU,Memory,Network card,,2,,,,,,Basic Computer,,Global,Difficult,Computer,0
+,,What is the built-in permanent memory in a computer called?,RAM,ROM,CPU,CD-ROM,,2,,,,,,Basic Computer,,Global,Difficult,Computer,0
+,,Which of the following is the full form of NTFS?,New Tree File system,New Technology file system,New Table file system,Both B and C,,2,,,,,,Basic Computer,,Global,Easy,Computer,0
+,,Which of the following is not a hardware processing chip ?,Processing chip,printer,mouse,Java,,4,,,,,,Basic Computer,,Global,Easy,Computer,0
+,,The monitor of a computer is-,storage device,processing device,input device,output device,,4,,,,,,Basic Computer,,Global,Easy,Computer,0
+,,Which protocol does Ping use?,TCP,ARP,ICMP,BootP,None of these,3,,,,,,Basic Computer,,Global,Difficult,Computer,0
+,,"If you wish to extend the length of the network without having the signal degrade, you would use a ___.",Gateway,Router,Modem,Repeater,Resonator,4,,,,,,Basic Computer,,Global,Medium,Computer,0
+,,A series of instructions that tells a computer what to do and how to do it is called a ______.,program,command,user response,processor,None of these,1,,,,,,Basic Computer,,Global,Medium,Computer,0
+,,Verification of a login name and password is known as_____.,Configuration,Accessibility,Authentication,logging in,None of these,3,,,,,,Basic Computer,,Global,Medium,Computer,0
