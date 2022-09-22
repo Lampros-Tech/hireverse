@@ -35,6 +35,7 @@ function EmailVeficationPage() {
   // post request for email & username
   const sendEU = (username, email, walletaddress) => {
     // console.log(walletaddress);
+    console.log("sending data...");
     var data = JSON.stringify({
       username: username,
       email: email,
@@ -80,26 +81,13 @@ function EmailVeficationPage() {
 
     axios(config)
       .then(function (response) {
+        setChecker_role(false);
         console.log("Role Found");
         console.log(JSON.stringify(response.data));
       })
       .catch(function (error) {
         console.log("Role not found");
         setChecker_role(true);
-        if (
-          checker_uname === true &&
-          checker_email === true &&
-          checker_role === true
-        ) {
-          console.log("entering in the sending data");
-          sendEU(
-            credentials.username,
-            credentials.email,
-            credentials.walletAddress
-          );
-        } else {
-          console.log("error in sending data to the db");
-        }
         // checkEmail(credentials.email);
         console.log(error);
       });
@@ -131,6 +119,7 @@ function EmailVeficationPage() {
           console.log(JSON.stringify(response.data));
         })
         .catch(function (error) {
+          setChecker_email(false);
           console.log("Email exist. Enter new one");
           console.log(error);
         });
@@ -166,6 +155,8 @@ function EmailVeficationPage() {
         console.log(JSON.stringify(response.data));
       })
       .catch(function (error) {
+        setChecker_uname(false);
+
         console.log("username exist");
         console.log(error);
       });
@@ -173,6 +164,10 @@ function EmailVeficationPage() {
   // useEffect(() => {
   //   console.log(credentials);
   // }, [credentials]);
+  useEffect(() => {
+    checkRole(address);
+  }, [address]);
+
   if (isConnected) {
     return (
       <>
@@ -218,14 +213,15 @@ function EmailVeficationPage() {
                     value={credentials.username}
                     type="text"
                     placeholder="Username"
-                    onChange={(event) =>
+                    onChange={(event) => {
                       setCredentials({
                         email: credentials.email,
                         username: event.target.value,
                         walletAddress: credentials.walletAddress,
-                      })
-                    }
-                    onBlur={() => checkUsername(credentials.username)}
+                      });
+                      checkUsername(credentials.username);
+                    }}
+                    // onBlur={() => checkUsername(credentials.username)}
                   />
                   <div className="f-after-input-div">
                     <span className="f-after-input">something</span>
@@ -237,15 +233,21 @@ function EmailVeficationPage() {
                   <button
                     className="email-verify-button"
                     disabled={
-                      !/^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/.test(
-                        credentials.email
-                      )
+                      checker_uname === true &&
+                      checker_email === true &&
+                      checker_role === true
+                        ? false
+                        : true
                     }
                     onClick={() => {
                       // navigate("/role");
                       setbtnLoading(true);
-                      checkRole(credentials.walletAddress);
                       console.log(checker_uname, checker_email, checker_role);
+                      sendEU(
+                        credentials.username,
+                        credentials.email,
+                        credentials.walletAddress
+                      );
                     }}
                   >
                     {/* navigate("/role") */}

@@ -73,7 +73,10 @@ const CandidateFeed = () => {
     <>
       <div className="candidate-jobfeed-main-content">
         <div className="candidate-jobfeed-main-right">
-          <div className="candidate-jobfeed-header">Job Feed</div>
+          <div className="candidate-jobfeed-header">
+            Job Feed
+            <div className="candidate-jobfeed-header2">Saved Job (80)</div>
+          </div>
           {data.map((jobs) => {
             return (
               <div className="candidate-right-side">
@@ -245,7 +248,7 @@ const CandidateFeed = () => {
                                   <button
                                     className="candidate-more-button"
                                     onClick={() => {
-                                      formPopup(jobs.id);
+                                      formPopup(boxRef.id);
                                     }}
                                   >
                                     Apply

@@ -4,10 +4,18 @@
   padding-left: 40px;
   background-color: ghostwhite;
   padding-top: 20px;
-  margin-top: 10%;
+  margin-top: 2%;
+  display: flex;
+  color: #ff6150;
+  /* font-weight: 600; */
   margin-left: 1%;
+  font-size: medium;
   border-bottom: 1px solid gainsboro;
   font-family: "Montserrat";
+}
+.candidate-jobfeed-header2 {
+  padding-left: 5%;
+  color: black;
 }
 
 .candidate-jobfeed-outer {
@@ -82,7 +90,7 @@
   border-radius: 5px;
   font-family: "Montserrat";
   font-size: larger;
-  box-shadow: 0px 0px 6px 5px #d3d3d3;
+  /* box-shadow: 0px 0px 6px 5px #d3d3d3; */
 }
 
 .candidate-more-top {
@@ -203,7 +211,7 @@
   color: #ffffff;
   border-radius: 5px;
   font-size: larger;
-  box-shadow: 0px 0px 6px 5px #d3d3d3;
+  /* box-shadow: 0px 0px 6px 5px #d3d3d3; */
 }
 
 .candidate-form-header {
@@ -423,4 +431,10 @@
 .sharejob-icon {
   display: flex;
   justify-content: center;
+}
+.candidate-form-back-img {
+  height: 30px;
+
+  color: #1ac0c6;
+  /* background-color: #1ac0c6; */
 }
