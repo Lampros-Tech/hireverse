@@ -177,6 +177,10 @@ button.email-verify-button:hover {
   color: #ff6150;
   scale: 1.05;
 }
+button.email-verify-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 select.role-select {
   border: 1px solid black;

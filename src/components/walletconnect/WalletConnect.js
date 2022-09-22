@@ -37,7 +37,9 @@ export function WalletConnect() {
   const [walletAddress, setWalletAddress] = useState("");
 
   useEffect(() => {
-    getStage(address);
+    if (isConnected) {
+      getStage(address);
+    }
   }, [isConnected]);
 
   var userData = "";
