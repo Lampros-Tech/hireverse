@@ -3,66 +3,87 @@ import { useEffect, useState } from "react";
 import "./creator.css";
 import DD_repo from "./Dropdowns/DD_repo"
 import axios from "axios";
-import {useConnect,useDisconnect, useAccount } from "wagmi";
+import { useConnect, useDisconnect, useAccount } from "wagmi";
 import { insert_creators_repo_table } from "../TableQueries";
 import { InjectedConnector } from "@wagmi/core";
 import { useNavigate } from "react-router-dom";
+
 function CreateRepo() {
+
   const [data, setData] = useState({
-    t_name: "creators_repo_table_80001_1808",
-    creator_id: 1234,
+    t_name: "",
+    wallet_address: "",
     repo_name: "",
     desc: "",
-    privacy: "private",
+    privacy: 2,
   });
+
+  const [loading, setLoading] = useState(true);
+  const [tableName, setTableName] = useState({});
+
+
   const navigate = useNavigate();
-  const {address} = useAccount();
-  const {connect} = useConnect({
+  const { address, isConnected } = useAccount();
+  const { connect } = useConnect({
     connector: new InjectedConnector(),
   });
-  const {disconnect} = useDisconnect();
+
+  const { disconnect } = useDisconnect();
+
   useEffect(() => {
-    console.log(data);
-  }, [data]);
-  const [TableName,setTableName] = useState({})
-  useEffect(()=>{
-    connect();
+    if (!isConnected) {
+      connect();
+    }
     console.log(address);
-    var data = JSON.stringify({
+    var res_data = JSON.stringify({
       "walletAddress": address
     });
-    
+
     var config = {
       method: 'post',
-      url: 'http://api.dehitas.xyz/creator/getTables',
-      headers: { 
+      url: `${process.env.REACT_APP_API_URL}/creator/getTables`,
+      headers: {
         'Content-Type': 'application/json'
       },
-      data : data
+      data: res_data
     };
-    
-    axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      setTableName(response.data);
-      // if(TabelName === "none")
-      // {
-      //   navigate("/role/creator")
-      // }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  },[])
 
-  useEffect(()=>{
-    if(TableName){
-      console.log(TableName);
-      if(TableName.question_table === "none" && TableName.repo_table === "none"){
-        navigate("/role/creator")
-      }
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setTableName(response.data.repo_table);
+        console.log(response.data.repo_table)
+        if (response.data.repo_table === null || response.data.repo_table === "" ) {
+          navigate("/role/creator")
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [])
+
+  useEffect(() => {
+    if (tableName) {
+      console.log(tableName);
+      setData({ ...data, t_name: tableName })
     }
-  },[TableName])
+  }, [tableName])
+
+  const createNewRepo = async() => {
+    console.log(data);
+    console.log(address);
+    const creator_repo_data = await insert_creators_repo_table(
+      tableName,
+      address,
+      data.repo_name,
+      data.desc,
+      data.privacy
+    );
+
+    console.log(creator_repo_data);
+  }
+
+
   return (
     <>
 
@@ -86,9 +107,10 @@ function CreateRepo() {
                 Repository name
               </div>
             </div>
-            <div className="repo-name flex">
-            <div className="font-primary-sm items-center">
-                Owner name
+            <div className="repo-name flex items-center	content-center">
+              <div className="owner ">
+                {/* <DD_repo className="uplift" /> */}
+                <span className="p-2">Rahul Rajan</span>
               </div>
               <h1 className="mx-8  text-3xl">/</h1>
               <div className="Repo-name">
@@ -127,11 +149,11 @@ function CreateRepo() {
               <input
                 id="default-radio-1"
                 type="radio"
-                value="global"
+                value="0"
                 name="privacy-radio"
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
                 onChange={(e) => {
-                  setData({ ...data, privacy: e.target.value });
+                  setData({ ...data, privacy: Number(e.target.value) });
                 }}
               />
               <label className="ml-2 font-secondary font-semibold text-left">
@@ -142,11 +164,11 @@ function CreateRepo() {
               <input
                 id="default-radio-1"
                 type="radio"
-                value="local"
+                value="1"
                 name="privacy-radio"
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
                 onChange={(e) => {
-                  setData({ ...data, privacy: e.target.value });
+                  setData({ ...data, privacy: Number(e.target.value) });
                 }}
               />
               <label className="ml-2 font-secondary font-semibold text-left">
@@ -158,11 +180,11 @@ function CreateRepo() {
                 defaultChecked
                 id="default-radio-1"
                 type="radio"
-                value="private"
+                value="2"
                 name="privacy-radio"
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
                 onChange={(e) => {
-                  setData({ ...data, privacy: e.target.value });
+                  setData({ ...data, privacy: Number(e.target.value) });
                 }}
               />
               <label className="ml-2 font-secondary font-semibold text-left">
@@ -177,13 +199,7 @@ function CreateRepo() {
           <button
             className="create-assessment-btn text-black-700 font-semibold py-2 px-4 border border-black-500  rounded"
             onClick={() =>
-              insert_creators_repo_table(
-                data.t_name,
-                data.creator_id,
-                data.repo_name,
-                data.desc,
-                data.privacy
-              )
+              createNewRepo()
             }
           >
             Button

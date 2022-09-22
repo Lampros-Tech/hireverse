@@ -1,14 +1,14 @@
 import React from "react";
 import "./candidatepopup.css";
 
-const popup = (props) => {
+const Popup = (props) => {
   return (
     <>
       <div className="popup-box">
-        <div className="box">
-          <span className="close-icon" onClick={props.handleClose}>
+        <div className="box" id="box">
+          {/* <span className="close-icon" onClick={props.handleClose}>
             x
-          </span>
+          </span> */}
           {props.content}
         </div>
       </div>
@@ -16,4 +16,4 @@ const popup = (props) => {
   );
 };
 
-export default popup;
+export default Popup;

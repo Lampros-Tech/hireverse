@@ -87,7 +87,7 @@ function LandingPage() {
             </div>
           </div>
           <section className="d-sponsers">
-            <p className="d-sponser-p">Powered by:</p>
+            <p className="d-sponser-p">Powered by :</p>
             <div className="d-sponser-grid">
               <div className="d-sponser-grid-item">
                 <img src={polygon} alt="polygon" className="d-sponser-img" />

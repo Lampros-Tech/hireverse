@@ -13,7 +13,7 @@ function JobApplicant() {
     const param = currentLocation.split("=");
     const name = "application_details_table_80001_2024";
     const table = "candidate_table_80001_1648";
-    const table1 = "user_education_table_80001_1739";
+    const table1 = "education_table_80001_2259";
     const tableland = await connect({
       network: "testnet",
       chain: "polygon-mumbai",
@@ -29,6 +29,7 @@ function JobApplicant() {
       const response1 = await tableland.read(
         `SELECT degree FROM ${table1} where login_id=${login_id}`
       );
+      console.log(response1);
       data.push([
         response["rows"][0][4],
         response["rows"][0][2],
