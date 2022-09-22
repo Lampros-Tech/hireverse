@@ -367,12 +367,13 @@ img.d-video-graphics-1 {
     bottom: 40rem; */
   z-index: 1;
 }
+
 .d-third-flex-item-left > video {
-  background: rgba(239, 240, 238, 0.5);
+  /* background: rgba(0, 0, 0, 0.5);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(239, 240, 238, 0.25);
-  height: 100%;
+  border: 1px solid rgba(239, 240, 238, 0.25); */
+
   /* border-radius: 10px;
   border: 2px dashed #ff6150; */
   padding: 5%;

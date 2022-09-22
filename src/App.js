@@ -63,6 +63,7 @@ import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import CandidateAchive from "./components/registartionforms/CandidateAchive";
 import CreatorAchive from "./components/registartionforms/CreatorAchive";
+import CandidateApplications from "./components/candidate/CandidateApplications";
 
 function App() {
   const { chains, provider, webSocketProvider } = configureChains(
@@ -180,6 +181,7 @@ function App() {
                 element={<CandidateTestResults />}
               />
               <Route path="candidate-profile" element={<Profile />} />
+              <Route path="applications" element={<CandidateApplications />} />
               <Route path="testtakenpage" element={<TestTakenpage />} />
               <Route path="testInstruction" element={<TestInstructionpage />} />
               <Route path="message" element={<CandidateMessage />} />

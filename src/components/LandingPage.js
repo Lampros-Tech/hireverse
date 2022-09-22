@@ -130,14 +130,12 @@ function LandingPage() {
                   {/* <img src={illu1} alt="" className="d-third-flex-item-img" /> */}
                 </div>
                 <div className="d-third-flex-item-right">
-                  {/* <h1 className="d-third-flex-right-h1">
-                    Hire the right candidate
-                  </h1> */}
+                  <h1 className="d-third-flex-right-h1">Hire with ease !</h1>
                   <p className="d-third-flex-right-p">
                     Recruiter can walk around & find candidates who has already
                     cleared a specific assessment. Talk with them spontaneously.
                     Stop relying on calender schedules to increase speed of
-                    communication. Hire with ease!.
+                    communication.
                   </p>
 
                   {/* <button className="d-third-flex-btn">Connect Wallet</button> */}
