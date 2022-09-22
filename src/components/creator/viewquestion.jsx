@@ -17,8 +17,11 @@ import parse from "html-react-parser";
 import closebtn from "../creator/Images/closebtn.png";
 import Editimg from "./Images/edit.png";
 import Delete from "./Images/delete.png";
+import { useAccount } from "wagmi";
+import { connect } from "@tableland/sdk";
 
 function Viewquestion() {
+  const { address, isConnected } = useAccount();
   // console.log(Questions)
   // let navigate = useNavigate();
   const [showEdit, setEdit] = useState(false);
@@ -28,6 +31,11 @@ function Viewquestion() {
   const [deleteAlert, showDeleteAlert] = useState(false);
   const [delId, setDelId] = useState(null);
   const [delCategory, setDelCategory] = useState(null);
+  const [table, setTable] = useState();
+  const [data, setData] = useState([]);
+  const [tag, setTag] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const cookie = new Cookies();
   // useEffect(() => {
   //   if (!cookie.get("AdminToken")) {
@@ -38,7 +46,7 @@ function Viewquestion() {
   // }, []);
 
   function Editquestion() {
-    console.log("hello");
+    // console.log("hello");
     setEdit(true);
   }
 
@@ -48,13 +56,13 @@ function Viewquestion() {
         headers: { token: cookie.get("AdminToken") },
       })
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setQuestions(res.data.data);
       });
   };
 
   const deleteQuestion = (index, category) => {
-    console.log(index, category);
+    // console.log(index, category);
     const data = {
       id: index,
       category: category,
@@ -69,7 +77,7 @@ function Viewquestion() {
         getAllQuestions();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -80,7 +88,7 @@ function Viewquestion() {
     // navigate("/landing")
   }
   useEffect(() => {
-    console.log(showEdit);
+    // console.log(showEdit);
   }, [showEdit]);
 
   useEffect(() => {
@@ -104,55 +112,129 @@ function Viewquestion() {
     });
   }, [questions]);
 
-  return (
-    <div className="parent-content">
-      <div className="C_Content ">
-        <div className="title text-center font-primary font-bold py-8">
-          View Question
-        </div>
-        <div className="Questions">
-          <div className="card-background uplift h-54 p-2 px-8 rounded-md">
-            <div className="flex my-4">
-            <div className="Tittle font-primary">Question 1</div>
-            <div className="flex-grow"></div>
-            <button
-                  className="Edit-Question px-3 py-1 rounded-md "
-                  onClick={() => {
-                    Editquestion();
-                  }}
-                >
-                  Edit Question
-                </button>
-                </div>
-            <div className="font-secondary description">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Veritatis, ducimus. Nesciunt ullam laudantium odio neque, maxime
-              quaerat vero a voluptatibus ratione quidem quo dignissimos dolor
-              libero vitae iusto odit facilis.
-            </div>
-            <div className="flex my-2">
-              <div className="mx-2 p-1 px-3 C_tag rounded-md">
-                Tag
-              </div>
-              <div className="mx-2 p-1  px-3 C_tag rounded-md">
-                Tag
-              </div>
-              <div className="mx-2 p-1 px-3 C_tag rounded-md">
-                Tag
-              </div>
-            </div>
+  const getCreatorTable = async () => {
+    var data = JSON.stringify({
+      walletAddress: address,
+    });
+    var config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/creator/getTables`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+    axios(config)
+      .then(function (response) {
+        const res = response.data;
+        let table = res.question_table;
+        setTable(table);
+        show_questions();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const show_questions = async () => {
+    const tableland = await connect({
+      network: "testnet",
+      chain: "polygon-mumbai",
+    });
+    const readRes = await tableland.read(`SELECT * FROM ${table}`);
+    for (let i = 0; i < readRes["rows"].length; i++) {
+      let splittedString = readRes["rows"][i][11].slice(1, -1);
+      let tag_array = splittedString.split(",");
+      data.push([
+        readRes["rows"][i][0],
+        readRes["rows"][i][2],
+        readRes["rows"][i][10],
+        tag_array,
+      ]);
+      // for (let j = 0; j < tag_array.length; j++) {
+      //   if (tag_array[j] !== "") {
+      //     tag.push([tag_array[j]]);
+      //   }
+      // }
+    }
+    setData(data);
+    console.log(data);
+    setLoading(true);
+    console.log(readRes);
+  };
+
+  useEffect(() => {
+    getCreatorTable();
+  });
+  if (loading) {
+    return (
+      <div className="parent-content">
+        <div className="C_Content ">
+          <div className="title text-center font-primary font-bold py-8">
+            View Question
           </div>
+          {data.map((inde) => {
+            return (
+              <div className="Questions">
+                <div className="card-background uplift h-54 p-2 px-8 rounded-md">
+                  <div className="flex my-4">
+                    <div className="Tittle font-primary">
+                      Question {inde[0]}
+                    </div>
+                    <div className="flex-grow"></div>
+                    <button
+                      className="Edit-Question px-3 py-1 rounded-md "
+                      onClick={() => {
+                        Editquestion();
+                      }}
+                    >
+                      Edit Question
+                    </button>
+                  </div>
+                  <div className="font-secondary description">{inde[1]}</div>
+                  <div className="flex my-2">
+                    <div className="mx-2 p-1 px-3 C_tag rounded-md">
+                      {inde[2]}
+                    </div>
+
+                    {(() => {
+                      if (inde[3][0]) {
+                        return (
+                          <div>
+                            <div className="mx-2 p-1  px-3 C_tag rounded-md">
+                              {inde[3][0]}
+                            </div>
+                          </div>
+                        );
+                      }
+                    })()}
+                    {(() => {
+                      if (inde[3][1]) {
+                        return (
+                          <div>
+                            <div className="mx-2 p-1  px-3 C_tag rounded-md">
+                              {inde[3][1]}
+                            </div>
+                          </div>
+                        );
+                      }
+                    })()}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
+        {showEdit ? (
+          <div className="editquestion">
+            <EditQuestion />
+          </div>
+        ) : null}
       </div>
-
-      {showEdit ? (
-        <div className="editquestion">
-          <EditQuestion />
-        </div>
-      ) : null}
-    </div>
-  );
+    );
+  } else {
+    return "loading";
+  }
 }
-
 export default Viewquestion;
