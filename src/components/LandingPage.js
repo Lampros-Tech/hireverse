@@ -121,7 +121,7 @@ function LandingPage() {
             </p>
             <div className="d-third-flex">
               <div className="d-third-flex-item">
-                <div className="d-third-flex-item-left">
+                <div className="d-second-flex-item-left">
                   <video autoPlay loop muted>
                     <source src={scenario1} type="video/mp4" />
                     <source src={scenario1} type="video/ogg" />
@@ -134,6 +134,8 @@ function LandingPage() {
                   <p className="d-third-flex-right-p">
                     Recruiter can walk around & find candidates who has already
                     cleared a specific assessment. Talk with them spontaneously.
+                  </p>
+                  <p className="d-third-flex-right-p">
                     Stop relying on calender schedules to increase speed of
                     communication.
                   </p>
@@ -156,12 +158,12 @@ function LandingPage() {
                   </p>
                   <button className="d-third-flex-btn">Get Started</button>
                 </div>
-                <div className="d-third-flex-item-left">
+                <div className="d-second-flex-item-left">
                   <img src={illu2} alt="" className="d-third-flex-item-img" />
                 </div>
               </div>
               <div className="d-third-flex-item">
-                <div className="d-third-flex-item-left">
+                <div className="d-second-flex-item-left">
                   <img src={illu3} alt="" className="d-third-flex-item-img" />
                 </div>
                 <div className="d-third-flex-item-right">

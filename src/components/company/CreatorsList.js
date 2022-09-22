@@ -39,6 +39,7 @@ function CreatorsList() {
         {data.map((inde) => {
           return (
             <div className="cr-container">
+              
               <div className="cr-main">
                 <div className="cr-main-content">
                   <img
@@ -86,7 +87,7 @@ function CreatorsList() {
                 </div>
                 <div className="cr-btn-main">
                   <div>
-                    <h1 className="cr-name-tag"> Expertise :</h1>
+                    <h1 className="cr-name-tag"> Expertise:</h1>
                   </div>
                   <div className="tag-and-btn">
                     <button
@@ -111,20 +112,12 @@ function CreatorsList() {
 
                   <button
                     type="button"
-                    class=" arreow-buttton text-white bg-blue-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center "
+                    class=" arreow-buttton  arreow-buttton   focus:outline-none  font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center "
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z" clipRule="evenodd" />
+</svg>
+
 
                     <span class="sr-only">Icon description</span>
                   </button>
