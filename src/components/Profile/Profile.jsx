@@ -3,8 +3,22 @@ import Feed from "./Feed";
 import Rightbar from "./Rightbar";
 import profileimg from "./images/person/1.jpeg";
 import coverimg from "./images/post/1.jpeg";
-
+import axios from "axios"
+import { useEffect } from "react";
+import { useAccount } from "wagmi";
 export default function Profile() {
+  const {address } = useAccount();
+  useEffect(()=>{
+    console.log(address)
+    const data = {
+      wallet_address:address
+    }
+    axios.post(`${process.env.REACT_APP_API_URL}/getProfile`, data)
+    .then((res)=>{
+      console.log(res)
+    })
+  },[])
+
   return (
     <>
       <div className="profile-profile">
@@ -29,7 +43,7 @@ export default function Profile() {
           </div>
           <div className="profile-profileRightBottom">
             <Feed />
-            <Rightbar profile />
+            <Rightbar profile/>
           </div>
         </div>
       </div>

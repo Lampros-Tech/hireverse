@@ -26,22 +26,25 @@ function CreateAssesment() {
   const [negativemarks, setNegativemarks] = useState(0)
 
   const [maxScore, setMaxScore] = useState(0);
-  const [minScore, setMinScore] = useState(0);
+  const [minScore, setMinScore] = useState();
 
   const [negScore,setNegScore] = useState();
 
   const [wrongrange, setWrongrange] = useState(false)
-
+  var negscore
   useEffect(() => {
     var calc = (to - from) + 1;
-    var macscr = (calc * mark);
-    var negscore = (calc * negativemarks)
+    var maxscr = (calc * mark);
+    negscore = (calc * negativemarks)
     console.log(negscore);
-    setMinScore(negScore);
-    console.log(macscr);
-    setMaxScore(macscr);
+    var negativestring = negscore.toString();
+    console.log(negativestring);
+    setMinScore(negativestring);
+    console.log(minScore);
+    console.log(maxscr);
+    setMaxScore(maxscr);
     console.log(maxScore);
-  }, [from, to, mark,maxScore, negativemarks])
+  }, [from, to, mark,maxScore, negativemarks,minScore])
 
   const addGenre = () => {
     console.log('Inside')

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { connect } from "@tableland/sdk";
-
 // const connect_ = async () => {
 //   const tableland = await connect({
 //     network: "testnet",
@@ -8,7 +7,6 @@ import { connect } from "@tableland/sdk";
 //   });
 //   console.log(tableland);
 // };
-
 export const create_creators_question_table = async () => {
   const tableland = await connect({
     network: "testnet",

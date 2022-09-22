@@ -87,10 +87,10 @@ function CreateRepo() {
               </div>
             </div>
             <div className="repo-name flex">
-              <div className="owner ">
-                <DD_repo className="uplift" />
+            <div className="font-primary-sm items-center">
+                Owner name
               </div>
-              <h1 className="mx-4  text-3xl">/</h1>
+              <h1 className="mx-8  text-3xl">/</h1>
               <div className="Repo-name">
                 <input
                   type="text"
