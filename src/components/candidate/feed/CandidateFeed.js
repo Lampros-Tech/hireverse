@@ -8,18 +8,53 @@ import TwitterLogo from "../../assets/images/twitter.png";
 import LinkedlnLogo from "../../assets/images/linkedin.png";
 import FacebookLogo from "../../assets/images/facebook.png";
 import Upload from "../../assets/images/uploadimg.svg";
+import { connect } from "@tableland/sdk";
 import "./feed.css";
 
 const CandidateFeed = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [newData, setNewData] = useState();
-
+  const [data2, setData2] = useState([]);
+  const [data3, setData3] = useState([]);
   const boxRef = useRef(null);
 
-  const togglePopup = (newId) => {
-    setNewData(data[newId]);
-    console.log(data[newId]);
+  const togglePopup = async (newId) => {
+    const name = "job_table_80001_2018";
+    const tableland = await connect({
+      network: "testnet",
+      chain: "polygon-mumbai",
+    });
+    const table = "company_table_80001_1730";
+    const readRes = await tableland.read(
+      `SELECT * FROM ${name} where job_id=${newId}`
+    );
+    console.log(readRes);
+
+    let companyId = readRes["rows"][0][1];
+    const response = await tableland.read(
+      `SELECT name,logo FROM ${table} where company_id=${companyId}`
+    );
+    let company_logo = "https://ipfs.io/ipfs/" + response["rows"][0][1];
+    data2.push([
+      company_logo,
+      readRes["rows"][0][3],
+      response["rows"][0][0],
+      readRes["rows"][0][4],
+      readRes["rows"][0][11],
+      readRes["rows"][0][12],
+      readRes["rows"][0][13],
+      readRes["rows"][0][14],
+      readRes["rows"][0][15],
+      readRes["rows"][0][16],
+      readRes["rows"][0][5],
+      readRes["rows"][0][9],
+      readRes["rows"][0][10],
+    ]);
+    setData2(data2);
+    // setNewData(data[newId]);
+    console.log(data2[0][4]);
+    // console.log(data[newId]);
     setIsOpen(!isOpen);
   };
 
@@ -29,9 +64,28 @@ const CandidateFeed = () => {
 
   const [formData, setFormData] = useState();
 
-  const formPopup = (formId) => {
+  const formPopup = async (formId) => {
+    const name = "job_table_80001_2018";
+    const tableland = await connect({
+      network: "testnet",
+      chain: "polygon-mumbai",
+    });
+    const readRes = await tableland.read(
+      `SELECT * FROM ${name} where job_id=${formId}`
+    );
+    console.log(readRes);
+    data3.push([
+      readRes["rows"][0][3],
+      readRes["rows"][0][4],
+      readRes["rows"][0][11],
+      readRes["rows"][0][12],
+      readRes["rows"][0][13],
+      readRes["rows"][0][14],
+      readRes["rows"][0][15],
+    ]);
+    setData3(data3);
     setFormData(data[formId]);
-    console.log(data[formId]);
+    // console.log(data[formId]);
     setIsForm(!isForm);
   };
 
@@ -69,6 +123,43 @@ const CandidateFeed = () => {
 
   useOutsideAlerter(boxRef, setIsForm, isForm, setIsOpen, isOpen);
 
+  const [data1, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const showJobPosts = async () => {
+    const name = "job_table_80001_2018";
+    const tableland = await connect({
+      network: "testnet",
+      chain: "polygon-mumbai",
+    });
+    const table = "company_table_80001_1730";
+    const readRes = await tableland.read(`SELECT * FROM ${name}`);
+    // console.log(readRes);
+    for (let i = 0; i < readRes["rows"].length; i++) {
+      let jobId = readRes["rows"][i][0];
+      let companyId = readRes["rows"][i][1];
+      const response = await tableland.read(
+        `SELECT name,logo FROM ${table} where company_id=${companyId}`
+      );
+      let company_logo = "https://ipfs.io/ipfs/" + response["rows"][0][1];
+      data1.push([
+        company_logo,
+        readRes["rows"][i][3],
+        response["rows"][0][0],
+        readRes["rows"][i][5],
+        readRes["rows"][i][9],
+        readRes["rows"][i][4],
+        jobId,
+      ]);
+    }
+    setData(data1);
+    setLoading(true);
+  };
+
+  useEffect(() => {
+    showJobPosts();
+  });
+
   return (
     <>
       <div className="candidate-jobfeed-main-content">
@@ -77,35 +168,31 @@ const CandidateFeed = () => {
             Job Feed
             <div className="candidate-jobfeed-header2">Saved Job (80)</div>
           </div>
-          {data.map((jobs) => {
+          {data1.map((inde) => {
             return (
               <div className="candidate-right-side">
                 <div className="candidate-jobfeed-outer">
                   <div className="candidate-jobfeed-top">
                     <img
                       className="candidate-jobfeed-logo"
-                      src={CompanyLogo}
+                      src={inde[0]}
                       alt="company-logo"
                     />
-                    <div className="candidate-jobfeed-title">{jobs.title}</div>
+                    <div className="candidate-jobfeed-title">{inde[1]}</div>
                   </div>
                   <div className="candidate-jobfeed-middle">
                     <div className="candidate-jobfeed-companyname">
-                      {jobs.companyName}
+                      {inde[2]}
                     </div>
-                    <div className="candidate-jobfeed-location">
-                      {jobs.location}
-                    </div>
+                    <div className="candidate-jobfeed-location">{inde[3]}</div>
                     <div className="candidate-jobfeed-experience">
-                      {jobs.experience}
+                      {inde[4]} year experience
                     </div>
                   </div>
-                  <div className="candidate-jobfeed-basic-des">
-                    {jobs.description}
-                  </div>
+                  <div className="candidate-jobfeed-basic-des">{inde[5]}</div>
 
                   <button
-                    onClick={() => togglePopup(jobs.id)}
+                    onClick={() => togglePopup(inde[6])}
                     className="candidate-jobfeed-button-more"
                   >
                     More
@@ -121,55 +208,55 @@ const CandidateFeed = () => {
                                   <div className="candidate-more-top">
                                     <img
                                       className="candidate-more-logo"
-                                      src={CompanyLogo}
+                                      src={data2[0][0]}
                                       alt="company-logo"
                                     />
                                     <div className="candidate-more-title">
-                                      {newData.title}
+                                      {data2[0][1]}
                                     </div>
                                   </div>
                                   <div className="candidate-more-middle">
                                     <div className="candidate-more-companyname">
-                                      {newData.companyName}
+                                      {data2[0][2]}
                                     </div>
                                     {/* <div className="candidate-more-location">
                                       {newData.location}
                                     </div> */}
                                   </div>
                                   <div className="candidate-more-desc">
-                                    {newData.moredescription}
+                                    {data2[0][3]}
                                   </div>
                                 </div>
                                 <div className="popup-sidebar">
                                   <div className="candidate-more-top-sidebar">
                                     <img
                                       className="candidate-more-logo-sidebar"
-                                      src={CompanyLogo}
+                                      src={data2[0][0]}
                                       alt="company-logo"
                                     />
                                   </div>
                                   <div className="candidate-more-location-sidebar">
                                     <div className="candidate-more-companyname">
-                                      {newData.companyName}
+                                      {data2[0][2]}
                                     </div>
                                   </div>
                                   <div className="candidate-more-location-sidebar">
                                     <span className="sidebar2-span">
                                       Location
                                     </span>
-                                    {newData.location}
+                                    {data2[0][10]}
                                   </div>
                                   <div className="candidate-more-location-sidebar">
                                     <span className="sidebar2-span">
                                       Experience
                                     </span>
-                                    {newData.experience}
+                                    {data2[0][11]} Years
                                   </div>
                                   <div className="candidate-more-location-sidebar">
                                     <span className="sidebar2-span">
                                       Posted a job
                                     </span>
-                                    {newData.time}
+                                    {data2[0][12]}
                                   </div>
                                   <div className="candidate-more-location-sidebar">
                                     <span className="sidebar2-span">
@@ -212,27 +299,79 @@ const CandidateFeed = () => {
                                 Primary Skills:
                               </span>
                               <div className="candidate-more-skills-tag">
-                                <div className="candidate-more-skills">
-                                  {newData.Skills1}
-                                </div>
-                                <div className="candidate-more-skills">
-                                  {newData.Skills2}
-                                </div>
-                                <div className="candidate-more-skills">
-                                  {newData.Skills3}
-                                </div>
-                                <div className="candidate-more-skills">
-                                  {newData.Skills4}
-                                </div>
+                                {(() => {
+                                  if (data2[0][4]) {
+                                    return (
+                                      <div>
+                                        <div className="candidate-more-skills">
+                                          {data2[0][4]}
+                                        </div>
+                                      </div>
+                                    );
+                                  }
+                                })()}
+
+                                {(() => {
+                                  if (data2[0][5]) {
+                                    return (
+                                      <div>
+                                        <div className="candidate-more-skills">
+                                          {data2[0][5]}
+                                        </div>
+                                      </div>
+                                    );
+                                  }
+                                })()}
+                                {(() => {
+                                  if (data2[0][6]) {
+                                    return (
+                                      <div>
+                                        <div className="candidate-more-skills">
+                                          {data2[0][6]}
+                                        </div>
+                                      </div>
+                                    );
+                                  }
+                                })()}
+                                {(() => {
+                                  if (data2[0][7]) {
+                                    return (
+                                      <div>
+                                        <div className="candidate-more-skills">
+                                          {data2[0][7]}
+                                        </div>
+                                      </div>
+                                    );
+                                  }
+                                })()}
+                                {(() => {
+                                  if (data2[0][8]) {
+                                    return (
+                                      <div>
+                                        <div className="candidate-more-skills">
+                                          {data2[0][8]}
+                                        </div>
+                                      </div>
+                                    );
+                                  }
+                                })()}
                               </div>
                               <span className="primaryskill-span ">
                                 Secondary Skills:
                               </span>
                               <div className="candidate-more-skills-tag">
-                                <div className="candidate-more-skills">
-                                  {newData.Skills5}
-                                </div>
-                                <div className="candidate-more-skills">
+                                {(() => {
+                                  if (data2[0][9]) {
+                                    return (
+                                      <div>
+                                        <div className="candidate-more-skills">
+                                          {data2[0][9]}
+                                        </div>
+                                      </div>
+                                    );
+                                  }
+                                })()}
+                                {/* <div className="candidate-more-skills">
                                   {newData.Skills6}
                                 </div>
                                 <div className="candidate-more-skills">
@@ -240,7 +379,7 @@ const CandidateFeed = () => {
                                 </div>
                                 <div className="candidate-more-skills">
                                   {newData.Skills8}
-                                </div>
+                                </div> */}
                               </div>
 
                               <div className="popup2">
@@ -266,7 +405,7 @@ const CandidateFeed = () => {
                   <button
                     className="candidate-jobfeed-button"
                     onClick={() => {
-                      formPopup(jobs.id);
+                      formPopup(inde[6]);
                     }}
                   >
                     Apply
@@ -306,27 +445,70 @@ const CandidateFeed = () => {
                               />
                               <div className="applicationform-block">
                                 <div className="candidate-form-title">
-                                  {formData.title}
+                                  {data3[0][0]}
                                 </div>
                                 <div className="candidate-form-desc">
-                                  {formData.description}
+                                  {data3[0][1]}
                                 </div>
                                 <div className="candidate-skills-header">
                                   Skills and Expertise
                                 </div>
                                 <div className="candidate-more-skills-tag">
-                                  <div className="candidate-form-skills">
-                                    {formData.Skills1}
-                                  </div>
-                                  <div className="candidate-form-skills">
-                                    {formData.Skills2}
-                                  </div>
-                                  <div className="candidate-form-skills">
-                                    {formData.Skills3}
-                                  </div>
-                                  <div className="candidate-form-skills">
-                                    {formData.Skills4}
-                                  </div>
+                                  {(() => {
+                                    if (data3[0][2]) {
+                                      return (
+                                        <div>
+                                          <div className="candidate-form-skills">
+                                            {data3[0][2]}
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+                                  })()}
+                                  {(() => {
+                                    if (data3[0][3]) {
+                                      return (
+                                        <div>
+                                          <div className="candidate-form-skills">
+                                            {data3[0][3]}
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+                                  })()}
+                                  {(() => {
+                                    if (data3[0][4]) {
+                                      return (
+                                        <div>
+                                          <div className="candidate-form-skills">
+                                            {data3[0][4]}
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+                                  })()}
+                                  {(() => {
+                                    if (data3[0][5]) {
+                                      return (
+                                        <div>
+                                          <div className="candidate-form-skills">
+                                            {data3[0][5]}
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+                                  })()}
+                                  {(() => {
+                                    if (data3[0][6]) {
+                                      return (
+                                        <div>
+                                          <div className="candidate-form-skills">
+                                            {data3[0][6]}
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+                                  })()}
                                 </div>
                                 <div className="candidate-cover-header">
                                   Cover Letter
