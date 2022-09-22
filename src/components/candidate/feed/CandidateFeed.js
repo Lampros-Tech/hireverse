@@ -132,9 +132,9 @@ const CandidateFeed = () => {
                                     <div className="candidate-more-companyname">
                                       {newData.companyName}
                                     </div>
-                                    <div className="candidate-more-location">
+                                    {/* <div className="candidate-more-location">
                                       {newData.location}
-                                    </div>
+                                    </div> */}
                                   </div>
                                   <div className="candidate-more-desc">
                                     {newData.moredescription}

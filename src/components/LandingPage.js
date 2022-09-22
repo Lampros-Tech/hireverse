@@ -28,6 +28,7 @@ import item1 from "./assets/images/item7.svg";
 import item4 from "./assets/images/Proctoring.svg";
 import lastimg from "./assets/images/3.png";
 import line2 from "./assets/images/bline.svg";
+import scenario1 from "./assets/videos/scenario1.mp4";
 
 import "./styles/landingpage.css";
 
@@ -67,6 +68,7 @@ function LandingPage() {
             </button>
           </div>
         </section>
+
         <section className="d-hero">
           <img className="d-hero-bg-1" src={bigbg} alt="background" />
           <img className="d-graphics-item-3" src={line1} alt="line" />
@@ -108,6 +110,84 @@ function LandingPage() {
         <img className="d-graphics-item-2" src={gd2} alt="gd" />
 
         <section className="d-video-container">
+          <div className="d-inside-third">
+            <h1 className="d-third-title">A Decentralised</h1>
+            <h1 className="d-third-title">
+              Hiring & Talent Assessment Platform
+            </h1>
+            <p className="d-third-p">
+              We have decentralised the hiring process to help you recruit the
+              perfect candidate for your team
+            </p>
+            <div className="d-third-flex">
+              <div className="d-third-flex-item">
+                <div className="d-third-flex-item-left">
+                  <video autoPlay loop muted>
+                    <source src={scenario1} type="video/mp4" />
+                    <source src={scenario1} type="video/ogg" />
+                    Your browser does not support the video tag.
+                  </video>
+                  {/* <img src={illu1} alt="" className="d-third-flex-item-img" /> */}
+                </div>
+                <div className="d-third-flex-item-right">
+                  {/* <h1 className="d-third-flex-right-h1">
+                    Hire the right candidate
+                  </h1> */}
+                  <p className="d-third-flex-right-p">
+                    Recruiter can walk around & find candidates who has already
+                    cleared a specific assessment. Talk with them spontaneously.
+                    Stop relying on calender schedules to increase speed of
+                    communication. Hire with ease!.
+                  </p>
+
+                  {/* <button className="d-third-flex-btn">Connect Wallet</button> */}
+                </div>
+              </div>
+              <div className="d-third-flex-item">
+                <div className="d-third-flex-item-right">
+                  <h1 className="d-third-flex-right-h1">
+                    Get paid to create tests
+                  </h1>
+                  <p className="d-third-flex-right-p">
+                    Create customised tests for your niche and get paid every
+                    time that test is used for assessment
+                  </p>
+                  <p className="d-third-flex-right-p">
+                    Establish yourself as an industry leader by creating
+                    best-in-class pre-employment tests
+                  </p>
+                  <button className="d-third-flex-btn">Get Started</button>
+                </div>
+                <div className="d-third-flex-item-left">
+                  <img src={illu2} alt="" className="d-third-flex-item-img" />
+                </div>
+              </div>
+              <div className="d-third-flex-item">
+                <div className="d-third-flex-item-left">
+                  <img src={illu3} alt="" className="d-third-flex-item-img" />
+                </div>
+                <div className="d-third-flex-item-right">
+                  <h1 className="d-third-flex-right-h1">
+                    Impress the recruiters in Hireverse
+                  </h1>
+                  <p className="d-third-flex-right-p">
+                    Put your best foot forward by acing Pre-emploment Assessment
+                    tests, sending customised cover letters and creating a
+                    well-round profile{" "}
+                  </p>
+                  <p className="d-third-flex-right-p">
+                    Impress the recruiters in Hireverse from the comfort of your
+                    home
+                  </p>
+                  <button className="d-third-flex-btn">Connect Wallet</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <img className="d-video-graphics-1" src={smallbg} alt="line" />
+          <img className="d-graphics-item-4" src={line2} alt="line" />
+        </section>
+        {/* <section className="d-video-container">
           <div className="d-inside-video-container">
             <h1 className="d-video-title">Enter the HireVerse!</h1>
             <p className="d-video-p">
@@ -124,17 +204,10 @@ function LandingPage() {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
-            {/* <video
-              className="d-video"
-              src="https://youtu.be/znbzGfGLw_4"
-              controls
-            >
-              {" "}
-            </video> */}
           </div>
           <img className="d-video-graphics-1" src={smallbg} alt="line" />
           <img className="d-graphics-item-4" src={line2} alt="line" />
-        </section>
+        </section> */}
         <section className="d-third-section">
           <div className="d-inside-third">
             <h1 className="d-third-title">A Decentralised</h1>

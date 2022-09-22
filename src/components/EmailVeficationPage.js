@@ -25,6 +25,10 @@ function EmailVeficationPage() {
   const [checker_uname, setChecker_uname] = useState(false);
   const [checker_email, setChecker_email] = useState(false);
   const [checker_role, setChecker_role] = useState(false);
+  const [usernameWarn, setUsernameWarn] = useState(false);
+  const [emailWarn, setEmailWarn] = useState(false);
+  const [emailFormatWarn, setEmailFormatWarn] = useState(false);
+  const [usernameFormatWarn, setUsernameFormatWarn] = useState(false);
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -94,10 +98,12 @@ function EmailVeficationPage() {
   };
 
   const checkEmail = (email) => {
+    setChecker_email(false);
     const emailFormat =
       /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/.test(email);
 
     if (emailFormat) {
+      setEmailFormatWarn(false);
       var data = JSON.stringify({
         email: email,
       });
@@ -114,59 +120,74 @@ function EmailVeficationPage() {
       axios(config)
         .then(function (response) {
           setChecker_email(true);
+          setEmailWarn(false);
+
           // checkUsername(credentials.username);
           console.log("Email doesn't exist. GO ON");
           console.log(JSON.stringify(response.data));
         })
         .catch(function (error) {
+          setEmailWarn(true);
           setChecker_email(false);
           console.log("Email exist. Enter new one");
           console.log(error);
         });
     } else {
+      setEmailFormatWarn(true);
       console.log("Please enter email in proper format");
     }
   };
 
   const checkUsername = (username) => {
-    var data = JSON.stringify({
-      username: username,
-    });
+    if (username.length === 0) {
+      setUsernameFormatWarn(true);
+    } else {
+      setUsernameFormatWarn(false);
 
-    var config = {
-      method: "post",
-      url: `${process.env.REACT_APP_API_URL}/check_username`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response) {
-        setChecker_uname(true);
-        // sendEU(
-        //   credentials.username,
-        //   credentials.email,
-        //   credentials.walletAddress
-        // );
-
-        console.log("username doesnot exist");
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        setChecker_uname(false);
-
-        console.log("username exist");
-        console.log(error);
+      setUsernameWarn(false);
+      setChecker_uname(false);
+      var data = JSON.stringify({
+        username: username,
       });
+
+      var config = {
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}/check_username`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      axios(config)
+        .then(function (response) {
+          setChecker_uname(true);
+          setUsernameWarn(false);
+
+          // sendEU(
+          //   credentials.username,
+          //   credentials.email,
+          //   credentials.walletAddress
+          // );
+
+          console.log("username doesnot exist");
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          setUsernameWarn(true);
+          setChecker_uname(false);
+
+          console.log("username exist");
+          console.log(error);
+        });
+    }
   };
   // useEffect(() => {
   //   console.log(credentials);
   // }, [credentials]);
   useEffect(() => {
     checkRole(address);
-  }, [address]);
+  }, []);
 
   if (isConnected) {
     return (
@@ -205,8 +226,19 @@ function EmailVeficationPage() {
                     }
                     onBlur={() => checkEmail(credentials.email)}
                   />
+
                   <div className="f-after-input-div">
-                    <span className="f-after-input">something</span>
+                    {emailFormatWarn ? (
+                      <span className="f-after-input warn-red">
+                        * Please enter email in proper format.
+                      </span>
+                    ) : emailWarn ? (
+                      <span className="f-after-input warn-red">
+                        * email is already exist.
+                      </span>
+                    ) : (
+                      <span className="f-after-input warn-red"></span>
+                    )}
                   </div>
                   <input
                     className="input"
@@ -219,12 +251,22 @@ function EmailVeficationPage() {
                         username: event.target.value,
                         walletAddress: credentials.walletAddress,
                       });
-                      checkUsername(credentials.username);
+                      // checkUsername(credentials.username);
                     }}
-                    // onBlur={() => checkUsername(credentials.username)}
+                    onBlur={() => checkUsername(credentials.username)}
                   />
                   <div className="f-after-input-div">
-                    <span className="f-after-input">something</span>
+                    {usernameWarn ? (
+                      <span className="f-after-input warn-red">
+                        * username is already exist.
+                      </span>
+                    ) : usernameFormatWarn ? (
+                      <span className="f-after-input warn-red">
+                        * please enter atleast one character.
+                      </span>
+                    ) : (
+                      <span className="f-after-input"></span>
+                    )}
                   </div>
                   <div className="f-after-username"></div>
                 </div>

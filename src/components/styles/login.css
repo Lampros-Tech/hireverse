@@ -77,7 +77,9 @@ h2.email-wallet-name {
 .validate-input {
   position: relative;
 }
-
+.warn-red {
+  color: red;
+}
 .wrap-input {
   position: relative;
   width: 100%;
@@ -293,9 +295,11 @@ button.email-verify-button:hover svg.button-spin-svg {
 }
 .f-after-input-div {
   width: 100%;
+  min-height: 1rem;
+  padding-left: 2%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
 }
 span.f-after-input {
   font-size: 12px;
