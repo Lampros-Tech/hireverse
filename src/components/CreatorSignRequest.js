@@ -14,8 +14,8 @@ function CreatorSignRequest() {
   let navigate = useNavigate();
 
   const [value, setValue] = useState("");
-  const [questionTable, setQuestionTable] = useState("");
-  const [repoTable, setRepoTable] = useState("");
+  const [questionTableMessage, setQuestionTableMessage] = useState("");
+  const [repoTableMessage, setRepoTableMessage] = useState("");
   const [questionTableCheck, setQuestionTableCheck] = useState(false);
   const address = useAccount();
 
@@ -25,19 +25,21 @@ function CreatorSignRequest() {
 
   const getQuestionTable = async () => {
     const data = await create_creators_question_table()
-    setQuestionTable(data.name);
+    // setQuestionTable(data.name);
     console.log(data.name);
     console.log(address.address);
     const body = {
       walletAddress: address.address,
       data: {
-        question_table: questionTable,
+        "question_table": data.name,
       }
 
     }
     axios.post(`${process.env.REACT_APP_API_URL}/creator/addTableNames`, body)
       .then((res) => {
         console.log(res);
+        console.log(res.data[0]);
+        setQuestionTableMessage(res.data[0])
       })
       .catch((err) => {
         console.log(err)
@@ -46,49 +48,24 @@ function CreatorSignRequest() {
   const getRepoTable = async () => {
     const data = await create_creators_repo_table()
     console.log(data);
-    setRepoTable(data);
-    console.log(repoTable);
     const body = {
       walletAddress: address.address,
       data: {
-        repo_table: repoTable
+        repo_table: data
       }
 
     }
     axios.post(`${process.env.REACT_APP_API_URL}/creator/addTableNames`, body)
       .then((res) => {
-        console.log(res);
+        console.log(res.data[0]);
+        setRepoTableMessage(res.data[0]);
       })
       .catch((err) => {
         console.log(err)
       })
 
   }
-  const sendTableName = () => {
-    const data = {
-      walletAddress: address.address,
-      data: {
-        question_table: questionTable,
-        repo_table: repoTable
-      }
 
-    }
-    axios.post(`${process.env.REACT_APP_API_URL}/creator/addTableNames`, data)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  useEffect(() => {
-    console.log(address.address);
-    if (questionTable) {
-      console.log(questionTable);
-      setQuestionTableCheck(true);
-    }
-  }, [questionTable])
   return (
     <>
       <section className="login-main">
@@ -104,19 +81,37 @@ function CreatorSignRequest() {
             {/* <h1 className="email-form-title">Request</h1> */}
             <div className="email-form">
               <div className="wrap-input validate-input">
-                <button
-                  className={questionTableCheck ? "table-button cursor-not-allowed" : "table-button"}
-                  onClick={() => { getQuestionTable() }}
-                  disabled={questionTableCheck}
-                >
-                  Add Question Table
-                </button>
-                <button
-                  className="table-button"
-                  onClick={() => getRepoTable()}
-                >
-                  Add Repo Table
-                </button>
+                <div className="h-20 flex-col items-center content-center">
+                  <button
+                    className="table-button w-60"
+                    onClick={() => { getQuestionTable() }}
+                    disabled={questionTableCheck}
+                  >
+                    Add Question Table
+                  </button>
+                  {
+                    questionTableMessage
+                      ?
+                      <span className="absolute text-xs text-[#ff6150] pl-20">{questionTableMessage}</span>
+                      :
+                      null
+                  }
+                </div>
+                <div className="h-20">
+                  <button
+                    className="table-button w-60"
+                    onClick={() => getRepoTable()}
+                  >
+                    Add Repo Table
+                  </button>
+                  {
+                    repoTableMessage
+                      ?
+                      <span className="absolute text-xs text-[#ff6150] pl-20">{repoTableMessage}</span>
+                      :
+                      null
+                  }
+                </div>
               </div>
               <div className="btn-container">
                 <button

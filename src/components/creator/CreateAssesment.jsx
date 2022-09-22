@@ -19,18 +19,33 @@ function CreateAssesment() {
   const [from, setFrom] = useState(1)
   const [to, setTo] = useState(0)
 
-
+  
   const [section, setSection] = useState([])
   
   const [mark, setMark] = useState(0)
   const [negativemarks, setNegativemarks] = useState(0)
 
-  const [wrongrange, setWrongrange] = useState(false)
+  const [maxScore, setMaxScore] = useState(0);
+  const [minScore, setMinScore] = useState();
 
+  const [negScore,setNegScore] = useState();
+
+  const [wrongrange, setWrongrange] = useState(false)
+  var negscore
   useEffect(() => {
-    console.log(genreList.name)
-  }, [genreList])
-  
+    var calc = (to - from) + 1;
+    var maxscr = (calc * mark);
+    negscore = (calc * negativemarks)
+    console.log(negscore);
+    var negativestring = negscore.toString();
+    console.log(negativestring);
+    setMinScore(negativestring);
+    console.log(minScore);
+    console.log(maxscr);
+    setMaxScore(maxscr);
+    console.log(maxScore);
+  }, [from, to, mark,maxScore, negativemarks,minScore])
+
   const addGenre = () => {
     console.log('Inside')
     // const genreArr = [];
@@ -353,6 +368,7 @@ function CreateAssesment() {
                     type="number"
                     name="experiance"
                     placeholder="-ve score"
+                    max="0"
                     className="border border-gray-300 uplift rounded-md w-24 pl-1"
                     onChange={(e) => {
                       setNegativemarks(e.target.value)
@@ -407,22 +423,12 @@ function CreateAssesment() {
               <div className="  ">
                 <div className="flex my-4 ">
                   <div className="font-secondary font-semibold">Max Score:</div>
-                  <div className="mr-5 ml-2">
-                    <input
-                      type="number"
-                      name="Max-score"
-                      placeholder="Enter Max-score"
-                      className="uplift rounded-md p-1"
-                    />
+                  <div className="mr-5 ml-2 font-secondary w-48">
+                    {maxScore}
                   </div>
-                  <div className="font-secondary font-semibold ml-9">Min Score:</div>
-                  <div className="mr-5 ml-2">
-                    <input
-                      type="number"
-                      name="Min-score"
-                      placeholder="Min-score"
-                      className="uplift rounded-md p-1"
-                    />
+                  <div className="font-secondary font-semibold ml-8">Min Score:</div>
+                  <div className="mr-5 ml-2 ">
+                    {minScore}
                   </div>
                 </div>
                 <div className="flex my-4">
