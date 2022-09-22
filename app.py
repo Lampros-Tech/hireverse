@@ -316,80 +316,90 @@ def getProfile():
                         "rows"
                     ][0][i]
 
-                # second query to get multiple skills
-                fields1 = "skill_id"
-                condition1 = f"""login_id='{login_id}'"""
-                id_data1 = select_query(fields1, user_skill_table, condition1)
-                final_id_data1 = json.loads(id_data1.decode("utf-8"))
-                skill_id = final_id_data1["rows"][0][0]
-                list_ = final_id_data1["rows"]
-                flatList = []
-                for element in list_:
-                    if type(element) is list:
-                        # Check if type is list than iterate through the sublist
-                        for item in element:
-                            flatList.append(item)
-                    else:
-                        flatList.append(element)
-                list_skill_id = list(set(flatList))
-                response_body["skills"] = []
-                for skill_id in list_skill_id:
-                    query1 = f"""
+                try:
+                    # second query to get multiple skills
+                    fields1 = "skill_id"
+                    condition1 = f"""login_id='{login_id}'"""
+                    id_data1 = select_query(fields1, user_skill_table, condition1)
+                    final_id_data1 = json.loads(id_data1.decode("utf-8"))
+                    skill_id = final_id_data1["rows"][0][0]
+                    list_ = final_id_data1["rows"]
+                    flatList = []
+                    for element in list_:
+                        if type(element) is list:
+                            # Check if type is list than iterate through the sublist
+                            for item in element:
+                                flatList.append(item)
+                        else:
+                            flatList.append(element)
+                    list_skill_id = list(set(flatList))
+                    response_body["skills"] = []
+                    for skill_id in list_skill_id:
+                        query1 = f"""
+                        tableland read "
+                        SELECT
+                            *
+                        FROM
+                            {skill_table}
+                        WHERE
+                            skill_id = '{skill_id}'"
+                        """
+                        data1 = subprocess.check_output([query1], shell=True)
+                        final_data1 = json.loads(data1.decode("utf-8"))
+                        response_body["skills"].append(final_data1["rows"][0][1])
+
+                except Exception as e:
+                    response_body["skills"] = []
+
+                try:
+                    # third query to get multiple experience
+                    query3 = f"""
                     tableland read "
                     SELECT
-                        *
+                        title as e_title,employement_type,company_name,location,start_date,end_date,status,description as e_description                  
                     FROM
-                        {skill_table}
+                        {experience_table}
                     WHERE
-                        skill_id = '{skill_id}'"
+                        login_id = '{login_id}'"
                     """
-                    data1 = subprocess.check_output([query1], shell=True)
-                    final_data1 = json.loads(data1.decode("utf-8"))
-                    response_body["skills"].append(final_data1["rows"][0][1])
-
-                # third query to get multiple experience
-                query3 = f"""
-                tableland read "
-                SELECT
-                    title as e_title,employement_type,company_name,location,start_date,end_date,status,description as e_description                  
-                FROM
-                    {experience_table}
-                WHERE
-                    login_id = '{login_id}'"
-                """
-                data3 = subprocess.check_output([query3], shell=True)
-                final_data3 = json.loads(data3.decode("utf-8"))
-                body = {}
-                final_list = []
-                for i in range(len(final_data3["rows"])):
-                    for j in range(len(final_data3["rows"][0])):
-                        body[final_data3["columns"][j]["name"]] = final_data3["rows"][
-                            0
-                        ][j]
-                    final_list.append(body)
-                response_body["experiences"] = final_list
+                    data3 = subprocess.check_output([query3], shell=True)
+                    final_data3 = json.loads(data3.decode("utf-8"))
+                    body = {}
+                    final_list = []
+                    for i in range(len(final_data3["rows"])):
+                        for j in range(len(final_data3["rows"][0])):
+                            body[final_data3["columns"][j]["name"]] = final_data3["rows"][
+                                0
+                            ][j]
+                        final_list.append(body)
+                    response_body["experiences"] = final_list
+                except Exception as e:
+                    response_body["experiences"] = []
 
                 # forth query to get multiple achievements
-                query4 = f"""
-                tableland read "
-                SELECT
-                    title as a_title,description as a_description,image,issueing_organization,score                 
-                FROM
-                    {achievement_table}
-                WHERE
-                    login_id = '{login_id}'"
-                """
-                data3 = subprocess.check_output([query4], shell=True)
-                final_data4 = json.loads(data3.decode("utf-8"))
-                body1 = {}
-                final_list1 = []
-                for i in range(len(final_data4["rows"])):
-                    for j in range(len(final_data4["rows"][0])):
-                        body1[final_data4["columns"][j]["name"]] = final_data4["rows"][
-                            0
-                        ][j]
-                    final_list1.append(body1)
-                response_body["achievements"] = final_list1
+                try:
+                    query4 = f"""
+                    tableland read "
+                    SELECT
+                        title as a_title,description as a_description,image,issueing_organization,score                 
+                    FROM
+                        {achievement_table}
+                    WHERE
+                        login_id = '{login_id}'"
+                    """
+                    data3 = subprocess.check_output([query4], shell=True)
+                    final_data4 = json.loads(data3.decode("utf-8"))
+                    body1 = {}
+                    final_list1 = []
+                    for i in range(len(final_data4["rows"])):
+                        for j in range(len(final_data4["rows"][0])):
+                            body1[final_data4["columns"][j]["name"]] = final_data4["rows"][
+                                0
+                            ][j]
+                        final_list1.append(body1)
+                    response_body["achievements"] = final_list1
+                except Exception as e:
+                    response_body["achievements"] = []
                 return response_body
 
             # for candidate
@@ -422,82 +432,90 @@ def getProfile():
                     ][0][i]
 
                 # second query to get multiple skills
-                fields1 = "skill_id"
-                condition1 = f"""login_id='{login_id}'"""
-                id_data1 = select_query(fields1, user_skill_table, condition1)
-                final_id_data1 = json.loads(id_data1.decode("utf-8"))
-                skill_id = final_id_data1["rows"][0][0]
-                list_ = final_id_data1["rows"]
-                flatList = []
-                for element in list_:
-                    if type(element) is list:
-                        # Check if type is list than iterate through the sublist
-                        for item in element:
-                            flatList.append(item)
-                    else:
-                        flatList.append(element)
-                list_skill_id = list(set(flatList))
-                response_body["skills"] = []
-                for skill_id in list_skill_id:
-                    query1 = f"""
+                try:
+                    fields1 = "skill_id"
+                    condition1 = f"""login_id='{login_id}'"""
+                    id_data1 = select_query(fields1, user_skill_table, condition1)
+                    final_id_data1 = json.loads(id_data1.decode("utf-8"))
+                    skill_id = final_id_data1["rows"][0][0]
+                    list_ = final_id_data1["rows"]
+                    flatList = []
+                    for element in list_:
+                        if type(element) is list:
+                            # Check if type is list than iterate through the sublist
+                            for item in element:
+                                flatList.append(item)
+                        else:
+                            flatList.append(element)
+                    list_skill_id = list(set(flatList))
+                    response_body["skills"] = []
+                    for skill_id in list_skill_id:
+                        query1 = f"""
+                        tableland read "
+                        SELECT
+                            *
+                        FROM
+                            {skill_table}
+                        WHERE
+                            skill_id = '{skill_id}'"
+                        """
+                        data1 = subprocess.check_output([query1], shell=True)
+                        final_data1 = json.loads(data1.decode("utf-8"))
+                        try:
+                            response_body["skills"].append(final_data1["rows"][0][1])
+                        except Exception as e:
+                            response_body["skills"] = []
+                except Exception as e:
+                    response_body["skills"] = []
+                # third query to get multiple experience
+                try:
+                    query3 = f"""
                     tableland read "
                     SELECT
-                        *
+                        title as e_title,employement_type,company_name,location,start_date,end_date,status,description as e_description
                     FROM
-                        {skill_table}
+                        {experience_table}
                     WHERE
-                        skill_id = '{skill_id}'"
+                        login_id = '{login_id}'"
                     """
-                    data1 = subprocess.check_output([query1], shell=True)
-                    final_data1 = json.loads(data1.decode("utf-8"))
-                    try:
-                        response_body["skills"].append(final_data1["rows"][0][1])
-                    except Exception as e:
-                        print(e)
-
-                # third query to get multiple experience
-                query3 = f"""
-                tableland read "
-                SELECT
-                    title as e_title,employement_type,company_name,location,start_date,end_date,status,description as e_description
-                FROM
-                    {experience_table}
-                WHERE
-                    login_id = '{login_id}'"
-                """
-                data3 = subprocess.check_output([query3], shell=True)
-                final_data3 = json.loads(data3.decode("utf-8"))
-                body = {}
-                final_list = []
-                for i in range(len(final_data3["rows"])):
-                    for j in range(len(final_data3["rows"][0])):
-                        body[final_data3["columns"][j]["name"]] = final_data3["rows"][
-                            0
-                        ][j]
-                    final_list.append(body)
-                response_body["experiences"] = final_list
+                    data3 = subprocess.check_output([query3], shell=True)
+                    final_data3 = json.loads(data3.decode("utf-8"))
+                    body = {}
+                    final_list = []
+                    for i in range(len(final_data3["rows"])):
+                        for j in range(len(final_data3["rows"][0])):
+                            body[final_data3["columns"][j]["name"]] = final_data3["rows"][
+                                0
+                            ][j]
+                        final_list.append(body)
+                    response_body["experiences"] = final_list
+                except Exception as e:
+                    response_body["experiences"] = []
 
                 # forth query to get multiple achievements
-                query4 = f"""
-                tableland read "
-                SELECT
-                    institute_name,degree,filed_of_study,start_date as edu_start_date,end_date as edu_end_date,score,description as edu_description
-                FROM
-                    {education_table}
-                WHERE
-                    login_id = '{login_id}'"
-                """
-                data3 = subprocess.check_output([query4], shell=True)
-                final_data4 = json.loads(data3.decode("utf-8"))
-                body1 = {}
-                final_list1 = []
-                for i in range(len(final_data4["rows"])):
-                    for j in range(len(final_data4["rows"][0])):
-                        body1[final_data4["columns"][j]["name"]] = final_data4["rows"][
-                            0
-                        ][j]
-                    final_list1.append(body1)
-                response_body["education details"] = final_list1
+                try:
+                    query4 = f"""
+                    tableland read "
+                    SELECT
+                        institute_name,degree,filed_of_study,start_date as edu_start_date,end_date as edu_end_date,score,description as edu_description
+                    FROM
+                        {education_table}
+                    WHERE
+                        login_id = '{login_id}'"
+                    """
+                    data3 = subprocess.check_output([query4], shell=True)
+                    final_data4 = json.loads(data3.decode("utf-8"))
+                    body1 = {}
+                    final_list1 = []
+                    for i in range(len(final_data4["rows"])):
+                        for j in range(len(final_data4["rows"][0])):
+                            body1[final_data4["columns"][j]["name"]] = final_data4["rows"][
+                                0
+                            ][j]
+                        final_list1.append(body1)
+                    response_body["education details"] = final_list1
+                except Exception as e:
+                    response_body["education details"] = []
                 return response_body
 
             # for company
@@ -561,7 +579,7 @@ def getProfile():
                 return response_body
         except Exception as e:
             print(str(e))
-            return {"message": str(e)}, 500
+            return {"message": "User does not exists !"}, 400
     except Exception as e:
         print(str(e))
         return {"message": str(e)}, 500
