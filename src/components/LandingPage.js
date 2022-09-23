@@ -30,6 +30,7 @@ import lastimg from "./assets/images/3.png";
 import line2 from "./assets/images/bline.svg";
 import scenario1 from "./assets/videos/scenario1.mp4";
 import scenario2 from "./assets/videos/scenario2.mp4";
+import scenario3 from "./assets/videos/scenario3.mp4";
 
 import "./styles/landingpage.css";
 
@@ -144,12 +145,12 @@ function LandingPage() {
               </div>
               <div className="d-third-flex-item">
                 <div className="d-second-flex-item-right-two">
-                  <h1 className="d-second-flex-right-h1">Scenario 2 title !</h1>
+                  <h1 className="d-second-flex-right-h1">Utilize The Time !</h1>
                   <p className="d-second-flex-right-p">
-                    Recruiter can walk around & find candidates who has already
-                    cleared a specific assessment. Talk with them spontaneously.
-                    Stop relying on calender schedules to increase speed of
-                    communication.
+                    Candidates joining in virtual office to get their last
+                    interview round. This cuts the time of absentees for
+                    scheduled meets while successfully utilising the Job Hunt
+                    phase of candidates.
                   </p>
 
                   {/* <button className="d-third-flex-btn">Connect Wallet</button> */}
@@ -166,19 +167,17 @@ function LandingPage() {
               <div className="d-third-flex-item">
                 <div className="d-second-flex-item-left">
                   <video autoPlay loop muted>
-                    <source src={scenario1} type="video/mp4" />
-                    <source src={scenario1} type="video/ogg" />
+                    <source src={scenario3} type="video/mp4" />
+                    <source src={scenario3} type="video/ogg" />
                     Your browser does not support the video tag.
                   </video>
                   {/* <img src={illu1} alt="" className="d-third-flex-item-img" /> */}
                 </div>
                 <div className="d-second-flex-item-right">
-                  <h1 className="d-second-flex-right-h1">Hire With Ease !</h1>
+                  <h1 className="d-second-flex-right-h1">Personal Space !</h1>
                   <p className="d-second-flex-right-p">
-                    Recruiter can walk around & find candidates who has already
-                    cleared a specific assessment. Talk with them spontaneously.
-                    Stop relying on calender schedules to increase speed of
-                    communication.
+                    You can invite candidates directly in Hireverse, this will
+                    be private to every Creator, Company & Candidate.
                   </p>
 
                   {/* <button className="d-third-flex-btn">Connect Wallet</button> */}
