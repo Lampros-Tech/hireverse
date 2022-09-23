@@ -29,6 +29,7 @@ import item4 from "./assets/images/Proctoring.svg";
 import lastimg from "./assets/images/3.png";
 import line2 from "./assets/images/bline.svg";
 import scenario1 from "./assets/videos/scenario1.mp4";
+import scenario2 from "./assets/videos/scenario2.mp4";
 
 import "./styles/landingpage.css";
 
@@ -130,12 +131,10 @@ function LandingPage() {
                   {/* <img src={illu1} alt="" className="d-third-flex-item-img" /> */}
                 </div>
                 <div className="d-second-flex-item-right">
-                  <h1 className="d-second-flex-right-h1">Hire with ease !</h1>
+                  <h1 className="d-second-flex-right-h1">Hire With Ease !</h1>
                   <p className="d-second-flex-right-p">
                     Recruiter can walk around & find candidates who has already
                     cleared a specific assessment. Talk with them spontaneously.
-                  </p>
-                  <p className="d-second-flex-right-p">
                     Stop relying on calender schedules to increase speed of
                     communication.
                   </p>
@@ -144,13 +143,11 @@ function LandingPage() {
                 </div>
               </div>
               <div className="d-third-flex-item">
-                <div className="d-second-flex-item-right">
-                  <h1 className="d-third-flex-right-h1">Scenario 2 title !</h1>
-                  <p className="d-third-flex-right-p">
+                <div className="d-second-flex-item-right-two">
+                  <h1 className="d-second-flex-right-h1">Scenario 2 title !</h1>
+                  <p className="d-second-flex-right-p">
                     Recruiter can walk around & find candidates who has already
                     cleared a specific assessment. Talk with them spontaneously.
-                  </p>
-                  <p className="d-third-flex-right-p">
                     Stop relying on calender schedules to increase speed of
                     communication.
                   </p>
@@ -159,8 +156,8 @@ function LandingPage() {
                 </div>
                 <div className="d-second-flex-item-left">
                   <video autoPlay loop muted>
-                    <source src={scenario1} type="video/mp4" />
-                    <source src={scenario1} type="video/ogg" />
+                    <source src={scenario2} type="video/mp4" />
+                    <source src={scenario2} type="video/ogg" />
                     Your browser does not support the video tag.
                   </video>
                   {/* <img src={illu1} alt="" className="d-third-flex-item-img" /> */}
@@ -176,12 +173,10 @@ function LandingPage() {
                   {/* <img src={illu1} alt="" className="d-third-flex-item-img" /> */}
                 </div>
                 <div className="d-second-flex-item-right">
-                  <h1 className="d-third-flex-right-h1">Scenario 3 title !</h1>
-                  <p className="d-third-flex-right-p">
+                  <h1 className="d-second-flex-right-h1">Hire With Ease !</h1>
+                  <p className="d-second-flex-right-p">
                     Recruiter can walk around & find candidates who has already
                     cleared a specific assessment. Talk with them spontaneously.
-                  </p>
-                  <p className="d-third-flex-right-p">
                     Stop relying on calender schedules to increase speed of
                     communication.
                   </p>
