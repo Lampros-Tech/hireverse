@@ -67,30 +67,32 @@ function CreatorExperience() {
   ];
 
   const handleClick = (e) => {
-    if (e === 0 && showAll.title === "") {
-      alert("Enter title pls");
-    } else if (e === 1 && showAll.emptype === "") {
-      alert("Enter Employment type pls");
-    } else if (e === 2 && showAll.cname === "") {
-      alert("Enter Company Name pls");
-    } else if (e === 3 && showAll.clocation === "") {
-      alert("Pls Enter Company Location");
-    } else if (e === 4 && showAll.sdate === "") {
-      alert("Experience Start Date");
-    } else if (e === 5 && showAll.edate === "") {
-      alert("Experience End Date");
-    } else if (e === 6 && showAll.cstatus !== 0 && showAll.cstatus !== 1) {
-      alert("Enter Employment Status pls");
-    } else if (e < 7) {
-      // console.log(refArr[e + 1].section);
-      const test = refArr[e + 1].section;
-      // console.log(test);
-      test.current?.scrollIntoView({ behavior: "smooth" });
-      setTimeout(() => {
-        const inputFocus = refArr[e + 1].input;
-        inputFocus.current.focus();
-      }, 500);
-    } else if (e === 7 && showAll.cdesc === "") {
+    // if (e === 0 && showAll.title === "") {
+    //   alert("Enter title pls");
+    // } else if (e === 1 && showAll.emptype === "") {
+    //   alert("Enter Employment type pls");
+    // } else if (e === 2 && showAll.cname === "") {
+    //   alert("Enter Company Name pls");
+    // } else if (e === 3 && showAll.clocation === "") {
+    //   alert("Pls Enter Company Location");
+    // } else if (e === 4 && showAll.sdate === "") {
+    //   alert("Experience Start Date");
+    // } else if (e === 5 && showAll.edate === "") {
+    //   alert("Experience End Date");
+    // } else if (e === 6 && showAll.cstatus !== 0 && showAll.cstatus !== 1) {
+    //   alert("Enter Employment Status pls");
+    // } else if (e < 7) {
+    // console.log(refArr[e + 1].section);
+    const test = refArr[e + 1].section;
+    // console.log(test);
+    test.current?.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => {
+      const inputFocus = refArr[e + 1].input;
+      inputFocus.current.focus();
+    }, 500);
+    // } else
+    // if (e === 7 && showAll.cdesc === "") {
+    if (e === 7) {
       alert("Any other Details");
     } else {
       sendCreatorExpData(

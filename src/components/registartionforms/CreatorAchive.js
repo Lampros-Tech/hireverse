@@ -50,26 +50,26 @@ function CreatorAchive() {
   ];
 
   const handleClick = (e) => {
-    if (e === 0 && showAll.title === "") {
-      alert("Enter title pls");
-    } else if (e === 1 && showAll.a_desc === "") {
-      alert("Enter desc. pls");
-    } else if (e === 2 && showAll.a_organ === "") {
-      alert("Enter issueing organization name");
-    } else if (e === 3 && showAll.score === "") {
-      alert("Enter score please");
-    } else if (e === 4 && coverCID === "") {
-      alert("Enter cover img pls");
-    } else {
-      // console.log(refArr[e + 1].section);
-      const test = refArr[e + 1].section;
-      // console.log(test);
-      test.current?.scrollIntoView({ behavior: "smooth" });
-      setTimeout(() => {
-        const inputFocus = refArr[e + 1].input;
-        inputFocus.current.focus();
-      }, 1000);
-    }
+    // if (e === 0 && showAll.title === "") {
+    //   alert("Enter title pls");
+    // } else if (e === 1 && showAll.a_desc === "") {
+    //   alert("Enter desc. pls");
+    // } else if (e === 2 && showAll.a_organ === "") {
+    //   alert("Enter issueing organization name");
+    // } else if (e === 3 && showAll.score === "") {
+    //   alert("Enter score please");
+    // } else if (e === 4 && coverCID === "") {
+    //   alert("Enter cover img pls");
+    // } else {
+    // console.log(refArr[e + 1].section);
+    const test = refArr[e + 1].section;
+    // console.log(test);
+    test.current?.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => {
+      const inputFocus = refArr[e + 1].input;
+      inputFocus.current.focus();
+    }, 1000);
+    // }
   };
 
   const handleClickPrevious = (e) => {

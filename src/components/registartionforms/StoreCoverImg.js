@@ -2,6 +2,10 @@ import React from "react";
 import { useState, useRef } from "react";
 import { Web3Storage } from "web3.storage";
 import UploadSVG from "../assets/images/uploadsvg.svg";
+import cover1 from "../assets/images/cover1.jpg";
+import cover2 from "../assets/images/cover2.jpg";
+import cover3 from "../assets/images/cover3.jpg";
+
 import "./storefile.css";
 
 const API_TOKEN =
@@ -25,7 +29,7 @@ function StoreCoverImg({ setFileCid2 }) {
   async function handleupload() {
     var fileInput = document.getElementById("input2");
     const rootCid = await client.put(fileInput.files, {
-      name: "cat pics",
+      name: "dehitas cover images",
       maxRetries: 3,
     });
     console.log(rootCid);
@@ -42,6 +46,17 @@ function StoreCoverImg({ setFileCid2 }) {
     // setFile(url);
   }
 
+  const handleRandombtn = () => {
+    const rand = Math.floor(Math.random() * 3 + 1);
+    console.log(typeof fileUrl);
+    if (rand === 1) {
+      setFile(cover1);
+    } else if (rand === 2) {
+      setFile(cover2);
+    } else if (rand === 3) {
+      setFile(cover3);
+    }
+  };
   const resetFile = () => {
     setFile("");
   };
@@ -104,6 +119,14 @@ function StoreCoverImg({ setFileCid2 }) {
           ) : (
             <>{uploaded}</>
           )}
+        </button>
+        <button
+          className="upload-file-btn"
+          onClick={() => {
+            handleRandombtn();
+          }}
+        >
+          Random
         </button>
       </div>
     </>
