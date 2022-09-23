@@ -10,6 +10,7 @@ import FacebookLogo from "../../assets/images/facebook.png";
 import Upload from "../../assets/images/uploadimg.svg";
 import { connect } from "@tableland/sdk";
 import "./feed.css";
+import Axios from "axios";
 
 const CandidateFeed = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +19,18 @@ const CandidateFeed = () => {
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
   const boxRef = useRef(null);
+
+  const [que, setQue] = useState([]);
+  const [credentials, setCredentials] = useState({
+    candidate_id: "",
+    job_id: "",
+    ans_of_addition_q: "",
+    resume_cid: "",
+    cover_latter: "",
+    assesment_log_id: "",
+    status: "",
+    schedule_interview: "",
+  });
 
   const togglePopup = async (newId) => {
     const name = "job_table_80001_2018";
@@ -29,13 +42,20 @@ const CandidateFeed = () => {
     const readRes = await tableland.read(
       `SELECT * FROM ${name} where job_id=${newId}`
     );
-    console.log(readRes);
+    // console.log(readRes);
 
     let companyId = readRes["rows"][0][1];
     const response = await tableland.read(
       `SELECT name,logo FROM ${table} where company_id=${companyId}`
     );
     let company_logo = "https://ipfs.io/ipfs/" + response["rows"][0][1];
+    var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+    d.setUTCSeconds(readRes["rows"][0][10]);
+    let date_array = d.toString().split(" ", 4);
+    let final_array = [];
+    for (let i = 1; i < date_array.length; i++) {
+      final_array.push(date_array[i]);
+    }
     data2.push([
       company_logo,
       readRes["rows"][0][3],
@@ -49,11 +69,12 @@ const CandidateFeed = () => {
       readRes["rows"][0][16],
       readRes["rows"][0][5],
       readRes["rows"][0][9],
-      readRes["rows"][0][10],
+      final_array.toString(),
     ]);
+
     setData2(data2);
     // setNewData(data[newId]);
-    console.log(data2[0][4]);
+    // console.log(data2[0][4]);
     // console.log(data[newId]);
     setIsOpen(!isOpen);
   };
@@ -74,6 +95,18 @@ const CandidateFeed = () => {
       `SELECT * FROM ${name} where job_id=${formId}`
     );
     console.log(readRes);
+    let url =
+      "https://ipfs.io/ipfs/" + readRes["rows"][0][8] + "/questions.json";
+    console.log(url);
+    await Axios.get(url).then((response) => {
+      let no_of_questions = response.data.questions.length;
+      for (let i = 0; i < no_of_questions; i++) {
+        que.push([response.data.questions[i]]);
+      }
+      setQue(que);
+      // setContent(response.data.body);
+      // setLoading(false);
+    });
     data3.push([
       readRes["rows"][0][3],
       readRes["rows"][0][4],
@@ -87,12 +120,21 @@ const CandidateFeed = () => {
     setFormData(data[formId]);
     // console.log(data[formId]);
     setIsForm(!isForm);
+    for (let i = 0; i < readRes["rows"][0][8].length; i++) {}
   };
 
+  const applyForJob = async () => {};
+
   const [message, setMessage] = useState("");
+  const [message1, setMessage1] = useState("");
 
   const handleChange = (event) => {
     setMessage(event.target.value);
+
+    // console.log("value is:", event.target.value);
+  };
+  const handleChange1 = (event) => {
+    setMessage1(event.target.value);
 
     // console.log("value is:", event.target.value);
   };
@@ -157,7 +199,7 @@ const CandidateFeed = () => {
   };
 
   useEffect(() => {
-    console.log(titleCase("hello there I'm Jaydip"));
+    // console.log(titleCase("hello there I'm Jaydip"));
     showJobPosts();
   });
   function titleCase(str) {
@@ -167,7 +209,6 @@ const CandidateFeed = () => {
     }
     return str.join(" ");
   }
-   
 
   return (
     <>
@@ -528,16 +569,22 @@ const CandidateFeed = () => {
                                   onChange={handleChange}
                                   value={message}
                                 />
-                                <div className="candidate-form-question">
-                                  {formData.Question1}
-                                </div>
-                                <textarea
-                                  className="candidate-form-question-box"
-                                  name="message"
-                                  onChange={handleChange}
-                                  value={message}
-                                />
-                                <div className="candidate-form-question">
+                                {que.map((inde) => {
+                                  return (
+                                    <div>
+                                      <div className="candidate-form-question">
+                                        {inde[0]}
+                                      </div>
+                                      <textarea
+                                        className="candidate-form-question-box"
+                                        name="message1"
+                                        onChange={handleChange1}
+                                        value={message1}
+                                      />
+                                    </div>
+                                  );
+                                })}
+                                {/* <div className="candidate-form-question">
                                   {formData.Question2}
                                 </div>
                                 <textarea
@@ -545,10 +592,15 @@ const CandidateFeed = () => {
                                   name="message"
                                   onChange={handleChange}
                                   value={message}
-                                />
+                                /> */}
 
                                 <div className="candidate-more-btn-size-application">
-                                  <button className="candidate-form-btn">
+                                  <button
+                                    className="candidate-form-btn"
+                                    onClick={() => {
+                                      applyForJob();
+                                    }}
+                                  >
                                     Submit
                                   </button>
                                 </div>

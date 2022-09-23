@@ -1,4 +1,3 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./creator.css";
 import DD_repo from "./Dropdowns/DD_repo"
@@ -7,6 +6,8 @@ import { useConnect, useDisconnect, useAccount } from "wagmi";
 import { insert_creators_repo_table } from "../TableQueries";
 import { InjectedConnector } from "@wagmi/core";
 import { useNavigate } from "react-router-dom";
+import LoadingIcon from "../walletconnect/LoadingIcon";
+import Cookies from "universal-cookie";
 
 function CreateRepo() {
 
@@ -15,12 +16,14 @@ function CreateRepo() {
     wallet_address: "",
     repo_name: "",
     desc: "",
-    privacy: 2,
+    privacy: "1",
   });
 
   const [loading, setLoading] = useState(true);
-  const [tableName, setTableName] = useState({});
+  const [loadingMessage, setLoadingMessage] = useState("loading...");
 
+  const [tableName, setTableName] = useState({});
+  const cookies = new Cookies();
 
   const navigate = useNavigate();
   const { address, isConnected } = useAccount();
@@ -29,6 +32,11 @@ function CreateRepo() {
   });
 
   const { disconnect } = useDisconnect();
+
+  const getUsername = async() => {
+    const user_id = cookies.get("loginID");
+    console.log(user_id);
+  }
 
   useEffect(() => {
     if (!isConnected) {
@@ -48,39 +56,60 @@ function CreateRepo() {
       data: res_data
     };
 
+    getUsername();
+
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         setTableName(response.data.repo_table);
         console.log(response.data.repo_table)
-        if (response.data.repo_table === null || response.data.repo_table === "" ) {
+        if (response.data.repo_table === null || response.data.repo_table === "") {
           navigate("/role/creator")
         }
       })
       .catch(function (error) {
         console.log(error);
+        setLoadingMessage("Something went wrong...")
       });
   }, [])
 
   useEffect(() => {
     if (tableName) {
       console.log(tableName);
-      setData({ ...data, t_name: tableName })
+      setData({ ...data, t_name: tableName });
+      setLoading(false);
     }
   }, [tableName])
 
-  const createNewRepo = async() => {
+  const createNewRepo = async () => {
     console.log(data);
     console.log(address);
-    const creator_repo_data = await insert_creators_repo_table(
-      tableName,
-      address,
-      data.repo_name,
-      data.desc,
-      data.privacy
-    );
+    setLoadingMessage("Creating repository...");
+    setLoading(true);
+    if (tableName || address || data.repo_name) {
+      const creator_repo_data = await insert_creators_repo_table(
+        tableName,
+        address,
+        data.repo_name,
+        data.desc,
+        data.privacy
+      );
 
-    console.log(creator_repo_data);
+      console.log(creator_repo_data);
+      try {
+        if (creator_repo_data.hash) {
+          setLoadingMessage("Repo created successfully!!");
+          setTimeout(()=>{
+            setLoading(false);
+          },3000);
+        }
+      } catch (e) {
+        setLoadingMessage("Something went wrong!!");
+        setTimeout(()=>{
+          setLoading(false);
+        },3000);
+      }
+    }
   }
 
 
@@ -99,26 +128,27 @@ function CreateRepo() {
           </div>
           <div className="repo-details py-5 border-b-2">
             <div className="Labels flex">
-              <div className="w-44 px-2 py-1 font-secondary font-semibold">
+              {/* <div className="w-44 px-2 py-1 font-secondary font-semibold">
                 Owner
                 <span className="">*</span>
-              </div>
-              <div className="px-4 py-1 font-semibold font-secondary">
+              </div> */}
+              <div className="py-1 font-semibold font-secondary">
                 Repository name
               </div>
             </div>
             <div className="repo-name flex items-center	content-center">
-              <div className="owner ">
-                {/* <DD_repo className="uplift" /> */}
+              {/* <div className="owner ">
+                <DD_repo className="uplift" />
                 <span className="p-2">Rahul Rajan</span>
               </div>
-              <h1 className="mx-8  text-3xl">/</h1>
+              <h1 className="mx-8  text-3xl">/</h1> */}
               <div className="Repo-name">
                 <input
                   type="text"
                   name="reponame"
                   placeholder="Short repository name"
                   className="align-middle uplift px-2 py-1.5 rounded-md border border-gray-300"
+                  defaultValue={data.repo_name}
                   onChange={(e) => {
                     setData({ ...data, repo_name: e.target.value });
                   }}
@@ -145,7 +175,7 @@ function CreateRepo() {
             <div className="Instruction mb-2 font-secondary font-semibold text-left">
               Select privacy option
             </div>
-            <div className="flex items-center mb-4">
+            {/* <div className="flex items-center mb-4">
               <input
                 id="default-radio-1"
                 type="radio"
@@ -159,12 +189,13 @@ function CreateRepo() {
               <label className="ml-2 font-secondary font-semibold text-left">
                 Global
               </label>
-            </div>
+            </div> */}
             <div className="flex items-center mb-4">
               <input
                 id="default-radio-1"
                 type="radio"
                 value="1"
+                defaultChecked
                 name="privacy-radio"
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
                 onChange={(e) => {
@@ -172,16 +203,16 @@ function CreateRepo() {
                 }}
               />
               <label className="ml-2 font-secondary font-semibold text-left">
-                Local
+                Public
               </label>
             </div>
             <div className="flex items-center ">
               <input
-                defaultChecked
                 id="default-radio-1"
                 type="radio"
                 value="2"
                 name="privacy-radio"
+                disabled
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
                 onChange={(e) => {
                   setData({ ...data, privacy: Number(e.target.value) });
@@ -206,6 +237,15 @@ function CreateRepo() {
           </button>
         </div>
       </div>
+      {
+        loading
+          ?
+          <div className="fixed h-screen top-0 bg-[#eff0ee]/[0.6] w-screen">
+            <LoadingIcon message={loadingMessage} />
+          </div>
+          :
+          null
+      }
     </>
   );
 }

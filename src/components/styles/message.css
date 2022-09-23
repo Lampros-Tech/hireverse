@@ -7,8 +7,8 @@
   width: 380px;
   height: 100vh;
   overflow: hidden; */
-  /* border: 1px solid gray; */
-  /* position: fixed;
+/* border: 1px solid gray; */
+/* position: fixed;
   padding: 0 0 0 10px;
   background-color: #eff0ee;
   box-shadow: 0px 0px 6px 5px #dddddd;
@@ -23,14 +23,14 @@
 } */
 
 /* .message__left .conv_box { */
-  /* max-height: 400px; */
-  /* height: 92vh;
+/* max-height: 400px; */
+/* height: 92vh;
   overflow-x: hidden;
   overflow-y: auto; */
-  /* margin-top: 20px; */
-  /* background-color: #eff0ee; */
-  /* background-color: gray; */
-  /* border-radius: 10px;
+/* margin-top: 20px; */
+/* background-color: #eff0ee; */
+/* background-color: gray; */
+/* border-radius: 10px;
   padding: 10px;
 }
 
@@ -110,10 +110,10 @@
 
 .message__left .conv_right .top .unseen-msg {
   width: 20px; */
-  /* height: 20px; */
-  /* font-weight: 300; */
-  /* padding: 10px 0; */
-  /* margin-left: 116px;
+/* height: 20px; */
+/* font-weight: 300; */
+/* padding: 10px 0; */
+/* margin-left: 116px;
   padding-bottom: 2px;
   text-align: center;
   overflow: hidden;
@@ -151,13 +151,14 @@
 
 .message__left .conv_box {
   /* max-height: 400px; */
-  height: 92vh;
+  height: 65vh;
   overflow-x: hidden;
   overflow-y: auto;
   /* margin-top: 20px; */
   background-color: #eff0ee;
   /* background-color: gray; */
   border-radius: 10px;
+  overflow: auto !important;
   padding: 10px;
 }
 
@@ -184,16 +185,16 @@
   display: flex;
   align-items: center;
   align-content: center;
-  width: 350px;
+  width: 340px;
   flex-direction: row;
   padding: 5px;
-  border-radius: 20px;
+  border-radius: 10px;
   margin: 1px 0;
 }
 
 .message__left .conv:hover,
 .message__left .conv.active {
-  background-color: #282133;
+  /* background-color: #282133; */
   cursor: pointer;
   color: white !important;
 }
@@ -207,8 +208,8 @@
 }
 
 .message__left .conv_left {
-  width: 70px;
-  margin-left: 20px;
+  width: 50px;
+  margin-left: 10px;
 }
 
 .message__left .bitmap {
@@ -413,7 +414,6 @@
   display: none !important;
 }
 
-
 .inactive_client_main {
   display: flex;
   flex-direction: column;
@@ -437,7 +437,7 @@
   border-radius: 10px;
 }
 
-.inactive_client_message{
+.inactive_client_message {
   height: 110px;
   background-color: #134e6f;
   color: #eff0ee;
@@ -446,7 +446,7 @@
   align-content: center;
 }
 
-.inactive_client_btn_holder{
+.inactive_client_btn_holder {
   margin-top: 5px;
   display: inline-flex;
   align-items: center;
@@ -473,8 +473,6 @@
   border: 1px solid #ff6150;
   cursor: pointer;
 }
-
-
 
 .message__left .conv_right .bottom {
   display: grid;
@@ -621,4 +619,16 @@
 
 .tox-notifications-container {
   display: none !important;
+}
+.verify-content {
+  /* border-bottom: 1px solid gray; */
+  position: fixed;
+  bottom: 0;
+  /* background-color: floralwhite; */
+  margin-bottom: 3%;
+  width: 300px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

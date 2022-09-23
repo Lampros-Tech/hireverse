@@ -16,11 +16,13 @@ function Questionfeed() {
       chain: "polygon-mumbai",
     });
     const readRes = await tableland.read(`SELECT * FROM ${name}`);
+    console.log(readRes);
     for (let i = 0; i < readRes["rows"].length; i++) {
       data.push([
         readRes["rows"][i][0],
         readRes["rows"][i][10],
         readRes["rows"][i][2],
+
       ]);
     }
     setData(data);
