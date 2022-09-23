@@ -5,7 +5,6 @@ import axios from "axios";
 import { useAccount } from "wagmi";
 import Cookies from "universal-cookie";
 import Select from "react-select";
-
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { connect } from "@tableland/sdk";
@@ -73,22 +72,22 @@ function CandidateRegForm() {
   const handleClick = (e) => {
     if (e === 0 && showAll.name === "") {
       alert("Enter Name pls");
-    } else if (e === 1 && showAll.bio === "") {
-      alert("Enter bio pls");
-    } else if (e === 2 && showAll.address === "") {
-      alert("Enter address pls");
-    } else if (e === 3 && showAll.country === "") {
-      alert("Select country pls");
-    } else if (e === 4 && showAll.contact === "") {
-      alert("Enter contact num pls");
-    } else if (e === 5 && filteredSkills.length === 0) {
-      alert("Enter skills pls");
-    } else if (e === 6 && profileCID === "") {
-      alert("Enter profile img pls");
-    } else if (e === 7 && coverCID === "") {
-      alert("Enter cover img pls");
+      // } else if (e === 1 && showAll.bio === "") {
+      //   alert("Enter bio pls");
+      // } else if (e === 2 && showAll.address === "") {
+      //   alert("Enter address pls");
+      // } else if (e === 3 && showAll.country === "") {
+      //   alert("Select country pls");
+      // } else if (e === 4 && showAll.contact === "") {
+      //   alert("Enter contact num pls");
+      // } else if (e === 5 && filteredSkills.length === 0) {
+      //   alert("Enter skills pls");
+      // } else if (e === 6 && profileCID === "") {
+      //   alert("Enter profile img pls");
+      // } else if (e === 7 && coverCID === "") {
+      //   alert("Enter cover img pls");
     } else {
-      // console.log(refArr[e + 1].section);
+      console.log(refArr[e + 1].section);
       const test = refArr[e + 1].section;
       // console.log(test);
       test.current?.scrollIntoView({ behavior: "smooth" });
@@ -925,6 +924,11 @@ function CandidateRegForm() {
                         * click on image box to choose image and then press
                         "upload file" button to upload your image
                       </p>
+                      <p className="upload-img-instruction">
+                        * we are uploading images on IPFS so it may take some
+                        time. If you are in hurry then you can select any random
+                        image by pressing "Random" button
+                      </p>
 
                       <StoreProfileImg setFileCid={setProfileCID} />
                     </div>
@@ -962,7 +966,7 @@ function CandidateRegForm() {
                       <button
                         className="f-next-btn"
                         onClick={() => {
-                          handleClick(5);
+                          handleClick(6);
                         }}
                       >
                         <span>OK</span>
@@ -1026,6 +1030,11 @@ function CandidateRegForm() {
                       <p className="upload-img-instruction">
                         * click on image box to choose image and then press
                         "upload file" button to upload your image
+                      </p>
+                      <p className="upload-img-instruction">
+                        * we are uploading images on IPFS so it may take some
+                        time. If you are in hurry then you can select any random
+                        image by pressing "Random" button
                       </p>
                       <StoreCoverImg setFileCid2={setCoverCID} />
                     </div>

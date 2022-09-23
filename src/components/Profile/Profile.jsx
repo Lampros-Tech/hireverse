@@ -3,21 +3,47 @@ import Feed from "./Feed";
 import Rightbar from "./Rightbar";
 import profileimg from "./images/person/1.jpeg";
 import coverimg from "./images/post/1.jpeg";
-import axios from "axios"
+import axios from "axios";
 import { useEffect } from "react";
 import { useAccount } from "wagmi";
 export default function Profile() {
-  const {address } = useAccount();
-  useEffect(()=>{
-    console.log(address)
-    const data = {
-      wallet_address:address
-    }
-    axios.post(`${process.env.REACT_APP_API_URL}/getProfile`, data)
-    .then((res)=>{
-      console.log(res)
-    })
-  },[])
+  // const {address } = useAccount();
+  // useEffect(()=>{
+  //   console.log(address)
+  //   const data = {
+  //     wallet_address:address
+  //   }
+  //   axios.post(`${process.env.REACT_APP_API_URL}/getProfile`, data)
+  //   .then((res)=>{
+  //     console.log(res)
+  //   })
+  // },[])
+  const { address, isConnected } = useAccount();
+
+  const getProfile = async () => {
+    console.log("getting data from API");
+    var data = JSON.stringify({
+      wallet_address: address,
+    });
+    var config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/getProfile`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+    axios(config)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   return (
     <>
@@ -43,7 +69,7 @@ export default function Profile() {
           </div>
           <div className="profile-profileRightBottom">
             <Feed />
-            <Rightbar profile/>
+            <Rightbar profile />
           </div>
         </div>
       </div>

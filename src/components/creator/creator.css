@@ -3,9 +3,25 @@
 
 .C_Content
 {
+    margin-top:100px;
     max-width: 786px;
+    
     margin:0 auto;
     background-color: #EFF0EE;
+}
+.C_C_Content
+{
+    margin-left:35% ;
+    margin-top:100px;
+    max-width: 786px;
+    float:right;
+    background-color: #EFF0EE;
+}
+.Question_Feed_custome
+{
+    border-right: 2px #FF6150 solid;
+    color:#282133;
+    font-weight: 600;
 }
 .uplift
 {
@@ -20,6 +36,14 @@
 {
     color: #000;
     font-weight: 600;
+}
+.creator-filter-top
+{
+    height: calc(100vh - 100px) !important;
+    top: 97px;
+    position:fixed;
+    overflow-x: auto;
+    scrollbar-width: none;
 }
 .values
 {

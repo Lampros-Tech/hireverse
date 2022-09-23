@@ -10,7 +10,13 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 // import { useNavigate } from "react-router-dom";
 
-function EditQuestion({ id, category, hideComponent, getAllQuestions }) {
+function EditQuestion({ id, category, setShowRepoPopup, getAllQuestions, description }) {
+
+
+
+
+
+    
   // console.log(id);
   // console.log(typeof(id))
   const [apiQuestionId, setApiQuestionId] = useState(null);
@@ -122,52 +128,67 @@ function EditQuestion({ id, category, hideComponent, getAllQuestions }) {
   //     getSingleQuestion(id, category);
   //   }, []);
 
-  //   const updateData = () => {
-  //     var setNo = null;
-  //     var setData = null;
-  //     if (setNumber) {
-  //       setNo = setNumber;
-  //     }
-  //     if (apiSet) {
-  //       setData = editorRef_setQ1.current.getContent();
-  //     }
-  //     const questionData = editorRef_setQ2.current.getContent();
-  //     const option1 = editorRef_setQ3.current.getContent();
-  //     const option2 = editorRef_setQ4.current.getContent();
-  //     const option3 = editorRef_setQ5.current.getContent();
-  //     const option4 = editorRef_setQ6.current.getContent();
+    const updateData = () => {
+      var setNo = null;
+      var setData = null;
+      if (setNumber) {
+        setNo = setNumber;
+      }
+      if (apiSet) {
+        setData = editorRef_setQ1.current.getContent();
+      }
+      const questionData = editorRef_setQ2.current.getContent();
+      const option1 = editorRef_setQ3.current.getContent();
+      const option2 = editorRef_setQ4.current.getContent();
+      const option3 = editorRef_setQ5.current.getContent();
+      const option4 = editorRef_setQ6.current.getContent();
 
-  //     // console.log(questionData, option1, option2, option3, option4, apiQuestionId, apiCategory, correct2);
+      // console.log(questionData, option1, option2, option3, option4, apiQuestionId, apiCategory, correct2);
 
-  //     const options = [
-  //       option1,
-  //       option2,
-  //       option3,
-  //       option4
-  //     ]
+      const options = [
+        option1,
+        option2,
+        option3,
+        option4
+      ]
 
-  //     const data = {
-  //       id: apiQuestionId,
-  //       set: setData,
-  //       category: apiCategory,
-  //       set_no: setNo,
-  //       question: questionData,
-  //       options: options,
-  //       correct: options[correct2]
-  //     }
+      const data = {
+        id: apiQuestionId,
+        set: setData,
+        category: apiCategory,
+        set_no: setNo,
+        question: questionData,
+        options: options,
+        correct: options[correct2]
+      }
 
-  //     console.log(data);
-  //     // axios.post(`${env.API_URI}/update_question_by_id`, data, { headers: { token: cookies.get("AdminToken") } })
-  //     //   .then((res) => {
-  //     //     console.log(res);
-  //     //     hideComponent();
-  //     //     getAllQuestions();
-  //     //   })
-  //     //   .catch((err) => {
-  //     //     console.log(err);
-  //     //   })
-  //   };
+      console.log(data);
+      // axios.post(`${env.API_URI}/update_question_by_id`, data, { headers: { token: cookies.get("AdminToken") } })
+      //   .then((res) => {
+      //     console.log(res);
+      //     addsetShowRepoPopupToRepo();
+      //     getAllQuestions();
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   })
+    };
+    const [question,setQuestion] = useState("");
 
+
+    useEffect(()=>{
+        console.log(description);
+        const paraData = description;
+        console.log(paraData)
+        var dom = document.createElement("p");
+        dom.innerHTML =description[2];
+        setQuestion(dom);
+        console.log(dom);
+        
+    },[])
+    useEffect(()=>{
+            console.log(question);
+    },[question])
   return (
     <>
       <div className="edit_Question ">
@@ -179,7 +200,7 @@ function EditQuestion({ id, category, hideComponent, getAllQuestions }) {
               src={closebtn}
               className="edit_question_close_button"
               onClick={() => {
-                hideComponent(false);
+                setShowRepoPopup(false);
               }}
             />
           </div>
@@ -205,7 +226,7 @@ function EditQuestion({ id, category, hideComponent, getAllQuestions }) {
             ></input>
           </div>
         ) : null}
-        {apiSet ? (
+        {question ? (
           <div className="text_editor1">
             <input
               id="my-file"
@@ -214,11 +235,10 @@ function EditQuestion({ id, category, hideComponent, getAllQuestions }) {
               style={{ display: "none" }}
               onChange={() => {}}
             />
-
             <Editor
               apiKey=""
               onInit={(evt, editor) => (editorRef_setQ1.current = editor)}
-              initialValue={apiSet}
+              initialValue={question}
               init={{
                 height: 500,
                 menubar: true,
@@ -783,7 +803,7 @@ function EditQuestion({ id, category, hideComponent, getAllQuestions }) {
           <div className="alert-header-left flex-grow"></div>
           <div
             onClick={(e) => {
-              hideComponent();
+                setShowRepoPopup();
             }}
             style={{ cursor: "pointer" }}
             className="EditQuestion_footer_cancel"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "@tableland/sdk";
 import "../company/styles/testfeed.css";
+import { useNavigate } from 'react-router-dom'
 
 function TestsFeed() {
   const [data, setData] = useState([]);
@@ -42,6 +43,13 @@ function TestsFeed() {
   useEffect(() => {
     showTestFeeds();
   }, []);
+
+  const navigate = useNavigate();
+
+  const navigateToTestDescription = () => {
+    // 👇️ navigate to /contacts
+    navigate('/company/testdescrption');
+  };
   return (
     <div>
       <div className="td-container">
@@ -72,8 +80,9 @@ function TestsFeed() {
                         />
                       </svg>
 
-                      <span>Duration: </span>
-                      <span>{inde[1]}</span>
+                      <span className="
+                      gap-1">Duration: </span>
+                      <span className="gap-1">{inde[1]}</span>
                     </div>
                     <div className="td-outer-heading">
                       <svg
@@ -103,7 +112,7 @@ function TestsFeed() {
                         <path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0010 3H4.75A2.75 2.75 0 002 5.75v9.5A2.75 2.75 0 004.75 18h9.5A2.75 2.75 0 0017 15.25V10a.75.75 0 00-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5z" />
                       </svg>
 
-                      <h1>Test Taken by: </h1>
+                      <span>Test Taken by: </span>
                       <span> 22 User</span>
                     </div>
                   </div>
@@ -111,7 +120,7 @@ function TestsFeed() {
 
                 <div className="user-avatar">
                   <div className="td-user-name">
-                    <h1 className="td-name">the test is made by</h1>
+                    <h1 className="td-name">The Test is made by</h1>
                     <span>{inde[3]}</span>
                   </div>
                   <img
@@ -149,13 +158,13 @@ function TestsFeed() {
                 <div className="cost-button">
                   <button
                     type="button"
-                    class="inline-block px-6 py-2 mx-2 border-2 border-black-900 text-black-900 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                    class=" fix-cost inline-block px-6 py-2 mx-2 border-2 border-black-900 text-black-900 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                   >
                     Fix Cost : {inde[8]}
                   </button>
                   <button
                     type="button"
-                    class="inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                    class=" color-btnn inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                   >
                     Variable cost : {inde[9]}
                   </button>
@@ -163,20 +172,14 @@ function TestsFeed() {
                 <div className="main-btn">
                   <button
                     type="button"
-                    class=" arreow-buttton text-white bg-blue-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center "
+                    onClick={navigateToTestDescription}
+                    class=" arreow-buttton   focus:outline-none  font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center "
+                    
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z" clipRule="evenodd" />
+</svg>
+
 
                     <span class="sr-only">Icon description</span>
                   </button>
