@@ -368,9 +368,9 @@ def getProfile():
                     final_list = []
                     for i in range(len(final_data3["rows"])):
                         for j in range(len(final_data3["rows"][0])):
-                            body[final_data3["columns"][j]["name"]] = final_data3["rows"][
-                                0
-                            ][j]
+                            body[final_data3["columns"][j]["name"]] = final_data3[
+                                "rows"
+                            ][0][j]
                         final_list.append(body)
                     response_body["experiences"] = final_list
                 except Exception as e:
@@ -393,9 +393,9 @@ def getProfile():
                     final_list1 = []
                     for i in range(len(final_data4["rows"])):
                         for j in range(len(final_data4["rows"][0])):
-                            body1[final_data4["columns"][j]["name"]] = final_data4["rows"][
-                                0
-                            ][j]
+                            body1[final_data4["columns"][j]["name"]] = final_data4[
+                                "rows"
+                            ][0][j]
                         final_list1.append(body1)
                     response_body["achievements"] = final_list1
                 except Exception as e:
@@ -484,9 +484,9 @@ def getProfile():
                     final_list = []
                     for i in range(len(final_data3["rows"])):
                         for j in range(len(final_data3["rows"][0])):
-                            body[final_data3["columns"][j]["name"]] = final_data3["rows"][
-                                0
-                            ][j]
+                            body[final_data3["columns"][j]["name"]] = final_data3[
+                                "rows"
+                            ][0][j]
                         final_list.append(body)
                     response_body["experiences"] = final_list
                 except Exception as e:
@@ -509,9 +509,9 @@ def getProfile():
                     final_list1 = []
                     for i in range(len(final_data4["rows"])):
                         for j in range(len(final_data4["rows"][0])):
-                            body1[final_data4["columns"][j]["name"]] = final_data4["rows"][
-                                0
-                            ][j]
+                            body1[final_data4["columns"][j]["name"]] = final_data4[
+                                "rows"
+                            ][0][j]
                         final_list1.append(body1)
                     response_body["education details"] = final_list1
                 except Exception as e:
@@ -1098,7 +1098,7 @@ def getId():
 @app.route("/getStage", methods=["GET"])
 def getStage():
     try:
-        walletaddress = request.args["walletaddress"]   
+        walletaddress = request.args["walletaddress"]
         fields = "*"
         login_table = os.environ.get("login_table")
         condition = f"""walletaddress='{walletaddress}'"""
@@ -1110,7 +1110,7 @@ def getStage():
                     if final_id_data["rows"][0][6]:
                         role = getWalletRole(walletaddress)
                         if role[0].lower() == "company":
-                            fields = "(company_id)"
+                            fields = "*"
                             company_table = os.environ.get("company_table")
                             condition = f"""wallet_address='{walletaddress}'"""
                             id_data = select_query(fields, company_table, condition)
@@ -1120,13 +1120,16 @@ def getStage():
                                 final_data["role"] = role[0]
                                 final_data["stage"] = 3
                             else:
-                                final_data[final__data["columns"][0]["name"]] = final__data[
-                                    "rows"
-                                ][0][0]
+                                final_data[
+                                    final__data["columns"][0]["name"]
+                                ] = final__data["rows"][0][0]
+                                final_data[
+                                    final__data["columns"][2]["name"]
+                                ] = final__data["rows"][0][2]
                                 final_data["stage"] = 4
                                 final_data["role"] = role[0]
                         elif role[0].lower() == "candidate":
-                            fields = "(candidate_id)"
+                            fields = "*"
                             candidate_table = os.environ.get("candidate_table")
                             condition = f"""wallet_address='{walletaddress}'"""
                             id_data = select_query(fields, candidate_table, condition)
@@ -1136,13 +1139,16 @@ def getStage():
                                 final_data["role"] = role[0]
                                 final_data["stage"] = 3
                             else:
-                                final_data[final__data["columns"][0]["name"]] = final__data[
-                                    "rows"
-                                ][0][0]
+                                final_data[
+                                    final__data["columns"][0]["name"]
+                                ] = final__data["rows"][0][0]
+                                final_data[
+                                    final__data["columns"][2]["name"]
+                                ] = final__data["rows"][0][2]
                                 final_data["stage"] = 4
                                 final_data["role"] = role[0]
                         elif role[0].lower() == "creator":
-                            fields = "(creator_id)"
+                            fields = "*"
                             creators_table = os.environ.get("creators_table")
                             condition = f"""wallet_address='{walletaddress}'"""
                             id_data = select_query(fields, creators_table, condition)
@@ -1152,9 +1158,12 @@ def getStage():
                                 final_data["role"] = role[0]
                                 final_data["stage"] = 3
                             else:
-                                final_data[final__data["columns"][0]["name"]] = final__data[
-                                    "rows"
-                                ][0][0]
+                                final_data[
+                                    final__data["columns"][0]["name"]
+                                ] = final__data["rows"][0][0]
+                                final_data[
+                                    final__data["columns"][3]["name"]
+                                ] = final__data["rows"][0][3]
                                 final_data["stage"] = 4
                                 final_data["role"] = role[0]
                         print("hey")
