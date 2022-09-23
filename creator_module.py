@@ -7,6 +7,8 @@ import json
 from flask import Blueprint, render_template, abort
 from flask.globals import request
 import random
+import w3storage
+
 load_dotenv()
 
 creator = Blueprint("creator", __name__)
@@ -173,7 +175,7 @@ def getAssessmentQuestions():
                     }, 200
                     return response_body
             repo_table_name = os.environ.get('creators_assesment_table')
-            fields = "(creators_id,title,description,fixed_cost,variable_cost,duration,question,number_of_question,created_at,experiance_level,primary_skill1,primary_skill2,primary_skill3,secondary_skills)"
+            fields = "(creators_id,title,description,fixed_cost,variable_cost,duration,question,number_of_question,created_at,experiance_level,primary_skill1,primary_skill2,primary_skill3,secondary_skills,question_format)"
             try:
                 primary_skill1 = primary_skills[0]
             except:
@@ -187,11 +189,13 @@ def getAssessmentQuestions():
             except:
                 print("No primary Skill-2 Available") 
 
-            print(len(question_list),number_of_questions)
             created_at = int(datetime.datetime.now().timestamp())
+            w3 = w3storage.API(token=os.environ.get('token'))
+            some_uploads = w3.user_uploads(size=25)
 
             if len(question_list) == number_of_questions:
-                values = f"""({creator_id},'{assessment_name}','{description}',{fixed_cost},{variable_cost},{duration},'{question_list}',{number_of_questions},{created_at},'{experience_level}','{primary_skill1}','{primary_skill2}','{primary_skill3}','{(',').join(secondary_skills)}')"""
+                cid = w3.post_upload(('format.txt',str(question_format)))
+                values = f"""({creator_id},'{assessment_name}','{description}',{fixed_cost},{variable_cost},{duration},'{question_list}',{number_of_questions},{created_at},'{experience_level}','{primary_skill1}','{primary_skill2}','{primary_skill3}','{(',').join(secondary_skills)}','{cid}')"""
                 data = insert_query(repo_table_name, fields, values)
                 response_body = {
                     "status": 200,
