@@ -70,6 +70,7 @@ function CompanyRegForm() {
     { section: refSeven, input: inputRefSeven },
     { section: refEight, input: inputRefEight },
     { section: refNine, input: inputRefNine },
+    { section: refTen, input: inputRefTen },
   ];
 
   const handleClick = (e) => {

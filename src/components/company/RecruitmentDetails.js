@@ -555,7 +555,7 @@ function RecruitmentDetails() {
                     options={optionListLocation}
                     placeholder=""
                     required
-                    value={setSelectedOptions}
+                    // value={setSelectedOptionsLocation}
                     onChange={(e) => {
                       handleSelectLocation(e);
                     }}
@@ -582,7 +582,7 @@ function RecruitmentDetails() {
                       handleSelect(e);
                     }}
                     isSearchable={true}
-                    isOptionDisabled={() => selectedOptions.length >= 5}
+                    // isOptionDisabled={() => selectedOptions.length >= 5}
                     isMulti
                     styles={style}
                   />

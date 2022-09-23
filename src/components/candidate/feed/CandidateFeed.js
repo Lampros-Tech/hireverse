@@ -167,7 +167,6 @@ const CandidateFeed = () => {
     }
     return str.join(" ");
   }
-   
 
   return (
     <>
@@ -313,11 +312,7 @@ const CandidateFeed = () => {
                                     return (
                                       <div>
                                         <div className="candidate-more-skills">
-<<<<<<< HEAD
                                           {titleCase(data2[0][4])}
-=======
-                                          {data2[0][4]}
->>>>>>> fb3a4b35c6015066aad7848cdb98974f5bf250c9
                                         </div>
                                       </div>
                                     );
@@ -329,11 +324,7 @@ const CandidateFeed = () => {
                                     return (
                                       <div>
                                         <div className="candidate-more-skills">
-<<<<<<< HEAD
                                           {titleCase(data2[0][5])}
-=======
-                                          {data2[0][5]}
->>>>>>> fb3a4b35c6015066aad7848cdb98974f5bf250c9
                                         </div>
                                       </div>
                                     );
@@ -344,11 +335,7 @@ const CandidateFeed = () => {
                                     return (
                                       <div>
                                         <div className="candidate-more-skills">
-<<<<<<< HEAD
                                           {titleCase(data2[0][6])}
-=======
-                                          {data2[0][6]}
->>>>>>> fb3a4b35c6015066aad7848cdb98974f5bf250c9
                                         </div>
                                       </div>
                                     );
@@ -359,11 +346,7 @@ const CandidateFeed = () => {
                                     return (
                                       <div>
                                         <div className="candidate-more-skills">
-<<<<<<< HEAD
                                           {titleCase(data2[0][7])}
-=======
-                                          {data2[0][7]}
->>>>>>> fb3a4b35c6015066aad7848cdb98974f5bf250c9
                                         </div>
                                       </div>
                                     );
@@ -374,11 +357,7 @@ const CandidateFeed = () => {
                                     return (
                                       <div>
                                         <div className="candidate-more-skills">
-<<<<<<< HEAD
                                           {titleCase(data2[0][8])}
-=======
-                                          {data2[0][8]}
->>>>>>> fb3a4b35c6015066aad7848cdb98974f5bf250c9
                                         </div>
                                       </div>
                                     );
@@ -394,11 +373,7 @@ const CandidateFeed = () => {
                                     return (
                                       <div>
                                         <div className="candidate-more-skills">
-<<<<<<< HEAD
                                           {titleCase(data2[0][9])}
-=======
-                                          {data2[0][9]}
->>>>>>> fb3a4b35c6015066aad7848cdb98974f5bf250c9
                                         </div>
                                       </div>
                                     );
@@ -492,11 +467,7 @@ const CandidateFeed = () => {
                                       return (
                                         <div>
                                           <div className="candidate-form-skills">
-<<<<<<< HEAD
                                             {titleCase(data3[0][2])}
-=======
-                                            {data3[0][2]}
->>>>>>> fb3a4b35c6015066aad7848cdb98974f5bf250c9
                                           </div>
                                         </div>
                                       );
@@ -507,11 +478,7 @@ const CandidateFeed = () => {
                                       return (
                                         <div>
                                           <div className="candidate-form-skills">
-<<<<<<< HEAD
                                             {titleCase(data3[0][3])}
-=======
-                                            {data3[0][3]}
->>>>>>> fb3a4b35c6015066aad7848cdb98974f5bf250c9
                                           </div>
                                         </div>
                                       );
@@ -522,11 +489,7 @@ const CandidateFeed = () => {
                                       return (
                                         <div>
                                           <div className="candidate-form-skills">
-<<<<<<< HEAD
                                             {titleCase(data3[0][4])}
-=======
-                                            {data3[0][4]}
->>>>>>> fb3a4b35c6015066aad7848cdb98974f5bf250c9
                                           </div>
                                         </div>
                                       );
@@ -537,11 +500,7 @@ const CandidateFeed = () => {
                                       return (
                                         <div>
                                           <div className="candidate-form-skills">
-<<<<<<< HEAD
                                             {titleCase(data3[0][5])}
-=======
-                                            {data3[0][5]}
->>>>>>> fb3a4b35c6015066aad7848cdb98974f5bf250c9
                                           </div>
                                         </div>
                                       );
@@ -552,11 +511,7 @@ const CandidateFeed = () => {
                                       return (
                                         <div>
                                           <div className="candidate-form-skills">
-<<<<<<< HEAD
                                             {titleCase(data3[0][6])}
-=======
-                                            {data3[0][6]}
->>>>>>> fb3a4b35c6015066aad7848cdb98974f5bf250c9
                                           </div>
                                         </div>
                                       );
