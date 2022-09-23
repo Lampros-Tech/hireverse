@@ -18,6 +18,7 @@ const CandidateFeed = () => {
   const [newData, setNewData] = useState();
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
+  const [additionalQuestions, setAdditonalQuestions] = useState({});
   const boxRef = useRef(null);
 
   const [que, setQue] = useState([]);
@@ -123,18 +124,37 @@ const CandidateFeed = () => {
     for (let i = 0; i < readRes["rows"][0][8].length; i++) {}
   };
 
-  const applyForJob = async () => {};
+  const applyForJob = async () => {
+    console.log(message);
+    console.log(additionalQuestions);
+    console.log(file);
+  };
+  const [file, setFile] = useState("");
 
+  async function uploadImage(e) {
+    console.log(document.getElementById("input").files[0]);
+    console.log(URL.createObjectURL(e.target.files[0]));
+    setFile(URL.createObjectURL(e.target.files[0]));
+  }
   const [message, setMessage] = useState("");
-  const [message1, setMessage1] = useState("");
+  const [resume, setResume] = useState("");
 
   const handleChange = (event) => {
     setMessage(event.target.value);
 
-    // console.log("value is:", event.target.value);
+    console.log("value is:", event.target.value);
   };
-  const handleChange1 = (event) => {
-    setMessage1(event.target.value);
+
+  const handleAnswerChange = (e, id) => {
+    var result = additionalQuestions;
+    // result = result.map((x) => {
+    //   //<- use map on result to find element to update using id
+    //   if (x[id] === id) x[id] = e.target.value;
+    //   return x;
+    // });
+    result[id] = e.target.value;
+    console.log(result);
+    setAdditonalQuestions(result);
 
     // console.log("value is:", event.target.value);
   };
@@ -146,6 +166,9 @@ const CandidateFeed = () => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
           // alert("You clicked outside of me!");
+
+          setAdditonalQuestions({});
+          setQue([]);
           if (isForm) {
             setIsForm(!isForm);
           }
@@ -199,9 +222,10 @@ const CandidateFeed = () => {
   };
 
   useEffect(() => {
+    // console.log(additionalQuestions);
     // console.log(titleCase("hello there I'm Jaydip"));
     showJobPosts();
-  });
+  }, []);
   function titleCase(str) {
     str = str.toLowerCase().split(" ");
     for (var i = 0; i < str.length; i++) {
@@ -482,6 +506,7 @@ const CandidateFeed = () => {
                               >
                                 <img
                                   src={Upload}
+                                  id="resume_img"
                                   className="candidate-form-upload-img"
                                   alt="upload_img"
                                 />
@@ -492,6 +517,7 @@ const CandidateFeed = () => {
                                 hidden
                                 // defaultValue={nameOfUser}
                                 ref={upload_img}
+                                onChange={(e) => uploadImage(e)}
                               />
                               <div className="applicationform-block">
                                 <div className="candidate-form-title">
@@ -569,7 +595,8 @@ const CandidateFeed = () => {
                                   onChange={handleChange}
                                   value={message}
                                 />
-                                {que.map((inde) => {
+                                {que.map((inde, key) => {
+                                  // console.log(key);
                                   return (
                                     <div>
                                       <div className="candidate-form-question">
@@ -577,9 +604,11 @@ const CandidateFeed = () => {
                                       </div>
                                       <textarea
                                         className="candidate-form-question-box"
-                                        name="message1"
-                                        onChange={handleChange1}
-                                        value={message1}
+                                        name={`message${key}`}
+                                        onChange={(e) =>
+                                          handleAnswerChange(e, key)
+                                        }
+                                        // defaultValue={message1}
                                       />
                                     </div>
                                   );

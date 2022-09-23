@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 function Jobpost() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+
   let navigate = useNavigate();
   const showJobPosts = async () => {
     const name = "job_table_80001_2018";
@@ -14,7 +15,7 @@ function Jobpost() {
       network: "testnet",
       chain: "polygon-mumbai",
     });
-    const table = "application_details_table_80001_2024";
+    const table = "application_details_table_80001_2806";
     const readRes = await tableland.read(`SELECT * FROM ${name}`);
     console.log(readRes);
     for (let i = 0; i < readRes["rows"].length; i++) {
