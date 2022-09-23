@@ -10,6 +10,7 @@ import FacebookLogo from "../../assets/images/facebook.png";
 import Upload from "../../assets/images/uploadimg.svg";
 import { connect } from "@tableland/sdk";
 import "./feed.css";
+import Axios from "axios";
 
 const CandidateFeed = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,7 @@ const CandidateFeed = () => {
   const [data3, setData3] = useState([]);
   const boxRef = useRef(null);
 
+  const [que, setQue] = useState([]);
   const [credentials, setCredentials] = useState({
     candidate_id: "",
     job_id: "",
@@ -93,6 +95,18 @@ const CandidateFeed = () => {
       `SELECT * FROM ${name} where job_id=${formId}`
     );
     console.log(readRes);
+    let url =
+      "https://ipfs.io/ipfs/" + readRes["rows"][0][8] + "/questions.json";
+    console.log(url);
+    await Axios.get(url).then((response) => {
+      let no_of_questions = response.data.questions.length;
+      for (let i = 0; i < no_of_questions; i++) {
+        que.push([response.data.questions[i]]);
+      }
+      setQue(que);
+      // setContent(response.data.body);
+      // setLoading(false);
+    });
     data3.push([
       readRes["rows"][0][3],
       readRes["rows"][0][4],
@@ -112,9 +126,15 @@ const CandidateFeed = () => {
   const applyForJob = async () => {};
 
   const [message, setMessage] = useState("");
+  const [message1, setMessage1] = useState("");
 
   const handleChange = (event) => {
     setMessage(event.target.value);
+
+    // console.log("value is:", event.target.value);
+  };
+  const handleChange1 = (event) => {
+    setMessage1(event.target.value);
 
     // console.log("value is:", event.target.value);
   };
@@ -549,17 +569,22 @@ const CandidateFeed = () => {
                                   onChange={handleChange}
                                   value={message}
                                 />
-
-                                <div className="candidate-form-question">
-                                  {data3[0][7]}
-                                </div>
-                                <textarea
-                                  className="candidate-form-question-box"
-                                  name="message"
-                                  onChange={handleChange}
-                                  value={message}
-                                />
-                                <div className="candidate-form-question">
+                                {que.map((inde) => {
+                                  return (
+                                    <div>
+                                      <div className="candidate-form-question">
+                                        {inde[0]}
+                                      </div>
+                                      <textarea
+                                        className="candidate-form-question-box"
+                                        name="message1"
+                                        onChange={handleChange1}
+                                        value={message1}
+                                      />
+                                    </div>
+                                  );
+                                })}
+                                {/* <div className="candidate-form-question">
                                   {formData.Question2}
                                 </div>
                                 <textarea
@@ -567,7 +592,7 @@ const CandidateFeed = () => {
                                   name="message"
                                   onChange={handleChange}
                                   value={message}
-                                />
+                                /> */}
 
                                 <div className="candidate-more-btn-size-application">
                                   <button
