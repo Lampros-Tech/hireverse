@@ -150,7 +150,7 @@ export default function CandidateHeader() {
                     <Popover.Button
                       className={classNames(
                         open ? "text-gray-900" : "text-gray-500",
-                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none  header-orange "
                       )}
                     >
                       <span>Tests</span>
@@ -182,7 +182,7 @@ export default function CandidateHeader() {
                                 className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
                               >
                                 <item.icon
-                                  className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                  className="h-6 w-6 flex-shrink-0 header-svg"
                                   aria-hidden="true"
                                 />
                                 <div className="ml-4">
@@ -408,7 +408,7 @@ export default function CandidateHeader() {
                         className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
                       >
                         <item.icon
-                          className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                          className="h-6 w-6 flex-shrink-0 header-svg"
                           aria-hidden="true"
                         />
                         <span className="ml-3 text-base font-medium text-gray-900">
