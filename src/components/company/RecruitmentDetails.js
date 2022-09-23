@@ -100,6 +100,8 @@ function RecruitmentDetails() {
     const readRes = await tableland.read(
       `SELECT company_id FROM ${name} where wallet_address='${address}'`
     );
+    console.log(readRes);
+    console.log(readRes["rows"][0][0]);
     var data = JSON.stringify({
       company_id: readRes["rows"][0][0],
       title: credentials.title,

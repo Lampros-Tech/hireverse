@@ -20,7 +20,7 @@ function JobApplicant() {
       chain: "polygon-mumbai",
     });
     const readRes = await tableland.read(
-      `SELECT candidate_id FROM ${name} where job_id=${param[1]}`
+      `SELECT candidate_id FROM ${name} where job_id=${param[1]} and status=0`
     );
     for (let i = 0; i < readRes["rows"].length; i++) {
       const response = await tableland.read(

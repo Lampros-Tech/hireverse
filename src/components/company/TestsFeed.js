@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "@tableland/sdk";
 import "../company/styles/testfeed.css";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 function TestsFeed() {
   const [data, setData] = useState([]);
@@ -14,17 +14,22 @@ function TestsFeed() {
     });
     const table = "creators_table_80001_2155";
     const readRes = await tableland.read(`SELECT * FROM ${name}`);
-    console.log(readRes);
     for (let i = 0; i < readRes["rows"].length; i++) {
       let creatorId = readRes["rows"][i][1];
       const response = await tableland.read(
         `SELECT name FROM ${table} where creator_id=${creatorId}`
       );
-      console.log(response);
+      var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+      d.setUTCSeconds(readRes["rows"][i][6]);
+      let date_array = d.toString().split(" ", 4);
+      let final_array = [];
+      for (let i = 1; i < date_array.length; i++) {
+        final_array.push(date_array[i]);
+      }
       // let noOfApplicants = response["rows"].length;
       data.push([
         readRes["rows"][i][2],
-        readRes["rows"][i][6],
+        final_array.toString(),
         readRes["rows"][i][10],
         response["rows"][0][0],
         readRes["rows"][i][3],
@@ -36,7 +41,6 @@ function TestsFeed() {
       ]);
     }
     setData(data);
-    console.log(data);
     setLoading(true);
   };
 
@@ -48,7 +52,7 @@ function TestsFeed() {
 
   const navigateToTestDescription = () => {
     // 👇️ navigate to /contacts
-    navigate('/company/testdescrption');
+    navigate("/company/testdescrption");
   };
   return (
     <div>
@@ -80,8 +84,12 @@ function TestsFeed() {
                         />
                       </svg>
 
-                      <span className="
-                      gap-1">Duration: </span>
+                      <span
+                        className="
+                      gap-1"
+                      >
+                        Duration:{" "}
+                      </span>
                       <span className="gap-1">{inde[1]}</span>
                     </div>
                     <div className="td-outer-heading">
@@ -174,12 +182,19 @@ function TestsFeed() {
                     type="button"
                     onClick={navigateToTestDescription}
                     class=" arreow-buttton   focus:outline-none  font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center "
-                    
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z" clipRule="evenodd" />
-</svg>
-
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
 
                     <span class="sr-only">Icon description</span>
                   </button>
