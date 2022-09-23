@@ -1,7 +1,7 @@
 import React from "react";
 import "./loadingicon.css";
 
-function LoadingIcon() {
+function LoadingIcon({ message }) {
   return (
     <>
       <span className="loading-span">
@@ -32,7 +32,12 @@ function LoadingIcon() {
           </div>
         </div>
         <span className="loading-span-title">
-          Going forward to the hireverse . . .
+          {
+            message ?
+              message
+              :
+              "Going forward to the hireverse . . ."
+          }
         </span>
       </span>
     </>
