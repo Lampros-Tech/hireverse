@@ -179,6 +179,10 @@ function CompanyRegForm() {
       });
   };
 
+  /////////////////////add function here///////////////////
+
+  //////////////////////////only for smart contract//////////////
+
   // const printData = () => {
   //   console.log(logoCID, coverCID);
   //   // console.log(showAll);
@@ -1321,6 +1325,7 @@ function CompanyRegForm() {
                           setbtnLoading(true);
 
                           // handleClick(10);
+                          // functionName();
                           sendCompanyRegData(
                             loginId,
                             showAll.cname,
