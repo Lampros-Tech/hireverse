@@ -10,7 +10,7 @@
 }
 .jobapplicant-main-content1 {
   width: 100%;
-  padding: 50px;
+  /* padding: 50px; */
   margin: 0 auto;
   max-width: 1024px;
 }
@@ -24,16 +24,16 @@
 .jobapplicant-years-qualification {
   display: flex;
   font-family: "Open Sans";
-
   /* margin-left: 43px; */
 }
+
 .jobapplicant-qualification {
   display: inline-flex;
   position: absolute;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  margin-top: -20px;
+  /* margin-top: -20px; */
 }
 .jobapplicant-year {
   display: flex;
@@ -48,6 +48,10 @@
   font-weight: 700;
   margin-left: 11em;
 }
+.jobapplicant-name-section2 {
+  font-weight: 700;
+  margin-left: 18em;
+}
 .jobapplicant-bech {
   margin-left: 5px;
 }
@@ -57,16 +61,21 @@
   margin-top: 5%;
   font-family: "Open Sans";
 }
+.jobapplicant-description-section2 {
+  text-align: justify;
+  margin-top: 5%;
+  width: 60%;
+  font-family: "Open Sans";
+}
 
 .jobapplicant-information {
   margin-top: 10px;
-
-  width: 55%;
+  /* width: 55%; */
   margin-bottom: 40px;
 }
 .jobapplicant-main-button {
   display: flex;
-  margin-left: 4em;
+  margin-left: 8em;
 }
 .jobapplicant-headername {
   margin-left: 10%;
@@ -77,14 +86,13 @@
   box-shadow: 0px 0px 6px 5px #eff0ee;
   padding-bottom: 15px;
   padding-top: 15px;
-
   margin-top: 50px;
   height: 100%;
   width: 100%;
   max-width: 1024px;
   padding: 50px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 20px;
   margin-bottom: 5%;
 }
 .jobapplicant-invite-button2 {
@@ -98,8 +106,7 @@
   background-color: #282155;
   font-size: medium;
 }
-
-.myjobpost-information-header {
+​ .myjobpost-information-header {
   display: flex;
   align-items: center;
   margin-top: 5%;
@@ -116,6 +123,16 @@
   margin-top: 10px;
   margin-left: 100px;
   background-color: gray;
+}
+.jobapplicant-front-buttons {
+  display: flex;
+  font-family: "Open Sans";
+  justify-content: flex-start;
+  align-items: center;
+  /* margin: auto; */
+  width: 80%;
+  max-width: 1024px;
+  padding-top: 50px;
 }
 /* -------------------for responsive------------------------ */
 @media only screen and (max-width: 768px) {
@@ -170,8 +187,7 @@
     margin-left: 2em;
     text-align: justify;
   }
-
-  .jobapplicant-information {
+  ​ .jobapplicant-information {
     margin-bottom: 40px;
   }
   .jobapplicant-main-button {
@@ -212,8 +228,7 @@
     font-size: medium;
     padding: 8px;
   }
-
-  .myjobpost-information-header {
+  ​ .myjobpost-information-header {
     display: flex;
     align-items: center;
     /* margin-top: 2%; */

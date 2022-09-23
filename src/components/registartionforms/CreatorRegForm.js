@@ -67,21 +67,21 @@ function CreatorRegForm() {
   const handleClick = (e) => {
     if (e === 0 && showAll.name === "") {
       alert("Enter Name pls");
-    } else if (e === 1 && showAll.bio === "") {
-      alert("Enter first Name pls");
-    } else if (e === 2 && showAll.address === "") {
-      alert("Enter last Name pls");
-    } else if (e === 3 && showAll.country === "") {
-      alert("Enter last Name pls");
-    } else if (e === 4 && showAll.cnum === "") {
-      alert("Enter last Name pls");
-      // } else if (e === 5 && showAll.skill === []) {
+      // } else if (e === 1 && showAll.bio === "") {
+      //   alert("Enter first Name pls");
+      // } else if (e === 2 && showAll.address === "") {
       //   alert("Enter last Name pls");
-      //
-    } else if (e === 5 && profileCID === "") {
-      alert("Enter profile img pls");
-    } else if (e === 6 && coverCID === "") {
-      alert("Enter cover img pls");
+      // } else if (e === 3 && showAll.country === "") {
+      //   alert("Enter last Name pls");
+      // } else if (e === 4 && showAll.cnum === "") {
+      //   alert("Enter last Name pls");
+      //   // } else if (e === 5 && showAll.skill === []) {
+      //   //   alert("Enter last Name pls");
+      //   //
+      // } else if (e === 5 && profileCID === "") {
+      //   alert("Enter profile img pls");
+      // } else if (e === 6 && coverCID === "") {
+      //   alert("Enter cover img pls");
     } else {
       // console.log(refArr[e + 1].section);
       const test = refArr[e + 1].section;
@@ -723,7 +723,11 @@ function CreatorRegForm() {
                         * click on image box to choose image and then press
                         "upload file" button to upload your image
                       </p>
-
+                      <p className="upload-img-instruction">
+                        * we are uploading images on IPFS so it may take some
+                        time. If you are in hurry then you can select any random
+                        image by pressing "Random" button
+                      </p>
                       <StoreProfileImg setFileCid={setProfileCID} />
                     </div>
 
@@ -825,6 +829,11 @@ function CreatorRegForm() {
                       <p className="upload-img-instruction">
                         * click on image box to choose image and then press
                         "upload file" button to upload your image
+                      </p>
+                      <p className="upload-img-instruction">
+                        * we are uploading images on IPFS so it may take some
+                        time. If you are in hurry then you can select any random
+                        image by pressing "Random" button
                       </p>
                       <StoreCoverImg setFileCid2={setCoverCID} />
                     </div>

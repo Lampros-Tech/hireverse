@@ -4,10 +4,11 @@ import { connect } from "@tableland/sdk";
 import axios from "axios";
 
 function JobApplicant() {
+  const [approval, setApproval] = useState(true);
+  const [approved, setApproved] = useState();
   const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const showApplicants = async () => {
     const currentLocation = window.location.href;
     const param = currentLocation.split("=");
@@ -64,7 +65,6 @@ function JobApplicant() {
     console.log(res);
     setLoading(true);
   };
-
   const updateApproveDisapprove = async (job_id, candidate_id, ans) => {
     const tableland = await connect({
       network: "testnet",
@@ -97,6 +97,7 @@ function JobApplicant() {
   useEffect(() => {
     showApplicants();
   }, []);
+
   if (loading) {
     return (
       <>
@@ -104,76 +105,112 @@ function JobApplicant() {
           <h2 class="font-medium leading-tight text-4xl mt-0  text-black-600 jobapplicant-title2">
             JOB APPLICANTS
           </h2>
-          <div className="myjobpost-information-header">
-            <label
+          <div className="jobapplicant-front-buttons">
+            <button
+              onClick={() => {
+                setApproval(true);
+                setApproved(false);
+              }}
               for="first_name"
-              class="block  text-large font-medium text-gray-900 dark:text-gray-300 jobapplicant-title1"
+              className={
+                approval
+                  ? "block text-large font-medium text-gray-900 dark:text-gray-300 purchased-name pc-tab-button"
+                  : "block text-large font-medium text-gray-900 dark:text-gray-300 purchased-name"
+              }
+              value={approval}
             >
-              Candidates Requesting Approval:
-            </label>
+              Approval
+            </button>
+            ​
+            <button
+              onClick={() => {
+                setApproved(true);
+                setApproval(false);
+              }}
+              for="first_name"
+              className={
+                approved
+                  ? "block text-large font-medium text-gray-900 dark:text-gray-300 created-name pc-tab-button"
+                  : "block text-large font-medium text-gray-900 dark:text-gray-300 created-name"
+              }
+              value={approved}
+            >
+              Approved
+            </button>
           </div>
-
-          <div className="jobapplicant-main-form">
-            {data.map((inde) => {
-              return (
-                <div className="jobapplicant-information">
-                  <div className="jobapplicant-user-icon">
-                    <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
-                      <svg
-                        class=""
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
-                    </div>
-
-                    <div className="jobapplicant-username">
-                      <label
-                        for="first_name"
-                        class="block  text-sm font-medium text-gray-900 dark:text-gray-300 applicant-username-block"
-                      >
-                        {inde[1]}
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="jobapplicant-years-qualification">
-                    <div className="jobapplicant-qualification">
-                      <div className="jobapplicant-year">
+          {approval === true ? (
+            <div className="jobapplicant-main-form">
+              {data.map((inde) => {
+                return (
+                  <div className="jobapplicant-information">
+                    <div className="jobapplicant-user-icon">
+                      <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
+                        <svg
+                          class=""
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      </div>
+                      ​
+                      <div className="jobapplicant-username">
                         <label
                           for="first_name"
-                          class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-name "
+                          class="block  text-sm font-medium text-gray-900 dark:text-gray-300 applicant-username-block"
                         >
-                          Years of Exprience:
-                        </label>
-
-                        <label
-                          for="first_name"
-                          class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-no"
-                        >
-                          5
+                          {inde[1]}
                         </label>
                       </div>
-
-                      <label
-                        for="first_name"
-                        class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-name jobapplicant-qualification-main"
-                      >
-                        Qualifications:
-                      </label>
-                      <label
-                        for="first_name"
-                        class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-bech jobapplicant-qualification-main"
-                      >
-                        {inde[2]}
-                      </label>
-
+                    </div>
+                    ​
+                    <div className="jobapplicant-years-qualification">
+                      <div className="jobapplicant-section1">
+                        <div className="jobapplicant-qualification">
+                          <div className="jobapplicant-year">
+                            <label
+                              for="first_name"
+                              class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-name "
+                            >
+                              Years of Exprience:
+                            </label>
+                            ​
+                            <label
+                              for="first_name"
+                              class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-no"
+                            >
+                              5
+                            </label>
+                          </div>
+                          ​
+                          <label
+                            for="first_name"
+                            class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-name jobapplicant-qualification-main"
+                          >
+                            Qualifications:
+                          </label>
+                          <label
+                            for="first_name"
+                            class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-bech jobapplicant-qualification-main"
+                          >
+                            {inde[2]}
+                          </label>
+                        </div>
+                        <div className="jobapplicant-description">
+                          <label
+                            for="first_name"
+                            class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
+                          >
+                            {inde[3]}
+                          </label>
+                        </div>
+                      </div>
+                      ​
                       <div className="jobapplicant-main-button">
                         <div className="jobapplicant-button">
                           <button
@@ -186,7 +223,7 @@ function JobApplicant() {
                             Approve
                           </button>
                         </div>
-
+                        ​
                         <div className="jobapplicant-button">
                           <button
                             type="button"
@@ -201,116 +238,102 @@ function JobApplicant() {
                       </div>
                     </div>
                   </div>
-                  <div className="jobapplicant-description">
-                    <label
-                      for="first_name"
-                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
-                    >
-                      {inde[3]}
-                    </label>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* -------------------table2------------------------------------------------------- */}
-        <div className="jobapplicant-main-content1">
-          <div className="myjobpost-information-header">
-            <label
-              for="first_name"
-              class="block  text-large font-medium text-gray-900 dark:text-gray-300 jobapplicant-title1"
-            >
-              Candidates Who Are Approved:
-            </label>
-          </div>
-          <div className="jobapplicant-main-form">
-            {data2.map((inde) => {
-              return (
-                <div className="jobapplicant-information">
-                  <div className="jobapplicant-user-icon">
-                    <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
-                      <svg
-                        class=""
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
-                    </div>
-
-                    <div className="jobapplicant-username">
-                      <label
-                        for="first_name"
-                        class="block  text-sm font-medium text-gray-900 dark:text-gray-300  applicant-username-block"
-                      >
-                        {inde[1]}
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="jobapplicant-years-qualification">
-                    <div className="jobapplicant-qualification">
-                      <div className="jobapplicant-year">
-                        <label
-                          for="first_name"
-                          class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-name"
-                        >
-                          Year of Exprience:
-                        </label>
-
-                        <label
-                          for="first_name"
-                          class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-no"
-                        >
-                          5
-                        </label>
-                      </div>
-
-                      <label
-                        for="first_name"
-                        class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-name jobapplicant-qualification-main"
-                      >
-                        Qualifications:
-                      </label>
-                      <label
-                        for="first_name"
-                        class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-bech jobapplicant-qualification-main"
-                      >
-                        {inde[2]}{" "}
-                      </label>
-
-                      <div className="jobapplicant-main-button">
-                        <div className="jobapplicant-button">
-                          <button
-                            type="button"
-                            class="text-white  cursor-not-allowed font-medium rounded-lg text-sm px-9 py-3 mr-3 text-center jobapplicant-approved-button01"
-                            disabled=""
+                );
+              })}
+            </div>
+          ) : (
+            <>
+              {/* -------------------table2------------------------------------------------------- */}
+              <div className="jobapplicant-main-content1">
+                <div className="jobapplicant-main-form">
+                  {data2.map((inde) => {
+                    return (
+                      <div className="jobapplicant-information">
+                        <div className="jobapplicant-user-icon">
+                          <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600 ">
+                            <svg
+                              class=""
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                clip-rule="evenodd"
+                              ></path>
+                            </svg>
+                          </div>
+                          ​
+                          <div className="jobapplicant-username">
+                            <label
+                              for="first_name"
+                              class="block  text-sm font-medium text-gray-900 dark:text-gray-300  applicant-username-block"
+                            >
+                              {inde[1]}
+                            </label>
+                          </div>
+                        </div>
+                        ​
+                        <div className="jobapplicant-years-qualification">
+                          <div className="jobapplicant-qualification">
+                            <div className="jobapplicant-year">
+                              <label
+                                for="first_name"
+                                class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-name"
+                              >
+                                Year of Exprience:
+                              </label>
+                              ​
+                              <label
+                                for="first_name"
+                                class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-year-no"
+                              >
+                                5
+                              </label>
+                            </div>
+                            ​
+                            <label
+                              for="first_name"
+                              class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-name-section2 jobapplicant-qualification-main"
+                            >
+                              Qualifications:
+                            </label>
+                            <label
+                              for="first_name"
+                              class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-bech jobapplicant-qualification-main"
+                            >
+                              {inde[2]}{" "}
+                            </label>
+                            ​
+                            <div className="jobapplicant-main-button">
+                              <div className="jobapplicant-button">
+                                <button
+                                  type="button"
+                                  class="text-white  cursor-not-allowed font-medium rounded-lg text-sm px-9 py-3 mr-3 text-center jobapplicant-approved-button01"
+                                  disabled=""
+                                >
+                                  Approved
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="jobapplicant-description-section2">
+                          <label
+                            for="first_name"
+                            class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
                           >
-                            Approved
-                          </button>
+                            {inde[3]}
+                          </label>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="jobapplicant-description">
-                    <label
-                      for="first_name"
-                      class="block  text-sm font-medium text-gray-900 dark:text-gray-300"
-                    >
-                      {inde[3]}
-                    </label>
-                  </div>
+                    );
+                  })}
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            </>
+          )}
         </div>
       </>
     );

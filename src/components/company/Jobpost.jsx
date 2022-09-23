@@ -40,7 +40,7 @@ function Jobpost() {
     console.log(id);
   };
   const sendThat = (id) => {
-    navigate(`/company/availabletests/?dummy=${JSON.stringify(id)}`);
+    navigate(`/company/jobinsights/?dummy=${JSON.stringify(id)}`);
     console.log("id");
     console.log(id);
   };
