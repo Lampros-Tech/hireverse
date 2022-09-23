@@ -45,7 +45,8 @@ img.f-logo-img {
 }
 .f-inside-section {
   /* height: 20vh; */
-  width: 100vw;
+  min-width: 65vw;
+  max-width: 65vw;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -322,8 +323,8 @@ span.f-ctrl-enter {
   font-weight: 600;
 }
 p.upload-img-instruction {
-  max-width: 80%;
-  font-size: 15px;
+  /* max-width: 60%; */
+  font-size: 13px;
   margin-top: 0;
   margin: 10px 0;
 }

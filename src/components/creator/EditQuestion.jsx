@@ -172,17 +172,19 @@ function EditQuestion({ id, category, hideComponent, getAllQuestions }) {
     <>
       <div className="edit_Question ">
         <div className="edit_question_header ">
-          <div className="edit_question_left"></div>
-          <div className="alert-header-left"> Edit Question here</div>
-          <img
-            src={closebtn}
-            className="edit_question_close_button"
-            onClick={() => {
-              hideComponent();
-            }}
-          />
+          <div className="alert-header-left w-16"> </div>
+          <div className="flex-grow text-center text-white p-4 font-primary ">Edit Question here</div>
+          <div className="float-right">
+            <img
+              src={closebtn}
+              className="edit_question_close_button"
+              onClick={() => {
+                hideComponent(false);
+              }}
+            />
+          </div>
         </div>
-        <div className="Instruction alert">Enter set number below.</div>
+        <div className="Instruction alert text-center text-white font-secondary">Enter set number below.</div>
         {setNumber ? (
           <div className="alert-input">
             <input

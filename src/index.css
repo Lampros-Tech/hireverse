@@ -77,6 +77,13 @@ button.hireverse-btn:hover {
   color: white;
 }
 
+svg.header-svg {
+  color: #ff6150;
+}
+button.header-orange:focus {
+  border: 2px solid #ff6150;
+}
+
 @keyframes gradient {
   0% {
     background-position: 0%;

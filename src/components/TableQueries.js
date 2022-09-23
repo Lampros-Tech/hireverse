@@ -70,7 +70,8 @@ export const insert_creators_repo_table = async (
     chain: "polygon-mumbai",
   });
   console.log(tablename);
-
+  const allRepoName = await tableland.read(`SELECT repo_name from ${tablename} `);
+  console.log(allRepoName);
   const writeRes = await tableland.write(
     `INSERT INTO ${tablename} (wallet_address,repo_name,description,visiblity) VALUES ('${wallet_address}','${repo_name}','${description}',${visiblity});`
   );

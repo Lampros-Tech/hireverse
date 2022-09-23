@@ -9,7 +9,15 @@ import LinkedlnLogo from "../../assets/images/linkedin.png";
 import FacebookLogo from "../../assets/images/facebook.png";
 import Upload from "../../assets/images/uploadimg.svg";
 import { connect } from "@tableland/sdk";
+import { Web3Storage } from "web3.storage";
+
 import "./feed.css";
+import Axios from "axios";
+
+const API_TOKEN =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGZiNzE4QzgwYmJlYUQwNTAzYThFMjgzMmI2MDU0RkVmOUU4MzA2NzQiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjE0MTEzNjczNTAsIm5hbWUiOiJUcnkifQ.srPPE7JD3gn8xEBCgQQs_8wyo6rDrXaDWC0QM8FtChA";
+
+const client = new Web3Storage({ token: API_TOKEN });
 
 const CandidateFeed = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,8 +25,37 @@ const CandidateFeed = () => {
   const [newData, setNewData] = useState();
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
+  const [additionalQuestions, setAdditonalQuestions] = useState({});
   const boxRef = useRef(null);
 
+  const [que, setQue] = useState([]);
+  const [credentials, setCredentials] = useState({
+    candidate_id: "",
+    job_id: "",
+    ans_of_addition_q: "",
+    resume_cid: "",
+    cover_latter: "",
+    assesment_log_id: "",
+    status: "",
+    schedule_interview: "",
+  });
+
+  async function handleupload() {
+    var fileInput = document.getElementById("input");
+    const rootCid = await client.put(fileInput.files, {
+      name: "dehitas profile images",
+      maxRetries: 3,
+    });
+    console.log(rootCid);
+    const res = await client.get(rootCid);
+    const files = await res.files();
+    console.log(files);
+    const url = URL.createObjectURL(files[0]);
+    console.log(url);
+    console.log(files[0].cid);
+
+    // setFile(url);
+  }
   const togglePopup = async (newId) => {
     const name = "job_table_80001_2018";
     const tableland = await connect({
@@ -29,13 +66,20 @@ const CandidateFeed = () => {
     const readRes = await tableland.read(
       `SELECT * FROM ${name} where job_id=${newId}`
     );
-    console.log(readRes);
+    // console.log(readRes);
 
     let companyId = readRes["rows"][0][1];
     const response = await tableland.read(
       `SELECT name,logo FROM ${table} where company_id=${companyId}`
     );
     let company_logo = "https://ipfs.io/ipfs/" + response["rows"][0][1];
+    var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+    d.setUTCSeconds(readRes["rows"][0][10]);
+    let date_array = d.toString().split(" ", 4);
+    let final_array = [];
+    for (let i = 1; i < date_array.length; i++) {
+      final_array.push(date_array[i]);
+    }
     data2.push([
       company_logo,
       readRes["rows"][0][3],
@@ -49,11 +93,12 @@ const CandidateFeed = () => {
       readRes["rows"][0][16],
       readRes["rows"][0][5],
       readRes["rows"][0][9],
-      readRes["rows"][0][10],
+      final_array.toString(),
     ]);
+
     setData2(data2);
     // setNewData(data[newId]);
-    console.log(data2[0][4]);
+    // console.log(data2[0][4]);
     // console.log(data[newId]);
     setIsOpen(!isOpen);
   };
@@ -74,6 +119,18 @@ const CandidateFeed = () => {
       `SELECT * FROM ${name} where job_id=${formId}`
     );
     console.log(readRes);
+    let url =
+      "https://ipfs.io/ipfs/" + readRes["rows"][0][8] + "/questions.json";
+    console.log(url);
+    await Axios.get(url).then((response) => {
+      let no_of_questions = response.data.questions.length;
+      for (let i = 0; i < no_of_questions; i++) {
+        que.push([response.data.questions[i]]);
+      }
+      setQue(que);
+      // setContent(response.data.body);
+      // setLoading(false);
+    });
     data3.push([
       readRes["rows"][0][3],
       readRes["rows"][0][4],
@@ -87,12 +144,41 @@ const CandidateFeed = () => {
     setFormData(data[formId]);
     // console.log(data[formId]);
     setIsForm(!isForm);
+    for (let i = 0; i < readRes["rows"][0][8].length; i++) {}
   };
 
+  const applyForJob = async () => {
+    handleupload();
+    console.log(message);
+    console.log(additionalQuestions);
+    console.log(file);
+  };
+  const [file, setFile] = useState("");
+
+  async function uploadImage(e) {
+    console.log(document.getElementById("input").files[0]);
+    console.log(URL.createObjectURL(e.target.files[0]));
+    setFile(URL.createObjectURL(e.target.files[0]));
+  }
   const [message, setMessage] = useState("");
+  const [resume, setResume] = useState("");
 
   const handleChange = (event) => {
     setMessage(event.target.value);
+
+    console.log("value is:", event.target.value);
+  };
+
+  const handleAnswerChange = (e, id) => {
+    var result = additionalQuestions;
+    // result = result.map((x) => {
+    //   //<- use map on result to find element to update using id
+    //   if (x[id] === id) x[id] = e.target.value;
+    //   return x;
+    // });
+    result[id] = e.target.value;
+    console.log(result);
+    setAdditonalQuestions(result);
 
     // console.log("value is:", event.target.value);
   };
@@ -104,6 +190,9 @@ const CandidateFeed = () => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
           // alert("You clicked outside of me!");
+
+          setAdditonalQuestions({});
+          setQue([]);
           if (isForm) {
             setIsForm(!isForm);
           }
@@ -157,8 +246,17 @@ const CandidateFeed = () => {
   };
 
   useEffect(() => {
+    // console.log(additionalQuestions);
+    // console.log(titleCase("hello there I'm Jaydip"));
     showJobPosts();
-  });
+  }, []);
+  function titleCase(str) {
+    str = str.toLowerCase().split(" ");
+    for (var i = 0; i < str.length; i++) {
+      str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+    }
+    return str.join(" ");
+  }
 
   return (
     <>
@@ -304,7 +402,7 @@ const CandidateFeed = () => {
                                     return (
                                       <div>
                                         <div className="candidate-more-skills">
-                                          {data2[0][4]}
+                                          {titleCase(data2[0][4])}
                                         </div>
                                       </div>
                                     );
@@ -316,7 +414,7 @@ const CandidateFeed = () => {
                                     return (
                                       <div>
                                         <div className="candidate-more-skills">
-                                          {data2[0][5]}
+                                          {titleCase(data2[0][5])}
                                         </div>
                                       </div>
                                     );
@@ -327,7 +425,7 @@ const CandidateFeed = () => {
                                     return (
                                       <div>
                                         <div className="candidate-more-skills">
-                                          {data2[0][6]}
+                                          {titleCase(data2[0][6])}
                                         </div>
                                       </div>
                                     );
@@ -338,7 +436,7 @@ const CandidateFeed = () => {
                                     return (
                                       <div>
                                         <div className="candidate-more-skills">
-                                          {data2[0][7]}
+                                          {titleCase(data2[0][7])}
                                         </div>
                                       </div>
                                     );
@@ -349,7 +447,7 @@ const CandidateFeed = () => {
                                     return (
                                       <div>
                                         <div className="candidate-more-skills">
-                                          {data2[0][8]}
+                                          {titleCase(data2[0][8])}
                                         </div>
                                       </div>
                                     );
@@ -365,7 +463,7 @@ const CandidateFeed = () => {
                                     return (
                                       <div>
                                         <div className="candidate-more-skills">
-                                          {data2[0][9]}
+                                          {titleCase(data2[0][9])}
                                         </div>
                                       </div>
                                     );
@@ -432,6 +530,7 @@ const CandidateFeed = () => {
                               >
                                 <img
                                   src={Upload}
+                                  id="resume_img"
                                   className="candidate-form-upload-img"
                                   alt="upload_img"
                                 />
@@ -439,9 +538,11 @@ const CandidateFeed = () => {
                               <input
                                 className="candidate-form-upload-imginput"
                                 type="file"
+                                id="input"
                                 hidden
                                 // defaultValue={nameOfUser}
                                 ref={upload_img}
+                                onChange={(e) => uploadImage(e)}
                               />
                               <div className="applicationform-block">
                                 <div className="candidate-form-title">
@@ -459,7 +560,7 @@ const CandidateFeed = () => {
                                       return (
                                         <div>
                                           <div className="candidate-form-skills">
-                                            {data3[0][2]}
+                                            {titleCase(data3[0][2])}
                                           </div>
                                         </div>
                                       );
@@ -470,7 +571,7 @@ const CandidateFeed = () => {
                                       return (
                                         <div>
                                           <div className="candidate-form-skills">
-                                            {data3[0][3]}
+                                            {titleCase(data3[0][3])}
                                           </div>
                                         </div>
                                       );
@@ -481,7 +582,7 @@ const CandidateFeed = () => {
                                       return (
                                         <div>
                                           <div className="candidate-form-skills">
-                                            {data3[0][4]}
+                                            {titleCase(data3[0][4])}
                                           </div>
                                         </div>
                                       );
@@ -492,7 +593,7 @@ const CandidateFeed = () => {
                                       return (
                                         <div>
                                           <div className="candidate-form-skills">
-                                            {data3[0][5]}
+                                            {titleCase(data3[0][5])}
                                           </div>
                                         </div>
                                       );
@@ -503,7 +604,7 @@ const CandidateFeed = () => {
                                       return (
                                         <div>
                                           <div className="candidate-form-skills">
-                                            {data3[0][6]}
+                                            {titleCase(data3[0][6])}
                                           </div>
                                         </div>
                                       );
@@ -519,16 +620,25 @@ const CandidateFeed = () => {
                                   onChange={handleChange}
                                   value={message}
                                 />
-                                <div className="candidate-form-question">
-                                  {formData.Question1}
-                                </div>
-                                <textarea
-                                  className="candidate-form-question-box"
-                                  name="message"
-                                  onChange={handleChange}
-                                  value={message}
-                                />
-                                <div className="candidate-form-question">
+                                {que.map((inde, key) => {
+                                  // console.log(key);
+                                  return (
+                                    <div>
+                                      <div className="candidate-form-question">
+                                        {inde[0]}
+                                      </div>
+                                      <textarea
+                                        className="candidate-form-question-box"
+                                        name={`message${key}`}
+                                        onChange={(e) =>
+                                          handleAnswerChange(e, key)
+                                        }
+                                        // defaultValue={message1}
+                                      />
+                                    </div>
+                                  );
+                                })}
+                                {/* <div className="candidate-form-question">
                                   {formData.Question2}
                                 </div>
                                 <textarea
@@ -536,10 +646,15 @@ const CandidateFeed = () => {
                                   name="message"
                                   onChange={handleChange}
                                   value={message}
-                                />
+                                /> */}
 
                                 <div className="candidate-more-btn-size-application">
-                                  <button className="candidate-form-btn">
+                                  <button
+                                    className="candidate-form-btn"
+                                    onClick={() => {
+                                      applyForJob();
+                                    }}
+                                  >
                                     Submit
                                   </button>
                                 </div>

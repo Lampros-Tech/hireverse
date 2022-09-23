@@ -12,6 +12,10 @@ const ConversationRight = ({ allMessages, activeAddress, sendMessage, singleMess
         }
     }, [resetField])
 
+    useEffect(()=>{
+        console.log(allMessages)
+    },[allMessages]);
+
     useEffect(() => {
         if (allMessages.length > 0) {
             let toBottom = document.querySelector("#conversation_selector");
@@ -34,16 +38,17 @@ const ConversationRight = ({ allMessages, activeAddress, sendMessage, singleMess
                     <div className="conversation" id="conversation_selector">
                         {
                             allMessages.map((m, i) => {
+                                console.log(m.sent);
                                 if (m.senderAddress === activeAddress) {
                                     return (
                                         <div className="left" key={i}>
-                                            <div>{m.content}<div className="conv-time">{Date(Number(m.sent))}</div></div>
+                                            <div>{m.content}<div className="conv-time">{m.sent.toString().split("GMT")[0]}</div></div>
                                         </div>
                                     )
                                 } else {
                                     return (
                                         <div className="right" key={i}>
-                                            <div className="grow"></div><div className="msg">{m.content}<div className="conv-time">{Date(Number(m.sent))}</div></div>
+                                            <div className="grow"></div><div className="msg">{m.content}<div className="conv-time">{m.sent.toString().split("GMT")[0]}</div></div>
                                         </div>
                                     )
                                 }

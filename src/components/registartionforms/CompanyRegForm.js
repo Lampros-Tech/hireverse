@@ -70,27 +70,28 @@ function CompanyRegForm() {
     { section: refSeven, input: inputRefSeven },
     { section: refEight, input: inputRefEight },
     { section: refNine, input: inputRefNine },
+    { section: refTen, input: inputRefTen },
   ];
 
   const handleClick = (e) => {
     if (e === 0 && showAll.cname === "") {
       alert("Enter cname pls");
-    } else if (e === 1 && showAll.cdesc === "") {
-      alert("Enter Employment type pls");
-    } else if (e === 2 && showAll.curl === "") {
-      alert("Enter Company Name pls");
-    } else if (e === 3 && showAll.yoe === "") {
-      alert("Pls Enter Company Location");
-    } else if (e === 4 && showAll.noe === "") {
-      alert("Experience Start Date");
-    } else if (e === 5 && showAll.caddress === "") {
-      alert("Experience End Date");
-    } else if (e === 6 && showAll.cnum === "") {
-      alert("Employment Status");
-    } else if (e === 7 && showAll.ccountry === "") {
-      alert("Any other Details");
-    } else if (e === 8 && showAll.csector === "") {
-      alert("Any other Details");
+      // } else if (e === 1 && showAll.cdesc === "") {
+      //   alert("Enter Employment type pls");
+      // } else if (e === 2 && showAll.curl === "") {
+      //   alert("Enter Company Name pls");
+      // } else if (e === 3 && showAll.yoe === "") {
+      //   alert("Pls Enter Company Location");
+      // } else if (e === 4 && showAll.noe === "") {
+      //   alert("Experience Start Date");
+      // } else if (e === 5 && showAll.caddress === "") {
+      //   alert("Experience End Date");
+      // } else if (e === 6 && showAll.cnum === "") {
+      //   alert("Employment Status");
+      // } else if (e === 7 && showAll.ccountry === "") {
+      //   alert("Any other Details");
+      // } else if (e === 8 && showAll.csector === "") {
+      //   alert("Any other Details");
     } else {
       // console.log(refArr[e + 1].section);
       const test = refArr[e + 1].section;
@@ -177,6 +178,10 @@ function CompanyRegForm() {
         console.log(error);
       });
   };
+
+  /////////////////////add function here///////////////////
+
+  //////////////////////////only for smart contract//////////////
 
   // const printData = () => {
   //   console.log(logoCID, coverCID);
@@ -1168,6 +1173,11 @@ function CompanyRegForm() {
                         * click on image box to choose image and then press
                         "upload file" button to upload your image
                       </p>
+                      <p className="upload-img-instruction">
+                        * we are uploading images on IPFS so it may take some
+                        time. If you are in hurry then you can select any random
+                        image by pressing "Random" button or skip this.
+                      </p>
 
                       <StoreProfileImg setFileCid={setLogoCID} />
                     </div>
@@ -1271,6 +1281,11 @@ function CompanyRegForm() {
                         * click on image box to choose image and then press
                         "upload file" button to upload your image
                       </p>
+                      <p className="upload-img-instruction">
+                        * we are uploading images on IPFS so it may take some
+                        time. If you are in hurry then you can select any random
+                        image by pressing "Random" button
+                      </p>
                       <StoreCoverImg setFileCid2={setCoverCID} />
                     </div>
 
@@ -1310,6 +1325,7 @@ function CompanyRegForm() {
                           setbtnLoading(true);
 
                           // handleClick(10);
+                          // functionName();
                           sendCompanyRegData(
                             loginId,
                             showAll.cname,

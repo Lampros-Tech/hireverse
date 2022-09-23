@@ -2,6 +2,10 @@ import React from "react";
 import { useState, useRef } from "react";
 import { Web3Storage } from "web3.storage";
 import UploadSVG from "../assets/images/uploadsvg.svg";
+import profilepic1 from "../assets/images/profilepic1.png";
+import profilepic2 from "../assets/images/profilepic2.png";
+import profilepic3 from "../assets/images/profilepic3.png";
+
 import "./storefile.css";
 
 const API_TOKEN =
@@ -25,7 +29,7 @@ function StoreProfileImg({ setFileCid }) {
   async function handleupload() {
     var fileInput = document.getElementById("input");
     const rootCid = await client.put(fileInput.files, {
-      name: "cat pics",
+      name: "dehitas profile images",
       maxRetries: 3,
     });
     console.log(rootCid);
@@ -41,6 +45,17 @@ function StoreProfileImg({ setFileCid }) {
 
     // setFile(url);
   }
+  const handleRandombtn = () => {
+    const rand = Math.floor(Math.random() * 3 + 1);
+    console.log(typeof fileUrl);
+    if (rand === 1) {
+      setFile(profilepic1);
+    } else if (rand === 2) {
+      setFile(profilepic2);
+    } else if (rand === 3) {
+      setFile(profilepic3);
+    }
+  };
 
   const resetFile = () => {
     setFile("");
@@ -104,6 +119,14 @@ function StoreProfileImg({ setFileCid }) {
           ) : (
             <>{uploaded}</>
           )}
+        </button>
+        <button
+          className="upload-file-btn"
+          onClick={() => {
+            handleRandombtn();
+          }}
+        >
+          Random
         </button>
       </div>
     </>

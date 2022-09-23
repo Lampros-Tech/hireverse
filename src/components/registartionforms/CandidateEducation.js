@@ -56,28 +56,28 @@ function CandidateEducation() {
   ];
 
   const handleClick = (e) => {
-    if (e === 0 && showAll.iname === "") {
-      alert("Enter Name pls");
-    } else if (e === 1 && showAll.degree === "") {
-      alert("Enter degree pls");
-    } else if (e === 2 && showAll.fos === "") {
-      alert("Enter Field of Study pls");
-    } else if (e === 3 && showAll.sdate === "") {
-      alert("Select Start date of your degree pls");
-    } else if (e === 4 && showAll.edate === "") {
-      alert("Select End date of your degree pls");
-    } else if (e === 5 && showAll.grade === "") {
-      alert("Enter score pls");
-    } else {
-      // console.log(refArr[e + 1].section);
-      const test = refArr[e + 1].section;
-      // console.log(test);
-      test.current?.scrollIntoView({ behavior: "smooth" });
-      setTimeout(() => {
-        const inputFocus = refArr[e + 1].input;
-        inputFocus.current.focus();
-      }, 500);
-    }
+    // if (e === 0 && showAll.iname === "") {
+    //   alert("Enter Name pls");
+    // } else if (e === 1 && showAll.degree === "") {
+    //   alert("Enter degree pls");
+    // } else if (e === 2 && showAll.fos === "") {
+    //   alert("Enter Field of Study pls");
+    // } else if (e === 3 && showAll.sdate === "") {
+    //   alert("Select Start date of your degree pls");
+    // } else if (e === 4 && showAll.edate === "") {
+    //   alert("Select End date of your degree pls");
+    // } else if (e === 5 && showAll.grade === "") {
+    //   alert("Enter score pls");
+    // } else {
+    // console.log(refArr[e + 1].section);
+    const test = refArr[e + 1].section;
+    // console.log(test);
+    test.current?.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => {
+      const inputFocus = refArr[e + 1].input;
+      inputFocus.current.focus();
+    }, 500);
+    // }
   };
 
   const handleClickPrevious = (e) => {
