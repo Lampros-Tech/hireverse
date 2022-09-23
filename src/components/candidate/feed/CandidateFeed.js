@@ -9,8 +9,15 @@ import LinkedlnLogo from "../../assets/images/linkedin.png";
 import FacebookLogo from "../../assets/images/facebook.png";
 import Upload from "../../assets/images/uploadimg.svg";
 import { connect } from "@tableland/sdk";
+import { Web3Storage } from "web3.storage";
+
 import "./feed.css";
 import Axios from "axios";
+
+const API_TOKEN =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGZiNzE4QzgwYmJlYUQwNTAzYThFMjgzMmI2MDU0RkVmOUU4MzA2NzQiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjE0MTEzNjczNTAsIm5hbWUiOiJUcnkifQ.srPPE7JD3gn8xEBCgQQs_8wyo6rDrXaDWC0QM8FtChA";
+
+const client = new Web3Storage({ token: API_TOKEN });
 
 const CandidateFeed = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,6 +40,22 @@ const CandidateFeed = () => {
     schedule_interview: "",
   });
 
+  async function handleupload() {
+    var fileInput = document.getElementById("input");
+    const rootCid = await client.put(fileInput.files, {
+      name: "dehitas profile images",
+      maxRetries: 3,
+    });
+    console.log(rootCid);
+    const res = await client.get(rootCid);
+    const files = await res.files();
+    console.log(files);
+    const url = URL.createObjectURL(files[0]);
+    console.log(url);
+    console.log(files[0].cid);
+
+    // setFile(url);
+  }
   const togglePopup = async (newId) => {
     const name = "job_table_80001_2018";
     const tableland = await connect({
@@ -125,6 +148,7 @@ const CandidateFeed = () => {
   };
 
   const applyForJob = async () => {
+    handleupload();
     console.log(message);
     console.log(additionalQuestions);
     console.log(file);
@@ -514,6 +538,7 @@ const CandidateFeed = () => {
                               <input
                                 className="candidate-form-upload-imginput"
                                 type="file"
+                                id="input"
                                 hidden
                                 // defaultValue={nameOfUser}
                                 ref={upload_img}
