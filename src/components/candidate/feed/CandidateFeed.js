@@ -19,6 +19,17 @@ const CandidateFeed = () => {
   const [data3, setData3] = useState([]);
   const boxRef = useRef(null);
 
+  const [credentials, setCredentials] = useState({
+    candidate_id: "",
+    job_id: "",
+    ans_of_addition_q: "",
+    resume_cid: "",
+    cover_latter: "",
+    assesment_log_id: "",
+    status: "",
+    schedule_interview: "",
+  });
+
   const togglePopup = async (newId) => {
     const name = "job_table_80001_2018";
     const tableland = await connect({
@@ -29,13 +40,20 @@ const CandidateFeed = () => {
     const readRes = await tableland.read(
       `SELECT * FROM ${name} where job_id=${newId}`
     );
-    console.log(readRes);
+    // console.log(readRes);
 
     let companyId = readRes["rows"][0][1];
     const response = await tableland.read(
       `SELECT name,logo FROM ${table} where company_id=${companyId}`
     );
     let company_logo = "https://ipfs.io/ipfs/" + response["rows"][0][1];
+    var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+    d.setUTCSeconds(readRes["rows"][0][10]);
+    let date_array = d.toString().split(" ", 4);
+    let final_array = [];
+    for (let i = 1; i < date_array.length; i++) {
+      final_array.push(date_array[i]);
+    }
     data2.push([
       company_logo,
       readRes["rows"][0][3],
@@ -49,11 +67,12 @@ const CandidateFeed = () => {
       readRes["rows"][0][16],
       readRes["rows"][0][5],
       readRes["rows"][0][9],
-      readRes["rows"][0][10],
+      final_array.toString(),
     ]);
+
     setData2(data2);
     // setNewData(data[newId]);
-    console.log(data2[0][4]);
+    // console.log(data2[0][4]);
     // console.log(data[newId]);
     setIsOpen(!isOpen);
   };
@@ -87,7 +106,10 @@ const CandidateFeed = () => {
     setFormData(data[formId]);
     // console.log(data[formId]);
     setIsForm(!isForm);
+    for (let i = 0; i < readRes["rows"][0][8].length; i++) {}
   };
+
+  const applyForJob = async () => {};
 
   const [message, setMessage] = useState("");
 
@@ -157,7 +179,7 @@ const CandidateFeed = () => {
   };
 
   useEffect(() => {
-    console.log(titleCase("hello there I'm Jaydip"));
+    // console.log(titleCase("hello there I'm Jaydip"));
     showJobPosts();
   });
   function titleCase(str) {
@@ -527,8 +549,9 @@ const CandidateFeed = () => {
                                   onChange={handleChange}
                                   value={message}
                                 />
+
                                 <div className="candidate-form-question">
-                                  {formData.Question1}
+                                  {data3[0][7]}
                                 </div>
                                 <textarea
                                   className="candidate-form-question-box"
@@ -547,7 +570,12 @@ const CandidateFeed = () => {
                                 />
 
                                 <div className="candidate-more-btn-size-application">
-                                  <button className="candidate-form-btn">
+                                  <button
+                                    className="candidate-form-btn"
+                                    onClick={() => {
+                                      applyForJob();
+                                    }}
+                                  >
                                     Submit
                                   </button>
                                 </div>
