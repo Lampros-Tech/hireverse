@@ -213,7 +213,7 @@ export default function CreatorHeader() {
                 <span className="sr-only">View notifications</span>
                 <BellIcon className="h-6 w-6" aria-hidden="true" />
               </button>
-              <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+              <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none header-orange">
                 <span className="sr-only">Open menu</span>
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </Popover.Button>
@@ -260,7 +260,7 @@ export default function CreatorHeader() {
                     <Popover.Button
                       className={classNames(
                         open ? "text-gray-900" : "text-gray-500",
-                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none header-orange"
                       )}
                     >
                       <span>Repo</span>
@@ -292,7 +292,7 @@ export default function CreatorHeader() {
                                 className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
                               >
                                 <item.icon
-                                  className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                  className="h-6 w-6 flex-shrink-0 header-svg"
                                   aria-hidden="true"
                                 />
                                 <div className="ml-4">
@@ -314,7 +314,7 @@ export default function CreatorHeader() {
                                   className="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100"
                                 >
                                   <item.icon
-                                    className="h-6 w-6 flex-shrink-0 text-gray-400"
+                                    className="h-6 w-6 flex-shrink-0 header-svg"
                                     aria-hidden="true"
                                   />
                                   <span className="ml-3">{item.name}</span>
@@ -339,7 +339,7 @@ export default function CreatorHeader() {
                     <Popover.Button
                       className={classNames(
                         open ? "text-gray-900" : "text-gray-500",
-                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none header-orange"
                       )}
                     >
                       <span>Assessment</span>
@@ -371,7 +371,7 @@ export default function CreatorHeader() {
                                 className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
                               >
                                 <item.icon
-                                  className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                  className="h-6 w-6 flex-shrink-0 header-svg"
                                   aria-hidden="true"
                                 />
                                 <div className="ml-4">
@@ -393,7 +393,7 @@ export default function CreatorHeader() {
                                   className="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100"
                                 >
                                   <item.icon
-                                    className="h-6 w-6 flex-shrink-0 text-gray-400"
+                                    className="h-6 w-6 flex-shrink-0 header-svg"
                                     aria-hidden="true"
                                   />
                                   <span className="ml-3">{item.name}</span>
@@ -416,7 +416,7 @@ export default function CreatorHeader() {
                     <Popover.Button
                       className={classNames(
                         open ? "text-gray-900" : "text-gray-500",
-                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none header-orange"
                       )}
                     >
                       <span>Question</span>
@@ -448,7 +448,7 @@ export default function CreatorHeader() {
                                 className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
                               >
                                 <item.icon
-                                  className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                  className="h-6 w-6 flex-shrink-0 header-svg"
                                   aria-hidden="true"
                                 />
                                 <div className="ml-4">
@@ -470,7 +470,7 @@ export default function CreatorHeader() {
                                   className="-m-3 flex items-center rounded-md p-3 text-base font-medium text-gray-900 hover:bg-gray-100"
                                 >
                                   <item.icon
-                                    className="h-6 w-6 flex-shrink-0 text-gray-400"
+                                    className="h-6 w-6 flex-shrink-0 header-svg"
                                     aria-hidden="true"
                                   />
                                   <span className="ml-3">{item.name}</span>
@@ -518,6 +518,17 @@ export default function CreatorHeader() {
                   {/* EPNS code */}
 
                   
+
+
+
+
+
+
+
+
+
+
+
 
 
                 {/* Profile dropdown */}
@@ -624,7 +635,7 @@ export default function CreatorHeader() {
                     <img className="h-14 w-auto" src={logo} alt="Workflow" />
                   </div>
                   <div className="-mr-2">
-                    <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                    <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none header-orange">
                       <span className="sr-only">Close menu</span>
                       <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                     </Popover.Button>
@@ -664,7 +675,7 @@ export default function CreatorHeader() {
                         className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
                       >
                         <item.icon
-                          className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                          className="h-6 w-6 flex-shrink-0 header-svg"
                           aria-hidden="true"
                         />
                         <span className="ml-3 text-base font-medium text-gray-900">

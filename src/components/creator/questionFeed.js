@@ -22,7 +22,11 @@ function Questionfeed() {
         readRes["rows"][i][0],
         readRes["rows"][i][10],
         readRes["rows"][i][2],
-
+        readRes["rows"][i][3],
+        readRes["rows"][i][4],
+        readRes["rows"][i][5],
+        readRes["rows"][i][6],
+        readRes["rows"][i][7],
       ]);
     }
     setData(data);
@@ -58,7 +62,7 @@ function Questionfeed() {
                 </button>
             </div>
             <div className="expriencelevel-candidate">
-                <h3 class=" font-semibold text-gray-900 dark:text-white font-['Montserrat'] ex-level-candidates">
+                <h3 class=" font-semibold font-color-orange font-['Montserrat'] ex-level-candidates">
                 Exprience Level:
                 </h3>
                 <div class="flex items-center pl-3 font-['Open_Sans']">
@@ -70,7 +74,7 @@ function Questionfeed() {
                 />
                 <label
                     for="vue-checkbox"
-                    class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                    class="py-3 ml-2 w-full text-lg font-medium  font-['Open_Sans']"
                 >
                     Entry Level
                 </label>
@@ -84,7 +88,7 @@ function Questionfeed() {
                 />
                 <label
                     for="vue-checkbox"
-                    class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                    class="py-3 ml-2 w-full text-lg font-medium  font-['Open_Sans']"
                 >
                     Associate Level
                 </label>
@@ -98,14 +102,14 @@ function Questionfeed() {
                 />
                 <label
                     for="vue-checkbox"
-                    class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                    class="py-3 ml-2 w-full text-lg font-medium  font-['Open_Sans']"
                 >
                     Expert Level
                 </label>
                 </div>
             </div>
             <div className="jobtype-candidate">
-                <h3 class=" font-semibold text-gray-900 dark:text-white font-['Montserrat'] ex-level-candidates">
+                <h3 class=" font-semibold  font-['Montserrat'] font-color-orange ex-level-candidates">
                 Job Type:
                 </h3>
                 <div class="flex items-center pl-3">
@@ -117,7 +121,7 @@ function Questionfeed() {
                 />
                 <label
                     for="vue-checkbox"
-                    class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                    class="py-3 ml-2 w-full text-lg font-medium  font-['Open_Sans']"
                 >
                     On-Site
                 </label>
@@ -152,7 +156,7 @@ function Questionfeed() {
                 </div>
             </div>
             <div className="technology-candidate">
-                <h3 class=" font-semibold text-gray-900 dark:text-white font-['Montserrat'] ex-level-candidates">
+                <h3 class=" font-semibold text-gray-900 font-color-orange font-['Montserrat'] ex-level-candidates">
                 Technology:
                 </h3>
 
@@ -247,7 +251,7 @@ function Questionfeed() {
                 </div>
             </div>
             <div className="expriencelevel-candidate">
-                <h3 class=" font-semibold text-gray-900 dark:text-white font-['Montserrat'] ex-level-candidates">
+                <h3 class=" font-semibold text-gray-900 font-color-orange font-['Montserrat'] ex-level-candidates">
                 Location:
                 </h3>
                 <div class="flex items-center pl-3">
@@ -374,14 +378,30 @@ function Questionfeed() {
                                 </button>
                             </div>
                         </div>
-                        <div className="flex">
-                            <div className="font-primary-sm mr-2 font-bold">Question Type:</div>
-                            <div className="font-secondary-sm ">{inde[1]}</div>
-                        </div>
-                        <div className="font-secondary overflow-x-auto description">
-                            {inde[2]}
-                        </div>
-                        
+                            <div className="flex">
+                                <div className="font-primary-sm mr-2 font-bold">Question Type:</div>
+                                <div className="font-secondary-sm ">{inde[1]}</div>
+                            </div>
+                            <div className="font-secondary overflow-x-auto description">
+                                {inde[2]}
+                            </div>
+                            <div className="feed_option1 flex">
+                                <span className="font-family-secondary pr-4">a. </span>
+                                    {inde[3]}
+                            </div>
+                            <div className="feed_option1">
+                                <span className="font-family-secondary pr-4">b. </span>
+                                    {inde[4]}
+                            </div>
+                            <div className="feed_option1">
+                                <span className="font-family-secondary pr-4">c. </span>
+                                    {inde[5]}
+                            </div>
+                            <div className="feed_option1">
+                                <span className="font-family-secondary pr-4">d. </span>
+                                    {inde[6]}
+                            </div>   
+                            
                         </div>
                     </div>
                     );
