@@ -768,10 +768,19 @@ function EditQuestion({ id, category, hideComponent, getAllQuestions }) {
               }}
             />
           </div>
+          
+        </div>
+        <div className="select-repo">
+        <select name="Select-repo" id="repos" className="p-2 rounded-md ml-12">
+            <option value="Repo1" selected disabled>Select Repository</option>
+            <option value="Repo1">Repository1</option>
+            <option value="Repo3">Repository2</option>
+            <option value="Repo4">Repository3</option>
+        </select>
         </div>
 
         <div className="EditQuestion_footer">
-          <div className="alert-header-left"></div>
+          <div className="alert-header-left flex-grow"></div>
           <div
             onClick={(e) => {
               hideComponent();
@@ -785,7 +794,7 @@ function EditQuestion({ id, category, hideComponent, getAllQuestions }) {
             className="EditQuestion_footer_update"
             style={{ cursor: "pointer" }}
           >
-            Update
+            Add
           </div>
         </div>
       </div>

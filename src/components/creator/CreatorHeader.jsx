@@ -1,6 +1,19 @@
 import { Fragment } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Popover, Menu, Transition } from "@headlessui/react";
+import React from "react";
+// import NoPopUp from "./NotificationPopup";
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  BrowserRouter,
+} from "react-router-dom";
+import { NotificationItem, chainNameType } from "@epnsproject/sdk-uiweb";
+import * as EpnsAPI from "@epnsproject/sdk-restapi";
+import { useState } from "react";
+import { ethers } from "ethers";
 import {
   Bars3Icon,
   BellIcon,
@@ -95,6 +108,86 @@ function classNames(...classes) {
 }
 
 export default function CreatorHeader() {
+  const [data, setData] = useState([]);
+  const [channelData, setChannelData] = useState([]);
+  var useraddress = "";
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signerobject = provider.getSigner();
+
+
+  const checkSusbcription = async () => {
+    await getuseraddress();
+    const subscriptions = await EpnsAPI.user.getSubscriptions({
+      user: "eip155:42:" + useraddress, // user address in CAIP
+      env: "staging",
+    });
+
+    var flag = false;
+    console.log(subscriptions);
+    // console.log(subscriptions[0].channel);
+    // console.log(subscriptions[1].channel);
+    // console.log(subscriptions[2].channel);
+
+    for (let i = 0; i < subscriptions.length; i++) {
+      if (
+        subscriptions[i].channel == "0xa9A15cf9769fA4b05c20B48CE65b796C3bb4e3cf"
+      ) {
+        flag = true;
+      }
+    }
+    return flag;
+  };
+  const fetchNotifications = async () => {
+    await getuseraddress();
+    console.log(useraddress);
+    const notifications = await EpnsAPI.user.getFeeds({
+      user: "eip155:42:" + useraddress, // user address in CAIP
+      env: "staging",
+    });
+    setData(notifications);
+    // console.log(notifications)
+  };
+
+
+
+  const getuseraddress = async () => {
+    await window.ethereum
+      .request({ method: "eth_requestAccounts" })
+      .then((res) => {
+        // Return the address of the wallet
+        // console.log(res)
+        useraddress = res;
+      });
+  };
+  const optIn = async () => {
+    if ((await checkSusbcription()) == true) {
+      alert("you are already opted in");
+      setIsOpen(!isOpen);
+      // setOpted(!opted);
+      return;
+    }
+    
+    await getuseraddress();
+
+    await EpnsAPI.channels.subscribe({
+      signer: signerobject,
+      channelAddress: "eip155:42:0xa9A15cf9769fA4b05c20B48CE65b796C3bb4e3cf", // channel address in CAIP
+      userAddress: "eip155:42:" + useraddress, // user address in CAIP
+      onSuccess: () => {
+        alert("opt in success");
+      },
+      onError: () => {
+        alert("opt in error");
+      },
+      env: "staging",
+    });
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <>
       <Popover className="relative bg-white">
@@ -411,12 +504,21 @@ export default function CreatorHeader() {
             <div className="hidden items-center justify-end md:flex ">
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
+                   onClick={() => {
+                    fetchNotifications();
+                    togglePopup();
+                  }}
                   type="button"
                   className="rounded-full p-1 text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
+
+                  {/* EPNS code */}
+
+                  
+
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3 z-50">

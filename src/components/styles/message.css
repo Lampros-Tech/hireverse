@@ -387,6 +387,7 @@
   /* border-radius: 10px 10px 0 40px; */
   border-radius: 20px;
   display: flex;
+  flex-direction: column;
 }
 
 .message__right .message {

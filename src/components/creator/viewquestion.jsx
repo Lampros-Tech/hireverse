@@ -108,7 +108,7 @@ function Viewquestion() {
     <div className="parent-content">
       <div className="C_Content ">
         <div className="title text-center font-primary font-bold py-8">
-          View Question
+          View Questions
         </div>
         <div className="Questions">
           <div className="card-background uplift h-54 p-2 px-8 rounded-md">
