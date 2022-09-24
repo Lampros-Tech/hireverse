@@ -341,7 +341,7 @@ function CreateAssesment() {
     console.log(totalQuestion, filteredSkills, myarr, section);
     var axios = require("axios");
     var data = JSON.stringify({
-      wallet_address: "0xfaabb044AF5C19145cA4AE13CA12C419395A72FB",
+      wallet_address: address,
       assessment_name: allData.assessmentName,
       description: allData.desc,
       fixed_cost: allData.fixedcost,
