@@ -179,14 +179,17 @@ def getAssessmentQuestions():
             try:
                 primary_skill1 = primary_skills[0]
             except:
+                primary_skill1 = None
                 print("No primary Skill Available")    
             try:
                 primary_skill2 = primary_skills[1]
             except:
+                primary_skill2 = None
                 print("No primary Skill-1 Available")    
             try:
                 primary_skill3 = primary_skills[2]
             except:
+                primary_skill3 = None
                 print("No primary Skill-2 Available") 
 
             created_at = int(datetime.datetime.now().timestamp())
