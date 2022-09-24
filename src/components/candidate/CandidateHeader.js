@@ -89,7 +89,7 @@ export default function CandidateHeader() {
       <Popover className="relative bg-white">
         <div className=" px-4 sm:px-6">
           <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
-            <div className="flex justify-start lg:w-0 lg:flex-1">
+            <div className="flex justify-start sm:flex-1">
               <Link to="/">
                 <span className="sr-only">Workflow</span>
                 <img className="h-12 w-auto sm:h-20" src={logo} alt="logo" />
@@ -150,7 +150,7 @@ export default function CandidateHeader() {
                     <Popover.Button
                       className={classNames(
                         open ? "text-gray-900" : "text-gray-500",
-                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        "group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none  header-orange "
                       )}
                     >
                       <span>Tests</span>
@@ -182,7 +182,7 @@ export default function CandidateHeader() {
                                 className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50"
                               >
                                 <item.icon
-                                  className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                                  className="h-6 w-6 flex-shrink-0 header-svg"
                                   aria-hidden="true"
                                 />
                                 <div className="ml-4">
@@ -408,7 +408,7 @@ export default function CandidateHeader() {
                         className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
                       >
                         <item.icon
-                          className="h-6 w-6 flex-shrink-0 text-indigo-600"
+                          className="h-6 w-6 flex-shrink-0 header-svg"
                           aria-hidden="true"
                         />
                         <span className="ml-3 text-base font-medium text-gray-900">

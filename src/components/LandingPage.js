@@ -29,6 +29,8 @@ import item4 from "./assets/images/Proctoring.svg";
 import lastimg from "./assets/images/3.png";
 import line2 from "./assets/images/bline.svg";
 import scenario1 from "./assets/videos/scenario1.mp4";
+import scenario2 from "./assets/videos/scenario2.mp4";
+import scenario3 from "./assets/videos/scenario3.mp4";
 
 import "./styles/landingpage.css";
 
@@ -129,13 +131,11 @@ function LandingPage() {
                   </video>
                   {/* <img src={illu1} alt="" className="d-third-flex-item-img" /> */}
                 </div>
-                <div className="d-third-flex-item-right">
-                  <h1 className="d-third-flex-right-h1">Hire with ease !</h1>
-                  <p className="d-third-flex-right-p">
+                <div className="d-second-flex-item-right">
+                  <h1 className="d-second-flex-right-h1">Hire With Ease !</h1>
+                  <p className="d-second-flex-right-p">
                     Recruiter can walk around & find candidates who has already
                     cleared a specific assessment. Talk with them spontaneously.
-                  </p>
-                  <p className="d-third-flex-right-p">
                     Stop relying on calender schedules to increase speed of
                     communication.
                   </p>
@@ -144,42 +144,43 @@ function LandingPage() {
                 </div>
               </div>
               <div className="d-third-flex-item">
-                <div className="d-third-flex-item-right">
-                  <h1 className="d-third-flex-right-h1">
-                    Get paid to create tests
-                  </h1>
-                  <p className="d-third-flex-right-p">
-                    Create customised tests for your niche and get paid every
-                    time that test is used for assessment
+                <div className="d-second-flex-item-right-two">
+                  <h1 className="d-second-flex-right-h1">Utilize The Time !</h1>
+                  <p className="d-second-flex-right-p">
+                    Candidates joining in virtual office to get their last
+                    interview round. This cuts the time of absentees for
+                    scheduled meets while successfully utilising the Job Hunt
+                    phase of candidates.
                   </p>
-                  <p className="d-third-flex-right-p">
-                    Establish yourself as an industry leader by creating
-                    best-in-class pre-employment tests
-                  </p>
-                  <button className="d-third-flex-btn">Get Started</button>
+
+                  {/* <button className="d-third-flex-btn">Connect Wallet</button> */}
                 </div>
                 <div className="d-second-flex-item-left">
-                  <img src={illu2} alt="" className="d-third-flex-item-img" />
+                  <video autoPlay loop muted>
+                    <source src={scenario2} type="video/mp4" />
+                    <source src={scenario2} type="video/ogg" />
+                    Your browser does not support the video tag.
+                  </video>
+                  {/* <img src={illu1} alt="" className="d-third-flex-item-img" /> */}
                 </div>
               </div>
               <div className="d-third-flex-item">
                 <div className="d-second-flex-item-left">
-                  <img src={illu3} alt="" className="d-third-flex-item-img" />
+                  <video autoPlay loop muted>
+                    <source src={scenario3} type="video/mp4" />
+                    <source src={scenario3} type="video/ogg" />
+                    Your browser does not support the video tag.
+                  </video>
+                  {/* <img src={illu1} alt="" className="d-third-flex-item-img" /> */}
                 </div>
-                <div className="d-third-flex-item-right">
-                  <h1 className="d-third-flex-right-h1">
-                    Impress the recruiters in Hireverse
-                  </h1>
-                  <p className="d-third-flex-right-p">
-                    Put your best foot forward by acing Pre-emploment Assessment
-                    tests, sending customised cover letters and creating a
-                    well-round profile{" "}
+                <div className="d-second-flex-item-right">
+                  <h1 className="d-second-flex-right-h1">Personal Space !</h1>
+                  <p className="d-second-flex-right-p">
+                    You can invite candidates directly in Hireverse, this will
+                    be private to every Creator, Company & Candidate.
                   </p>
-                  <p className="d-third-flex-right-p">
-                    Impress the recruiters in Hireverse from the comfort of your
-                    home
-                  </p>
-                  <button className="d-third-flex-btn">Connect Wallet</button>
+
+                  {/* <button className="d-third-flex-btn">Connect Wallet</button> */}
                 </div>
               </div>
             </div>

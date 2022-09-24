@@ -5,6 +5,12 @@ import plus from "../company/styles/plus.svg";
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Web3Storage } from "web3.storage";
+import { useAccount } from "wagmi";
+import { connect } from "@tableland/sdk";
+
+const API_TOKEN =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDQyNzdCMDE2NWY5ZkM5ZThhQkI0M0EwYTRjODFhYTk2OERCNERGNDYiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjM5MjI2OTM1NjAsIm5hbWUiOiJFdGhPbmxpbmUifQ.OY6RS4zIFfGfEiOacIHdo3BEkFdPDHvd8i4o5fm4JW8";
 
 function RecruitmentDetails() {
   let navigate = useNavigate();
@@ -16,6 +22,7 @@ function RecruitmentDetails() {
   const [singleQuestion, setSingleQuestion] = useState("");
   const [additionalQuestion, setAdditionalQuestion] = useState([]);
   const [counter, setCounter] = useState(0);
+  const { address, isConnected } = useAccount();
 
   const optionListPrimary = [
     { value: "java", label: "Java" },
@@ -56,7 +63,7 @@ function RecruitmentDetails() {
 
   const [btnloading, setbtnLoading] = useState(false);
   const [credentials, setCredentials] = useState({
-    company_id: 2,
+    company_id: "",
     assesment_id: 1,
     title: "",
     description: "",
@@ -72,16 +79,37 @@ function RecruitmentDetails() {
     primary_skill5: "",
     secondary_skills: "",
   });
+  const [que, setQue] = useState();
+  const addJobDetails = async () => {
+    const obj = { questions: que };
+    const blob = new Blob([JSON.stringify(obj)], { type: "application/json" });
+    const files = [
+      new File(["contents-of-file-1"], "plain-utf8.txt"),
+      new File([blob], "questions.json"),
+    ];
+    const client = new Web3Storage({ token: API_TOKEN });
+    const cid = await client.put(files);
+    console.log("stored files with cid:", cid);
 
-  const addJobDetails = () => {
+    //
+    const name = "company_table_80001_1730";
+    const tableland = await connect({
+      network: "testnet",
+      chain: "polygon-mumbai",
+    });
+    const readRes = await tableland.read(
+      `SELECT company_id FROM ${name} where wallet_address='${address}'`
+    );
+    console.log(readRes);
+    console.log(readRes["rows"][0][0]);
     var data = JSON.stringify({
-      company_id: 2,
+      company_id: readRes["rows"][0][0],
       title: credentials.title,
       description: credentials.description,
       location: credentials.location,
       status: 1,
       type: credentials.type,
-      addition_question: credentials.addition_question,
+      addition_question: cid,
       experience_level: credentials.experience_level,
       primary_skill1: credentials.primary_skill1,
       primary_skill2: credentials.primary_skill2,
@@ -113,17 +141,20 @@ function RecruitmentDetails() {
         console.log(error);
         setbtnLoading(false);
       });
+    console.log(data);
   };
+
   // useEffect(() => {
   //   console.log(jobLocation);
   // }, [jobLocation]);
+
   const handleClick = () => {
     setAdditionalQuestion((additionalQuestion) => [
       ...additionalQuestion,
       singleQuestion,
     ]);
     document.getElementById("question-input").value = "";
-
+    // console.log(additionalQuestion);
     setCounter(counter + 1);
   };
 
@@ -191,6 +222,15 @@ function RecruitmentDetails() {
       location: myarr,
     });
   }
+
+  useEffect(() => {
+    // console.log(additionalQuestion);
+    // setCredentials({
+    //   ...credentials,
+    //   addition_question: additionalQuestion,
+    // });
+    setQue(additionalQuestion);
+  }, [JSON.stringify(additionalQuestion)]);
 
   // const handleSelectLocation = (e) => {
   //   selectedOptionsLocation.push(e.target.value);
@@ -320,10 +360,10 @@ function RecruitmentDetails() {
                     required
                     defaultValue={credentials.addition_question}
                     onChange={(e) => {
-                      setCredentials({
-                        ...credentials,
-                        addition_question: e.target.value,
-                      });
+                      // setCredentials({
+                      //   ...credentials,
+                      //   addition_question: e.target.value,
+                      // });
                       setSingleQuestion(e.target.value);
                     }}
                     className="
@@ -555,7 +595,7 @@ function RecruitmentDetails() {
                     options={optionListLocation}
                     placeholder=""
                     required
-                    value={setSelectedOptions}
+                    // value={setSelectedOptionsLocation}
                     onChange={(e) => {
                       handleSelectLocation(e);
                     }}
@@ -582,7 +622,7 @@ function RecruitmentDetails() {
                       handleSelect(e);
                     }}
                     isSearchable={true}
-                    isOptionDisabled={() => selectedOptions.length >= 5}
+                    // isOptionDisabled={() => selectedOptions.length >= 5}
                     isMulti
                     styles={style}
                   />

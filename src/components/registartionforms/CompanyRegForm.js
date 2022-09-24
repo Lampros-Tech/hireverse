@@ -70,6 +70,7 @@ function CompanyRegForm() {
     { section: refSeven, input: inputRefSeven },
     { section: refEight, input: inputRefEight },
     { section: refNine, input: inputRefNine },
+    { section: refTen, input: inputRefTen },
   ];
 
   const handleClick = (e) => {
@@ -177,6 +178,10 @@ function CompanyRegForm() {
         console.log(error);
       });
   };
+
+  /////////////////////add function here///////////////////
+
+  //////////////////////////only for smart contract//////////////
 
   // const printData = () => {
   //   console.log(logoCID, coverCID);
@@ -1320,6 +1325,7 @@ function CompanyRegForm() {
                           setbtnLoading(true);
 
                           // handleClick(10);
+                          // functionName();
                           sendCompanyRegData(
                             loginId,
                             showAll.cname,

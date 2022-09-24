@@ -12,7 +12,7 @@ function JobApplicant() {
   const showApplicants = async () => {
     const currentLocation = window.location.href;
     const param = currentLocation.split("=");
-    const name = "application_details_table_80001_2024";
+    const name = "application_details_table_80001_2806";
     const table = "candidate_table_80001_1648";
     const table1 = "education_table_80001_2259";
     const tableland = await connect({
@@ -20,7 +20,7 @@ function JobApplicant() {
       chain: "polygon-mumbai",
     });
     const readRes = await tableland.read(
-      `SELECT candidate_id FROM ${name} where job_id=${param[1]}`
+      `SELECT candidate_id FROM ${name} where job_id=${param[1]} and status=0`
     );
     for (let i = 0; i < readRes["rows"].length; i++) {
       const response = await tableland.read(
@@ -70,7 +70,7 @@ function JobApplicant() {
       network: "testnet",
       chain: "polygon-mumbai",
     });
-    const table = "application_details_table_80001_2024";
+    const table = "application_details_table_80001_2806";
     const readRes = await tableland.read(
       `SELECT application_id FROM ${table} where job_id=${job_id} and candidate_id=${candidate_id}`
     );
