@@ -47,7 +47,7 @@ function AvailableTest() {
   };
 
   const showAvailableTests = async (e) => {
-    const name = "creators_assesment_table_80001_2074";
+    const name = "creators_assesment_table_80001_2849";
     const tableland = await connect({
       network: "testnet",
       chain: "polygon-mumbai",
