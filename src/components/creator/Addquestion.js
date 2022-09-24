@@ -7,8 +7,7 @@ import "../creator/Addquestion.css";
 import axios from "axios";
 import { connect as TBLconnect } from "@tableland/sdk";
 import { useAccount, useConnect } from "wagmi";
-import { useNavigate } from "react-router-dom";
-
+import { createRoutesFromChildren, useNavigate } from "react-router-dom";
 import { insert_creators_questions_table } from "../TableQueries";
 // import { EditorState, convertToRaw, convertFromHTML, convertFromRaw } from "draft-js";
 // import { useNavigate } from "react-router-dom";
@@ -23,7 +22,6 @@ import { InjectedConnector } from "@wagmi/core";
 import LoadingIcon from "../walletconnect/LoadingIcon";
 import Select from "react-select";
 import { countryArr } from "../registartionforms/CountryList";
-import { htmlToText } from "html-to-text";
 
 
 export default function AddQuestion() {
@@ -214,6 +212,7 @@ export default function AddQuestion() {
         repo,
         priv
       );
+      console.log(creatorsData);
       if (creatorsData.hash) {
         setLoadingMessage("Data inserted successfully...");
         setLoading(false);
