@@ -61,7 +61,8 @@ function AvailableTest() {
         //     response.data["job_id"]
         //   )}`
         // );
-        navigate("/company/invitecandidates/");
+        // navigate("/company/invitecandidates/");
+        navigate(`/company/invitecandidates/?dummy=${param[1]}`);
       })
       .catch(function (error) {
         console.log(error);
