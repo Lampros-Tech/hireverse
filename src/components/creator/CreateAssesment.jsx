@@ -11,6 +11,7 @@ import Select from "react-select";
 import axios from "axios";
 import { InjectedConnector } from "@wagmi/core";
 import { useAccount, useConnect } from "wagmi";
+
 function CreateAssesment() {
   const resetToInput = useRef(null);
 
@@ -64,76 +65,31 @@ function CreateAssesment() {
     primary_skill3: "",
   });
 
-  const addAssessmentAPI = () => {
-    var axios = require("axios");
-    var data = JSON.stringify({
-      wallet_address: "0xfaabb044AF5C19145cA4AE13CA12C419395A72FB",
-      assessment_name: "General Assessment",
-      description: "General Assessment to test reasoning quelity of student",
-      fixed_cost: "5",
-      variable_cost: "1",
-      duration: "10",
-      number_of_questions: 10,
-      experience_level: "0",
-      primary_skills: ["Apptitude", "Reasoning", "Quant"],
-      secondary_skills: ["Computer"],
-      question_format: [
-        {
-          from: 1,
-          to: 3,
-          genre: "Logical reasoning",
-          repo_name: "Reasoning",
-          difficulty_level: "Easy",
-          marks_for_each: 1,
-          negative_score_for_one: 0.25,
-        },
-        {
-          from: 4,
-          to: 5,
-          genre: "Quant",
-          repo_name: "Quant",
-          difficulty_level: "Medium",
-          marks_for_each: 1,
-          negative_score_for_one: 0.25,
-        },
-        {
-          from: 6,
-          to: 8,
-          genre: "Verbal Reasoning",
-          repo_name: "Verbal",
-          difficulty_level: "Easy",
-          marks_for_each: 1,
-          negative_score_for_one: 0.25,
-        },
-        {
-          from: 9,
-          to: 10,
-          genre: "Basic Computer",
-          repo_name: "Computer",
-          difficulty_level: "Difficult",
-          marks_for_each: 1,
-          negative_score_for_one: 0.25,
-        },
-      ],
-    });
+  let [filteredSkills, setFilteredSkills] = useState([]);
+  let [myarr, setMyArr] = useState([]);
 
-    var config = {
-      method: "post",
-      url: "http://127.0.0.1:5000/creator/createAssessment",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  const [allData, setAllData] = useState({
+    assessmentName: "",
+    desc: "",
+    fixedcost: "",
+    vcost: "",
+    duration: "",
+    // numberOfQuestion: totalQuestion,
+    expLevel: "",
+    // primarySkills: filteredSkills,
+    // secondarySkills: myarr,
+    // questionFormat: section,
+    //   {
+    //     from: "",
+    //     to: "",
+    //     genre: "",
+    //     reponame: "",
+    //     diffLevel: "",
+    //     marksForEach: 1,
+    //     negativeScore: 0,
+    //   },
+    // ],
+  });
 
   const fetchSkill = async () => {
     // const table_name = await getRepoTable();
@@ -239,24 +195,35 @@ function CreateAssesment() {
   }, []);
 
   useEffect(() => {
+    console.log(section);
+  }, [section]);
+  //////////// Printing allData in console
+  useEffect(() => {
+    console.log(allData);
+  }, [allData]);
+
+  useEffect(() => {
     // getRepoTable();
     fetchSkill();
     // fetchRepositoriesNames()
   }, [repoTableName]);
 
-  let filteredSkills = [];
+  // const handleSelectedOptios = (selectedSkills) => {
+  //   // console.log(selectedSkills);
 
-  const handleSelectedOptios = (selectedSkills) => {
-    console.log(selectedSkills);
+  //   filteredSkills = selectedSkills.map((item) => {
+  //     return item.value;
+  //   });
 
-    filteredSkills = selectedSkills.map((i) => {
-      return i.value;
-    });
-    console.log(filteredSkills);
-    // for (let i = 0; i < setSelectedSkills.length; i++) {
-    //   selectedSkills.push(setSelectedSkills[i]["value"]);
-    // }
-  };
+  //   console.log(filteredSkills);
+  //   // for (let i = 0; i < setSelectedSkills.length; i++) {
+  //   //   selectedSkills.push(setSelectedSkills[i]["value"]);
+  //   // }
+  // };
+
+  // useEffect(() => {
+  //   console.log(filteredSkills);
+  // }, [filteredSkills]);
 
   const addGenre = () => {
     console.log("Inside");
@@ -297,13 +264,15 @@ function CreateAssesment() {
       }
     }
   }
-  function handleSelect1(selectedOptions1) {
-    setSelectedOptions1(selectedOptions1);
-    let myarr = [];
-    for (let i = 0; i < selectedOptions1.length; i++) {
-      myarr.push(selectedOptions1[i]["value"]);
-    }
-  }
+
+  // function handleSelect1(selectedOptions1) {
+  //   setSelectedOptions1(selectedOptions1);
+
+  //   myarr = selectedOptions1.map((i) => {
+  //     return i.value;
+  //   });
+  //   console.log(myarr);
+  // }
 
   const addSection = () => {
     if (section.length === 0) {
@@ -351,11 +320,11 @@ function CreateAssesment() {
           {
             from: from,
             to: to,
-            mark: mark,
-            negativemarks: negativemarks,
-            gener: gener,
-            repo: repo,
-            difficulty: difficulty,
+            genre: gener,
+            repo_name: repo,
+            difficulty_level: difficulty,
+            marks_for_each: mark,
+            negative_score_for_one: negativemarks,
           },
         ]);
         setFrom(Number(to) + 1);
@@ -369,6 +338,40 @@ function CreateAssesment() {
     }
   };
 
+  const addAssessmentAPI = () => {
+    console.log(totalQuestion, filteredSkills, myarr, section);
+    var axios = require("axios");
+    var data = JSON.stringify({
+      wallet_address: "0xfaabb044AF5C19145cA4AE13CA12C419395A72FB",
+      assessment_name: allData.assessmentName,
+      description: allData.desc,
+      fixed_cost: allData.fixedcost,
+      variable_cost: allData.vcost,
+      duration: allData.duration,
+      number_of_questions: totalQuestion,
+      experience_level: allData.expLevel,
+      primary_skills: filteredSkills,
+      secondary_skills: myarr,
+      question_format: section,
+    });
+
+    var config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/creator/createAssessment`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   // else{
   // console.log('Inside addSection')
   // setSection([
@@ -411,6 +414,9 @@ function CreateAssesment() {
                   type="text"
                   name="reponame"
                   placeholder="Short Assessment name"
+                  onChange={(e) =>
+                    setAllData({ ...allData, assessmentName: e.target.value })
+                  }
                   className="align-middle uplift  px-2 py-1.5 rounded-md border border-gray-300"
                 ></input>
               </div>
@@ -428,6 +434,9 @@ function CreateAssesment() {
                   className="uplift rounded-md text-xs"
                   rows={5}
                   cols={90}
+                  onChange={(e) => {
+                    setAllData({ ...allData, desc: e.target.value });
+                  }}
                 ></textarea>
               </div>
             </div>
@@ -452,6 +461,9 @@ function CreateAssesment() {
                   name="Duration"
                   placeholder="Enter minutes"
                   className="uplift  rounded-md p-1"
+                  onChange={(e) =>
+                    setAllData({ ...allData, duration: e.target.value })
+                  }
                 />
               </div>
               <div className="font-secondary font-semibold ml-7">
@@ -463,6 +475,9 @@ function CreateAssesment() {
                   name="experience"
                   placeholder="Enter Years"
                   className="uplift rounded-md p-1"
+                  onChange={(e) =>
+                    setAllData({ ...allData, expLevel: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -479,8 +494,13 @@ function CreateAssesment() {
                   // value={selectedSkills}
                   className="uplift rounded-md p-1"
                   classNamePrefix="select"
+                  // value={selectedSkills}
                   onChange={(e) => {
-                    handleSelectedOptios(e);
+                    const data = e.map((i) => {
+                      return i.value;
+                    });
+                    setFilteredSkills(data);
+                    // handleSelectedOptios(e);
                   }}
                   isSearchable={true}
                 />
@@ -497,9 +517,13 @@ function CreateAssesment() {
                   // value={selectedSkills}
                   className="uplift rounded-md p-1"
                   classNamePrefix="select"
-                  value={selectedOptions1}
+                  // value={selectedOptions1}
                   onChange={(e) => {
-                    handleSelect1(e);
+                    const data = e.map((i) => {
+                      return i.value;
+                    });
+                    setMyArr(data);
+                    // handleSelect1(e);
                   }}
                   isSearchable={true}
                 />
@@ -651,7 +675,7 @@ function CreateAssesment() {
                     </option>
                     <option value="Easy">Easy</option>
                     <option value="Medium">Medium</option>
-                    <option value="Hard">Hard</option>
+                    <option value="Difficult">Difficult</option>
                   </select>
                 </div>
                 <div className=" my-4 ml-1 flex">
@@ -754,6 +778,9 @@ function CreateAssesment() {
                       name="Fix fees"
                       placeholder="Enter Fix-fees"
                       className="uplift rounded-md p-1"
+                      onChange={(e) => {
+                        setAllData({ ...allData, fixedcost: e.target.value });
+                      }}
                     />
                   </div>
                   <div className="font-secondary font-semibold ml-1">
@@ -765,12 +792,18 @@ function CreateAssesment() {
                       name="PPU"
                       placeholder="Price per-user"
                       className="uplift rounded-md p-1"
+                      onChange={(e) => {
+                        setAllData({ ...allData, vcost: e.target.value });
+                      }}
                     />
                   </div>
                 </div>
               </div>
               <div className="final-buttom">
-                <button className="create-assessment-btn text-black-700 font-semibold py-2 px-4 border border-black-500  rounded mx-2 mt-4 mb-4">
+                <button
+                  className="create-assessment-btn text-black-700 font-semibold py-2 px-4 border border-black-500  rounded mx-2 mt-4 mb-4"
+                  onClick={() => addAssessmentAPI()}
+                >
                   Create assessment
                 </button>
               </div>
