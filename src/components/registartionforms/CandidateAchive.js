@@ -4,12 +4,16 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAccount } from "wagmi";
 import Cookies from "universal-cookie";
+import { ethers } from "ethers";
 
 import "react-phone-input-2/lib/style.css";
 import "./regform.css";
 import logo from "../assets/images/logo.png";
 import StoreCoverImg from "./StoreCoverImg";
+import contract from "../../Contracts/artifacts/superfluid_contract.json";
 
+export const CONTRACT_ADDRESS_POLYGON =
+  "0x1fAFFec79B44Ae0a4A2bB35a02E056B69489Cfc4";
 function CandidateAchive() {
   let navigate = useNavigate();
   const cookies = new Cookies();
@@ -128,7 +132,7 @@ function CandidateAchive() {
       },
       data: data,
     };
-
+    addCandidateToContract();
     axios(config)
       .then(function (response) {
         setbtnLoading(false);
@@ -139,6 +143,35 @@ function CandidateAchive() {
         setbtnLoading(false);
         console.log(error);
       });
+  };
+
+  //contract function to add candidate address
+  const addCandidateToContract = async () => {
+    console.log("I am inside contract");
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+
+        const { chainId } = await provider.getNetwork();
+        if (chainId === 80001) {
+          console.log("POLYGON");
+          const con = new ethers.Contract(
+            CONTRACT_ADDRESS_POLYGON,
+            contract,
+            signer
+          );
+          const tx = await con.registerCandidate();
+          tx.wait();
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   // useEffect(() => {
   //   // inputRefOne.current.focus();
