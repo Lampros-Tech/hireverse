@@ -230,13 +230,14 @@ def getAssessmentQuestions():
     try:
         assessment_id = request.json['assessment_id']
         #Get Creator Id And question 
-        fields = "creators_id, question"
+        fields = "creators_id, question, duration"
         tablename = os.environ.get("creators_assesment_table")
         condition = f"""assesment_id = '{assessment_id}'"""
         questions_data = select_query(fields, tablename, condition)
         questions = json.loads(questions_data.decode("utf-8"))
         creator_id = questions["rows"][0][0]
         questions_ids = tuple(questions["rows"][0][1])
+        duration = questions["rows"][0][2]
 
         #Get Creator Question Table    
         fields = "(question_table)"
@@ -272,7 +273,9 @@ def getAssessmentQuestions():
 
         response_body = {
             "status": 200,
-            "questions": question_reponse
+            "questions": question_reponse,
+            'duration':duration
+
         }, 200
         return response_body
     except Exception as e:

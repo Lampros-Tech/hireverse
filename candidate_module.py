@@ -119,5 +119,3 @@ def addSkill():
         return response_body
 
 
-# @creator.route("/candidate/getResult", methods=["POST"])
-# def getResult():
