@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ethers } from "ethers";
 import "../company/styles/recruitdetails.css";
 import Select from "react-select";
 import plus from "../company/styles/plus.svg";
@@ -9,10 +10,33 @@ import { Web3Storage } from "web3.storage";
 import { useAccount } from "wagmi";
 import { connect } from "@tableland/sdk";
 
+import data from "../../Contracts/artifacts/data.json";
+
+// import CONTRACT_ADDRESS_GOERLI from "../../Contracts/config";
+// import CONTRACT_ADDRESS_SKALE from "../../Contracts/config";
+// import CONTRACT_ADDRESS_AURORA from "../../Contracts/config";
+// import CONTRACT_ADDRESS_CRONOS from "../../Contracts/config";
+// import CONTRACT_ADDRESS_POLYGON from "../../Contracts/config";
+
+export const CONTRACT_ADDRESS_GOERLI =
+  "0x8C1C947F7f5c23ee58399912EABdECB88F9b7B37";
+export const CONTRACT_ADDRESS_SKALE =
+  "0x01d83b1aaf12a98ccf0f83147732bfe9f53c61c1";
+export const CONTRACT_ADDRESS_AURORA =
+  "0xc892caEe8eca7734A66F2d6Bb69F123e610dB9fc";
+export const CONTRACT_ADDRESS_CRONOS =
+  "0x5D9F1CC0D4Df5568FB5ff934305a19754ecB14bb";
+export const CONTRACT_ADDRESS_POLYGON =
+  "0x4551Bbd924715b9c21b8ABa5D5Fa31f4548CAa00";
+
+// C:\dehitas\hireverse\src\Contracts
+
 const API_TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDQyNzdCMDE2NWY5ZkM5ZThhQkI0M0EwYTRjODFhYTk2OERCNERGNDYiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjM5MjI2OTM1NjAsIm5hbWUiOiJFdGhPbmxpbmUifQ.OY6RS4zIFfGfEiOacIHdo3BEkFdPDHvd8i4o5fm4JW8";
 
 function RecruitmentDetails() {
+  //function for calling smart contract (stakeByCompany)
+
   let navigate = useNavigate();
 
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -23,6 +47,7 @@ function RecruitmentDetails() {
   const [additionalQuestion, setAdditionalQuestion] = useState([]);
   const [counter, setCounter] = useState(0);
   const { address, isConnected } = useAccount();
+  console.log(address);
 
   const optionListPrimary = [
     { value: "java", label: "Java" },
@@ -263,6 +288,122 @@ function RecruitmentDetails() {
 
   useEffect(() => {}, [selectedOptionsLocation]);
 
+  const stake = async (e) => {
+    e.preventDefault();
+    console.log("hello");
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+
+        //SWITCH CASE for networks
+        switch (chainId) {
+          case 5:
+            //for GOERLI
+            let connectedContract = new ethers.Contract(
+              CONTRACT_ADDRESS_GOERLI,
+              data.abi,
+              signer
+            );
+            let stakeTy = await connectedContract.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy.toNumber());
+            if (stakeTy <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+
+          case 647426021:
+            //for SKALE
+            const connectedContract_s = new ethers.Contract(
+              CONTRACT_ADDRESS_SKALE,
+              data.abi,
+              signer
+            );
+            let stakeTy_s = await connectedContract_s.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy_s.toNumber());
+            if (stakeTy_s <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract_s.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+
+          case 338:
+            //for CRONOS
+            const connectedContract_c = new ethers.Contract(
+              CONTRACT_ADDRESS_CRONOS,
+              data.abi,
+              signer
+            );
+            let stakeTy_c = await connectedContract_c.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy_c.toNumber());
+            if (stakeTy_c <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract_c.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+
+          case 1313161555:
+            //for AURORA
+            const connectedContract_a = new ethers.Contract(
+              CONTRACT_ADDRESS_AURORA,
+              data.abi,
+              signer
+            );
+            let stakeTy_a = await connectedContract_a.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy_a.toNumber());
+            if (stakeTy_a <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract_a.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+          case 80001:
+            //for POLYGON
+            // const connectedContract_p = new ethers.Contract(
+            //   CONTRACT_ADDRESS_POLYGON,
+            //   data.abi,
+            //   signer
+            // );
+            // console.log("Going to pop wallet now to pay gas...");
+            // let stateTx = await connectedContract_p.stake(id, 1000000000000000);
+            // console.log(stateTx.toNumber() / 1000000000000000000);
+            break;
+          default:
+            break;
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="recruitment-main">
@@ -279,7 +420,7 @@ function RecruitmentDetails() {
               <div className="recruit-components">
                 <input
                   type="text"
-                  required
+                  // required
                   className="
                     form-control
                     block
@@ -310,7 +451,7 @@ function RecruitmentDetails() {
               </div>
               <div className="recruit-components">
                 <textarea
-                  required
+                  // required
                   className="
                       form-control
                       block
@@ -357,7 +498,7 @@ function RecruitmentDetails() {
                   <input
                     id="question-input"
                     type="text"
-                    required
+                    // required
                     defaultValue={credentials.addition_question}
                     onChange={(e) => {
                       // setCredentials({
@@ -533,7 +674,7 @@ function RecruitmentDetails() {
                 <input
                   type="number"
                   min="0"
-                  required
+                  // required
                   max="10"
                   id="number"
                   className="
@@ -594,7 +735,7 @@ function RecruitmentDetails() {
                   <Select
                     options={optionListLocation}
                     placeholder=""
-                    required
+                    // required
                     // value={setSelectedOptionsLocation}
                     onChange={(e) => {
                       handleSelectLocation(e);
@@ -616,7 +757,7 @@ function RecruitmentDetails() {
                   <Select
                     options={optionListPrimary}
                     placeholder=""
-                    required
+                    // required
                     value={selectedOptions}
                     onChange={(e) => {
                       handleSelect(e);
@@ -636,7 +777,7 @@ function RecruitmentDetails() {
                   <Select
                     options={optionListSecondary}
                     placeholder=""
-                    required
+                    // required
                     value={selectedOptions1}
                     onChange={(e) => {
                       handleSelect1(e);
@@ -654,6 +795,17 @@ function RecruitmentDetails() {
                   // target="_blank"
                   rel="noreferrer"
                 >
+                  <button
+                    type="button"
+                    style={{ margin: 20 }}
+                    className="text-white    font-medium rounded-lg text-sm px-8 py-3 text-center  recruit-save-continue-button
+                    "
+                    onClick={(e) => {
+                      stake(e);
+                    }}
+                  >
+                    Stake
+                  </button>
                   <button
                     type="submit"
                     className="text-white    font-medium rounded-lg text-sm px-8 py-3 text-center  recruit-save-continue-button

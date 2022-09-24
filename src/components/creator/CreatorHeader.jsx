@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Popover, Menu, Transition } from "@headlessui/react";
 import React from "react";
-// import NoPopUp from "./NotificationPopup";
+import PopUp from "../notification/NotificationPopup";
 
 import {
   BrowserRouter as Router,
@@ -114,7 +114,6 @@ export default function CreatorHeader() {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signerobject = provider.getSigner();
 
-
   const checkSusbcription = async () => {
     await getuseraddress();
     const subscriptions = await EpnsAPI.user.getSubscriptions({
@@ -130,7 +129,8 @@ export default function CreatorHeader() {
 
     for (let i = 0; i < subscriptions.length; i++) {
       if (
-        subscriptions[i].channel == "0xa9A15cf9769fA4b05c20B48CE65b796C3bb4e3cf"
+        subscriptions[i].channel ===
+        "0xa9A15cf9769fA4b05c20B48CE65b796C3bb4e3cf"
       ) {
         flag = true;
       }
@@ -141,14 +141,12 @@ export default function CreatorHeader() {
     await getuseraddress();
     console.log(useraddress);
     const notifications = await EpnsAPI.user.getFeeds({
-      user: "eip155:42:" + useraddress, // user address in CAIP
+      user: "eip155:42:" + "0xe57f4c84539a6414c4cf48f135210e01c477efe0", // user address in CAIP
       env: "staging",
     });
     setData(notifications);
     // console.log(notifications)
   };
-
-
 
   const getuseraddress = async () => {
     await window.ethereum
@@ -160,13 +158,13 @@ export default function CreatorHeader() {
       });
   };
   const optIn = async () => {
-    if ((await checkSusbcription()) == true) {
+    if ((await checkSusbcription()) === true) {
       alert("you are already opted in");
       setIsOpen(!isOpen);
       // setOpted(!opted);
       return;
     }
-    
+
     await getuseraddress();
 
     await EpnsAPI.channels.subscribe({
@@ -190,7 +188,7 @@ export default function CreatorHeader() {
   };
   return (
     <>
-      <Popover className=" bg-white z-10 w-full">
+      <Popover className=" bg-white z-10 fixed w-full">
         <div className=" px-4 sm:px-6">
           <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -504,7 +502,7 @@ export default function CreatorHeader() {
             <div className="hidden items-center justify-end md:flex ">
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
-                   onClick={() => {
+                  onClick={() => {
                     fetchNotifications();
                     togglePopup();
                   }}
@@ -515,10 +513,80 @@ export default function CreatorHeader() {
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
-                  {/* EPNS code */}
+                {/* EPNS code */}
 
-                  
+                <div className="no-test">
+                  {isOpen && (
+                    <PopUp
+                      content={
+                        <>
+                          <div>
+                            <ul>
+                              {/* <li>
+                        <img src={channelData.icon} />
+                      </li>
+                      <li>{channelData.channel}</li>
+                      <li>{channelData.name}</li>
+                      <li>{channelData.info}</li>
+                       <button
+                          className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                          onClick={() => fetchChannel()}
+                        >
+                          Fetch-Channel
+                        </button> */}
+                              <button
+                                type="button"
+                                className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                                onClick={() => optIn()}
+                                disabled={checkSusbcription() ? false : true}
+                              >
+                                Opt-In
+                              </button>
+                              {/* <button
+                          type="button"
+                          className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                          onClick={() => optOut()}
+                        >
+                          Opt-Out
+                        </button> */}
+                            </ul>
+                          </div>
 
+                          {data.map((oneNotification, i) => {
+                            const {
+                              cta,
+                              title,
+                              message,
+                              app,
+                              icon,
+                              image,
+                              url,
+                              blockchain,
+                              secret,
+                              notification,
+                            } = oneNotification;
+
+                            return (
+                              <div className="grid grid-col-1 flex-shrink-1">
+                                <NotificationItem
+                                  key={`notif-${i}`}
+                                  notificationTitle={notification.title}
+                                  notificationBody={notification.body}
+                                  cta={cta}
+                                  app={app}
+                                  icon={icon}
+                                  image={image}
+                                  url={cta}
+                                />
+                              </div>
+                            );
+                          })}
+                        </>
+                      }
+                      handleClose={togglePopup}
+                    />
+                  )}
+                </div>
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3 z-50">

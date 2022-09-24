@@ -5,6 +5,28 @@ import avtar from "../company/styles/companyprofile.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { connect } from "@tableland/sdk";
+import { ethers } from "ethers";
+
+import contract from "../../Contracts/artifacts/data.json";
+
+// import CONTRACT_ADDRESS_GOERLI from "../../Contracts/config";
+// import CONTRACT_ADDRESS_SKALE from "../../Contracts/config";
+// import CONTRACT_ADDRESS_AURORA from "../../Contracts/config";
+// import CONTRACT_ADDRESS_CRONOS from "../../Contracts/config";
+// import CONTRACT_ADDRESS_POLYGON from "../../Contracts/config";
+
+// export const CONTRACT_ADDRESS_GOERLI =
+//   "0x8C1C947F7f5c23ee58399912EABdECB88F9b7B37";
+export const CONTRACT_ADDRESS_GOERLI =
+  "0x4551Bbd924715b9c21b8ABa5D5Fa31f4548CAa00";
+export const CONTRACT_ADDRESS_SKALE =
+  "0x01d83b1aaf12a98ccf0f83147732bfe9f53c61c1";
+export const CONTRACT_ADDRESS_AURORA =
+  "0xc892caEe8eca7734A66F2d6Bb69F123e610dB9fc";
+export const CONTRACT_ADDRESS_CRONOS =
+  "0x5D9F1CC0D4Df5568FB5ff934305a19754ecB14bb";
+export const CONTRACT_ADDRESS_POLYGON =
+  "0x4551Bbd924715b9c21b8ABa5D5Fa31f4548CAa00";
 
 function AvailableTest() {
   let navigate = useNavigate();
@@ -47,7 +69,7 @@ function AvailableTest() {
   };
 
   const showAvailableTests = async (e) => {
-    const name = "creators_assesment_table_80001_2849";
+    const name = "creators_assesment_table_80001_2074";
     const tableland = await connect({
       network: "testnet",
       chain: "polygon-mumbai",
@@ -72,11 +94,364 @@ function AvailableTest() {
     setData(data);
     console.log(data);
     setLoading(true);
+
+    //for getting all testIds of company from smart
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+
+        //SWITCH CASE for networks
+        switch (chainId) {
+          case 5:
+            //for GOERLI
+            let connectedContract = new ethers.Contract(
+              CONTRACT_ADDRESS_GOERLI,
+              contract.abi,
+              signer
+            );
+            let stakeTy = await connectedContract.getAllUserIds(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy.length);
+            console.log(parseInt(stakeTy[0]._hex, 16));
+            for (let i = 0; i < 4; i++) {
+              let testId = parseInt(stakeTy[i]._hex, 16);
+              let testDetails = await connectedContract.getTestDetails(testId);
+              for (let i = 0; i < 4; i++) {
+                console.log(testDetails[i]._hex);
+                console.log(testDetails[i].reservePrice._hex);
+              }
+            }
+            break;
+
+          case 647426021:
+            //for SKALE
+            const connectedContract_s = new ethers.Contract(
+              CONTRACT_ADDRESS_SKALE,
+              contract.abi,
+              signer
+            );
+            let stakeTy_s = await connectedContract_s.getAllUserIds(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy);
+            // if (stakeTy_s <= 1000000000000000) {
+            //   console.log("Going to pop wallet now to pay gas...");
+            //   let stakeTx = await connectedContract_s.stakeByCompany({
+            //     value: 1000000000000000,
+            //   });
+            //   console.log(stakeTx);
+            // }
+            break;
+
+          case 338:
+            //for CRONOS
+            const connectedContract_c = new ethers.Contract(
+              CONTRACT_ADDRESS_CRONOS,
+              contract.abi,
+              signer
+            );
+            let stakeTy_c = await connectedContract_c.getAllUserIds(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy);
+            // if (stakeTy_c <= 1000000000000000) {
+            //   console.log("Going to pop wallet now to pay gas...");
+            //   let stakeTx = await connectedContract_c.stakeByCompany({
+            //     value: 1000000000000000,
+            //   });
+            //   console.log(stakeTx);
+            // }
+            break;
+
+          case 1313161555:
+            //for AURORA
+            const connectedContract_a = new ethers.Contract(
+              CONTRACT_ADDRESS_AURORA,
+              contract.abi,
+              signer
+            );
+            let stakeTy_a = await connectedContract_a.getAllUserIds(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy);
+            // if (stakeTy_a <= 1000000000000000) {
+            //   console.log("Going to pop wallet now to pay gas...");
+            //   let stakeTx = await connectedContract_a.stakeByCompany({
+            //     value: 1000000000000000,
+            //   });
+            //   console.log(stakeTx);
+            // }
+            break;
+          case 80001:
+            //for POLYGON
+            // const connectedContract_p = new ethers.Contract(
+            //   CONTRACT_ADDRESS_POLYGON,
+            //   contract.abi,
+            //   signer
+            // );
+            // console.log("Going to pop wallet now to pay gas...");
+            // let stateTx = await connectedContract_p.stake(id, 1000000000000000);
+            // console.log(stateTx.toNumber() / 1000000000000000000);
+            break;
+
+          default:
+            break;
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // useEffect(() => {
   //   showAvailableTests();
   // }, []);
+
+  //functions for smart contracts
+
+  //function for stakeing
+  const stake = async (e) => {
+    e.preventDefault();
+    console.log("hello");
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+
+        //SWITCH CASE for networks
+        switch (chainId) {
+          case 5:
+            //for GOERLI
+            let connectedContract = new ethers.Contract(
+              CONTRACT_ADDRESS_GOERLI,
+              contract.abi,
+              signer
+            );
+            let stakeTy = await connectedContract.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy.toNumber());
+            if (stakeTy <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+
+          case 647426021:
+            //for SKALE
+            const connectedContract_s = new ethers.Contract(
+              CONTRACT_ADDRESS_SKALE,
+              contract.abi,
+              signer
+            );
+            let stakeTy_s = await connectedContract_s.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy_s.toNumber());
+            if (stakeTy_s <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract_s.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+
+          case 338:
+            //for CRONOS
+            const connectedContract_c = new ethers.Contract(
+              CONTRACT_ADDRESS_CRONOS,
+              contract.abi,
+              signer
+            );
+            let stakeTy_c = await connectedContract_c.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy_c.toNumber());
+            if (stakeTy_c <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract_c.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+
+          case 1313161555:
+            //for AURORA
+            const connectedContract_a = new ethers.Contract(
+              CONTRACT_ADDRESS_AURORA,
+              contract.abi,
+              signer
+            );
+            let stakeTy_a = await connectedContract_a.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy_a.toNumber());
+            if (stakeTy_a <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract_a.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+          case 80001:
+            //for POLYGON
+            // const connectedContract_p = new ethers.Contract(
+            //   CONTRACT_ADDRESS_POLYGON,
+            //   contract.abi,
+            //   signer
+            // );
+            // console.log("Going to pop wallet now to pay gas...");
+            // let stateTx = await connectedContract_p.stake(id, 1000000000000000);
+            // console.log(stateTx.toNumber() / 1000000000000000000);
+            break;
+          default:
+            break;
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //functions for Using this test
+  const useTest = async (e) => {
+    e.preventDefault();
+    console.log("hello");
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+
+        //SWITCH CASE for networks
+        switch (chainId) {
+          case 5:
+            //for GOERLI
+            let connectedContract = new ethers.Contract(
+              CONTRACT_ADDRESS_GOERLI,
+              contract.abi,
+              signer
+            );
+            let stakeTy = await connectedContract.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy.toNumber());
+
+            //use that reserve price instead 100000.. in if condition
+            if (stakeTy <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract.createTest(10000000); //reserve price from tableland
+              console.log(stakeTx);
+            }
+            break;
+
+          case 647426021:
+            //for SKALE
+            const connectedContract_s = new ethers.Contract(
+              CONTRACT_ADDRESS_SKALE,
+              contract.abi,
+              signer
+            );
+            let stakeTy_s = await connectedContract_s.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy_s.toNumber());
+            if (stakeTy_s <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract_s.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+
+          case 338:
+            //for CRONOS
+            const connectedContract_c = new ethers.Contract(
+              CONTRACT_ADDRESS_CRONOS,
+              contract.abi,
+              signer
+            );
+            let stakeTy_c = await connectedContract_c.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy_c.toNumber());
+            if (stakeTy_c <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract_c.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+
+          case 1313161555:
+            //for AURORA
+            const connectedContract_a = new ethers.Contract(
+              CONTRACT_ADDRESS_AURORA,
+              contract.abi,
+              signer
+            );
+            let stakeTy_a = await connectedContract_a.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy_a.toNumber());
+            if (stakeTy_a <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract_a.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+          case 80001:
+            //for POLYGON
+            // const connectedContract_p = new ethers.Contract(
+            //   CONTRACT_ADDRESS_POLYGON,
+            //   contract.abi,
+            //   signer
+            // );
+            // console.log("Going to pop wallet now to pay gas...");
+            // let stateTx = await connectedContract_p.stake(id, 1000000000000000);
+            // console.log(stateTx.toNumber() / 1000000000000000000);
+            break;
+
+          default:
+            break;
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -118,6 +493,17 @@ function AvailableTest() {
             value={created}
           >
             Available Tests
+          </button>
+          <button
+            type="button"
+            style={{ margin: 20 }}
+            className="text-white font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button use-test-button
+                    "
+            onClick={(e) => {
+              stake(e);
+            }}
+          >
+            Stake
           </button>
         </div>
 
@@ -317,6 +703,7 @@ function AvailableTest() {
 
                   <div className="availabletest-usetest-button">
                     <button
+                      onClick={useTest}
                       type="button"
                       class="text-white font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button use-test-button"
                     >
@@ -380,6 +767,7 @@ function AvailableTest() {
 
                   <div className="availabletest-usetest-button">
                     <button
+                      onClick={useTest}
                       type="button"
                       class="text-white  font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button use-test-button"
                     >
@@ -444,6 +832,7 @@ function AvailableTest() {
 
                   <div className="availabletest-usetest-button">
                     <button
+                      onClick={useTest}
                       type="button"
                       class="text-white   font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button use-test-button"
                     >
@@ -507,6 +896,7 @@ function AvailableTest() {
 
                   <div className="availabletest-usetest-button">
                     <button
+                      onClick={useTest}
                       type="button"
                       class="text-white  font-medium rounded-lg text-sm px-8 py-3 text-center availabletest-creator-cost-button use-test-button"
                     >

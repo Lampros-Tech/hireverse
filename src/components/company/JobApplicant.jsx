@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import "../company/styles/jobapplicant.css";
 import { connect } from "@tableland/sdk";
 import axios from "axios";
+import * as EpnsAPI from "@epnsproject/sdk-restapi";
+import * as ethers from "ethers";
+
+
 
 function JobApplicant() {
   const [approval, setApproval] = useState(true);
@@ -12,7 +16,7 @@ function JobApplicant() {
   const showApplicants = async () => {
     const currentLocation = window.location.href;
     const param = currentLocation.split("=");
-    const name = "application_details_table_80001_2806";
+    const name = "application_details_table_80001_2024";
     const table = "candidate_table_80001_1648";
     const table1 = "education_table_80001_2259";
     const tableland = await connect({
@@ -20,7 +24,7 @@ function JobApplicant() {
       chain: "polygon-mumbai",
     });
     const readRes = await tableland.read(
-      `SELECT candidate_id FROM ${name} where job_id=${param[1]} and status=0`
+      `SELECT candidate_id FROM ${name} where job_id=${param[1]}`
     );
     for (let i = 0; i < readRes["rows"].length; i++) {
       const response = await tableland.read(
@@ -38,9 +42,11 @@ function JobApplicant() {
         response["rows"][0][3],
         param[1],
         readRes["rows"][i][0],
+        response["rows"][0][6],
       ]);
     }
     setData(data);
+    // console.log(data);
     //
     const res = await tableland.read(
       `SELECT candidate_id FROM ${name} where job_id=${param[1]} and status=1`
@@ -51,6 +57,8 @@ function JobApplicant() {
       );
       console.log(response);
       let login_id = response["rows"][0][1];
+      let rec_address = response["rows"][0][6];
+      console.log(rec_address);
       const response1 = await tableland.read(
         `SELECT degree FROM ${table1} where login_id=${login_id}`
       );
@@ -63,6 +71,7 @@ function JobApplicant() {
     }
     setData2(data2);
     console.log(res);
+    // console.log(data2);
     setLoading(true);
   };
   const updateApproveDisapprove = async (job_id, candidate_id, ans) => {
@@ -70,7 +79,7 @@ function JobApplicant() {
       network: "testnet",
       chain: "polygon-mumbai",
     });
-    const table = "application_details_table_80001_2806";
+    const table = "application_details_table_80001_2024";
     const readRes = await tableland.read(
       `SELECT application_id FROM ${table} where job_id=${job_id} and candidate_id=${candidate_id}`
     );
@@ -97,6 +106,42 @@ function JobApplicant() {
   useEffect(() => {
     showApplicants();
   }, []);
+
+  //send notification code start
+
+  
+    const Pkey = `0x${process.env.REACT_APP_PK}`;
+    const signer = new ethers.Wallet(Pkey);
+   const sendNotification = async (receiver) => {
+    // console.log(receiver);
+    try {
+      const apiResponse = await EpnsAPI.payloads.sendNotification({
+        signer,
+        type: 3, // target
+        identityType: 2, // direct payload
+        notification: {
+          title: "Job Application Status",
+          body: "Hello you are Approved for the Job Interview, The interview details will be shared soon",
+        },
+        payload: {
+          title: `[sdk-test] payload title`,
+          body: `sample msg body`,
+          cta: "www.google.com",
+          img: ''
+        },
+        recipients: 'eip155:42:' + receiver, // recipient address
+        // ['eip155:42:0xCdBE6D076e05c5875D90fa35cc85694E1EAFBBd1', 'eip155:42:0x52f856A160733A860ae7DC98DC71061bE33A28b3'], //for multiple recipients
+        channel: 'eip155:42:0xa9A15cf9769fA4b05c20B48CE65b796C3bb4e3cf', // your channel address
+        env: 'staging'
+      });
+      console.log('API repsonse: sent ', apiResponse);
+      alert("Notification sent to the candidate")
+    } catch (err) {
+      console.error('Error: ', err);
+    }
+  }
+
+  ///send motification code ends
 
   if (loading) {
     return (
@@ -141,6 +186,7 @@ function JobApplicant() {
           {approval === true ? (
             <div className="jobapplicant-main-form">
               {data.map((inde) => {
+                // console.log(inde)
                 return (
                   <div className="jobapplicant-information">
                     <div className="jobapplicant-user-icon">
@@ -218,6 +264,8 @@ function JobApplicant() {
                             class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3 jobapplicant-invite-button1"
                             onClick={() => {
                               updateApproveDisapprove(inde[4], inde[5], 1);
+                              sendNotification(inde[6]);          
+
                             }}
                           >
                             Approve
