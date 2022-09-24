@@ -21,7 +21,7 @@ export const create_creators_question_table = async () => {
     }
   );
   console.log(name);
-    return name;
+  return name;
 };
 
 export const create_creators_assessment_table = async () => {
@@ -70,8 +70,10 @@ export const insert_creators_repo_table = async (
     chain: "polygon-mumbai",
   });
   console.log(tablename);
-  const allRepoName = await tableland.read(`SELECT repo_name from ${tablename} `);
-  console.log(allRepoName);
+  const allRepoName = await tableland.read(`SELECT * from ${tablename} where repo_name='${repo_name}'`);
+  if (allRepoName['rows'].length > 0) {
+    return { message: "repo already exists" };
+  }
   const writeRes = await tableland.write(
     `INSERT INTO ${tablename} (wallet_address,repo_name,description,visiblity) VALUES ('${wallet_address}','${repo_name}','${description}',${visiblity});`
   );
@@ -106,6 +108,7 @@ export const insert_creators_questions_table = async (
     `INSERT INTO ${tablename} (wallet_address,question,option1,option2,option3,option4,option5,answer,solution,primary_tags,secondary_tags,nation_list,added_at,difficulty_level,repo_name,privacy) VALUES (${wallet_address},${question},${option1},${option2},${option3},${option4},${option5},${answer},${solution},${primary_tags},${secondary_tags},${nation_list},${added_at},${difficulty_level},${repo_name},${privacy});`
   );
   console.log(writeRes);
+  return writeRes;
 };
 
 function TableQueries() {

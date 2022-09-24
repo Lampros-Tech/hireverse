@@ -49,7 +49,7 @@ const client = createClient({
 });
 function CreatorMessage() {
     return (
-    <div className="App">
+    <div className="communication">
       <WagmiConfig client={client}>
         <Communication/>
       </WagmiConfig>
