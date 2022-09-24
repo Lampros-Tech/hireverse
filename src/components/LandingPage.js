@@ -5,6 +5,13 @@ import WalletPopup from "./walletconnect/WalletPopup";
 import WalletConnect from "./walletconnect/WalletConnect";
 
 import logo from "./assets/images/logo.png";
+import aurora from "./assets/images/aurora_logo.png";
+import cronos from "./assets/images/cronos_logo.png";
+import epns from "./assets/images/epns_logo.jpg";
+import nftport from "./assets/images/nftport_logo.svg";
+import skale from "./assets/images/skale_logo.svg";
+import tableland from "./assets/images/tableland_logo.svg";
+import worldcoin from "./assets/images/worldcoin_logo.svg";
 import polygon from "./assets/images/polygon.svg";
 import ipfs from "./assets/images/IPFS_logo.svg";
 import xmtp from "./assets/images/xmtp logo.svg";
@@ -31,8 +38,10 @@ import line2 from "./assets/images/bline.svg";
 import scenario1 from "./assets/videos/scenario1.mp4";
 import scenario2 from "./assets/videos/scenario2.mp4";
 import scenario3 from "./assets/videos/scenario3.mp4";
+import faqs from "./assets/images/faqs.svg";
 
 import "./styles/landingpage.css";
+import Faqs from "./faqs/Faqs";
 
 function LandingPage() {
   let navigate = useNavigate();
@@ -94,16 +103,38 @@ function LandingPage() {
             <p className="d-sponser-p">Powered by :</p>
             <div className="d-sponser-grid">
               <div className="d-sponser-grid-item">
-                <img src={polygon} alt="polygon" className="d-sponser-img" />
+                <img src={aurora} alt="polygon" className="d-sponser-img" />
+              </div>
+              <div className="d-sponser-grid-item">
+                <img src={cronos} alt="polygon" className="d-sponser-img" />
+              </div>
+              <div className="d-sponser-grid-item">
+                <img src={epns} alt="polygon" className="d-sponser-img" />
               </div>
               <div className="d-sponser-grid-item">
                 <img src={ipfs} alt="polygon" className="d-sponser-img" />
               </div>
               <div className="d-sponser-grid-item">
-                <img src={xmtp} alt="polygon" className="d-sponser-img" />
+                <img src={nftport} alt="polygon" className="d-sponser-img" />
+              </div>
+              <div className="d-sponser-grid-item">
+                <img src={polygon} alt="polygon" className="d-sponser-img" />
+              </div>
+              <div className="d-sponser-grid-item">
+                <img src={skale} alt="polygon" className="d-sponser-img" />
               </div>
               <div className="d-sponser-grid-item">
                 <img src={superfluid} alt="polygon" className="d-sponser-img" />
+              </div>
+              <div className="d-sponser-grid-item">
+                <img src={tableland} alt="polygon" className="d-sponser-img" />
+              </div>
+              <div className="d-sponser-grid-item">
+                <img src={worldcoin} alt="polygon" className="d-sponser-img" />
+              </div>
+
+              <div className="d-sponser-grid-item">
+                <img src={xmtp} alt="polygon" className="d-sponser-img" />
               </div>
             </div>
           </section>
@@ -113,7 +144,7 @@ function LandingPage() {
 
         <section className="d-video-container">
           <div className="d-inside-third">
-            <h1 className="d-third-title">A Decentralised</h1>
+            <h1 className="d-third-title">Decentralised</h1>
             <h1 className="d-third-title">
               Hiring & Talent Assessment Platform
             </h1>
@@ -211,7 +242,7 @@ function LandingPage() {
         </section> */}
         <section className="d-third-section">
           <div className="d-inside-third">
-            <h1 className="d-third-title">A Decentralised</h1>
+            <h1 className="d-third-title">Decentralised</h1>
             <h1 className="d-third-title">
               Hiring & Talent Assessment Platform
             </h1>
@@ -337,6 +368,10 @@ function LandingPage() {
               </div>
             </div>
           </div>
+        </section>
+        <section className="d-fifth">
+          {/* <img className="faqs-img" src={faqs} alt="faqsImage" /> */}
+          <Faqs />
         </section>
         <section className="d-last">
           <div className="d-last-left">

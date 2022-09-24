@@ -27,7 +27,7 @@ function CandidateFeed() {
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
   const [additionalQuestions, setAdditonalQuestions] = useState({});
-  const [file, setFile] = useState("");
+  var [file, setFile] = useState("");
 
   const boxRef = useRef(null);
 
@@ -44,20 +44,46 @@ function CandidateFeed() {
   });
 
   async function handleupload() {
-    var fileInput = document.getElementById("input").files[0];
-    console.log(fileInput);
-    const rootCid = await client.put(fileInput, {
-      name: "dehitas candidate resume",
+    // const fileInput = document.querySelector('input[type="file"]');
+    // console.log(fileInput.files);
+
+    const fileUpload = file;
+    const rootCid = await client.put(fileUpload, {
+      name: "dehitas profile images",
       maxRetries: 3,
     });
     console.log(rootCid);
-    const res = await client.get(rootCid);
-    const files = await res.files();
-    console.log(files);
-    const url = URL.createObjectURL(files[0]);
-    console.log(url);
-    console.log(files[0].cid);
+    // const res = await client.get(rootCid);
+    // const files = await res.files();
+    // console.log(files);
+    // const url = URL.createObjectURL(files[0]);
+    // console.log(url);
+    // console.log(files[0].cid);
     // setFile(url);
+  }
+
+  async function storeWithProgress(file) {
+    // show the root cid as soon as it's ready
+    const onRootCidReady = (cid) => {
+      console.log("uploading files with cid:", cid);
+    };
+
+    // when each chunk is stored, update the percentage complete and display
+    const totalSize = file.map((f) => f.size).reduce((a, b) => a + b, 0);
+    let uploaded = 0;
+
+    const onStoredChunk = (size) => {
+      uploaded += size;
+      const pct = 100 * (uploaded / totalSize);
+      console.log(`Uploading... ${pct.toFixed(2)}% complete`);
+    };
+
+    // makeStorageClient returns an authorized Web3.Storage client instance
+    // const client = makeStorageClient();
+
+    // client.put will invoke our callbacks during the upload
+    // and return the root cid when the upload completes
+    return client.put(file, { onRootCidReady, onStoredChunk });
   }
 
   const togglePopup = async (newId) => {
@@ -650,7 +676,8 @@ function CandidateFeed() {
                                   <button
                                     className="candidate-form-btn"
                                     onClick={() => {
-                                      applyForJob();
+                                      // applyForJob();
+                                      storeWithProgress(file);
                                     }}
                                   >
                                     Submit

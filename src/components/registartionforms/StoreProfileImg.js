@@ -52,15 +52,19 @@ function StoreProfileImg({ setFileCid }) {
     console.log(typeof fileUrl);
     if (rand === 1) {
       setFile(profilepic1);
+      setFileCid("bafkreidn4lctgzoe6z4yafjy446o7yd3davhczftq4e6jjevapi6fxlb2m");
     } else if (rand === 2) {
       setFile(profilepic2);
+      setFileCid("bafkreifzlpedimq7chlokex6vl2sksm6fai6s6w6nrara67cto7vsilbi4");
     } else if (rand === 3) {
       setFile(profilepic3);
+      setFileCid("bafkreigv2jhmfka4isky7m7y4xahtpnzy474vdewfpzte2plwxhft5iqse");
     }
   };
 
   const resetFile = () => {
     setFile("");
+    setUploaded("Upload File");
   };
 
   return (
