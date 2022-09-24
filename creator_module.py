@@ -197,7 +197,11 @@ def getAssessmentQuestions():
             some_uploads = w3.user_uploads(size=25)
 
             if len(question_list) == number_of_questions:
-                cid = w3.post_upload(('format.txt',str(question_format)))
+                data = {
+                    'question_format':question_format
+                }
+                cid = w3.post_upload(('format.json',str(data)))
+                print(cid)
                 values = f"""({creator_id},'{assessment_name}','{description}',{fixed_cost},{variable_cost},{duration},'{question_list}',{number_of_questions},{created_at},'{experience_level}','{primary_skill1}','{primary_skill2}','{primary_skill3}','{(',').join(secondary_skills)}','{cid}')"""
                 data = insert_query(repo_table_name, fields, values)
                 response_body = {
