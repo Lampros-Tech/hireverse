@@ -127,7 +127,7 @@ def getTables():
 
 #creat Assessment API to create a test 
 @creator.route("/creator/createAssessment", methods=["POST"])
-def getAssessmentQuestions():
+def createAssessment():
     try:
         #inputs
         walletAddress = request.json["wallet_address"]
@@ -221,6 +221,63 @@ def getAssessmentQuestions():
         print(e)
         return "Something went wrong !!", 500
 
+
+
+
+#creat Assessment API to create a test 
+@creator.route("/creator/getTestQuestion", methods=["POST"])
+def getAssessmentQuestions():
+    try:
+        assessment_id = request.json['assessment_id']
+        #Get Creator Id And question 
+        fields = "creators_id, question"
+        tablename = os.environ.get("creators_assesment_table")
+        condition = f"""assesment_id = '{assessment_id}'"""
+        questions_data = select_query(fields, tablename, condition)
+        questions = json.loads(questions_data.decode("utf-8"))
+        creator_id = questions["rows"][0][0]
+        questions_ids = tuple(questions["rows"][0][1])
+
+        #Get Creator Question Table    
+        fields = "(question_table)"
+        tablename = os.environ.get("creators_table")
+        condition = f"""creator_id = {creator_id}"""
+        questions_table_data = select_query(fields, tablename, condition)
+        questions_table = json.loads(questions_table_data.decode("utf-8"))
+        creator_question_table = questions_table['rows'][0][0]
+        
+        #get Question from question tatble
+        fields = "creators_question_id,question, option1, option2, option3, option4, option5"
+        question_table_name = questions_table['rows'][0][0]
+        condition = f"""creators_question_id in {questions_ids}"""
+        final_questions = select_query(fields, question_table_name, condition)
+        final_questions_data = json.loads(final_questions.decode("utf-8"))
+        # print(final_questions_data['rows'])
+        question_reponse = []
+        q_no = 0
+        for question in final_questions_data['rows']:
+            question = list(question)
+            # print(question)
+            q_no = q_no + 1
+            format = {
+                'question_number': q_no,
+                'creators_question_id':question[0],
+                'question':question[1],
+                'options':[question[2],question[3],question[4],question[5],question[6]]
+            }
+            question_reponse.append(format)
+        #Get Question From creators table
+
+        # print(tuple(questions["rows"][0]))
+
+        response_body = {
+            "status": 200,
+            "questions": question_reponse
+        }, 200
+        return response_body
+    except Exception as e:
+        print(e)
+        return "Something went wrong !!", 500
 
 
 

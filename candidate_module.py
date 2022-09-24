@@ -117,3 +117,7 @@ def addSkill():
             "data":str(e)
         },401
         return response_body
+
+
+# @creator.route("/candidate/getResult", methods=["POST"])
+# def getResult():
