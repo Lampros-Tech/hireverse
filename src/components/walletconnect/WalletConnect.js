@@ -87,6 +87,7 @@ export function WalletConnect() {
           } else if (userData.role === "company") {
             navigate("/company");
           } else if (userData.role === "creator") {
+            cookies.set("creatorID", userData.creator_id)
             navigate("/creator");
           }
         }

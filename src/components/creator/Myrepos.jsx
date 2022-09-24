@@ -43,7 +43,7 @@ function Myrepos() {
         } else if (status.status === 1) {
             return (
                 <span>
-                    Local
+                    Public
                 </span>
             )
         } else {
@@ -134,8 +134,15 @@ function Myrepos() {
                                 return (
                                     <div key={i}>
                                         <div className="card uplift my-8 p-2 rounded-md">
-                                            <div className="font-secondary font-semibold text-2xl p-1">
-                                                {repo[2]}
+                                            <div className="flex">
+                                                <div className="font-secondary font-semibold text-2xl p-1 grow">
+                                                    {repo[2]}
+                                                </div>
+                                                <div className="mr-5">
+                                                    <button className="create-assessment-btn p-4 rounded">
+                                                        View Repository
+                                                    </button>
+                                                </div>
                                             </div>
                                             <div className="flex my-2">
                                                 {/* <div className="font-primary-sm ml-1 mr-1">
@@ -148,11 +155,9 @@ function Myrepos() {
                                             <div className="p-1">
                                                 {repo[3]}
                                             </div>
-                                            <div className="p-4 text-center">
-                                                <button className="create-assessment-btn p-4 rounded">
-                                                    View Repository
-                                                </button>
-                                            </div>
+                                            {/* <div className="p-4 text-center">
+                                                
+                                            </div> */}
                                         </div>
                                     </div>
                                 )
