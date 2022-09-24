@@ -180,12 +180,11 @@ function CreateAssesment() {
     var negscore;
     var calc = to - from + 1;
     var maxscr = calc * mark;
-    negscore = parseInt(previousSectionMin) + calc * negativemarks;
+    negscore = previousSectionMin - calc * negativemarks;
     console.log(negscore);
-    var negativestring = negscore.toString();
     setSectionMinScore();
     setSectionMaxScore();
-    setMinScore(negativestring);
+    setMinScore(negscore);
     setMaxScore(previousSectionMax + maxscr);
   }, [from, to, mark, negativemarks]);
 
@@ -288,12 +287,12 @@ function CreateAssesment() {
           ...section,
           {
             from: from,
-            to: to,
-            mark: mark,
-            negativemarks: negativemarks,
-            gener: gener,
-            repo: repo,
-            difficulty: difficulty,
+            to: Number(to),
+            genre: gener,
+            repo_name: repo,
+            difficulty_level: difficulty,
+            marks_for_each: Number(mark),
+            negative_score_for_one: Number(negativemarks),
           },
         ]);
         setFrom(Number(to) + 1);
@@ -319,12 +318,12 @@ function CreateAssesment() {
           ...section,
           {
             from: from,
-            to: to,
+            to: Number(to),
             genre: gener,
             repo_name: repo,
             difficulty_level: difficulty,
-            marks_for_each: mark,
-            negative_score_for_one: negativemarks,
+            marks_for_each: Number(mark),
+            negative_score_for_one: Number(negativemarks),
           },
         ]);
         setFrom(Number(to) + 1);
@@ -333,7 +332,7 @@ function CreateAssesment() {
         setPreviousSectionMin(minScore);
 
         console.log(from);
-        setTo(from);
+        // setTo(Number(from));
       }
     }
   };
@@ -342,14 +341,14 @@ function CreateAssesment() {
     console.log(totalQuestion, filteredSkills, myarr, section);
     var axios = require("axios");
     var data = JSON.stringify({
-      wallet_address: "0xfaabb044AF5C19145cA4AE13CA12C419395A72FB",
+      wallet_address: address,
       assessment_name: allData.assessmentName,
       description: allData.desc,
       fixed_cost: allData.fixedcost,
       variable_cost: allData.vcost,
       duration: allData.duration,
-      number_of_questions: totalQuestion,
-      experience_level: allData.expLevel,
+      number_of_questions: Number(totalQuestion),
+      experience_level: `${allData.expLevel}`,
       primary_skills: filteredSkills,
       secondary_skills: myarr,
       question_format: section,
@@ -496,8 +495,9 @@ function CreateAssesment() {
                   classNamePrefix="select"
                   // value={selectedSkills}
                   onChange={(e) => {
+                    console.log(e);
                     const data = e.map((i) => {
-                      return i.value;
+                      return i.label;
                     });
                     setFilteredSkills(data);
                     // handleSelectedOptios(e);
@@ -520,7 +520,7 @@ function CreateAssesment() {
                   // value={selectedOptions1}
                   onChange={(e) => {
                     const data = e.map((i) => {
-                      return i.value;
+                      return i.label;
                     });
                     setMyArr(data);
                     // handleSelect1(e);
@@ -692,7 +692,7 @@ function CreateAssesment() {
                     type="number"
                     name="experiance"
                     placeholder="-ve score"
-                    max="0"
+                    min="0"
                     className="border w-24 border-gray-300 uplift rounded-md w-24 pl-1"
                     onChange={(e) => {
                       setNegativemarks(e.target.value);
@@ -740,11 +740,13 @@ function CreateAssesment() {
                     <div key={index} className="flex">
                       <div className="cont">{section.from}</div>
                       <div className="cont">{section.to}</div>
-                      <div className="cont">{section.gener}</div>
-                      <div className="cont">{section.repo}</div>
-                      <div className="cont">{section.difficulty}</div>
-                      <div className="cont">{section.mark}</div>
-                      <div className="cont">{section.negativemarks}</div>
+                      <div className="cont">{section.genre}</div>
+                      <div className="cont">{section.repo_name}</div>
+                      <div className="cont">{section.difficulty_level}</div>
+                      <div className="cont">{section.marks_for_each}</div>
+                      <div className="cont">
+                        {section.negative_score_for_one}
+                      </div>
                     </div>
                   ))
                 ) : (
@@ -763,12 +765,12 @@ function CreateAssesment() {
                 <div className="flex my-4 ">
                   <div className="font-secondary font-semibold">Max Score:</div>
                   <div className="mr-5 ml-2 font-secondary w-48">
-                    {maxScore}
+                    {previousSectionMax}
                   </div>
                   <div className="font-secondary font-semibold ml-8">
                     Min Score:
                   </div>
-                  <div className="mr-5 ml-2 ">{minScore}</div>
+                  <div className="mr-5 ml-2 ">{previousSectionMin}</div>
                 </div>
                 <div className="flex my-4">
                   <div className="font-secondary font-semibold">Fix fees:</div>

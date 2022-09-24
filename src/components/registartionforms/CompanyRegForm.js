@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useAccount } from "wagmi";
+// import { useAccount } from "wagmi";
+import { useAccount, useSigner, useProvider } from "wagmi";
 import Cookies from "universal-cookie";
+
+import data_polygon from "../../Contracts/artifacts/data_polygon.json";
+import CONTRACT_ADDRESS_GOERLI from "../../Contracts/config";
+import CONTRACT_ADDRESS_SKALE from "../../Contracts/config";
+import CONTRACT_ADDRESS_AURORA from "../../Contracts/config";
+import CONTRACT_ADDRESS_CRONOS from "../../Contracts/config";
+// import CONTRACT_ADDRESS_POLYGON from "../../Contracts/config";
+import { ethers } from "ethers";
 
 import PhoneInput from "react-phone-input-2";
 import { countryArr } from "./CountryList";
@@ -20,6 +29,8 @@ function CompanyRegForm() {
   const cookies = new Cookies();
 
   const { address, isConnected } = useAccount();
+  const { data: signer, isError, isLoading } = useSigner(); //useAccount from wagmi
+  const provider = useProvider(); //useProvider from wagmi
 
   const [loginId, setLoginId] = useState(null);
   const [btnloading, setbtnLoading] = useState(false);
@@ -180,7 +191,24 @@ function CompanyRegForm() {
   };
 
   /////////////////////add function here///////////////////
-
+  // const registerCompany = async () => {
+  //   const { chainId } = await provider.getNetwork();
+  //   switch (chainId) {
+  //     case 80001:
+  //       let connectedContract = new ethers.Contract(
+  //         CONTRACT_ADDRESS_POLYGON,
+  //         data_polygon.abi,
+  //         signer
+  //       );
+  //       console.log("Going to pop wallet now to pay gas...");
+  //       let balance = await connectedContract.registerCompany();
+  //       console.log(balance);
+  //       break;
+  //     default:
+  //       console.log("something went wrong");
+  //       break;
+  //   }
+  // };
   //////////////////////////only for smart contract//////////////
 
   // const printData = () => {
