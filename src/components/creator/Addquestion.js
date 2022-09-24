@@ -7,7 +7,7 @@ import "../creator/Addquestion.css";
 import axios from "axios";
 import { connect as TBLconnect } from "@tableland/sdk";
 import { useAccount, useConnect } from "wagmi";
-import { createRoutesFromChildren, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { insert_creators_questions_table } from "../TableQueries";
 // import { EditorState, convertToRaw, convertFromHTML, convertFromRaw } from "draft-js";
 // import { useNavigate } from "react-router-dom";
@@ -22,6 +22,7 @@ import { InjectedConnector } from "@wagmi/core";
 import LoadingIcon from "../walletconnect/LoadingIcon";
 import Select from "react-select";
 import { countryArr } from "../registartionforms/CountryList";
+import parse from "html-react-parser";
 
 
 export default function AddQuestion() {
@@ -51,7 +52,7 @@ export default function AddQuestion() {
   const [selectedRepo, setSelectedRepo] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [selectedNation, setSelectedNation] = useState([]);
-
+  const [creatorsProcessedData, setCreatorsProcessedData] = useState(null);
   const { address, isConnected } = useAccount();
   const { connect } = useConnect({
     connector: new InjectedConnector(),
@@ -157,34 +158,35 @@ export default function AddQuestion() {
     // }
     setLoadingMessage("Adding the questions...")
     setLoading(true);
+    console.log("I am not comfortable");
     const question = "'" + editorRef_singleQ.current.getContent() + "'";
     const option1 = "'" + editorRef_singleoption1.current.getContent() + "'";
     const option2 = "'" + editorRef_singleoption2.current.getContent() + "'";
     const option3 = "'" + editorRef_singleoption3.current.getContent() + "'";
     const option4 = "'" + editorRef_singleoption4.current.getContent() + "'";
     const option5 = "'" + editorRef_singleoption5.current.getContent() + "'";
-    let correct = "'"+ editorRef_singleoption1.current.getContent() + "'"; 
+    let correct = "'" + editorRef_singleoption1.current.getContent() + "'";
     switch (correct1) {
       case 1:
-        correct = "'"+ editorRef_singleoption1.current.getContent() + "'";
+        correct = "'" + editorRef_singleoption1.current.getContent() + "'";
         break;
       case 2:
-        correct = "'"+ editorRef_singleoption2.current.getContent() + "'";
+        correct = "'" + editorRef_singleoption2.current.getContent() + "'";
         break;
       case 3:
-        correct = "'"+ editorRef_singleoption3.current.getContent() + "'";
+        correct = "'" + editorRef_singleoption3.current.getContent() + "'";
         break;
       case 4:
-        correct = "'"+ editorRef_singleoption4.current.getContent() + "'";
+        correct = "'" + editorRef_singleoption4.current.getContent() + "'";
         break;
       case 5:
-        correct = "'"+ editorRef_singleoption5.current.getContent() + "'";
+        correct = "'" + editorRef_singleoption5.current.getContent() + "'";
         break;
     }
 
-    const solution = "'"+ editorRef_solution.current.getContent() + "'";
-    const primaryTags = "'" +selectedPrimarySkills['label'] + "'";
-    const secondaryTags = "'"+ selectedSecondarySkills.join()+ "'";
+    const solution = "'" + editorRef_solution.current.getContent() + "'";
+    const primaryTags = "'" + selectedPrimarySkills['label'] + "'";
+    const secondaryTags = "'" + selectedSecondarySkills.join() + "'";
     const diff = "'" + difficulty + "'";
     const repo = "'" + selectedRepo + "'";
     const priv = privacy;
@@ -195,7 +197,7 @@ export default function AddQuestion() {
     try {
       const creatorsData = await insert_creators_questions_table(
         questionTableName,
-        "'" + address  + "'",
+        "'" + address + "'",
         question,
         option1,
         option2,
@@ -212,18 +214,7 @@ export default function AddQuestion() {
         repo,
         priv
       );
-      console.log(creatorsData);
-      if (creatorsData.hash) {
-        setLoadingMessage("Data inserted successfully...");
-        setLoading(false);
-        const tableland = await TBLconnect({
-          network: "testnet",
-          chain: "polygon-mumbai",
-        });
-        const lastEntry = await tableland.read(`SELECT MAX(creators_question_id) FROM ${questionTableName}`);
-        console.log(lastEntry);
-
-      }
+      setCreatorsProcessedData(creatorsData);
     } catch {
       setTimeout(() => {
         setLoadingMessage("Something went wrong...")
@@ -232,6 +223,49 @@ export default function AddQuestion() {
     }
   };
 
+  const storeToAPI = async () => {
+    const tableland = await TBLconnect({
+      network: "testnet",
+      chain: "polygon-mumbai",
+    });
+    const lastEntry = await tableland.read(`SELECT creators_question_id FROM ${questionTableName} ORDER BY creators_question_id DESC LIMIT 1`);
+    console.log(lastEntry.rows[0][0]);
+
+    const customConfig = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    var data = JSON.stringify({
+      "creators_question_id": lastEntry.rows[0][0],
+      "creators_questions_table_name": questionTableName
+    });
+
+    var config = {
+      method: 'post',
+      url: `${process.env.REACT_APP_API_URL}/toBeVerified`,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setLoadingMessage("Data inserted successfully...");
+        setLoading(false);
+        setCreatorsProcessedData(null);
+      })
+      .catch(function (error) {
+        setTimeout(() => {
+          setLoadingMessage("Unprocessed data...");
+          setLoading(false);
+        }, 5000);
+        setCreatorsProcessedData(null);
+      });
+  }
 
   useEffect(() => {
     try {
@@ -262,6 +296,19 @@ export default function AddQuestion() {
   useEffect(() => {
     console.log(selectedNation)
   }, [selectedNation]);
+
+  useEffect(() => {
+    if (creatorsProcessedData) {
+      console.log(creatorsProcessedData);
+      if (creatorsProcessedData.hash) {
+        storeToAPI();
+      }
+      setTimeout(() => {
+        setLoadingMessage("Their was some error processing the data...");
+        setLoading(false);
+      }, 5000)
+    }
+  }, [creatorsProcessedData])
 
   if (loading) {
     return (
@@ -934,7 +981,7 @@ export default function AddQuestion() {
                       required
                       options={secondarySkills}
                       onChange={(e) => {
-                        const data = e.map((i)=>{
+                        const data = e.map((i) => {
                           return i.label
                         })
                         setSelectedSecondarySkills(data);
