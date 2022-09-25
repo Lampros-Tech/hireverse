@@ -194,8 +194,8 @@ def signup():
     if len(final_data["rows"]) == 0:
         # If not Exist Insert to Database
         otp = send_verification_mail(email)
-        fields = "(username,email,walletaddress,otp,createdat)"
-        values = f"""('{username}', '{email}','{walletAddress}','{otp}',{int(datetime.datetime.now().timestamp())})"""
+        fields = "(username,email,walletaddress,varified,otp,createdat)"
+        values = f"""('{username}', '{email}','{walletAddress}',{1},'{otp}',{int(datetime.datetime.now().timestamp())})"""
 
         # Insert Query
         data = insert_query(tablename, fields, values)
