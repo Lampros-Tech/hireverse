@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import WalletPopup from "./walletconnect/WalletPopup";
 import WalletConnect from "./walletconnect/WalletConnect";
@@ -60,6 +60,16 @@ function LandingPage() {
             <img className="d-logo" src={logo} alt="logo" />
           </div>
           <div className="d-connect">
+            <button
+              className="d-docs-btn"
+              target="_blank"
+              onClick={() =>
+                window.open("https://dehitas.gitbook.io/user-guide/")
+              }
+            >
+              Docs
+            </button>
+
             {isOpen && (
               <WalletPopup
                 content={
