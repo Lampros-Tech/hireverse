@@ -7,29 +7,26 @@ function TestsFeed() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const showTestFeeds = async () => {
-    const name = "creators_assesment_table_80001_2849";
+    const name = "creators_assesment_table_80001_2074";
     const tableland = await connect({
       network: "testnet",
       chain: "polygon-mumbai",
     });
     const table = "creators_table_80001_2155";
     const readRes = await tableland.read(`SELECT * FROM ${name}`);
+    console.log(readRes);
+    // setData([]);
     for (let i = 0; i < readRes["rows"].length; i++) {
       let creatorId = readRes["rows"][i][1];
       const response = await tableland.read(
-        `SELECT name FROM ${table} where creator_id=${creatorId}`
+        `SELECT name,profile_image FROM ${table} where creator_id=${creatorId}`
       );
-      var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-      d.setUTCSeconds(readRes["rows"][i][6]);
-      let date_array = d.toString().split(" ", 4);
-      let final_array = [];
-      for (let i = 1; i < date_array.length; i++) {
-        final_array.push(date_array[i]);
-      }
+      console.log(response);
+      let url = "https://ipfs.io/ipfs/" + response["rows"][0][1];
       // let noOfApplicants = response["rows"].length;
       data.push([
         readRes["rows"][i][2],
-        final_array.toString(),
+        readRes["rows"][i][6],
         readRes["rows"][i][10],
         response["rows"][0][0],
         readRes["rows"][i][3],
@@ -38,11 +35,25 @@ function TestsFeed() {
         readRes["rows"][i][13],
         readRes["rows"][i][4],
         readRes["rows"][i][5],
+        url,
       ]);
     }
     setData(data);
+    console.log(data);
     setLoading(true);
   };
+
+  //-------- titlecase code ------
+  function titleCase(str) {
+    str = str.toLowerCase().split(" ");
+    for (var i = 0; i < str.length; i++) {
+      str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+    }
+    return str.join(" ");
+  }
+  // titleCase("I'm a little tea pot");
+  // console.log(titleCase("I'm a little tea pot"))
+  //---------end---------------------------------
 
   useEffect(() => {
     showTestFeeds();
@@ -54,7 +65,6 @@ function TestsFeed() {
     // 👇️ navigate to /contacts
     navigate("/company/testdescrption");
   };
-
   if (loading) {
     return (
       <div>
@@ -108,7 +118,7 @@ function TestsFeed() {
                           />
                         </svg>
 
-                        <span>Experiance: </span>
+                        <span>Experience: </span>
                         <span>{inde[2]} year</span>
                       </div>
                       <div className="td-outer-heading">
@@ -135,7 +145,7 @@ function TestsFeed() {
                     </div>
                     <img
                       class=" user-img w-10 h-10 rounded"
-                      src="https://i.pravatar.cc/100"
+                      src={inde[10]}
                       alt="Default avatar"
                     />
                   </div>
@@ -149,32 +159,32 @@ function TestsFeed() {
                       type="button"
                       class=" tag-button px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-mdhover:shadow-lg  focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
                     >
-                      {inde[5]}
+                      {titleCase(inde[5])}
                     </button>
                     <button
                       type="button"
                       class=" tag-button px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-mdhover:shadow-lg  focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
                     >
-                      {inde[6]}
+                      {titleCase(inde[6])}
                     </button>
                     <button
                       type="button"
                       class=" tag-button px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-mdhover:shadow-lg  focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
                     >
-                      {inde[7]}
+                      {titleCase(inde[7])}
                     </button>
                   </div>
 
                   <div className="cost-button">
                     <button
                       type="button"
-                      class=" fix-cost inline-block px-6 py-2 mx-2 border-2 border-black-900 text-black-900 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                      class=" fix-cost  px-6 py-2 mx-2 border-2 border-black-900 text-black-900 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                     >
                       Fix Cost : {inde[8]}
                     </button>
                     <button
                       type="button"
-                      class=" color-btnn inline-block px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                      class=" color-btnn  px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                     >
                       Variable cost : {inde[9]}
                     </button>

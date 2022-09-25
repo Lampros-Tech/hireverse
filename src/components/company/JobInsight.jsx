@@ -23,12 +23,12 @@ function Jobinsights() {
         payload: {
           title: `[sdk-test] payload title`,
           body: `sample msg body`,
-          cta: "www.google.com",
+          cta: "https://office.dehitas.xyz/?id=cZJte9SEh",
           img: "",
         },
         recipients: "eip155:42:0xe57f4c84539a6414C4Cf48f135210e01c477EFE0", // recipient address
         // ['eip155:42:0xCdBE6D076e05c5875D90fa35cc85694E1EAFBBd1', 'eip155:42:0x52f856A160733A860ae7DC98DC71061bE33A28b3'], //for multiple recipients
-        channel: "eip155:42:0xa9A15cf9769fA4b05c20B48CE65b796C3bb4e3cf", // your channel address
+        channel: "eip155:42:0xfaabb044AF5C19145cA4AE13CA12C419395A72FB", // your channel address
         env: "staging",
       });
       console.log("API repsonse: sent ", apiResponse);

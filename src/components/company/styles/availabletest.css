@@ -2,8 +2,9 @@
   height: 100%;
   width: 100%;
   padding: 50px;
+  padding-top: 110px;
   margin: 0 auto;
-  margin-top: 2%;
+  /* margin-top: 2%; */
 }
 .availabletest-creator-cost-button {
   background-color: #282155;
@@ -47,6 +48,7 @@
 }
 .available-creator-name {
   white-space: nowrap;
+  margin: 10px;
 }
 .availabletest-usetest-button {
   white-space: nowrap;
@@ -116,6 +118,15 @@
   padding: 15px 60px 15px 60px;
   background-color: #ff6150;
   font-size: larger;
+}
+.A3section-merge {
+  display: flex;
+}
+.availabletest-description-created {
+  text-align: justify;
+  font-family: "Open Sans";
+  width: 80%;
+  margin-bottom: 40px;
 }
 
 @media only screen and (max-width: 768px) {

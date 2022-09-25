@@ -4,19 +4,24 @@ import { connect } from "@tableland/sdk";
 import axios from "axios";
 import * as EpnsAPI from "@epnsproject/sdk-restapi";
 import * as ethers from "ethers";
-
-
+import { useAccount } from "wagmi";
+import contract from "../../Contracts/artifacts/superfluid_contract.json";
+export const CONTRACT_ADDRESS_POLYGON =
+  "0x1fAFFec79B44Ae0a4A2bB35a02E056B69489Cfc4";
 
 function JobApplicant() {
+  const { address, isConnected } = useAccount();
   const [approval, setApproval] = useState(true);
   const [approved, setApproved] = useState();
   const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [companyId, setCompanyId] = useState();
+
   const showApplicants = async () => {
     const currentLocation = window.location.href;
     const param = currentLocation.split("=");
-    const name = "application_details_table_80001_2024";
+    const name = "application_details_table_80001_2806";
     const table = "candidate_table_80001_1648";
     const table1 = "education_table_80001_2259";
     const tableland = await connect({
@@ -34,7 +39,7 @@ function JobApplicant() {
       const response1 = await tableland.read(
         `SELECT degree FROM ${table1} where login_id=${login_id}`
       );
-      console.log(response1);
+      // console.log(response1);
       data.push([
         response["rows"][0][4],
         response["rows"][0][2],
@@ -46,7 +51,7 @@ function JobApplicant() {
       ]);
     }
     setData(data);
-    // console.log(data);
+    console.log(data);
     //
     const res = await tableland.read(
       `SELECT candidate_id FROM ${name} where job_id=${param[1]} and status=1`
@@ -55,10 +60,10 @@ function JobApplicant() {
       const response = await tableland.read(
         `SELECT * FROM ${table} where candidate_id=${res["rows"][i][0]}`
       );
-      console.log(response);
+      // console.log(response);
       let login_id = response["rows"][0][1];
       let rec_address = response["rows"][0][6];
-      console.log(rec_address);
+      // console.log(rec_address);
       const response1 = await tableland.read(
         `SELECT degree FROM ${table1} where login_id=${login_id}`
       );
@@ -70,23 +75,30 @@ function JobApplicant() {
       ]);
     }
     setData2(data2);
-    console.log(res);
+    // console.log(res);
     // console.log(data2);
     setLoading(true);
   };
-  const updateApproveDisapprove = async (job_id, candidate_id, ans) => {
+
+  const updateApproveDisapprove = async (job_id, candidate_id, ans, e) => {
     const tableland = await connect({
       network: "testnet",
       chain: "polygon-mumbai",
     });
-    const table = "application_details_table_80001_2024";
+    const table = "application_details_table_80001_2806";
     const readRes = await tableland.read(
       `SELECT application_id FROM ${table} where job_id=${job_id} and candidate_id=${candidate_id}`
     );
+    console.log(readRes);
     var data = JSON.stringify({
       application_id: readRes["rows"][0][0],
       status: ans,
     });
+
+    const response = await tableland.read(
+      `SELECT wallet_address FROM candidate_table_80001_1648 where candidate_id=${candidate_id}`
+    );
+    const user = response["rows"][0][0];
     var config = {
       method: "post",
       url: `${process.env.REACT_APP_API_URL}/updateApproveDisapprove`,
@@ -102,17 +114,62 @@ function JobApplicant() {
       .catch(function (error) {
         console.log(error);
       });
+
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+        if (chainId === 80001) {
+          const con = new ethers.Contract(
+            CONTRACT_ADDRESS_POLYGON,
+            contract,
+            signer
+          );
+          console.log(e.target.id);
+          const tx = await con.approveCandidate(companyId, job_id, user);
+          tx.wait();
+          sendNotification("0xe57f4c84539a6414C4Cf48f135210e01c477EFE0");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     showApplicants();
   }, []);
 
+  const forId = async () => {
+    const name = "company_table_80001_1730";
+    const tableland = await connect({
+      network: "testnet",
+      chain: "polygon-mumbai",
+    });
+    const readRes = await tableland.read(
+      `SELECT company_id FROM ${name} where wallet_address='${address}'`
+    );
+    console.log(readRes);
+    setCompanyId(readRes["rows"][0][0]);
+    console.log("done");
+  };
+
+  useEffect(() => {
+    forId();
+  }, [address]);
+
   //send notification code start
 
-  
-    const Pkey = `0x${process.env.REACT_APP_PK}`;
-    const signer = new ethers.Wallet(Pkey);
-   const sendNotification = async (receiver) => {
+  const Pkey = `0x${process.env.REACT_APP_PK}`;
+  const signer = new ethers.Wallet(Pkey);
+
+  const sendNotification = async (receiver) => {
     // console.log(receiver);
     try {
       const apiResponse = await EpnsAPI.payloads.sendNotification({
@@ -126,20 +183,20 @@ function JobApplicant() {
         payload: {
           title: `[sdk-test] payload title`,
           body: `sample msg body`,
-          cta: "www.google.com",
-          img: ''
+          cta: "https://office.dehitas.xyz/?id=cZJte9SEh",
+          img: "",
         },
-        recipients: 'eip155:42:' + receiver, // recipient address
+        recipients: "eip155:42:" + receiver, // recipient address
         // ['eip155:42:0xCdBE6D076e05c5875D90fa35cc85694E1EAFBBd1', 'eip155:42:0x52f856A160733A860ae7DC98DC71061bE33A28b3'], //for multiple recipients
-        channel: 'eip155:42:0xa9A15cf9769fA4b05c20B48CE65b796C3bb4e3cf', // your channel address
-        env: 'staging'
+        channel: "eip155:42:0xfaabb044AF5C19145cA4AE13CA12C419395A72FB", // your channel address
+        env: "staging",
       });
-      console.log('API repsonse: sent ', apiResponse);
-      alert("Notification sent to the candidate")
+      console.log("API repsonse: sent ", apiResponse);
+      alert("Notification sent to the candidate");
     } catch (err) {
-      console.error('Error: ', err);
+      console.error("Error: ", err);
     }
-  }
+  };
 
   ///send motification code ends
 
@@ -261,11 +318,13 @@ function JobApplicant() {
                         <div className="jobapplicant-button">
                           <button
                             type="button"
+                            id={inde[6]}
                             class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3 jobapplicant-invite-button1"
-                            onClick={() => {
-                              updateApproveDisapprove(inde[4], inde[5], 1);
-                              sendNotification(inde[6]);          
-
+                            onClick={(e) => {
+                              updateApproveDisapprove(inde[4], inde[5], 1, e);
+                              // sendNotification(
+                              //   "0xe57f4c84539a6414C4Cf48f135210e01c477EFE0"
+                              // );
                             }}
                           >
                             Approve

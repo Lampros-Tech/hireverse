@@ -337,6 +337,7 @@
   font-size: larger;
 }
 .candidate-jobfeed-main-content {
+  padding-top: 100px;
   position: relative;
 }
 .candidate-jobfeed-main-left {

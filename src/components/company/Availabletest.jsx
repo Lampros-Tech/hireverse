@@ -523,8 +523,8 @@ function AvailableTest() {
                         {inde[1]}
                       </label>
                     </div>
-                    <div className="availabletest-description-to-button">
-                      <div className="availabletest-description">
+                    <div className="A3section-merge">
+                      <div className="availabletest-description-created">
                         <label
                           for="first_name"
                           class="block text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -533,30 +533,32 @@ function AvailableTest() {
                         </label>
                       </div>
 
-                      <div className="availabletest-user-icon">
-                        <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
-                          <img
-                            class="w-10 h-10 rounded-full"
-                            src={inde[5]}
-                            alt="Rounded avatar"
-                          />
-                        </div>
-                        <div className="available-creator-name">
-                          <label
-                            for="first_name"
-                            class="block  text-sm font-medium text-gray-900 dark:text-gray-300  availabletest-creator-block"
-                          >
-                            {inde[4]}
-                          </label>
-                        </div>
+                      <div className="availabletest-description-to-button">
+                        <div className="availabletest-user-icon">
+                          <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
+                            <img
+                              class="w-10 h-10 rounded-full"
+                              src={inde[5]}
+                              alt="Rounded avatar"
+                            />
+                          </div>
+                          <div className="available-creator-name">
+                            <label
+                              for="first_name"
+                              class="block  text-sm font-medium text-gray-900 dark:text-gray-300  availabletest-creator-block"
+                            >
+                              {inde[4]}
+                            </label>
+                          </div>
 
-                        <div className="availabletest-usetest-button">
-                          <button
-                            type="button"
-                            class="text-white   font-medium rounded-lg text-sm px-8 py-3 text-center  availabletest-creator-cost-button"
-                          >
-                            Cost: ${inde[2]}
-                          </button>
+                          <div className="availabletest-usetest-button">
+                            <button
+                              type="button"
+                              class="text-white   font-medium rounded-lg text-sm px-8 py-3 text-center  availabletest-creator-cost-button"
+                            >
+                              Cost: ${inde[2]}
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -593,58 +595,61 @@ function AvailableTest() {
                         {inde[1]}
                       </label>
                     </div>
-                    <div className="availabletest-variable-cost">
-                      <label
-                        for="first_name"
-                        class="block  text-large font-medium text-gray-900 dark:text-gray-300 variable-cost-name"
-                      >
-                        Variable Cost:
-                      </label>
-                      <label
-                        for="first_name"
-                        class="block  text-large font-medium text-gray-900 dark:text-gray-300 variable-cost-price"
-                      >
-                        ${inde[2]}
-                      </label>
-                    </div>
-                    <div className="availabletest-description-to-button">
-                      <div className="availabletest-description">
-                        <label
-                          for="first_name"
-                          class="block text-sm font-medium text-gray-900 dark:text-gray-300"
-                        >
-                          {inde[3]}
-                        </label>
-                      </div>
-
-                      <div className="availabletest-user-icon">
-                        <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
-                          <img
-                            class="w-10 h-10 rounded-full"
-                            src={inde[5]}
-                            alt="Rounded avatar"
-                          />
-                        </div>
-                        <div className="available-creator-name">
+                    <div className="A3section-merge">
+                      <div className=" desc-cost-merge">
+                        <div className="availabletest-variable-cost">
                           <label
                             for="first_name"
-                            class="block  text-sm font-medium text-gray-900 dark:text-gray-300 availabletest-creator-block"
+                            class="block  text-large font-medium text-gray-900 dark:text-gray-300 variable-cost-name"
                           >
-                            {inde[4]}
+                            Variable Cost:
+                          </label>
+                          <label
+                            for="first_name"
+                            class="block  text-large font-medium text-gray-900 dark:text-gray-300 variable-cost-price"
+                          >
+                            ${inde[2]}
                           </label>
                         </div>
-
-                        <div className="availabletest-usetest-button">
-                          <button
-                            type="button"
-                            id={inde[0]}
-                            class="text-white   font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button use-test-button"
-                            onClick={(e) => {
-                              updateAssessmentId(e);
-                            }}
+                        <div className="availabletest-description">
+                          <label
+                            for="first_name"
+                            class="block text-sm font-medium text-gray-900 dark:text-gray-300"
                           >
-                            Use This Test
-                          </button>
+                            {inde[3]}
+                          </label>
+                        </div>
+                      </div>
+                      <div className="availabletest-description-to-button">
+                        <div className="availabletest-user-icon">
+                          <div class="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-600 ">
+                            <img
+                              class="w-10 h-10 rounded-full"
+                              src={inde[5]}
+                              alt="Rounded avatar"
+                            />
+                          </div>
+                          <div className="available-creator-name">
+                            <label
+                              for="first_name"
+                              class="block  text-sm font-medium text-gray-900 dark:text-gray-300 availabletest-creator-block"
+                            >
+                              {inde[4]}
+                            </label>
+                          </div>
+
+                          <div className="availabletest-usetest-button">
+                            <button
+                              type="button"
+                              id={inde[0]}
+                              class="text-white   font-medium rounded-lg text-sm px-8 py-3 text-center   availabletest-creator-cost-button use-test-button"
+                              onClick={(e) => {
+                                updateAssessmentId(e);
+                              }}
+                            >
+                              Use This Test
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>

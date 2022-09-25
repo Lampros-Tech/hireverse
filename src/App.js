@@ -157,8 +157,10 @@ function App() {
               <Route path="edit_assesment" element={<EditAssesment />} />
               <Route path="message" element={<CreatorMessage />} />
               <Route path="VerifyQuestion" element={<Verifyquestion />} />
+
               <Route path="repo/:key" element={<SingleRepo />} />
               <Route path="" element={<QuestionFeed />} />
+              <Route path="creator-profile" element={<Profile />} />
             </Route>
 
             <Route path="company" element={<CompanyHeader />}>
@@ -175,12 +177,16 @@ function App() {
               <Route path="jobapplicant" element={<JobApplicant />} />
               <Route path="jobinsights" element={<Jobinsights />} />
               <Route path="message" element={<CompanyMessage />} />
+              <Route path="company-profile" element={<Profile />} />
             </Route>
 
             <Route path="candidate" element={<CandidateHeader />}>
               <Route path="" element={<CandidateFeed />} />
               <Route path="candidate-test" element={<CandidateTest />} />
-              <Route path="candidate-test-results" element={<CandidateTestResults />}/>
+              <Route
+                path="candidate-test-results"
+                element={<CandidateTestResults />}
+              />
               <Route path="candidate-profile" element={<Profile />} />
               <Route path="applications" element={<CandidateApplications />} />
               <Route path="testtakenpage" element={<TestTakenpage />} />

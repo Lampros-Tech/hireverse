@@ -446,7 +446,7 @@ img.d-graphics-item-3 {
   position: absolute;
   top: 48vh;
   right: -125px;
-  z-index: 1;
+  z-index: -1;
 }
 
 img.d-graphics-item-4 {
@@ -564,9 +564,8 @@ button.d-hero-left-btn {
   img.d-graphics-item-3 {
     width: 35rem;
     position: absolute;
-    top: 48vh;
+    top: 54vh;
     right: -200px;
-    z-index: 1;
   }
   .d-sponser-grid-item {
     width: 60%;
@@ -600,7 +599,7 @@ button.d-hero-left-btn {
     font-size: 1.3rem;
   }
   h1.d-hero-left-h1 {
-    font-size: 3rem;
+    font-size: 2rem;
   }
   button.d-hero-left-btn {
     margin: 20px 0;
@@ -609,7 +608,7 @@ button.d-hero-left-btn {
     opacity: 0.9;
     font-size: 1.2rem;
     font-weight: 600;
-    padding: 1.5rem 3rem;
+    padding: 1.2rem 2.5rem;
     background-color: #ff6150;
     color: #eff0ee;
   }

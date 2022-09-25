@@ -6,7 +6,7 @@ const WalletPopup = (props) => {
     <div className="wallet-popup-box">
       <div className="wallet-box">
         <div className="wallet-outer">
-          <div className="wallet-header">Connect Wallet</div>
+          <div className="wallet-header">{props.title}</div>
           <span className="wallet-close-icon-x" onClick={props.handleClose}>
             x
           </span>

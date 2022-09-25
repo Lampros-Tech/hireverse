@@ -320,6 +320,14 @@ function CandidateFeed() {
                   >
                     More
                   </button>
+                  <button
+                    className="candidate-jobfeed-button"
+                    onClick={() => {
+                      formPopup(inde[6]);
+                    }}
+                  >
+                    Apply
+                  </button>
                   {isOpen && (
                     <div ref={boxRef}>
                       <Popup
@@ -524,15 +532,6 @@ function CandidateFeed() {
                       />
                     </div>
                   )}
-
-                  <button
-                    className="candidate-jobfeed-button"
-                    onClick={() => {
-                      formPopup(inde[6]);
-                    }}
-                  >
-                    Apply
-                  </button>
 
                   {isForm && (
                     <div ref={boxRef}>
