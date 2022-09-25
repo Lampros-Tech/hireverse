@@ -8,6 +8,8 @@ from flask import Blueprint, render_template, abort
 from flask.globals import request
 import random
 import w3storage
+import requests
+import ast
 
 load_dotenv()
 
@@ -230,7 +232,7 @@ def getAssessmentQuestions():
     try:
         assessment_id = request.json['assessment_id']
         #Get Creator Id And question 
-        fields = "creators_id, question, duration"
+        fields = "creators_id, question, duration, question_format"
         tablename = os.environ.get("creators_assesment_table")
         condition = f"""assesment_id = '{assessment_id}'"""
         questions_data = select_query(fields, tablename, condition)
@@ -238,6 +240,19 @@ def getAssessmentQuestions():
         creator_id = questions["rows"][0][0]
         questions_ids = tuple(questions["rows"][0][1])
         duration = questions["rows"][0][2]
+        cid = "https://ipfs.io/ipfs/" + questions["rows"][0][3]
+
+        format_data = requests.get(cid)
+        question_format = ast.literal_eval(format_data.content.decode("utf-8"))
+        # print(ast.literal_eval(format.content.decode("utf-8")))
+        quetion_marks = {
+        }
+        for format in question_format['question_format']:
+            for i in range(format['from'],format['to']+1):
+                quetion_marks[i] = {
+                    "positive" :format['marks_for_each'],
+                    "negative" : format['negative_score_for_one']
+                }
 
         #Get Creator Question Table    
         fields = "(question_table)"
@@ -262,6 +277,8 @@ def getAssessmentQuestions():
             q_no = q_no + 1
             format = {
                 'question_number': q_no,
+                "positive_mark":quetion_marks[q_no]['positive'],
+                "negative_mark":quetion_marks[q_no]['negative'],
                 'creators_question_id':question[0],
                 'question':question[1],
                 'options':[question[2],question[3],question[4],question[5],question[6]]
@@ -284,8 +301,74 @@ def getAssessmentQuestions():
 
 
 
+#creat Assessment API to create a test 
+@creator.route("/creator/getResult", methods=["POST"])
+def getResult():
+    assessment_id = request.json['assessment_id']
+    data = request.json['data']
+    #Get Creator Id And question 
+    fields = "creators_id, question, duration, question_format"
+    tablename = os.environ.get("creators_assesment_table")
+    condition = f"""assesment_id = '{assessment_id}'"""
+    questions_data = select_query(fields, tablename, condition)
+    questions = json.loads(questions_data.decode("utf-8"))
+    creator_id = questions["rows"][0][0]
+    questions_ids = tuple(questions["rows"][0][1])
+
+    #Get Creator Question Table    
+    fields = "(question_table)"
+    tablename = os.environ.get("creators_table")
+    condition = f"""creator_id = {creator_id}"""
+    questions_table_data = select_query(fields, tablename, condition)
+    questions_table = json.loads(questions_table_data.decode("utf-8"))
+    creator_question_table = questions_table['rows'][0][0]
+    
+    #get Question from question tatble
+    fields = "creators_question_id, answer"
+    question_table_name = questions_table['rows'][0][0]
+    condition = f"""creators_question_id in {questions_ids}"""
+    final_questions = select_query(fields, question_table_name, condition)
+    final_questions_data = json.loads(final_questions.decode("utf-8"))
+    
+    question_answer = {
+
+    }
+
+    for i in final_questions_data['rows']:
+        question_answer[i[0]] = int(i[1])
+
+    total_marks = 0
+    marks_received = 0
+    for questions_ in data:
+        if questions_["answered"]:
+            ans = questions_['question']['options'][question_answer[questions_['question']['creators_question_id']]-1]
+            print('ans -----' + ans)
+            print('user ----' + questions_['UserAns'])
+            if questions_['UserAns'] == ans:
+                print('in')
+                marks_received += questions_['question']['positive_mark']
+            else:
+                print('in else')
+                marks_received = marks_received - questions_['question']['negative_mark']
+        total_marks += questions_['question']['positive_mark']
+    
+    print(marks_received)
+    print(total_marks)
+    response_body = {
+        "status": 200,
+        "percentage": 100 * marks_received/total_marks,
+
+    }, 200
+    return response_body
+
+    # except Exception as e:
+    #     print(e)
+    #     return "Something went wrong !!", 500
+
+
 
 ####################################################################################################################
+
 ####################################################################################################################
 # Verify questions before adding it to global questions.
 
