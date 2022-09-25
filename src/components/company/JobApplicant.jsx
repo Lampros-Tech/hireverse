@@ -79,6 +79,7 @@ function JobApplicant() {
     // console.log(data2);
     setLoading(true);
   };
+
   const updateApproveDisapprove = async (job_id, candidate_id, ans, e) => {
     const tableland = await connect({
       network: "testnet",

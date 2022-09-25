@@ -78,6 +78,7 @@ function LandingPage() {
                     <WalletConnect />
                   </>
                 }
+                title="Connect Wallet"
                 handleClose={togglePopup}
               />
             )}

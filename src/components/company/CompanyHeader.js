@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Popover, Menu, Transition } from "@headlessui/react";
 import {
@@ -7,9 +7,14 @@ import {
   BriefcaseIcon,
   ClipboardDocumentListIcon,
   XMarkIcon,
+  LinkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+
 import logo from "../assets/images/logo.png";
+
+import WalletPopup from "../walletconnect/WalletPopup";
+import SelectChain from "../walletconnect/SelectChain";
 
 const solutions = [
   {
@@ -84,6 +89,11 @@ function classNames(...classes) {
 }
 
 export default function CompanyHeader() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <>
       <Popover className="z-10 fixed bg-white w-full">
@@ -312,6 +322,27 @@ export default function CompanyHeader() {
             {/* Profile image and notification icon  */}
             <div className="hidden items-center justify-end md:flex ">
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <button
+                  type="button"
+                  className="rounded-full p-1 text-gray-400 header-orange focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 "
+                  onClick={togglePopup}
+                >
+                  <span className="sr-only">select chain options</span>
+                  <LinkIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
+
+                {isOpen && (
+                  <WalletPopup
+                    content={
+                      <>
+                        {/* <WalletConnect /> */}
+                        <SelectChain />
+                      </>
+                    }
+                    title="Switch Network"
+                    handleClose={togglePopup}
+                  />
+                )}
                 <button
                   type="button"
                   className="rounded-full p-1 text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 header-orange"
