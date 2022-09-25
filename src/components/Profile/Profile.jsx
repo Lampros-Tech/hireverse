@@ -1,10 +1,10 @@
 import "./profile.css";
 import edu_logo from "./images/edu.png";
 import editimg from "./images/edit.svg";
-// import skill from "../assets/images/skill.png";
-// import nftlogo from "../assets/images/nft.png";
-// import userlogo from "../assets/images/user-p-logo.png";
-// import exlogo from "../assets/images/ex-logo.png";
+import skill from "../assets/images/skills.png";
+import nftlogo from "../assets/images/nft.png";
+import userlogo from "../assets/images/user-p-logo.png";
+import exlogo from "../assets/images/ex-logo.png";
 import nft from "../assets/images/exam-result.jpg";
 import axios from "axios";
 import { useAccount } from "wagmi";
@@ -178,7 +178,7 @@ export default function Profile() {
             <div className="exp-logo">
               <img
                 className="profile-educationProfileImg"
-                // src={userlogo}
+                src={userlogo}
                 alt=""
               />{" "}
               <div className="profile-leftbar-experience">User information</div>
@@ -221,7 +221,7 @@ export default function Profile() {
               <div className="exp-logo">
                 <img
                   className="profile-educationProfileImg"
-                  // src={exlogo}
+                  src={exlogo}
                   alt=""
                 />{" "}
                 <div className="profile-leftbar-experience">Experience</div>
@@ -330,7 +330,7 @@ export default function Profile() {
               <div className="exp-logo">
                 <img
                   className="profile-educationProfileImg"
-                  // src={skill}
+                  src={skill}
                   alt=""
                 />{" "}
                 <div className="profile-leftbar-experience">Skills</div>
@@ -347,7 +347,7 @@ export default function Profile() {
               <div className="exp-logo">
                 <img
                   className="profile-educationProfileImg"
-                  // src={nftlogo}
+                  src={nftlogo}
                   alt=""
                 />{" "}
                 <div className="profile-leftbar-experience">User NFT's </div>

@@ -15,6 +15,7 @@ import worldcoin from "./assets/images/worldcoin_logo.svg";
 import polygon from "./assets/images/polygon.svg";
 import ipfs from "./assets/images/IPFS_logo.svg";
 import xmtp from "./assets/images/xmtp logo.svg";
+import covalent from "./assets/images/covalent_logo.png";
 import superfluid from "./assets/images/superfluid.svg";
 import heroimg from "./assets/images/1.png";
 import bigbg from "./assets/images/background.svg";
@@ -114,6 +115,9 @@ function LandingPage() {
             <div className="d-sponser-grid">
               <div className="d-sponser-grid-item">
                 <img src={aurora} alt="polygon" className="d-sponser-img" />
+              </div>
+              <div className="d-sponser-grid-item">
+                <img src={covalent} alt="polygon" className="d-sponser-img" />
               </div>
               <div className="d-sponser-grid-item">
                 <img src={cronos} alt="polygon" className="d-sponser-img" />

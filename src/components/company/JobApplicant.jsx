@@ -5,8 +5,6 @@ import axios from "axios";
 import * as EpnsAPI from "@epnsproject/sdk-restapi";
 import * as ethers from "ethers";
 
-
-
 function JobApplicant() {
   const [approval, setApproval] = useState(true);
   const [approved, setApproved] = useState();
@@ -109,10 +107,9 @@ function JobApplicant() {
 
   //send notification code start
 
-  
-    const Pkey = `0x${process.env.REACT_APP_PK}`;
-    const signer = new ethers.Wallet(Pkey);
-   const sendNotification = async (receiver) => {
+  const Pkey = `0x${process.env.REACT_APP_PK}`;
+  const signer = new ethers.Wallet(Pkey);
+  const sendNotification = async (receiver) => {
     // console.log(receiver);
     try {
       const apiResponse = await EpnsAPI.payloads.sendNotification({
@@ -127,19 +124,19 @@ function JobApplicant() {
           title: `[sdk-test] payload title`,
           body: `sample msg body`,
           cta: "www.google.com",
-          img: ''
+          img: "",
         },
-        recipients: 'eip155:42:' + receiver, // recipient address
+        recipients: "eip155:42:" + receiver, // recipient address
         // ['eip155:42:0xCdBE6D076e05c5875D90fa35cc85694E1EAFBBd1', 'eip155:42:0x52f856A160733A860ae7DC98DC71061bE33A28b3'], //for multiple recipients
-        channel: 'eip155:42:0xa9A15cf9769fA4b05c20B48CE65b796C3bb4e3cf', // your channel address
-        env: 'staging'
+        channel: "eip155:42:0xa9A15cf9769fA4b05c20B48CE65b796C3bb4e3cf", // your channel address
+        env: "staging",
       });
-      console.log('API repsonse: sent ', apiResponse);
-      alert("Notification sent to the candidate")
+      console.log("API repsonse: sent ", apiResponse);
+      alert("Notification sent to the candidate");
     } catch (err) {
-      console.error('Error: ', err);
+      console.error("Error: ", err);
     }
-  }
+  };
 
   ///send motification code ends
 
@@ -264,8 +261,9 @@ function JobApplicant() {
                             class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3 jobapplicant-invite-button1"
                             onClick={() => {
                               updateApproveDisapprove(inde[4], inde[5], 1);
-                              sendNotification(inde[6]);          
-
+                              sendNotification(
+                                "0xe57f4c84539a6414C4Cf48f135210e01c477EFE0"
+                              );
                             }}
                           >
                             Approve

@@ -86,7 +86,7 @@ function classNames(...classes) {
 export default function CandidateHeader() {
   return (
     <>
-      <Popover className="relative bg-white">
+      <Popover className="z-10 fixed bg-white w-full">
         <div className=" px-4 sm:px-6">
           <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
             <div className="flex justify-start sm:flex-1">

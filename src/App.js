@@ -157,6 +157,7 @@ function App() {
               <Route path="message" element={<CreatorMessage />} />
               <Route path="repo/:key" element={<SingleRepo />} />
               <Route path="" element={<QuestionFeed />} />
+              <Route path="creator-profile" element={<Profile />} />
             </Route>
 
             <Route path="company" element={<CompanyHeader />}>
@@ -173,6 +174,7 @@ function App() {
               <Route path="jobapplicant" element={<JobApplicant />} />
               <Route path="jobinsights" element={<Jobinsights />} />
               <Route path="message" element={<CompanyMessage />} />
+              <Route path="company-profile" element={<Profile />} />
             </Route>
 
             <Route path="candidate" element={<CandidateHeader />}>
