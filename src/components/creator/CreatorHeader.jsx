@@ -141,7 +141,7 @@ export default function CreatorHeader() {
     await getuseraddress();
     console.log(useraddress);
     const notifications = await EpnsAPI.user.getFeeds({
-      user: "eip155:42:" + "0xe57f4c84539a6414c4cf48f135210e01c477efe0", // user address in CAIP
+      user: "eip155:42:0xe57f4c84539a6414c4cf48f135210e01c477efe0", // user address in CAIP
       env: "staging",
     });
     setData(notifications);
