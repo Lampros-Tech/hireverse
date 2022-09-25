@@ -12,7 +12,6 @@
 .C_C_Content
 {
     margin-left:35% ;
-    margin-top:100px;
     max-width: 786px;
     float:right;
     background-color: #EFF0EE;
@@ -31,6 +30,7 @@
 {
     background-color: #EFF0EE;
     min-height: 100vh;
+    padding-top: 100px;
 }
 .C_entity
 {
@@ -130,4 +130,14 @@
 .C_tag
 {
     background-color:#1AC0C6;
+}
+.feed_option1
+{
+    width:300px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+.question-newline
+{
+    
 }
