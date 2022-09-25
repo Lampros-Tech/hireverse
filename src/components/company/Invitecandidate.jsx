@@ -56,6 +56,7 @@ function InviteCandidate() {
 
   const Pkey = `0x${process.env.REACT_APP_PK}`;
   const signer = new ethers.Wallet(Pkey);
+
   const sendNotification = async (receiver) => {
     // console.log(receiver);
     try {
@@ -110,13 +111,12 @@ function InviteCandidate() {
           );
           const tx = await con.InviteCandidatesToDrive(companyId, job_id, user);
           tx.wait();
+          sendNotification("0xe57f4c84539a6414C4Cf48f135210e01c477EFE0");
         }
       }
     } catch (error) {
       console.log(error);
     }
-
-    sendNotification("0xe57f4c84539a6414C4Cf48f135210e01c477EFE0");
   };
 
   const forId = async () => {
