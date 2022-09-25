@@ -65,6 +65,7 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import CandidateAchive from "./components/registartionforms/CandidateAchive";
 import CreatorAchive from "./components/registartionforms/CreatorAchive";
 import CandidateApplications from "./components/candidate/CandidateApplications";
+import SingleRepo from "./components/creator/SingleRepo";
 
 function App() {
   const { chains, provider, webSocketProvider } = configureChains(
@@ -155,8 +156,12 @@ function App() {
               <Route path="edit_repo" element={<Editrepo />} />
               <Route path="edit_assesment" element={<EditAssesment />} />
               <Route path="message" element={<CreatorMessage />} />
+<<<<<<< HEAD
               <Route path="VerifyQuestion" element={<Verifyquestion />} />
 
+=======
+              <Route path="repo/:key" element={<SingleRepo />} />
+>>>>>>> bc01bcbabbbccda4260f652c686b3e35ef31200b
               <Route path="" element={<QuestionFeed />} />
             </Route>
 

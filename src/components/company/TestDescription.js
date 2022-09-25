@@ -1,172 +1,215 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../company/styles/TestDescription.css";
+import { connect } from "@tableland/sdk";
+import Axios from "axios";
+import { json } from "react-router-dom";
 
 function TestDescription() {
-    return (
-        <div className="tds-main">
-            <div className="tds-container">
-                <div className="tds-title"><h1>Test Description</h1></div>
-                <div className="tds-m-container">
-                    <div className="test-menu">
-                        <div className="tds-test-title">Account Management Test</div>
-                        <div className="tds-outer-heading">
-                            Use Our Account Management Test to hire best
-                        </div>
-                        <div className="tds-description">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-                            enim doloremque debitis consectetur vero accusamus sint doloribus
-                            exercitationem ad. In cum id beatae minima magnam ut vitae, nulla
-                            omnis molestias est sit quas quod a odio doloremque, eum natus
-                            nam. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Laborum odio fugiat ad in sed minima nostrum quidem deleniti modi
-                            nemo quibusdam quos at illo, placeat doloremque maiores ipsam
-                            nihil natus delectus omnis pariatur, voluptatum ea nam. Accusamus
-                            alias itaque totam aliquam. Sint tempora dolor nostrum quis
-                            aspernatur quam explicabo, magnam ad asperiores dolorum! Modi
-                            quaerat corporis totam, cum illum dolorem.
-                        </div>
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [question, setQuestion] = useState([]);
 
-                        <div className="tds-tbl">
-                            <table class="my_table">
-                                <tr>
-                                    <th>SR. </th>
-                                    <th>Subject</th>
-                                    <th>NO. of Question</th>
-                                    <th>Marks</th>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr className="total-tbl">
-                                    <td>total: 3</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div className="des-box">
-                            <div className="des-oth">
-                                <div className="rw-items">
-                                    <div className="duration">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                            <path d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 01-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004zM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 01-.921.42z" />
-                                            <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v.816a3.836 3.836 0 00-1.72.756c-.712.566-1.112 1.35-1.112 2.178 0 .829.4 1.612 1.113 2.178.502.4 1.102.647 1.719.756v2.978a2.536 2.536 0 01-.921-.421l-.879-.66a.75.75 0 00-.9 1.2l.879.66c.533.4 1.169.645 1.821.75V18a.75.75 0 001.5 0v-.81a4.124 4.124 0 001.821-.749c.745-.559 1.179-1.344 1.179-2.191 0-.847-.434-1.632-1.179-2.191a4.122 4.122 0 00-1.821-.75V8.354c.29.082.559.213.786.393l.415.33a.75.75 0 00.933-1.175l-.415-.33a3.836 3.836 0 00-1.719-.755V6z" clipRule="evenodd" />
-                                        </svg>
-
-                                        <span className="sp-mid">
-                                            Fixed Cost:
-                                        </span>
-                                        <span className="sp-sm">
-                                            00
-                                        </span>
-
-                                    </div>
-                                    <div className="duration">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                            <path fillRule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clipRule="evenodd" />
-                                            <path fillRule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zM6 12a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V12zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 15a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V15zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 18a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V18zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75z" clipRule="evenodd" />
-                                        </svg>
-
-                                        <span className="sp-mid">
-                                            Variable Cost:
-                                        </span>
-                                        <span className="sp-sm">
-                                            00
-                                        </span>
-
-                                    </div>
-                                    <div className="duration">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                            <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z" clipRule="evenodd" />
-                                        </svg>
-                                        <span className="sp-mid">
-                                            Duration:
-                                        </span>
-                                        <span className="sp-sm">
-                                            3 hrs
-                                        </span>
-
-                                    </div>
-                                  
-                                    
-
-                                </div>
-                                <div className="btn-dv">
-                                    <button class="button-24" role="button">Buy Now</button>
-                                        </div>
-                                
-                                
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div className="tds-sidebar">
-                        <div className="tds-user-img">
-                            <img className="avt-user-img" src="https://i.pravatar.cc/100" />
-                        </div>
-                        <div className="tds-username">Demo User</div>
-                        <div className="tds-dscr">
-                            <div className="tds-exl">
-                                <span className="sp-bold">EXPERIENCE LEVEL</span>
-                                <span className="sp-ot">3 Years</span>
-                            </div>
-                            <div className="tds-exl">
-                                <span className="sp-bold"> RECOMMENDED FOR</span>
-                                <span className="sp-ot">Lorem, ipsum dolor.</span>
-                            </div>
-                            <div className="tds-exl">
-                                <span className="sp-bold">TEST INCLUDED</span>
-                                <span className="sp-ot">XX TESTS</span>
-                            </div>
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  const showJobPosts = async () => {
+    const name = "creators_assesment_table_80001_2849";
+    const tableland = await connect({
+      network: "testnet",
+      chain: "polygon-mumbai",
+    });
+    const readRes = await tableland.read(
+      `SELECT * FROM ${name} where assesment_id=6`
     );
+    let creator_id = readRes["rows"][0][1];
+    const res = await tableland.read(
+      `SELECT name,profile_image FROM creators_table_80001_2155 where creator_id=${creator_id}`
+    );
+    let profile = "https://ipfs.io/ipfs/" + res["rows"][0][1];
+    data.push([
+      readRes["rows"][0][2],
+      readRes["rows"][0][3],
+      readRes["rows"][0][4],
+      readRes["rows"][0][5],
+      readRes["rows"][0][6],
+      res["rows"][0][0],
+      profile,
+    ]);
+    let url = "https://ipfs.io/ipfs/" + readRes["rows"][0][15];
+    await Axios.get(url).then((response) => {
+      let new_txt = response.data.replace(/'/g, '"');
+      const obj = JSON.parse(new_txt);
+      let final_data = obj.question_format;
+      console.log(final_data);
+      for (let i = 0; i < final_data.length; i++) {
+        let from = final_data[i]["from"];
+        let to = final_data[i]["to"];
+        let no_questions = to - from + 1;
+        question.push([
+          no_questions,
+          final_data[i]["genre"],
+          final_data[i]["marks_for_each"],
+        ]);
+      }
+      setQuestion(question);
+      console.log(question);
+    });
+    // for (let i = 0; i < readRes["rows"].length; i++) {
+    //   let jobId = readRes["rows"][i][0];
+    //   const response = await tableland.read(
+    //     `SELECT * FROM ${table} where job_id=${jobId}`
+    //   );
+    //   let noOfApplicants = response["rows"].length;
+    //   data.push([
+    //     readRes["rows"][i][3],
+    //     readRes["rows"][i][4],
+    //     noOfApplicants,
+    //     jobId,
+    //   ]);
+    // }
+    setData(data);
+    setLoading(true);
+  };
+
+  useEffect(() => {
+    showJobPosts();
+  });
+  if (loading) {
+    return (
+      <div className="tds-main">
+        <div className="tds-container">
+          <div className="tds-title">
+            <h1>Test Description</h1>
+          </div>
+          <div className="tds-m-container">
+            <div className="test-menu">
+              <div className="tds-test-title">{data[0][0]}</div>
+              <div className="tds-outer-heading">
+                Use Our Account Management Test to hire best
+              </div>
+              <div className="tds-description">{data[0][1]}</div>
+
+              <div className="tds-tbl">
+                <table class="my_table">
+                  <tr>
+                    <th>SR. </th>
+                    <th>Subject</th>
+                    <th>NO. of Question</th>
+                    <th>Marks</th>
+                  </tr>
+                  {question.map((inde, key) => {
+                    return (
+                      <tr>
+                        <td>{key}</td>
+                        <td>{inde[1]}</td>
+                        <td>{inde[0]}</td>
+                        <td>{inde[2]}</td>
+                      </tr>
+                    );
+                  })}
+
+                  {/* <tr className="total-tbl">
+                    <td>total: 3</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr> */}
+                </table>
+              </div>
+              <div className="des-box">
+                <div className="des-oth">
+                  <div className="rw-items">
+                    <div className="duration">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 01-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004zM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 01-.921.42z" />
+                        <path
+                          fillRule="evenodd"
+                          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v.816a3.836 3.836 0 00-1.72.756c-.712.566-1.112 1.35-1.112 2.178 0 .829.4 1.612 1.113 2.178.502.4 1.102.647 1.719.756v2.978a2.536 2.536 0 01-.921-.421l-.879-.66a.75.75 0 00-.9 1.2l.879.66c.533.4 1.169.645 1.821.75V18a.75.75 0 001.5 0v-.81a4.124 4.124 0 001.821-.749c.745-.559 1.179-1.344 1.179-2.191 0-.847-.434-1.632-1.179-2.191a4.122 4.122 0 00-1.821-.75V8.354c.29.082.559.213.786.393l.415.33a.75.75 0 00.933-1.175l-.415-.33a3.836 3.836 0 00-1.719-.755V6z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+
+                      <span className="sp-mid">Fixed Cost:</span>
+                      <span className="sp-sm">{data[0][2]}</span>
+                    </div>
+                    <div className="duration">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z"
+                          clipRule="evenodd"
+                        />
+                        <path
+                          fillRule="evenodd"
+                          d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zM6 12a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V12zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 15a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V15zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 18a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V18zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+
+                      <span className="sp-mid">Variable Cost:</span>
+                      <span className="sp-sm">{data[0][3]}</span>
+                    </div>
+                    <div className="duration">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span className="sp-mid">Duration:</span>
+                      <span className="sp-sm">{data[0][4]}</span>
+                    </div>
+                  </div>
+                  <div className="btn-dv">
+                    <button class="button-24" role="button">
+                      Buy Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="tds-sidebar">
+              <div className="tds-user-img">
+                <img className="avt-user-img" src={data[0][6]} />
+              </div>
+              <div className="tds-username">Creator : {data[0][5]}</div>
+              <div className="tds-dscr">
+                {/* <div className="tds-exl">
+                  <span className="sp-bold">EXPERIENCE LEVEL</span>
+                  <span className="sp-ot">3 Years</span>
+                </div>
+                <div className="tds-exl">
+                  <span className="sp-bold"> RECOMMENDED FOR</span>
+                  <span className="sp-ot">Lorem, ipsum dolor.</span>
+                </div>
+                <div className="tds-exl">
+                  <span className="sp-bold">TEST INCLUDED</span>
+                  <span className="sp-ot">XX TESTS</span>
+                </div> */}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  } else {
+    return "Loading";
+  }
 }
-
 export default TestDescription;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React from 'react'
 

@@ -21,6 +21,7 @@ function StoreProfileImg({ setFileCid }) {
   const [uploaded, setUploaded] = useState("Upload File");
 
   async function uploadImage(e) {
+    console.log(e.target.value);
     console.log(document.getElementById("input").files[0]);
     console.log(URL.createObjectURL(e.target.files[0]));
     setFile(URL.createObjectURL(e.target.files[0]));
@@ -28,6 +29,7 @@ function StoreProfileImg({ setFileCid }) {
 
   async function handleupload() {
     var fileInput = document.getElementById("input");
+    console.log(fileInput);
     const rootCid = await client.put(fileInput.files, {
       name: "dehitas profile images",
       maxRetries: 3,
@@ -50,15 +52,19 @@ function StoreProfileImg({ setFileCid }) {
     console.log(typeof fileUrl);
     if (rand === 1) {
       setFile(profilepic1);
+      setFileCid("bafkreidn4lctgzoe6z4yafjy446o7yd3davhczftq4e6jjevapi6fxlb2m");
     } else if (rand === 2) {
       setFile(profilepic2);
+      setFileCid("bafkreifzlpedimq7chlokex6vl2sksm6fai6s6w6nrara67cto7vsilbi4");
     } else if (rand === 3) {
       setFile(profilepic3);
+      setFileCid("bafkreigv2jhmfka4isky7m7y4xahtpnzy474vdewfpzte2plwxhft5iqse");
     }
   };
 
   const resetFile = () => {
     setFile("");
+    setUploaded("Upload File");
   };
 
   return (

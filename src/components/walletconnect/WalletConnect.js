@@ -66,6 +66,7 @@ export function WalletConnect() {
         userData = response.data;
         console.log(userData);
         cookies.set("loginID", userData.login_id);
+
         if (userData.stage === 0) {
           navigate("/signup/ev");
         } else if (userData.stage === 1) {
@@ -86,6 +87,7 @@ export function WalletConnect() {
           } else if (userData.role === "company") {
             navigate("/company");
           } else if (userData.role === "creator") {
+            cookies.set("creatorID", userData.creator_id)
             navigate("/creator");
           }
         }

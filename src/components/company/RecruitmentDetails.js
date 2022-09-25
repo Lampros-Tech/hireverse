@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ethers } from "ethers";
 import "../company/styles/recruitdetails.css";
 import Select from "react-select";
 import plus from "../company/styles/plus.svg";
@@ -9,10 +10,34 @@ import { Web3Storage } from "web3.storage";
 import { useAccount } from "wagmi";
 import { connect } from "@tableland/sdk";
 
+import data from "../../Contracts/artifacts/data.json";
+import contract from "../../Contracts/artifacts/superfluid_contract.json";
+
+export const CONTRACT_ADDRESS_POLYGON =
+  "0x1fAFFec79B44Ae0a4A2bB35a02E056B69489Cfc4";
+// import CONTRACT_ADDRESS_GOERLI from "../../Contracts/config";
+// import CONTRACT_ADDRESS_SKALE from "../../Contracts/config";
+// import CONTRACT_ADDRESS_AURORA from "../../Contracts/config";
+// import CONTRACT_ADDRESS_CRONOS from "../../Contracts/config";
+// import CONTRACT_ADDRESS_POLYGON from "../../Contracts/config";
+
+export const CONTRACT_ADDRESS_GOERLI =
+  "0x8C1C947F7f5c23ee58399912EABdECB88F9b7B37";
+export const CONTRACT_ADDRESS_SKALE =
+  "0x01d83b1aaf12a98ccf0f83147732bfe9f53c61c1";
+export const CONTRACT_ADDRESS_AURORA =
+  "0xc892caEe8eca7734A66F2d6Bb69F123e610dB9fc";
+export const CONTRACT_ADDRESS_CRONOS =
+  "0x5D9F1CC0D4Df5568FB5ff934305a19754ecB14bb";
+
+// C:\dehitas\hireverse\src\Contracts
+
 const API_TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDQyNzdCMDE2NWY5ZkM5ZThhQkI0M0EwYTRjODFhYTk2OERCNERGNDYiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjM5MjI2OTM1NjAsIm5hbWUiOiJFdGhPbmxpbmUifQ.OY6RS4zIFfGfEiOacIHdo3BEkFdPDHvd8i4o5fm4JW8";
 
 function RecruitmentDetails() {
+  //function for calling smart contract (stakeByCompany)
+
   let navigate = useNavigate();
 
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -23,6 +48,7 @@ function RecruitmentDetails() {
   const [additionalQuestion, setAdditionalQuestion] = useState([]);
   const [counter, setCounter] = useState(0);
   const { address, isConnected } = useAccount();
+  const [companyId, setCompanyId] = useState();
 
   const optionListPrimary = [
     { value: "java", label: "Java" },
@@ -80,7 +106,9 @@ function RecruitmentDetails() {
     secondary_skills: "",
   });
   const [que, setQue] = useState();
+
   const addJobDetails = async () => {
+    console.log("inside the api call function");
     const obj = { questions: que };
     const blob = new Blob([JSON.stringify(obj)], { type: "application/json" });
     const files = [
@@ -89,7 +117,7 @@ function RecruitmentDetails() {
     ];
     const client = new Web3Storage({ token: API_TOKEN });
     const cid = await client.put(files);
-    console.log("stored files with cid:", cid);
+    // console.log("stored files with cid:", cid);
 
     //
     const name = "company_table_80001_1730";
@@ -100,6 +128,8 @@ function RecruitmentDetails() {
     const readRes = await tableland.read(
       `SELECT company_id FROM ${name} where wallet_address='${address}'`
     );
+    // console.log(readRes);
+    // console.log(readRes["rows"][0][0]);
     var data = JSON.stringify({
       company_id: readRes["rows"][0][0],
       title: credentials.title,
@@ -124,11 +154,13 @@ function RecruitmentDetails() {
       },
       data: data,
     };
-    console.log(config.url);
+    // console.log(config.url);
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         setbtnLoading(false);
+        console.log("before call");
+        startDrive(response.data["job_id"]);
         navigate(
           `/company/availabletests/?dummy=${JSON.stringify(
             response.data["job_id"]
@@ -139,9 +171,35 @@ function RecruitmentDetails() {
         console.log(error);
         setbtnLoading(false);
       });
-    console.log(data);
+    // console.log(data);
   };
 
+  const startDrive = async (job_id) => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+        if (chainId === 80001) {
+          const con = new ethers.Contract(
+            CONTRACT_ADDRESS_POLYGON,
+            contract,
+            signer
+          );
+          const tx = await con.createDrive(companyId, job_id);
+          tx.wait();
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // useEffect(() => {
   //   console.log(jobLocation);
   // }, [jobLocation]);
@@ -256,10 +314,147 @@ function RecruitmentDetails() {
   };
 
   useEffect(() => {
-    console.log(credentials);
+    // console.log(credentials);
   }, [credentials]);
 
   useEffect(() => {}, [selectedOptionsLocation]);
+
+  const forId = async () => {
+    const name = "company_table_80001_1730";
+    const tableland = await connect({
+      network: "testnet",
+      chain: "polygon-mumbai",
+    });
+    const readRes = await tableland.read(
+      `SELECT company_id FROM ${name} where wallet_address='${address}'`
+    );
+    console.log(readRes);
+    setCompanyId(readRes["rows"][0][0]);
+    console.log("done");
+  };
+  useEffect(() => {
+    forId();
+  }, [address]);
+  const stake = async (e) => {
+    e.preventDefault();
+    console.log("hello");
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+
+        //SWITCH CASE for networks
+        switch (chainId) {
+          case 5:
+            //for GOERLI
+            let connectedContract = new ethers.Contract(
+              CONTRACT_ADDRESS_GOERLI,
+              data.abi,
+              signer
+            );
+            let stakeTy = await connectedContract.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy.toNumber());
+            if (stakeTy <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+
+          case 647426021:
+            //for SKALE
+            const connectedContract_s = new ethers.Contract(
+              CONTRACT_ADDRESS_SKALE,
+              data.abi,
+              signer
+            );
+            let stakeTy_s = await connectedContract_s.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy_s.toNumber());
+            if (stakeTy_s <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract_s.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+
+          case 338:
+            //for CRONOS
+            const connectedContract_c = new ethers.Contract(
+              CONTRACT_ADDRESS_CRONOS,
+              data.abi,
+              signer
+            );
+            let stakeTy_c = await connectedContract_c.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy_c.toNumber());
+            if (stakeTy_c <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract_c.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+
+          case 1313161555:
+            //for AURORA
+            const connectedContract_a = new ethers.Contract(
+              CONTRACT_ADDRESS_AURORA,
+              data.abi,
+              signer
+            );
+            let stakeTy_a = await connectedContract_a.showUserStake(
+              "0xDaB4984b2F4e06d207f73678935A649ae6969490"
+            ); //add address variable here
+            console.log(stakeTy_a.toNumber());
+            if (stakeTy_a <= 1000000000000000) {
+              console.log("Going to pop wallet now to pay gas...");
+              let stakeTx = await connectedContract_a.stakeByCompany({
+                value: 1000000000000000,
+              });
+              console.log(stakeTx);
+            }
+            break;
+          case 80001:
+            //for POLYGON
+            console.log("ploygon");
+
+            const con = new ethers.Contract(
+              CONTRACT_ADDRESS_POLYGON,
+              contract,
+              signer
+            );
+            const tx = await con.registerCompany(companyId);
+            tx.wait();
+            const tx1 = await con.stake(companyId, 100000000000000, {
+              value: 100000000000000,
+            });
+            tx1.wait();
+            break;
+          default:
+            break;
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -277,7 +472,7 @@ function RecruitmentDetails() {
               <div className="recruit-components">
                 <input
                   type="text"
-                  required
+                  // required
                   className="
                     form-control
                     block
@@ -308,7 +503,7 @@ function RecruitmentDetails() {
               </div>
               <div className="recruit-components">
                 <textarea
-                  required
+                  // required
                   className="
                       form-control
                       block
@@ -355,7 +550,7 @@ function RecruitmentDetails() {
                   <input
                     id="question-input"
                     type="text"
-                    required
+                    // required
                     defaultValue={credentials.addition_question}
                     onChange={(e) => {
                       // setCredentials({
@@ -531,7 +726,7 @@ function RecruitmentDetails() {
                 <input
                   type="number"
                   min="0"
-                  required
+                  // required
                   max="10"
                   id="number"
                   className="
@@ -592,7 +787,7 @@ function RecruitmentDetails() {
                   <Select
                     options={optionListLocation}
                     placeholder=""
-                    required
+                    // required
                     // value={setSelectedOptionsLocation}
                     onChange={(e) => {
                       handleSelectLocation(e);
@@ -614,7 +809,7 @@ function RecruitmentDetails() {
                   <Select
                     options={optionListPrimary}
                     placeholder=""
-                    required
+                    // required
                     value={selectedOptions}
                     onChange={(e) => {
                       handleSelect(e);
@@ -634,7 +829,7 @@ function RecruitmentDetails() {
                   <Select
                     options={optionListSecondary}
                     placeholder=""
-                    required
+                    // required
                     value={selectedOptions1}
                     onChange={(e) => {
                       handleSelect1(e);
@@ -647,23 +842,27 @@ function RecruitmentDetails() {
               </div>
 
               <div className="recruit-submit">
-                <a
-                  href="/company/availabletests"
-                  // target="_blank"
-                  rel="noreferrer"
-                >
-                  <button
-                    type="submit"
-                    className="text-white    font-medium rounded-lg text-sm px-8 py-3 text-center  recruit-save-continue-button
+                <button
+                  type="button"
+                  style={{ margin: 20 }}
+                  className="text-white    font-medium rounded-lg text-sm px-8 py-3 text-center  recruit-save-continue-button
                     "
-                    onClick={() => {
-                      setbtnLoading(true);
-                      addJobDetails();
-                    }}
-                  >
-                    Save & Continue
-                  </button>
-                </a>
+                  onClick={(e) => {
+                    stake(e);
+                  }}
+                >
+                  Stake
+                </button>
+                <button
+                  type="button"
+                  className="text-white    font-medium rounded-lg text-sm px-8 py-3 text-center  recruit-save-continue-button
+                    "
+                  onClick={() => {
+                    addJobDetails();
+                  }}
+                >
+                  Save & Continue
+                </button>
               </div>
             </form>
           </div>

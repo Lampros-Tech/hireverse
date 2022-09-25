@@ -51,14 +51,24 @@ function StoreCoverImg({ setFileCid2 }) {
     console.log(typeof fileUrl);
     if (rand === 1) {
       setFile(cover1);
+      setFileCid2(
+        "bafkreiaf2mseqlpd3tnt2mwlk4gohrja7s6nifo3mdlcbaiiz5ytp7m6fe"
+      );
     } else if (rand === 2) {
       setFile(cover2);
+      setFileCid2(
+        "bafkreifpia2wbcmi5ye324homozugtixm3faxiazozgtjv26i2nqam3ope"
+      );
     } else if (rand === 3) {
       setFile(cover3);
+      setFileCid2(
+        "bafkreiblnrpgtzdlw57bn6pdywvd44dg4blhadkhugfmutnfpygpwe2h6e"
+      );
     }
   };
   const resetFile = () => {
     setFile("");
+    setUploaded("Upload File");
   };
 
   return (

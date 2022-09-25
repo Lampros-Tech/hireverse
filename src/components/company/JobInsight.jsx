@@ -1,8 +1,44 @@
 import React from "react";
 import "../company/styles/jobinsights.css";
 import avtar from "../company/styles/companyprofile.png";
+import * as EpnsAPI from "@epnsproject/sdk-restapi";
+import * as ethers from "ethers";
 
 function Jobinsights() {
+  //send notification code start
+
+  const Pkey = `0x${process.env.REACT_APP_PK}`;
+  const signer = new ethers.Wallet(Pkey);
+  const sendNotification = async (receiver) => {
+    // console.log(receiver);
+    try {
+      const apiResponse = await EpnsAPI.payloads.sendNotification({
+        signer,
+        type: 3, // target
+        identityType: 2, // direct payload
+        notification: {
+          title: "Job Interview Scheduled",
+          body: "Hello you Interview is Scheduled for the Job. good luck ",
+        },
+        payload: {
+          title: `[sdk-test] payload title`,
+          body: `sample msg body`,
+          cta: "www.google.com",
+          img: "",
+        },
+        recipients: "eip155:42:0xe57f4c84539a6414C4Cf48f135210e01c477EFE0", // recipient address
+        // ['eip155:42:0xCdBE6D076e05c5875D90fa35cc85694E1EAFBBd1', 'eip155:42:0x52f856A160733A860ae7DC98DC71061bE33A28b3'], //for multiple recipients
+        channel: "eip155:42:0xa9A15cf9769fA4b05c20B48CE65b796C3bb4e3cf", // your channel address
+        env: "staging",
+      });
+      console.log("API repsonse: sent ", apiResponse);
+      alert("Notification sent to the candidate");
+    } catch (err) {
+      console.error("Error: ", err);
+    }
+  };
+
+  ///send notification code ends
   return (
     <>
       <div className="jobinsights-title">
@@ -57,7 +93,14 @@ function Jobinsights() {
             </div>
 
             <div className="jobinsights-button">
-              <button class="text-white  font-medium rounded-lg text-sm px-3 py-2   jobsights-button-interview">
+              <button
+                class="text-white  font-medium rounded-lg text-sm px-3 py-2   jobsights-button-interview"
+                onClick={() => {
+                  sendNotification(
+                    "0x19193e458590f15A0180042E3518634165BADe39"
+                  );
+                }}
+              >
                 Schedule Interview
               </button>
             </div>

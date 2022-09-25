@@ -9,15 +9,26 @@ import LinkedlnLogo from "../../assets/images/linkedin.png";
 import FacebookLogo from "../../assets/images/facebook.png";
 import Upload from "../../assets/images/uploadimg.svg";
 import { connect } from "@tableland/sdk";
+import { Web3Storage } from "web3.storage";
+
 import "./feed.css";
 import Axios from "axios";
 
-const CandidateFeed = () => {
+const API_TOKEN =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGZiNzE4QzgwYmJlYUQwNTAzYThFMjgzMmI2MDU0RkVmOUU4MzA2NzQiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjE0MTEzNjczNTAsIm5hbWUiOiJUcnkifQ.srPPE7JD3gn8xEBCgQQs_8wyo6rDrXaDWC0QM8FtChA";
+
+const client = new Web3Storage({ token: API_TOKEN });
+
+function CandidateFeed() {
   const [isOpen, setIsOpen] = useState(false);
+  const chooseImg = useRef("");
 
   const [newData, setNewData] = useState();
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
+  const [additionalQuestions, setAdditonalQuestions] = useState({});
+  var [file, setFile] = useState("");
+
   const boxRef = useRef(null);
 
   const [que, setQue] = useState([]);
@@ -31,6 +42,49 @@ const CandidateFeed = () => {
     status: "",
     schedule_interview: "",
   });
+
+  async function handleupload() {
+    // const fileInput = document.querySelector('input[type="file"]');
+    // console.log(fileInput.files);
+
+    const fileUpload = file;
+    const rootCid = await client.put(fileUpload, {
+      name: "dehitas profile images",
+      maxRetries: 3,
+    });
+    console.log(rootCid);
+    // const res = await client.get(rootCid);
+    // const files = await res.files();
+    // console.log(files);
+    // const url = URL.createObjectURL(files[0]);
+    // console.log(url);
+    // console.log(files[0].cid);
+    // setFile(url);
+  }
+
+  async function storeWithProgress(file) {
+    // show the root cid as soon as it's ready
+    const onRootCidReady = (cid) => {
+      console.log("uploading files with cid:", cid);
+    };
+
+    // when each chunk is stored, update the percentage complete and display
+    const totalSize = file.map((f) => f.size).reduce((a, b) => a + b, 0);
+    let uploaded = 0;
+
+    const onStoredChunk = (size) => {
+      uploaded += size;
+      const pct = 100 * (uploaded / totalSize);
+      console.log(`Uploading... ${pct.toFixed(2)}% complete`);
+    };
+
+    // makeStorageClient returns an authorized Web3.Storage client instance
+    // const client = makeStorageClient();
+
+    // client.put will invoke our callbacks during the upload
+    // and return the root cid when the upload completes
+    return client.put(file, { onRootCidReady, onStoredChunk });
+  }
 
   const togglePopup = async (newId) => {
     const name = "job_table_80001_2018";
@@ -79,8 +133,6 @@ const CandidateFeed = () => {
     setIsOpen(!isOpen);
   };
 
-  const upload_img = useRef(null);
-
   const [isForm, setIsForm] = useState(false);
 
   const [formData, setFormData] = useState();
@@ -123,18 +175,34 @@ const CandidateFeed = () => {
     for (let i = 0; i < readRes["rows"][0][8].length; i++) {}
   };
 
-  const applyForJob = async () => {};
+  const applyForJob = async () => {
+    console.log(file);
+    console.log(message);
+    console.log(additionalQuestions);
+    await handleupload();
+
+    // console.log(file);
+  };
 
   const [message, setMessage] = useState("");
-  const [message1, setMessage1] = useState("");
+  const [resume, setResume] = useState("");
 
   const handleChange = (event) => {
     setMessage(event.target.value);
 
-    // console.log("value is:", event.target.value);
+    console.log("value is:", event.target.value);
   };
-  const handleChange1 = (event) => {
-    setMessage1(event.target.value);
+
+  const handleAnswerChange = (e, id) => {
+    var result = additionalQuestions;
+    // result = result.map((x) => {
+    //   //<- use map on result to find element to update using id
+    //   if (x[id] === id) x[id] = e.target.value;
+    //   return x;
+    // });
+    result[id] = e.target.value;
+    console.log(result);
+    setAdditonalQuestions(result);
 
     // console.log("value is:", event.target.value);
   };
@@ -146,6 +214,9 @@ const CandidateFeed = () => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
           // alert("You clicked outside of me!");
+
+          setAdditonalQuestions({});
+          setQue([]);
           if (isForm) {
             setIsForm(!isForm);
           }
@@ -199,9 +270,11 @@ const CandidateFeed = () => {
   };
 
   useEffect(() => {
+    // console.log(additionalQuestions);
     // console.log(titleCase("hello there I'm Jaydip"));
     showJobPosts();
-  });
+    console.log(file);
+  }, [file]);
   function titleCase(str) {
     str = str.toLowerCase().split(" ");
     for (var i = 0; i < str.length; i++) {
@@ -476,23 +549,25 @@ const CandidateFeed = () => {
                               {/* <input className="form-upload-btn" type="file" /> */}
                               <div
                                 className="candidate-form-upload-imgdiv"
-                                onClick={(e) => {
-                                  upload_img.current.click();
+                                onClick={() => {
+                                  chooseImg.current.click();
                                 }}
                               >
                                 <img
                                   src={Upload}
+                                  id="resume_img"
                                   className="candidate-form-upload-img"
                                   alt="upload_img"
                                 />
                               </div>
                               <input
-                                className="candidate-form-upload-imginput"
                                 type="file"
+                                ref={chooseImg}
+                                name="fileupload"
+                                id="input"
                                 hidden
-                                // defaultValue={nameOfUser}
-                                ref={upload_img}
-                              />
+                                onChange={(e) => setFile(e.target.files[0])}
+                              ></input>
                               <div className="applicationform-block">
                                 <div className="candidate-form-title">
                                   {data3[0][0]}
@@ -569,7 +644,8 @@ const CandidateFeed = () => {
                                   onChange={handleChange}
                                   value={message}
                                 />
-                                {que.map((inde) => {
+                                {que.map((inde, key) => {
+                                  // console.log(key);
                                   return (
                                     <div>
                                       <div className="candidate-form-question">
@@ -577,9 +653,11 @@ const CandidateFeed = () => {
                                       </div>
                                       <textarea
                                         className="candidate-form-question-box"
-                                        name="message1"
-                                        onChange={handleChange1}
-                                        value={message1}
+                                        name={`message${key}`}
+                                        onChange={(e) =>
+                                          handleAnswerChange(e, key)
+                                        }
+                                        // defaultValue={message1}
                                       />
                                     </div>
                                   );
@@ -598,7 +676,8 @@ const CandidateFeed = () => {
                                   <button
                                     className="candidate-form-btn"
                                     onClick={() => {
-                                      applyForJob();
+                                      // applyForJob();
+                                      storeWithProgress(file);
                                     }}
                                   >
                                     Submit
@@ -926,6 +1005,6 @@ const CandidateFeed = () => {
       </div>
     </>
   );
-};
+}
 
 export default CandidateFeed;

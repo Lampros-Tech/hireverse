@@ -147,7 +147,7 @@ export const countryArr = [
   "Rwanda",
   "Samoa",
   "San Marino",
-  " Sao Tome",
+  "Sao Tome",
   "Saudi Arabia",
   "Senegal",
   "Serbia and Montenegro",

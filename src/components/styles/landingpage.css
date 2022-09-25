@@ -66,6 +66,14 @@ img.d-hero-bg-1 {
   justify-content: center;
   align-items: flex-start;
 }
+button.d-docs-btn {
+  margin-right: 30px;
+  /* transition: all 250ms; */
+}
+button.d-docs-btn:hover {
+  transform: translateY(-1px);
+  border-bottom: 2px solid #282133;
+}
 
 .d-hero-right {
   width: 40%;
@@ -85,7 +93,8 @@ p.d-sponser-p {
 }
 
 .d-sponser-grid {
-  width: 80%;
+  /* width: 80%; */
+  padding-left: 60px;
   margin: auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -212,6 +221,25 @@ p.d-sponser-p {
   min-height: 100vh;
   margin: auto;
   text-align: center;
+}
+
+.d-fifth {
+  width: 90%;
+  max-width: 1024px;
+  padding: 100px 50px;
+  min-height: 80vh;
+  margin: 50px auto;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+img.faqs-img {
+  opacity: 0.3;
+  position: absolute;
+  width: 50%;
+  top: -10px;
+  right: 0;
 }
 
 h1.d-fourth-h1 {
@@ -495,6 +523,9 @@ button.d-connect-btn {
   background-color: #282133;
   color: #eff0ee;
 }
+button.d-connect-btn:hover {
+  transform: translateY(-1px);
+}
 
 button.d-hero-left-btn {
   margin: 20px 0;
@@ -542,7 +573,7 @@ button.d-hero-left-btn {
     margin: auto;
   }
   img.d-graphics-item-1 {
-    width: 10rem;
+    width: 9rem;
     position: absolute;
     top: 90vh;
     left: -3vh;
@@ -550,7 +581,7 @@ button.d-hero-left-btn {
   }
 
   img.d-graphics-item-2 {
-    width: 10rem;
+    width: 9rem;
     position: absolute;
     top: 95vh;
     left: 10vh;

@@ -97,6 +97,12 @@ function CreateRepo() {
 
       console.log(creator_repo_data);
       try {
+        if(creator_repo_data.message){
+          setLoadingMessage("Repo already exists!!");
+          setTimeout(()=>{
+            setLoading(false);
+          },3000);
+        }
         if (creator_repo_data.hash) {
           setLoadingMessage("Repo created successfully!!");
           setTimeout(()=>{
