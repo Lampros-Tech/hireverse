@@ -31,11 +31,12 @@ function Questionfeed() {
       ]);
     }
     setData(data);
-    console.log(data);
+    
     setLoading(true);
   };
   useEffect(() => {
     showQuestions();
+    console.log(data);
   }, []);
 
 
