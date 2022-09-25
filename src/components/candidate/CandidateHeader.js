@@ -20,9 +20,9 @@ const solutions = [
     icon: ChartBarIcon,
   },
   {
-    name: "Practice Tests",
+    name: "My Applications",
     description: "Speak directly to your customers in a more meaningful way.",
-    href: "candidate-test",
+    href: "applications",
     icon: CursorArrowRaysIcon,
   },
   //   {
@@ -260,7 +260,7 @@ export default function CandidateHeader() {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
-                  className="rounded-full p-1 text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="rounded-full p-1 text-gray-400 header-orange focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 "
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
@@ -269,7 +269,7 @@ export default function CandidateHeader() {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3 z-50">
                   <div>
-                    <Menu.Button className="flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900">
+                    <Menu.Button className="flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 header-orange">
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
@@ -442,7 +442,7 @@ export default function CandidateHeader() {
                   </Link>
                   <button
                     type="button"
-                    className="rounded-full p-1 text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className="rounded-full p-1 text-gray-400 header-orange focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
                   >
                     <span className="sr-only">View notifications</span>
                     <BellIcon className="h-6 w-6" aria-hidden="true" />

@@ -16,7 +16,8 @@
   display: flex;
   justify-content: space-around;
   margin-right: 5em;
-  margin-top: 5%;
+  /* margin-top: 5%; */
+  padding-top: 110px;
 }
 .jobsights-button-interview {
   background-color: #282155;

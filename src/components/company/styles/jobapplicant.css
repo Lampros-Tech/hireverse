@@ -13,6 +13,7 @@
   /* padding: 50px; */
   margin: 0 auto;
   max-width: 1024px;
+  padding-top: 80px;
 }
 .jobapplicant-user-icon {
   display: inline-flex;
