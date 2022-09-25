@@ -11,7 +11,10 @@ import { useAccount } from "wagmi";
 import { connect } from "@tableland/sdk";
 
 import data from "../../Contracts/artifacts/data.json";
+import contract from "../../Contracts/artifacts/superfluid_contract.json";
 
+export const CONTRACT_ADDRESS_POLYGON =
+  "0x1fAFFec79B44Ae0a4A2bB35a02E056B69489Cfc4";
 // import CONTRACT_ADDRESS_GOERLI from "../../Contracts/config";
 // import CONTRACT_ADDRESS_SKALE from "../../Contracts/config";
 // import CONTRACT_ADDRESS_AURORA from "../../Contracts/config";
@@ -26,8 +29,6 @@ export const CONTRACT_ADDRESS_AURORA =
   "0xc892caEe8eca7734A66F2d6Bb69F123e610dB9fc";
 export const CONTRACT_ADDRESS_CRONOS =
   "0x5D9F1CC0D4Df5568FB5ff934305a19754ecB14bb";
-export const CONTRACT_ADDRESS_POLYGON =
-  "0x4551Bbd924715b9c21b8ABa5D5Fa31f4548CAa00";
 
 // C:\dehitas\hireverse\src\Contracts
 
@@ -47,7 +48,7 @@ function RecruitmentDetails() {
   const [additionalQuestion, setAdditionalQuestion] = useState([]);
   const [counter, setCounter] = useState(0);
   const { address, isConnected } = useAccount();
-  console.log(address);
+  const [companyId, setCompanyId] = useState();
 
   const optionListPrimary = [
     { value: "java", label: "Java" },
@@ -105,7 +106,9 @@ function RecruitmentDetails() {
     secondary_skills: "",
   });
   const [que, setQue] = useState();
+
   const addJobDetails = async () => {
+    console.log("inside the api call function");
     const obj = { questions: que };
     const blob = new Blob([JSON.stringify(obj)], { type: "application/json" });
     const files = [
@@ -114,7 +117,7 @@ function RecruitmentDetails() {
     ];
     const client = new Web3Storage({ token: API_TOKEN });
     const cid = await client.put(files);
-    console.log("stored files with cid:", cid);
+    // console.log("stored files with cid:", cid);
 
     //
     const name = "company_table_80001_1730";
@@ -125,8 +128,8 @@ function RecruitmentDetails() {
     const readRes = await tableland.read(
       `SELECT company_id FROM ${name} where wallet_address='${address}'`
     );
-    console.log(readRes);
-    console.log(readRes["rows"][0][0]);
+    // console.log(readRes);
+    // console.log(readRes["rows"][0][0]);
     var data = JSON.stringify({
       company_id: readRes["rows"][0][0],
       title: credentials.title,
@@ -151,11 +154,13 @@ function RecruitmentDetails() {
       },
       data: data,
     };
-    console.log(config.url);
+    // console.log(config.url);
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         setbtnLoading(false);
+        console.log("before call");
+        startDrive(response.data["job_id"]);
         navigate(
           `/company/availabletests/?dummy=${JSON.stringify(
             response.data["job_id"]
@@ -166,9 +171,35 @@ function RecruitmentDetails() {
         console.log(error);
         setbtnLoading(false);
       });
-    console.log(data);
+    // console.log(data);
   };
 
+  const startDrive = async (job_id) => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+        if (chainId === 80001) {
+          const con = new ethers.Contract(
+            CONTRACT_ADDRESS_POLYGON,
+            contract,
+            signer
+          );
+          const tx = await con.createDrive(companyId, job_id);
+          tx.wait();
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // useEffect(() => {
   //   console.log(jobLocation);
   // }, [jobLocation]);
@@ -283,11 +314,27 @@ function RecruitmentDetails() {
   };
 
   useEffect(() => {
-    console.log(credentials);
+    // console.log(credentials);
   }, [credentials]);
 
   useEffect(() => {}, [selectedOptionsLocation]);
 
+  const forId = async () => {
+    const name = "company_table_80001_1730";
+    const tableland = await connect({
+      network: "testnet",
+      chain: "polygon-mumbai",
+    });
+    const readRes = await tableland.read(
+      `SELECT company_id FROM ${name} where wallet_address='${address}'`
+    );
+    console.log(readRes);
+    setCompanyId(readRes["rows"][0][0]);
+    console.log("done");
+  };
+  useEffect(() => {
+    forId();
+  }, [address]);
   const stake = async (e) => {
     e.preventDefault();
     console.log("hello");
@@ -386,14 +433,19 @@ function RecruitmentDetails() {
             break;
           case 80001:
             //for POLYGON
-            // const connectedContract_p = new ethers.Contract(
-            //   CONTRACT_ADDRESS_POLYGON,
-            //   data.abi,
-            //   signer
-            // );
-            // console.log("Going to pop wallet now to pay gas...");
-            // let stateTx = await connectedContract_p.stake(id, 1000000000000000);
-            // console.log(stateTx.toNumber() / 1000000000000000000);
+            console.log("ploygon");
+
+            const con = new ethers.Contract(
+              CONTRACT_ADDRESS_POLYGON,
+              contract,
+              signer
+            );
+            const tx = await con.registerCompany(companyId);
+            tx.wait();
+            const tx1 = await con.stake(companyId, 100000000000000, {
+              value: 100000000000000,
+            });
+            tx1.wait();
             break;
           default:
             break;
@@ -790,34 +842,27 @@ function RecruitmentDetails() {
               </div>
 
               <div className="recruit-submit">
-                <a
-                  href="/company/availabletests"
-                  // target="_blank"
-                  rel="noreferrer"
+                <button
+                  type="button"
+                  style={{ margin: 20 }}
+                  className="text-white    font-medium rounded-lg text-sm px-8 py-3 text-center  recruit-save-continue-button
+                    "
+                  onClick={(e) => {
+                    stake(e);
+                  }}
                 >
-                  <button
-                    type="button"
-                    style={{ margin: 20 }}
-                    className="text-white    font-medium rounded-lg text-sm px-8 py-3 text-center  recruit-save-continue-button
+                  Stake
+                </button>
+                <button
+                  type="button"
+                  className="text-white    font-medium rounded-lg text-sm px-8 py-3 text-center  recruit-save-continue-button
                     "
-                    onClick={(e) => {
-                      stake(e);
-                    }}
-                  >
-                    Stake
-                  </button>
-                  <button
-                    type="submit"
-                    className="text-white    font-medium rounded-lg text-sm px-8 py-3 text-center  recruit-save-continue-button
-                    "
-                    onClick={() => {
-                      setbtnLoading(true);
-                      addJobDetails();
-                    }}
-                  >
-                    Save & Continue
-                  </button>
-                </a>
+                  onClick={() => {
+                    addJobDetails();
+                  }}
+                >
+                  Save & Continue
+                </button>
               </div>
             </form>
           </div>

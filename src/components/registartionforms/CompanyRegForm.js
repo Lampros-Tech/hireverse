@@ -12,6 +12,7 @@ import CONTRACT_ADDRESS_AURORA from "../../Contracts/config";
 import CONTRACT_ADDRESS_CRONOS from "../../Contracts/config";
 // import CONTRACT_ADDRESS_POLYGON from "../../Contracts/config";
 import { ethers } from "ethers";
+import { connect } from "@tableland/sdk";
 
 import PhoneInput from "react-phone-input-2";
 import { countryArr } from "./CountryList";
@@ -182,6 +183,7 @@ function CompanyRegForm() {
       .then(function (response) {
         setbtnLoading(false);
         console.log(JSON.stringify(response.data));
+        console.log(address);
         navigate("/company");
       })
       .catch(function (error) {
