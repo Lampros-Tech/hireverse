@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.u_mainHeading {
+  font-size: 50px;
+  text-align: center;
+  position: relative;
+  letter-spacing: 1px;
+  color: #262626;
+  border-radius: 8px;
+  padding: 0.5rem 2rem;
+  margin: 2rem auto;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.a {
+  position: relative;
+  /* min-height: 100vh; */
+  /* background-color: #f8dd30; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.a .container {
+  box-shadow: 0px 0px 53px -3px rgba(0, 0, 0, 0.5);
+  position: relative;
+  width: 800px;
+  height: 500px;
+  background: #fff;
+  /* box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1); */
+  overflow: hidden;
+}
+
+.a .container .user {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.a .container .user .imgBx {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background: #262626;
+  transition: 0.5s;
+}
+
+.a .container .user .imgBx img {
+  position: absolute;
+  top: 0;
+  left: 26px;
+  width: 87%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.a .container .user .formBx {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  transition: 0.5s;
+}
+
+.a .container .user .formBx form h2 {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+ input {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  background: #f5f5f5;
+  color: #333;
+  border: none;
+  outline: none;
+  margin-top: 1.2rem;
+  box-shadow: none;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+.u_email_holder{
+  margin: 30px 0;
+}
+
+.u_show_message{
+  position: absolute;
+  font-size: 15px;
+  z-index: 1;
+  margin-top: -20px;
+  text-align: left;
+  left: 0;
+  margin-left: 60px;
+  /* top: 5px; */
+}
+
+#u_loginButton{
+  max-width: 100px;
+  background: #262626;
+  color: #fff !important;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: 0.5s;
+  padding: 10px 20px;
+}
+
+.a .container .user .formBx form .signup {
+  position: relative;
+  margin-top: 20px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #555;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.a .container .user .formBx form .signup a {
+  font-weight: 600;
+  text-decoration: none;
+  color: #677eff;
+}
+
+.a .container .signupBx {
+  pointer-events: none;
+}
+
+.a .container.active .signupBx {
+  pointer-events: initial;
+}
+
+.a .container .signupBx .formBx {
+  left: 100%;
+}
+
+.a .container.active .signupBx .formBx {
+  left: 0;
+}
+
+.a .container .signupBx .imgBx {
+  left: -100%;
+}
+
+.a .container.active .signupBx .imgBx {
+  left: 0%;
+}
+
+.a .container .signinBx .formBx {
+  left: 0%;
+}
+
+.a .container.active .signinBx .formBx {
+  left: 100%;
+}
+
+.a .container .signinBx .imgBx {
+  left: 0%;
+}
+
+.a .container.active .signinBx .imgBx {
+  left: -100%;
+}
+
+@media (max-width: 991px) {
+  .u_mainHeading{
+    font-size: 36px;
+  }
+  .a .container {
+    max-width: 400px;
+  }
+
+  .a .container .imgBx {
+    display: none;
+  }
+
+  .a .container .user .formBx {
+    width: 100%;
+  }
+}
+
+.error-message{
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  width: 250px;
+  padding: 20px 10px;
+  background-color: #262626;
+  color: white;
+  border-radius: 10px;
+}
+
+.error-title{
+  flex-grow: 1;
+  white-space: nowrap;
+}
+
+.close-btn{
+  cursor: pointer;
+}
+
+svg {
+  /* color: white; */
+  fill: #fff;
+}
+
+
+
+@media (max-width:650px){
+  .u_mainBody{
+  display: none;
+}
+
+.u_mainBodyResponsive{
+  margin-top: 3rem;
+  display: block; 
+
+}
+}

@@ -1,0 +1,872 @@
+/* Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500;600&family=Open+Sans:wght@400;500&family=Roboto&display=swap");
+
+/* 
+    font-family: 'Noto Sans', sans-serif;
+font-family: 'Open Sans', sans-serif;
+font-family: 'Roboto', sans-serif; 
+*/
+
+* {
+  margin: 0rem;
+  padding: 0rem;
+}
+
+p {
+  margin: 0rem;
+  padding: 0rem;
+}
+
+/* User Page */
+.u_mainBody {
+  /* padding: 0rem 4rem;    */
+  height: 100vh;
+  /* background-color: #def8f7; */
+}
+
+.u_navbar {
+  height: 3.5rem;
+  padding: 0rem 4rem;
+  height: 85px;
+  width: 100%;
+  border-bottom: 1px solid #1ac0c6;
+  display: flex;
+  background-color: #1ac0c6;
+  color: white;
+  flex-direction: row;
+  align-items: center;
+}
+
+#u_imageDeails {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 50%;
+}
+
+#u_profilePic {
+  height: 50px;
+  /* width: 80px; */
+  margin: 3px 0px;
+}
+
+.u_logo {
+  /* width: 100%; */
+  height: auto;
+}
+
+.u_logoResponsive {
+  height: auto;
+  display: none;
+}
+
+#u_profilePicResponsive {
+  height: 50px;
+  /* width: 80px; */
+}
+
+.u_welcomeText {
+  margin-left: 3rem;
+  font-size: 1.3rem;
+}
+
+.u_timer {
+  margin-left: auto;
+  margin-right: 0;
+  font-weight: 500;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
+
+#u_timerDisplay {
+  font-size: 1.4rem;
+  color: black;
+  background-color: white;
+  width: 100px;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+}
+
+.u_examType {
+  /* background-color: tomato; */
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#u_examTypeItem {
+  border-radius: 10px;
+  background-color: #262626;
+  color: white;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.u_gridContainer {
+  margin-top: 2.2rem;
+  display: grid;
+  /* border: 1px solid black; */
+  grid-template-columns: 70% 30%;
+  height: 700px;
+}
+
+.u_gridItem1 {
+  /* border: 1px solid black; */
+  height: 600px;
+  width: 100%;
+
+  grid-column-start: 1;
+  grid-column-end: 2;
+  text-align: justify;
+}
+
+.u_gridItem2 {
+  width: 100%;
+  height: 600px;
+  /* border: 1px solid black; */
+  padding-top: 10px;
+  height: 750px;
+  border-left: 0.5px solid #262626;
+}
+
+.u_qustionPart {
+  margin: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.u_questionDiv {
+  padding: 1rem 4rem;
+}
+
+.u_questionNo {
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 800;
+}
+
+.u_questionDiv p {
+  font-size: 1.3rem;
+}
+
+.u_optionDiv {
+  padding: 0rem 4rem;
+  height: 33max0px;
+}
+
+.u_option {
+  width: 100%;
+  border: 1px solid black;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.u_option:hover {
+  background-color: #282133;
+  color: #eff0ee;
+}
+
+.u_optionAlpha {
+  margin-right: 1rem;
+  font-weight: 500;
+  font-family: "Roboto", sans-serif;
+}
+
+.u_optionText {
+  font-size: 1.2rem;
+}
+
+.u_buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.u_buttonPrevious,
+.u_buttonNext {
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin: 0rem 1rem;
+  background-color: #ff6150;
+  color: #eff0ee;
+  margin-bottom: 1rem;
+  border: 1px solid #fff;
+}
+.u_buttonNext:hover {
+  background-color: white;
+  color: #ff6150;
+  border: 1px solid #ff6150;
+}
+
+.u_buttonPreviousDisable,
+.u_buttonNextDisable {
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin: 0rem 1rem;
+  background-color: #ff6150;
+  color: white;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+#u_hamburgerbtn {
+  display: none;
+}
+
+.u_attemptSummary {
+  font-size: 1.5rem;
+  font-weight: 500;
+  /* border: 1px solid black; */
+}
+
+.u_markedQuestion {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(57px, 1fr));
+  /* border: 1px solid black; */
+  grid-gap: 19px;
+  padding: 1rem 4rem;
+  margin: 0 auto;
+}
+
+.u_checkClipArtNo {
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+  background-color: rgb(92, 199, 34);
+  display: grid;
+  cursor: pointer;
+  font-size: 1.3rem;
+  align-items: center;
+  justify-items: center;
+  pointer-events: none;
+}
+
+.u_clipArtNo {
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+  /* background-color: #ffffff; */
+  display: grid;
+  cursor: pointer;
+  align-items: center;
+  justify-items: center;
+}
+
+/* #u_markedQuestion{
+    cursor: not-allowed;
+    background-color: aqua;
+} */
+.u_clipArtNo p {
+  font-size: 1.3rem;
+}
+
+.u_meaningGridBox {
+  display: grid;
+  grid-template-columns: 250px 250px;
+  place-content: center;
+}
+
+.u_meaingGridItems {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 auto;
+  width: 180px;
+  margin: 12px auto;
+}
+
+.u_attempted {
+  height: 50px;
+  width: 50px;
+  background-color: #134e6f;
+  opacity: 0.8;
+  margin-right: 9px;
+}
+
+.u_reviewed {
+  height: 50px;
+  width: 50px;
+  background-color: rgb(12, 12, 110);
+  margin-right: 9px;
+}
+
+.u_unAttempted {
+  height: 50px;
+  margin-right: 9px;
+  width: 50px;
+  border: 1px solid #262626;
+  background-color: white;
+}
+
+.u_notViewed {
+  height: 50px;
+  margin-right: 9px;
+  width: 50px;
+  border: 1px solid #262626;
+  background-color: rgb(195, 187, 187);
+}
+
+.u_catagoryWiseQuestion {
+  margin: 0 auto;
+}
+
+.u_responsive_catagoryWiseQuestion {
+  color: #fff;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+.u_logoutBtn {
+  background-color: #262626;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.u_submitButton {
+  padding: 10px 17px;
+  color: #fff;
+  margin: 1rem 0rem;
+  padding: 5px 10px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  background-color: #ff6150;
+  border: 1px solid #fff;
+}
+
+.u_submitButton:hover {
+  color: #ff6150;
+  border: 1px solid #ff6150;
+  background-color: white;
+}
+
+.hamburger-react {
+  display: none;
+}
+
+.u_mainBodyResponsive {
+  display: none;
+}
+
+.u_popUpAttendedQuestion {
+  /* margin: auto auto; */
+  position: absolute;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #262626;
+  z-index: 1;
+}
+
+.u_popUpText {
+  color: whitesmoke;
+  margin-top: 2rem;
+  font-size: 1.23rem;
+  margin: 2rem;
+  /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%); */
+}
+
+.u_popButton {
+  width: 100px;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  background-color: #edf7f7;
+  color: black;
+}
+
+/* ---------------------------------------------------------------------------------------------------
+TEST TAKEN PAGE
+--------------------------------------------------------------------------------------------------- */
+.u_messageContainer {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  /* background-color: #edf7f7; */
+  top: 40%;
+  /* border: 1px solid black; */
+}
+
+.u_message div {
+  letter-spacing: 1.3px;
+  font-size: 4rem;
+  margin: 1rem 1.5rem;
+  font-weight: 500;
+  font-family: "Noto Sans", sans-serif;
+  /* font-family: 'Open Sans', sans-serif; */
+  /* font-family: 'Roboto', sans-serif;  */
+  color: #262626;
+}
+
+.u_congo {
+  margin: 3rem auto;
+}
+
+.zoom-in-out-box {
+  /* animation: zoom-in-out-box 2s ease ease-in; */
+  /* margin: 24px; */
+  width: 800px;
+  font-size: 0.4rem o !important;
+  height: 200px;
+  background: whire;
+  /* animation: zoom-in-zoom-out 2s ease-in ease-in */
+}
+
+.animated {
+  /* background-image: url(/css/images/logo.png); */
+  /* background-repeat: no-repeat; */
+  /* background-position: left top; */
+  /* padding-top:95px; */
+  margin-bottom: 60px;
+  -webkit-animation-duration: 10s;
+  animation-duration: 3s;
+  -webkit-animation-fill-mode: both;
+  /* animation-fill-mode: both; */
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+/* @keyframes zoom-in-zoom-out {
+    0% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1.5, 1.5);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  } */
+/* ---------------------------------------------------------------------------------------------------
+Test Page Responsive
+--------------------------------------------------------------------------------------------------- */
+
+@media (max-width: 800px) {
+  .logo img {
+    width: 100%;
+    height: auto;
+  }
+
+  .u_welcomeText {
+    margin-left: 0rem;
+    font-size: 1.2rem;
+  }
+  #u_imageDeails {
+    width: 75%;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------
+Landing Page
+--------------------------------------------------------------------------------------------------- */
+
+.u_landingPage {
+  background-color: #eff0ee;
+  /* height: 100vh; */
+  padding-bottom: 2rem;
+}
+
+.u_sideNavDetails {
+  background-color: #1ac0c6;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1rem 4rem;
+}
+
+#u_CompanyLogo {
+  margin: 0 auto;
+  height: 55px;
+}
+
+#u_sideNavbarItem {
+  letter-spacing: 2px;
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: white;
+  /* margin: 2.4rem 0rem; */
+}
+
+.u_profileInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  height: 60px;
+  color: white;
+  letter-spacing: 1.5px;
+  /* background-color: #e3f8f7; */
+}
+
+.u_profileText {
+  font-size: 1.7rem;
+  margin: 0rem auto;
+  font-weight: 600;
+}
+
+.u_welcomeUser {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
+.u_onClickButton {
+  width: 100px;
+}
+
+#u_landingProfile {
+  height: 42px;
+  width: 42px;
+  border-radius: 6px;
+  border: 1px solid white;
+  margin-left: 1rem;
+}
+
+.u_profileInfo svg {
+  fill: white;
+}
+
+.u_logoutBtn {
+  width: 150px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  font-size: 1.2rem;
+  align-items: center;
+  margin-left: 2rem;
+  border: 1px solid white;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 3px 14px;
+  border-radius: 8px;
+}
+
+.u_dashBoard {
+  /* border: 1px solid black; */
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 2.4rem 4rem;
+  box-shadow: 0px 0px 53px -3px rgba(0, 0, 0, 0.5);
+  background-color: white;
+}
+
+.u_testName {
+  font-size: 50px;
+  /* border:1px solid #262626; */
+  font-weight: 600;
+  color: #134e6f;
+}
+
+#u_landingtext {
+  padding: 2rem 4rem;
+  font-size: 1.3rem;
+  text-align: justify;
+}
+
+.u_heading {
+  margin-top: 1rem;
+  font-size: 1.6rem;
+  text-align: left;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-family: "Roboto", sans-serif;
+  padding-left: 4rem;
+}
+
+.u_instruction p {
+  text-align: left;
+  margin: 1rem 4rem;
+  font-size: 1.3rem;
+  font-family: "Roboto", sans-serif;
+  color: black;
+}
+
+.u_wish {
+  font-size: 2rem;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+}
+
+.u_startButton {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  background-color: #ff6150;
+  color: white;
+  border: 1px solid #eff0ee;
+  padding: 0.7rem 2rem;
+  border-radius: 4px;
+}
+
+.u_startButton:hover {
+  border: 1px solid #ff6150;
+  background-color: white;
+  color: #ff6150;
+}
+
+.ham,
+.u_sideBar {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------------------------------
+Request - Error Login 
+--------------------------------------------------------------------------------------------------- */
+
+.u_notice {
+  font-size: 2.3rem;
+  margin-top: 3rem;
+}
+
+.u_errorLogin {
+  padding-top: 2rem;
+  padding-right: 1rem;
+}
+/* ---------------------------------------------------------------------------------------------------
+Landing Page Responsive
+--------------------------------------------------------------------------------------------------- */
+
+@media (max-width: 950px) {
+  .u_dashBoard {
+    margin: 2.4rem 2rem;
+  }
+
+  .u_sideNavDetails {
+    padding: 1rem 2rem;
+  }
+
+  #u_CompanyLogo {
+    height: 40px;
+  }
+
+  #u_landingProfile {
+    height: 38px;
+  }
+
+  .u_welcomeUser {
+    font-size: 1.2rem;
+  }
+
+  .u_testName {
+    font-size: 2.1rem;
+    margin-top: 0.5rem;
+  }
+
+  .u_heading {
+    margin-top: 0rem;
+    padding-left: 2rem;
+  }
+
+  .u_instruction p {
+    font-size: 15px;
+    margin: 1rem 2rem;
+  }
+
+  #u_landingtext {
+    font-size: 1rem;
+    padding: 2rem 2rem;
+  }
+
+  .u_wish {
+    font-size: 1.4rem;
+  }
+
+  .u_startButton {
+    margin-top: 1.3rem;
+  }
+}
+
+@media (max-width: 548px) {
+  .u_welcomeUser {
+    text-align: right;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 1859px) {
+  .u_meaningGridBox {
+    display: grid;
+    grid-template-columns: 250px;
+    place-content: baseline;
+    margin-left: 2rem;
+  }
+}
+
+@media (max-width: 1638px) {
+  .u_meaningGridBox {
+    display: grid;
+    grid-template-columns: 250px;
+    place-content: baseline;
+    margin-left: 2rem;
+  }
+}
+
+@media (max-width: 1370px) {
+  .u_questionDiv {
+    padding: 1rem 2rem;
+  }
+
+  .u_optionDiv {
+    padding: 0rem 2rem;
+  }
+
+  .u_gridItem2 {
+    display: none;
+  }
+
+  .u_gridContainer {
+    grid-template-columns: 92% 8%;
+    margin-top: 6rem;
+  }
+
+  .ham {
+    display: inline !important;
+    cursor: pointer;
+    border: 1px solid black;
+  }
+
+  /* .hamb{
+        z-index: 100;
+        color: #edf7f7;
+    } */
+
+  .hamburger-react {
+    z-index: 200;
+    color: gray;
+    display: block;
+    right: 40px;
+    position: fixed !important;
+    top: 105px;
+    height: 90vh;
+  }
+
+  .u_navbar {
+    position: fixed;
+    top: 0%;
+  }
+
+  .u_sideBar {
+    z-index: 50;
+    display: block;
+    position: fixed;
+    width: 400px;
+    height: 100vh;
+    background-color: #262626f8;
+    top: 85px;
+    right: 0%;
+  }
+
+  .u_attemptSummarySideBar {
+    color: #fff;
+    text-align: left;
+    margin: 1.5rem 4rem;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+  }
+
+  .u_meaingGridItems {
+    width: 200px;
+  }
+
+  .u_markedQuestionSideBar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+    /* border: 1px solid black; */
+    grid-gap: 19px;
+    padding: 1rem 4rem;
+    margin: 0 auto;
+  }
+
+  .u_meaningGridBoxSideBar {
+    color: white;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 1rem;
+    margin-left: -4.4rem;
+  }
+
+  .u_submitButtonSideBar {
+    color: #262626;
+    background-color: #fff;
+    margin: 1rem 0rem;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 1086px) {
+  .u_logo {
+    display: none;
+  }
+  .u_logoResponsive {
+    display: block;
+  }
+  .u_welcomeText {
+    margin-left: 1rem;
+    white-space: nowrap;
+  }
+
+  /* .u_mainBody{
+        display: none;
+    }
+
+    .u_mainBodyResponsive{
+        margin-top: 3rem;
+        display: block; 
+
+    } */
+}
+
+@media (max-width: 632px) {
+  .u_mainBody {
+    display: none;
+  }
+
+  .u_mainBodyResponsive {
+    margin-top: 3rem;
+    display: block;
+  }
+}

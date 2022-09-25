@@ -1,0 +1,22 @@
+export const users = [
+    {
+        email:'avishihora@gmail.com',
+        password:"12345678",
+        token:"1"
+    },
+    {
+        email:'rahulrajan123@gmail.com',
+        password:"rahul123",
+        token:"2"
+    },
+    {
+        email:'prasannapatel@gmail.com',
+        password:"pjpatel123",
+        token:"3"
+    },
+    {
+        email:'aakashpalan@gmail.com',
+        password:"palan123",
+        token:"4"
+    }
+]

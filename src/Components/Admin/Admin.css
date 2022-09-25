@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;500;900&family=Roboto:wght@100;300;400;500;700;900&family=Sawarabi+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@200;300;400;500;600;900&family=Roboto:wght@100;300;400;500;700;900&family=Sawarabi+Gothic&display=swap');
+* {
+    font-family: 'Roboto';
+}
+.username_input:placeholder
+{
+    color:#4B4B4B !important;
+}
+.login
+{
+    color: #4B4B4B;
+    height: inherit;
+    width: inherit;
+}
+.login_box {
+    
+    border: 3px solid #D3D4D9;
+    background-color: #D3D4D9;
+    box-sizing: border-box;
+    backdrop-filter: blur(33.457px);
+    border-radius: 13px;
+    width: 497.79px;
+    height: 568.77px;
+    left: 638.02px;
+    top: 76.95px;
+    margin: 79px auto;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 4em;
+    margin: 50px 80px;
+    text-align: left; 
+}
+
+.signup_box {
+    display: inline;
+}
+
+.loginText {
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: 32.1187px;
+    letter-spacing: 0.1em;
+}
+
+.dont_have_account {
+    font-size: 10pt;
+    color: #FFFFFF;
+    font-weight:normal;
+    letter-spacing: 0.1em;
+}
+
+.signup {
+    color: #F24949;
+    font-size: 10pt;
+    font-weight: bolder;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+}
+
+.signup:hover {
+    text-decoration: underline;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    height: 5em;
+    margin-top: 40px;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.username, .password {
+    color: #BB0A21;
+    font-size: 30px;
+    font-weight: 700;
+    justify-content: left;
+    letter-spacing: 0.1em;
+    justify-content: start;
+    line-height: 31px;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.username_input {
+    border-radius: 53px;
+    color:#252627;
+    height: 51.52px;
+    border: 2.00742px solid #252627;
+}
+
+.username_input::placeholder {
+
+    font-size: 10pt;
+    line-height: 26px;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.1em;
+    text-decoration-line: underline;
+    text-align: right;
+    margin-left: 40px; 
+}
+
+input {
+   color:#252627 !important;
+   padding-left: 40px;
+   font-size: 12pt;
+}
+
+.user_icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    bottom: 326px;
+    margin-left: 7px;
+}
+
+.password_box {
+    border: 1px solid;
+    display: flex;
+    flex-direction: column;
+    height: 5em;
+    margin-top: 40px;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.password_input {
+    border-radius: 53px;
+    height: 51.52px;
+    border: 2.00742px solid #252627;
+}
+
+.password_icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    bottom: 209px;
+    margin-left: 8px;
+}
+
+.signin_btn {
+    background-color: #4B88A2;
+    border: none;
+    border-radius: 53px;
+    height: 51.52px;
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+.signin_btn:hover {
+    cursor: pointer;
+}
+
+.remember_me {
+    display: flex;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.remember_me input {
+    text-align: left;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    border: 3px solid #E4FF40;
+    border-radius: 2px;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+ 
+.remberme_text{
+    color: #eee;
+}
+
+.remember_me:hover input ~ .checkmark{
+    background-color: rgb(138, 138, 138);
+}
+
+.checkmark::after {
+    content: '';
+    position: absolute;
+    display: none;
+}
+
+.remember_me input:checked ~ .checkmark::after {
+    display: block;
+}
+
+.remember_me input:checked ~ .checkmark {
+    background-color: #4B4B4B;
+}
+ 
+.remember_me .checkmark::after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid lime;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.Error
+  {
+      position: absolute;
+    height: 20px;
+    width:190px;
+    color:#BB0A21;
+  }
+@media only screen and (max-width: 600px) {
+    .login_box {
+        width: 90%;
+        height: 30%;
+    }
+    .password_icon, .user_icon
+    {
+        display: none;
+        width: 1px;
+    }
+    .password_input,.username_input
+    {
+        padding-left: 5px;
+    }
+
+  }
+  /* ------------------------------------------------------------------------------------------ */
+    /* ---------------------------Landing page of admin ----------------------------------- */
+  /* ------------------------------------------------------------------------------------------ */
+.Navbar
+{
+    display: flex;
+    width:100%;
+    height: 70px;
+    background-color: #FDFFFC;
+
+}
