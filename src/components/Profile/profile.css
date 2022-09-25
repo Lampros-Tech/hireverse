@@ -43,7 +43,14 @@
   align-items: center;
   justify-content: center;
 }
-
+button.withdraw-btn {
+  background-color: #134e6f;
+  color: #fff;
+  padding: 1rem 1.2rem;
+  float: right;
+  border-radius: 10px;
+  margin-right: 20px;
+}
 .profile-profileInfoName {
   font-size: 24px;
   color: #134e6f;
