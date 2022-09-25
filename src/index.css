@@ -83,6 +83,9 @@ svg.header-svg {
 button.header-orange:focus {
   border: 2px solid #ff6150;
 }
+button.header-orange:hover {
+  border: 2px solid #ff6150;
+}
 
 @keyframes gradient {
   0% {
