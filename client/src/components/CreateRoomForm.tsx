@@ -110,7 +110,7 @@ export const CreateRoomForm = () => {
     name: username + "'s office",
     description: 'Dehitas office of ' + username + ' !',
     password: null,
-    autoDispose: true,
+    autoDispose: false,
   })
   const [showPassword, setShowPassword] = useState(false)
   const [nameFieldEmpty, setNameFieldEmpty] = useState('')

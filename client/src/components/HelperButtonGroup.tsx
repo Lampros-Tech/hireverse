@@ -116,7 +116,7 @@ export default function HelperButtonGroup() {
 
   const copyLink = () => {
     var textField = document.createElement('textarea')
-    textField.innerText = "http://127.0.0.1:5173/?id=" + roomId
+    textField.innerText = "https://office.dehitas.xyz/?id=" + roomId
     document.body.appendChild(textField)
     textField.select()
     document.execCommand('copy')
