@@ -12,7 +12,6 @@
 .C_C_Content
 {
     margin-left:35% ;
-    margin-top:100px;
     max-width: 786px;
     float:right;
     background-color: #EFF0EE;
@@ -137,4 +136,8 @@
     width:300px;
     overflow:hidden;
     text-overflow: ellipsis;
+}
+.question-newline
+{
+    
 }

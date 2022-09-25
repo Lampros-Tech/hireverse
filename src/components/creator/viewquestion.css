@@ -8,9 +8,14 @@
 .card-background {
   background-color: rgb(239, 240, 238);
 }
+
 .Edit-Question {
   background-color: rgb(255, 98, 83);
   color: #fff;
+}
+.dark-blue-background
+{
+  background-color: #282133;
 }
 .description {
   height: 100px;

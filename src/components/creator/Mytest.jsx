@@ -1,6 +1,21 @@
+import { useEffect } from "react";
+import { useState } from "react";
+import { connect } from "@tableland/sdk";
 import "./Myrepos.css"
 function Mytest ()
 {
+    const [data,setData] = useState();
+    useEffect(()=>{
+        showTests()
+    },[])
+    async function showTests ()
+    {
+        const name = "creators_assesment_table_80001_2849";
+        const tableland = await connect({
+            network: "testnet",
+            chain: "polygon-mumbai",
+          });
+    }
     return(
         <div className="parent-content">
             <div className='C_Content '>
