@@ -6,13 +6,13 @@ const Popup = (props) => {
   return (
     <>
       <div className="popup-box">
-        <div className="box" id="box">
+        <div className="box uplift" id="box">
           <span className="close-icon" onClick={props.handleClose}>
-            <img
+            {/* <img
               src={Back}
               className="candidate-form-back-img"
               alt="upload_img"
-            />
+            /> */}
           </span>
           {props.content}
         </div>

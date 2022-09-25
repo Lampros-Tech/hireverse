@@ -2,6 +2,10 @@
 /* .recruitment-main {
   height: 100vh;
 } */
+
+.recruitment-main {
+  padding-top: 100px;
+}
 .recruitment-header {
   width: 70vw;
   max-width: 600px;

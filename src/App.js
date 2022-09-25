@@ -44,6 +44,7 @@ import EditQuestion from "./components/creator/EditQuestion";
 import QuestionFeed from "./components/creator/questionFeed";
 import CreatorEducation from "./components/registartionforms/CreatorEducation";
 import CreatorSignRequest from "./components/CreatorSignRequest";
+import Verifyquestion from "./components/creator/Verifyquestion";
 import {
   WagmiConfig,
   createClient,
@@ -155,8 +156,11 @@ function App() {
               <Route path="edit_repo" element={<Editrepo />} />
               <Route path="edit_assesment" element={<EditAssesment />} />
               <Route path="message" element={<CreatorMessage />} />
+              <Route path="VerifyQuestion" element={<Verifyquestion />} />
+
               <Route path="repo/:key" element={<SingleRepo />} />
               <Route path="" element={<QuestionFeed />} />
+              <Route path="creator-profile" element={<Profile />} />
             </Route>
 
             <Route path="company" element={<CompanyHeader />}>
@@ -173,6 +177,7 @@ function App() {
               <Route path="jobapplicant" element={<JobApplicant />} />
               <Route path="jobinsights" element={<Jobinsights />} />
               <Route path="message" element={<CompanyMessage />} />
+              <Route path="company-profile" element={<Profile />} />
             </Route>
 
             <Route path="candidate" element={<CandidateHeader />}>

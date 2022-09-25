@@ -1,10 +1,10 @@
 import "./profile.css";
 import edu_logo from "./images/edu.png";
 import editimg from "./images/edit.svg";
-// import skill from "../assets/images/skill.png";
-// import nftlogo from "../assets/images/nft.png";
-// import userlogo from "../assets/images/user-p-logo.png";
-// import exlogo from "../assets/images/ex-logo.png";
+import skill from "../assets/images/skills.png";
+import nftlogo from "../assets/images/nft.png";
+import userlogo from "../assets/images/user-p-logo.png";
+import exlogo from "../assets/images/ex-logo.png";
 import nft from "../assets/images/exam-result.jpg";
 import axios from "axios";
 import { useAccount } from "wagmi";
@@ -13,6 +13,8 @@ import coverimg from "./images/post/1.jpeg";
 import { useEffect } from "react";
 import { useState } from "react";
 import LoadingIcon from "../walletconnect/LoadingIcon";
+import data from "../../Contracts/artifacts/data.json";
+import { ethers } from "ethers";
 
 export default function Profile() {
   const { address, isConnected } = useAccount();
@@ -41,6 +43,117 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [loadingMessage, setLoadingmessage] = useState("Loading...");
   const [metaDataNft, setMetaDataNft] = useState([]);
+
+  //for integration
+  const [usrAccount, setUsrAccount] = useState();
+  const CONTRACT_ADDRESS_GOERLI = "0x8C1C947F7f5c23ee58399912EABdECB88F9b7B37";
+  const CONTRACT_ADDRESS_SKALE = "0x01d83b1aaf12a98ccf0f83147732bfe9f53c61c1";
+  const CONTRACT_ADDRESS_AURORA = "0xc892caEe8eca7734A66F2d6Bb69F123e610dB9fc";
+  const CONTRACT_ADDRESS_CRONOS = "0x5D9F1CC0D4Df5568FB5ff934305a19754ecB14bb";
+  //withdraw function added (smart contract integration)
+  const withdraw = async (e) => {
+    e.preventDefault();
+    console.log("hello");
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        let usr_account;
+        signer.getAddress().then(async (res) => {
+          usr_account = res;
+          await setUsrAccount(usr_account);
+          console.log(usr_account);
+        });
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+
+        //SWITCH CASE for networks
+        switch (chainId) {
+          case 5:
+            //for GOERLI
+            let connectedContract = new ethers.Contract(
+              CONTRACT_ADDRESS_GOERLI,
+              data.abi,
+              signer
+            );
+            console.log("Going to pop wallet now to pay gas...");
+            let stakeTx_g = await connectedContract.withdraw(usrAccount);
+            // add address here
+            console.log(stakeTx_g);
+
+            break;
+
+          case 647426021:
+            //for SKALE
+            const connectedContract_s = new ethers.Contract(
+              CONTRACT_ADDRESS_SKALE,
+              data.abi,
+              signer
+            );
+
+            console.log("Going to pop wallet now to pay gas...");
+            let stakeTx_s = await connectedContract_s.withdraw(usrAccount);
+            // add address here
+            console.log(stakeTx_s);
+
+            break;
+
+          case 338:
+            //for CRONOS
+            const connectedContract_c = new ethers.Contract(
+              CONTRACT_ADDRESS_CRONOS,
+              data.abi,
+              signer
+            );
+
+            console.log("Going to pop wallet now to pay gas...");
+            let stakeTx_c = await connectedContract_s.withdraw(usrAccount);
+            // add address here
+            console.log(stakeTx_c);
+
+            break;
+
+          case 1313161555:
+            //for AURORA
+            const connectedContract_a = new ethers.Contract(
+              CONTRACT_ADDRESS_AURORA,
+              data.abi,
+              signer
+            );
+            console.log("Going to pop wallet now to pay gas...");
+            let stakeTx_a = await connectedContract_s.withdraw(usrAccount);
+            // add address here
+            console.log(stakeTx_a);
+            break;
+          // case 80001:
+          //   //for POLYGON
+          //   console.log("ploygon");
+
+          //   const con = new ethers.Contract(
+          //     CONTRACT_ADDRESS_POLYGON,
+          //     contract,
+          //     signer
+          //   );
+          //   const tx = await con.registerCompany(companyId);
+          //   tx.wait();
+          //   const tx1 = await con.stake(companyId, 100000000000000, {
+          //     value: 100000000000000,
+          //   });
+          //   tx1.wait();
+          //   break;
+          default:
+            break;
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //for covalent api starts
 
@@ -71,7 +184,7 @@ export default function Profile() {
       const result = await response.json();
       const data = result.data;
       console.log(data.items[i - 1].nft_data[0].owner_address);
-      if (userAddress == data.items[i - 1].nft_data[0].owner_address) {
+      if (userAddress === data.items[i - 1].nft_data[0].owner_address) {
         metadata.push(data);
       }
     }
@@ -168,6 +281,14 @@ export default function Profile() {
                 <h4 className="profile-profileInfoName">{userName}</h4>
                 {/* <span className="profile-profileInfoDesc">Hello World</span> */}
               </div>
+              <button
+                className="withdraw-btn"
+                onClick={(e) => {
+                  withdraw(e);
+                }}
+              >
+                Withdraw
+              </button>
             </div>
           </div>
         </div>
@@ -178,7 +299,7 @@ export default function Profile() {
             <div className="exp-logo">
               <img
                 className="profile-educationProfileImg"
-                // src={userlogo}
+                src={userlogo}
                 alt=""
               />{" "}
               <div className="profile-leftbar-experience">User information</div>
@@ -221,7 +342,7 @@ export default function Profile() {
               <div className="exp-logo">
                 <img
                   className="profile-educationProfileImg"
-                  // src={exlogo}
+                  src={exlogo}
                   alt=""
                 />{" "}
                 <div className="profile-leftbar-experience">Experience</div>
@@ -330,7 +451,7 @@ export default function Profile() {
               <div className="exp-logo">
                 <img
                   className="profile-educationProfileImg"
-                  // src={skill}
+                  src={skill}
                   alt=""
                 />{" "}
                 <div className="profile-leftbar-experience">Skills</div>
@@ -347,7 +468,7 @@ export default function Profile() {
               <div className="exp-logo">
                 <img
                   className="profile-educationProfileImg"
-                  // src={nftlogo}
+                  src={nftlogo}
                   alt=""
                 />{" "}
                 <div className="profile-leftbar-experience">User NFT's </div>

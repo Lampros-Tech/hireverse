@@ -5,6 +5,7 @@ import Successpopup from "./Successpopup";
 import avtar from "../company/styles/companyprofile.png";
 import { connect } from "@tableland/sdk";
 import { useAccount } from "wagmi";
+import * as EpnsAPI from "@epnsproject/sdk-restapi";
 
 import { ethers } from "ethers";
 import contract from "../../Contracts/artifacts/superfluid_contract.json";
@@ -51,6 +52,41 @@ function InviteCandidate() {
     setLoading(true);
   };
 
+  //send notification code start
+
+  const Pkey = `0x${process.env.REACT_APP_PK}`;
+  const signer = new ethers.Wallet(Pkey);
+
+  const sendNotification = async (receiver) => {
+    // console.log(receiver);
+    try {
+      const apiResponse = await EpnsAPI.payloads.sendNotification({
+        signer,
+        type: 3, // target
+        identityType: 2, // direct payload
+        notification: {
+          title: "Interview Invitation",
+          body: "Hello you have been invited to the interview, The interview details will be shared soon",
+        },
+        payload: {
+          title: `[sdk-test] payload title`,
+          body: `sample msg body`,
+          cta: "https://office.dehitas.xyz/?id=cZJte9SEh",
+          img: "",
+        },
+        recipients: "eip155:42:" + receiver, // recipient address
+        // ['eip155:42:0xCdBE6D076e05c5875D90fa35cc85694E1EAFBBd1', 'eip155:42:0x52f856A160733A860ae7DC98DC71061bE33A28b3'], //for multiple recipients
+        channel: "eip155:42:0xfaabb044AF5C19145cA4AE13CA12C419395A72FB", // your channel address
+        env: "staging",
+      });
+      console.log("API repsonse: sent ", apiResponse);
+      alert("Notification sent to the candidate");
+    } catch (err) {
+      console.error("Error: ", err);
+    }
+  };
+
+  ///send motification code ends
   const inviteCandidates = async (e) => {
     try {
       const { ethereum } = window;
@@ -75,6 +111,7 @@ function InviteCandidate() {
           );
           const tx = await con.InviteCandidatesToDrive(companyId, job_id, user);
           tx.wait();
+          sendNotification("0xe57f4c84539a6414C4Cf48f135210e01c477EFE0");
         }
       }
     } catch (error) {

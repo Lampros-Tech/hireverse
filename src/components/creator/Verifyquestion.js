@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from "react";
 import { connect } from "@tableland/sdk";
-import EditQuestion from "./addToRepo";
-
-function Questionfeed() {
-  const [data, setData] = useState([]);
+import {useState, useEffect} from 'react';
+function Verifyquestion()
+{
+    const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showRepoPopup, setShowRepoPopup]  = useState(false);
   const[question,setQuestion] = useState();
   useEffect(()=>{
-    console.log(question);
-  },[question])
+    // console.log(question);
+    console.log(data);
+    
+  },[])
+  function validQuestion (value)
+  {
+    console.log(value);
+  }
   const showQuestions = async () => {
     const name = "creators_question_table_80001_2586";
     const tableland = await connect({
@@ -31,25 +36,16 @@ function Questionfeed() {
       ]);
     }
     setData(data);
-    
+    console.log(data);
     setLoading(true);
   };
   useEffect(() => {
     showQuestions();
-    console.log(data);
   }, []);
 
-
-  return (
-    <>
-      
-      {showRepoPopup ? (
-          <div className="editquestion">
-            <EditQuestion setShowRepoPopup={setShowRepoPopup} description={question}  />
-          </div>
-        ) : 
-        // creator-filter-top
-        <div className="parent-content flex">
+    return(
+        <>
+            <div className="parent-content flex">
                 <div className="candidate-jobfeed-main-left  creator-filter-top float-left">
             <div className="cancel-filter-apply overflow-auto">
                 {/* <button type="button" class="candidate-cancel-btn">
@@ -366,6 +362,7 @@ function Questionfeed() {
                     </div>
                 </div>
                 {data.map((inde) => {
+                    
                     return (
                     <div className="Questions my-10">
                         <div className="card-background uplift h-auto p-2 px-8 rounded-md">
@@ -373,11 +370,12 @@ function Questionfeed() {
                             <div className="Tittle font-primary w-40"><span className="hashtag">#</span> {inde[0]}</div>
                             <div className="flex-grow"> </div>
                             <div className="text-center ">
-                                <button className="Edit-Question p-3 rounded-md " onClick={()=>{
+                                {/* <button className="Edit-Question p-3 rounded-md " onClick={()=>{
+                                    
                                     setQuestion(inde);
                                     setShowRepoPopup(true);}}>
                                     Add to repository.
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                             <div className="flex">
@@ -403,17 +401,21 @@ function Questionfeed() {
                                 <span className="font-family-secondary pr-4">d. </span>
                                     {inde[6]}
                             </div>   
-                            
+                            <div className="Validation-btn text-center">
+                                <button className="Edit-Question p-3 rounded-md " onClick={()=>{validQuestion(inde[2])}}>
+                                    Valid Question
+                                </button>
+                                <button className="Edit-Question dark-blue-background p-3 mx-2 my-2 rounded-md " >
+                                    Invalid Question
+                                </button>
+                            </div>
                         </div>
                     </div>
                     );
                 })}
                 </div>
       </div>
-        
-        
-        }
-    </>
-  );
+        </>
+    )
 }
-export default Questionfeed;
+export default Verifyquestion

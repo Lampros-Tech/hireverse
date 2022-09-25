@@ -13,6 +13,10 @@
   border-bottom: 1px solid gainsboro;
   font-family: "Montserrat";
 }
+.font-color-orange
+{
+  color:#ff6150
+}
 .candidate-jobfeed-header2 {
   padding-left: 5%;
   color: black;
@@ -333,6 +337,7 @@
   font-size: larger;
 }
 .candidate-jobfeed-main-content {
+  padding-top: 100px;
   position: relative;
 }
 .candidate-jobfeed-main-left {

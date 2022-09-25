@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 // import EditQuestion from '../'
 // import Questions from './Data/Question'
-
 import "./viewquestion.css";
 import EditQuestion from "./EditQuestion";
 import $ from "jquery";

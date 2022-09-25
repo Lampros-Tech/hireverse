@@ -11,7 +11,8 @@
   display: flex;
   justify-content: space-around;
   color: black;
-  margin-top: 5%;
+  /* margin-top: 5%; */
+  padding-top: 110px;
 }
 .myjobpost-information {
   margin-top: 3%;
