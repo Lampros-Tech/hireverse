@@ -130,7 +130,7 @@ export default function CreatorHeader() {
     for (let i = 0; i < subscriptions.length; i++) {
       if (
         subscriptions[i].channel ===
-        "0xa9A15cf9769fA4b05c20B48CE65b796C3bb4e3cf"
+        "0xfaabb044AF5C19145cA4AE13CA12C419395A72FB"
       ) {
         flag = true;
       }
@@ -169,7 +169,7 @@ export default function CreatorHeader() {
 
     await EpnsAPI.channels.subscribe({
       signer: signerobject,
-      channelAddress: "eip155:42:0xa9A15cf9769fA4b05c20B48CE65b796C3bb4e3cf", // channel address in CAIP
+      channelAddress: "eip155:42:0xfaabb044AF5C19145cA4AE13CA12C419395A72FB", // channel address in CAIP
       userAddress: "eip155:42:" + useraddress, // user address in CAIP
       onSuccess: () => {
         alert("opt in success");
@@ -489,13 +489,83 @@ export default function CreatorHeader() {
               >
                 Messages
               </Link>
-              <button className="hireverse-btn">
+              {/* <button className="hireverse-btn">
                 <Link to="/#" className=" ">
                   HireVerse
                 </Link>
-              </button>
+              </button> */}
             </Popover.Group>
             {/* <Popover className="relative"> */}
+
+            {/* *************** Hireverse ************* */}
+
+            <Menu as="div" className="relative ml-3 z-50">
+              <div>
+                <Menu.Button className="flex rounded-full text-sm  ">
+                  <span className="sr-only">Open user menu</span>
+                  <button className="hireverse-btn">HireVerse</button>
+                </Menu.Button>
+              </div>
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        onClick={() =>
+                          window.open(
+                            "https://office.dehitas.xyz/?username=admin"
+                          )
+                        }
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "block px-4 py-2 text-sm text-gray-700"
+                        )}
+                      >
+                        Personal Office
+                      </Link>
+                    )}
+                  </Menu.Item>
+                  {/* <Menu.Item>
+                      {({ active }) => (
+                        <Link
+                          to="/#"
+                          className={classNames(
+                            active ? "bg-gray-100" : "",
+                            "block px-4 py-2 text-sm text-gray-700"
+                          )}
+                        >
+                          Settings
+                        </Link>
+                      )}
+                    </Menu.Item> */}
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        // onClick={() =>
+                        //   window.open("https://office.dehitas.xyz/?username=jd")
+                        // }
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "block px-4 py-2 text-sm text-gray-700"
+                        )}
+                      >
+                        Public Office
+                      </Link>
+                    )}
+                  </Menu.Item>
+                </Menu.Items>
+              </Transition>
+            </Menu>
+
+            {/* *************** Hireverse ************* */}
 
             {/* </Popover> */}
             {/* Profile image and notification icon  */}
@@ -587,17 +657,6 @@ export default function CreatorHeader() {
                     />
                   )}
                 </div>
-
-
-
-
-
-
-
-
-
-
-
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3 z-50">
