@@ -30,7 +30,7 @@ function CandidateApplications() {
                   >
                     Lampros Tech
                   </label>
-                  ​ ​
+
                   <label
                     for="first_name"
                     class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplications-name-section2 jobapplication-qualification-main"
@@ -42,12 +42,13 @@ function CandidateApplications() {
                   for="first_name"
                   class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-bech jobapplicant-qualification-main"
                 ></label>
-                ​
+
                 <div className="jobapplication-main-button">
                   <div className="jobapplicant-button">
                     <button
                       type="button"
                       class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3  jobapplicant-invite-button2"
+                      onClick={() => { window.location.href = "https://test.dehitas.xyz" }}
                     >
                       Start Test
                     </button>
@@ -93,7 +94,7 @@ function CandidateApplications() {
                   >
                     Lampros Tech
                   </label>
-                  ​ ​
+
                   <label
                     for="first_name"
                     class="block text-sm font-medium text-gray-900 dark:text-gray-300 jobapplications-name-section2 jobapplication-qualification-main"
@@ -105,12 +106,13 @@ function CandidateApplications() {
                   for="first_name"
                   class="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-bech jobapplicant-qualification-main"
                 ></label>
-                ​
+
                 <div className="jobapplication-main-button">
                   <div className="jobapplicant-button">
                     <button
                       type="button"
                       class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3  jobapplicant-invite-button2"
+                      onClick={() => { window.location.href = "https://test.dehitas.xyz" }}
                     >
                       Start Test
                     </button>
