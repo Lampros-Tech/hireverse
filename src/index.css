@@ -245,6 +245,6 @@ button.header-orange:hover {
 .verify-content{
   position: absolute;
   display: inline-flex;
-  bottom: 120px;
+  bottom: 100px;
   width: 85%;
 }
