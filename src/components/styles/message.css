@@ -623,15 +623,3 @@
   display: none !important;
 }
 
-.verify-content {
-  /* border-bottom: 1px solid gray; */
-  position: fixed;
-  bottom: 0;
-  /* background-color: floralwhite; */
-  margin-bottom: 3%;
-  width: 300px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}

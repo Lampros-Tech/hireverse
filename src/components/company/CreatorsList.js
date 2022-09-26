@@ -50,8 +50,6 @@ function CreatorsList() {
       ]);
     }
     setData(data);
-    console.log(data);
-    console.log("https://ipfs.io/ipfs/" + data[0][0]);
     setLoading(true);
   };
   useEffect(() => {
@@ -163,7 +161,7 @@ function CreatorsList() {
       </div>
     );
   } else {
-    return "loading";
+    console.log("Loading");
   }
 }
 

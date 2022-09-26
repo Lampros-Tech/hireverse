@@ -112,7 +112,7 @@ export default function AddQuestion() {
         console.log(response.data);
         setRepoTableName(response.data.repo_table);
         setQuestionTableName(response.data.question_table);
-        if (response.data.repo_table === null || response.data.repo_table === "") {
+        if (response.data.question_table === null || response.data.question_table === "" || response.data.question_table === undefined) {
           setTimeout(() => {
             setLoadingMessage("Please create a question table before proceeding...");
             setLoading(true);
