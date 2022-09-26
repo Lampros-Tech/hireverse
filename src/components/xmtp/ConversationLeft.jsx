@@ -1,42 +1,77 @@
 import Avatar from "../creator/Images/avatar.png";
 import xmtp from "../assets/images/xmtp logo.svg";
+import { ethers } from "ethers";
+import { useEffect, useState } from "react";
+import { useEnsAddress } from 'wagmi';
+
 const ConversationLeft = ({
   allConversations,
   activeAddress,
   setActiveAddress,
+  client,
+  setAllConversations
 }) => {
   const changeId = (addr) => {
     setActiveAddress(addr);
   };
 
+  const [searchedAddress, setSearchedAddress] = useState("");
+
+  const addAddress = async (e) => {
+    if (e.key === 'Enter') {
+      console.log(client);
+      if (ethers.utils.isAddress(searchedAddress)) {
+        // onst xmtp = await Client.create(client);
+        // console.log(client);
+        // console.log(searchedAddress);
+        const conversation = await client.conversations.newConversation(searchedAddress)
+        console.log(conversation);
+        await conversation.send("Hi");
+        const fetchConversations = await client.conversations.list();
+        setAllConversations(fetchConversations);
+      } else {
+        console.log(searchedAddress);
+        alert("Please provide a proper wallet address...");
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (searchedAddress) {
+      console.log(searchedAddress);
+    }
+  }, [searchedAddress])
+
   return (
     <>
       <div className="message__left">
         <div className="searchbar-xmtp">
-          <label for="simple-search" class="sr-only">
+          <label htmlFor="simple-search" className="sr-only">
             Search
           </label>
-          <div class="relative w-full">
-            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+          <div className="relative w-full">
+            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
               <svg
                 aria-hidden="true"
-                class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                className="w-5 h-5 text-gray-500 dark:text-gray-400"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </div>
             <input
               type="text"
               id="simple-search"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search by wallet address..."
+              onChange={(e) => { setSearchedAddress(e.target.value) }}
+              onKeyDown={(e) => { addAddress(e) }}
               required
             />
           </div>
@@ -72,7 +107,7 @@ const ConversationLeft = ({
               </div>
             );
           })}
-          <div className="conv active">
+          {/* <div className="conv active">
             <div className="conv_left">
               <div className="image">
                 <img
@@ -256,10 +291,10 @@ const ConversationLeft = ({
                 <div className="msg-time">3:20 PM</div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="verify-content">
-            <p class="font-black text-black-500 dark:text-white">Powered By</p>
+            <p className="font-black text-black-500 dark:text-white w-2/4 pl-2 grow">Powered By</p>
             <img src={xmtp} className="xmtp-logo-msg" />
           </div>
         </div>

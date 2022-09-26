@@ -128,6 +128,7 @@
   display: inline-flex;
   width: 100%;
   position: inherit;
+  padding-top: 100px;
 }
 
 .message__left {
@@ -598,6 +599,7 @@
   border-radius: 20px;
   display: flex;
 }
+
 .message__right .message {
   /* height: 20px; */
   bottom: 32px;
@@ -620,15 +622,4 @@
 .tox-notifications-container {
   display: none !important;
 }
-.verify-content {
-  /* border-bottom: 1px solid gray; */
-  position: fixed;
-  bottom: 0;
-  /* background-color: floralwhite; */
-  margin-bottom: 3%;
-  width: 300px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+

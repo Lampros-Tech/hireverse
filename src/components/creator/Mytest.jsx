@@ -1,11 +1,17 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { connect } from "@tableland/sdk";
+import Cookies from "universal-cookie";
+import { useNavigate } from "react-router-dom";
+
 import "./Myrepos.css"
 function Mytest ()
 {
     const [loading, setLoading] = useState(false);
     const [data,setData] = useState([]);
+    const navigate = useNavigate();
+
+    const cookies = new Cookies();
     useEffect(()=>{
         showTests()
     },[])
@@ -16,7 +22,11 @@ function Mytest ()
             network: "testnet",
             chain: "polygon-mumbai",
           });
-          const readRes = await tableland.read(`SELECT * FROM ${name}`);
+            
+          const creator_id = cookies.get('creatorID')
+        
+          
+          const readRes = await tableland.read(`SELECT * FROM ${name} where creators_id='${creator_id}';`);
     console.log(readRes);
     for (let i = 0; i < readRes["rows"].length; i++) {
       data.push([
@@ -39,9 +49,10 @@ function Mytest ()
     }
     
      if (loading){   
+        if(data.length > 0){
+
     return(
         <>
-     
         <div className="parent-content">
             <div className='C_Content  pb-10'>
             <div className='title text-center font-primary font-bold py-8'>
@@ -101,6 +112,33 @@ function Mytest ()
         
         </>
     )
+            }else{
+                return (
+                    <>
+                      <div className="w-100% text-center flex items-center content-center h-screen">
+                        <div className="w-fit m-auto">
+                          <div className="text-4xl">
+                            <span className="text-[#134e6f]">Ohh </span>
+                            <span className="text-[#ff6150]">Snapp!!</span>
+                          </div>
+                          <div>
+                            No Assessment Added Please add a Assessment by clicking{" "}
+                            <span
+                              className="cursor-pointer text-[#ff6150]"
+                              onClick={() => {
+                                navigate("/creator/assessment");
+                              }}
+                            >
+                              here
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  );
+              
+            }
+
     }else{
         return "loading"
     }

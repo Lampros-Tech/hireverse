@@ -1,6 +1,6 @@
 // SPDX-License-Identifier:MIT
 /// @title A smart contract for managing all users/tests and their respective Stake for project dehitas(A Decentralised hiring & talent assessment platform).
-/// @author SARVAGNA K. KADIYA
+/// 
 /// @dev All function calls are currently implemented without side
 
 pragma solidity ^0.8.0;

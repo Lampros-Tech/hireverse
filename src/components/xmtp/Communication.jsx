@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import {
-    useSigner
+    useSigner,
+    useConnect
 } from "wagmi";
 import { Client } from "@xmtp/xmtp-js";
 import "./communication.css";
 import ConversationLeft from "./ConversationLeft";
 import ConversationRight from "./ConversationRight";
+import { InjectedConnector } from 'wagmi/connectors/injected'
+
 
 const Communication = () => {
     const { data } = useSigner();
@@ -15,10 +18,16 @@ const Communication = () => {
     const [allMessages, setAllMessages] = useState([]);
     const [Conversation, setConversation] = useState();
     const [singleMessage, setSingleMessage] = useState();
+    const [signer, setSigner] = useState(null);
+    const {connect} = useConnect({
+        connector: new InjectedConnector(),
+      });
 
     const getXmtp = async (wallet) => {
         if (!data) {
-            alert("Please connect with the wallet first.");
+            connect();
+            // alert("Please connect with the wallet first.");
+
             return;
         }
         console.log(data);
@@ -121,10 +130,16 @@ const Communication = () => {
     else {
         return (
             <>
+            {
+                client
+                ?
                 <div className="message__main">
-                    <ConversationLeft allConversations={allConversations} activeAddress={activeAddress} setActiveAddress={setActiveAddress} />
+                    <ConversationLeft allConversations={allConversations} setAllConversations={setAllConversations} client={client} activeAddress={activeAddress} setActiveAddress={setActiveAddress} />
                     <ConversationRight allMessages={allMessages} activeAddress={activeAddress} sendMessage={sendMessage} singleMessage={singleMessage} setSingleMessage={setSingleMessage} />
                 </div>
+                :
+                null
+            }
 
             </>
 

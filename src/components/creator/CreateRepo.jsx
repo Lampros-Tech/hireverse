@@ -63,8 +63,12 @@ function CreateRepo() {
         console.log(JSON.stringify(response.data));
         setTableName(response.data.repo_table);
         console.log(response.data.repo_table)
-        if (response.data.repo_table === null || response.data.repo_table === "") {
-          navigate("/role/creator")
+        if (response.data.repo_table === null || response.data.repo_table === "" || response.data.repo_table === undefined) {
+          setTimeout(() => {
+            setLoadingMessage("Please create a repo table before proceeding...");
+            setLoading(true);
+            navigate("/role/creator");
+          }, 5000)
         }
       })
       .catch(function (error) {

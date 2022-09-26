@@ -4,7 +4,7 @@ import SendIcon from "./SendIcon";
 const ConversationRight = ({ allMessages, activeAddress, sendMessage, singleMessage, setSingleMessage }) => {
     const [resetField, setResetField] = useState(0);
     const messageRef = useRef();
-    
+
     // console.log(allMessages, activeAddress);
     useEffect(() => {
         if (resetField > 0) {
@@ -12,9 +12,9 @@ const ConversationRight = ({ allMessages, activeAddress, sendMessage, singleMess
         }
     }, [resetField])
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(allMessages)
-    },[allMessages]);
+    }, [allMessages]);
 
     useEffect(() => {
         if (allMessages.length > 0) {
@@ -23,7 +23,7 @@ const ConversationRight = ({ allMessages, activeAddress, sendMessage, singleMess
         }
     }, [allMessages])
 
-    if(allMessages.length > 0){
+    if (allMessages.length > 0) {
         return (
             <>
                 <div className="message__right">
@@ -82,14 +82,14 @@ const ConversationRight = ({ allMessages, activeAddress, sendMessage, singleMess
                         </div> */}
                     </div>
                     <div className="message">
-                        <input type="text" ref={messageRef} placeholder="Please type your message here..." defaultValue={singleMessage} className="send" onChange={(e) => { setSingleMessage(e.target.value) }} />
+                        <input type="text" ref={messageRef} placeholder="Please type your message here..." onKeyDown={(e) => { if (e.key === "Enter") { sendMessage(); setResetField(1) } }} defaultValue={singleMessage} className="send" onChange={(e) => { setSingleMessage(e.target.value) }} />
                         <div onClick={() => { sendMessage(); setResetField(1) }} ><SendIcon /></div>
                     </div>
                 </div>
             </>
         )
     } else {
-        return(
+        return (
             <>
                 Please start a conversation by clicking on the message button of the user profile.
             </>

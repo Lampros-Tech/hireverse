@@ -234,3 +234,17 @@ button.header-orange:hover {
       url("../src/components/assets/fonts/open-sans-v34-latin-700.svg#OpenSans")
       format("svg"); /* Legacy iOS */
 }
+
+
+/* Communication style */
+
+.communication{
+  padding-top:100px;
+}
+
+.verify-content{
+  position: absolute;
+  display: inline-flex;
+  bottom: 100px;
+  width: 85%;
+}
