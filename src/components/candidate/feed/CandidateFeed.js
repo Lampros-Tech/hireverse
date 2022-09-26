@@ -265,7 +265,8 @@ function CandidateFeed() {
         jobId,
       ]);
     }
-    setData(data1);
+    const rev = data1.reverse();
+    setData(rev);
     setLoading(true);
   };
 
