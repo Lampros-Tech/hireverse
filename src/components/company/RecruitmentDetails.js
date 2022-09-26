@@ -14,12 +14,7 @@ import data from "../../Contracts/artifacts/data.json";
 import contract from "../../Contracts/artifacts/superfluid_contract.json";
 
 export const CONTRACT_ADDRESS_POLYGON =
-  "0x1fAFFec79B44Ae0a4A2bB35a02E056B69489Cfc4";
-// import CONTRACT_ADDRESS_GOERLI from "../../Contracts/config";
-// import CONTRACT_ADDRESS_SKALE from "../../Contracts/config";
-// import CONTRACT_ADDRESS_AURORA from "../../Contracts/config";
-// import CONTRACT_ADDRESS_CRONOS from "../../Contracts/config";
-// import CONTRACT_ADDRESS_POLYGON from "../../Contracts/config";
+  "0x77F0A41DfA59B6dC1E7f1388eF88117C146b4C8d";
 
 export const CONTRACT_ADDRESS_GOERLI =
   "0x8C1C947F7f5c23ee58399912EABdECB88F9b7B37";
@@ -29,8 +24,6 @@ export const CONTRACT_ADDRESS_AURORA =
   "0xc892caEe8eca7734A66F2d6Bb69F123e610dB9fc";
 export const CONTRACT_ADDRESS_CRONOS =
   "0x5D9F1CC0D4Df5568FB5ff934305a19754ecB14bb";
-
-// C:\dehitas\hireverse\src\Contracts
 
 const API_TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDQyNzdCMDE2NWY5ZkM5ZThhQkI0M0EwYTRjODFhYTk2OERCNERGNDYiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjM5MjI2OTM1NjAsIm5hbWUiOiJFdGhPbmxpbmUifQ.OY6RS4zIFfGfEiOacIHdo3BEkFdPDHvd8i4o5fm4JW8";
@@ -128,8 +121,6 @@ function RecruitmentDetails() {
     const readRes = await tableland.read(
       `SELECT company_id FROM ${name} where wallet_address='${address}'`
     );
-    // console.log(readRes);
-    // console.log(readRes["rows"][0][0]);
     var data = JSON.stringify({
       company_id: readRes["rows"][0][0],
       title: credentials.title,
@@ -154,12 +145,9 @@ function RecruitmentDetails() {
       },
       data: data,
     };
-    // console.log(config.url);
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         setbtnLoading(false);
-        console.log("before call");
         startDrive(response.data["job_id"]);
         navigate(
           `/company/availabletests/?dummy=${JSON.stringify(
@@ -168,10 +156,8 @@ function RecruitmentDetails() {
         );
       })
       .catch(function (error) {
-        console.log(error);
         setbtnLoading(false);
       });
-    // console.log(data);
   };
 
   const startDrive = async (job_id) => {
@@ -200,9 +186,6 @@ function RecruitmentDetails() {
       console.log(error);
     }
   };
-  // useEffect(() => {
-  //   console.log(jobLocation);
-  // }, [jobLocation]);
 
   const handleClick = () => {
     setAdditionalQuestion((additionalQuestion) => [
@@ -210,7 +193,6 @@ function RecruitmentDetails() {
       singleQuestion,
     ]);
     document.getElementById("question-input").value = "";
-    // console.log(additionalQuestion);
     setCounter(counter + 1);
   };
 
@@ -280,26 +262,12 @@ function RecruitmentDetails() {
   }
 
   useEffect(() => {
-    // console.log(additionalQuestion);
-    // setCredentials({
-    //   ...credentials,
-    //   addition_question: additionalQuestion,
-    // });
     setQue(additionalQuestion);
   }, [JSON.stringify(additionalQuestion)]);
 
-  // const handleSelectLocation = (e) => {
-  //   selectedOptionsLocation.push(e.target.value);
-  //   setSelectedOptionsLocation(selectedOptionsLocation);
-  //   console.log(selectedOptionsLocation);
-  // };
   const handleClick1 = (e) => {
     setJoblocation(e.target.value);
   };
-
-  // const showInput = (inputfield) => {
-  //   setPlusIcon(inputfield);
-  // };
 
   const style = {
     control: (base, state) => ({
@@ -313,9 +281,7 @@ function RecruitmentDetails() {
     }),
   };
 
-  useEffect(() => {
-    // console.log(credentials);
-  }, [credentials]);
+  useEffect(() => {}, [credentials]);
 
   useEffect(() => {}, [selectedOptionsLocation]);
 
@@ -328,16 +294,13 @@ function RecruitmentDetails() {
     const readRes = await tableland.read(
       `SELECT company_id FROM ${name} where wallet_address='${address}'`
     );
-    console.log(readRes);
     setCompanyId(readRes["rows"][0][0]);
-    console.log("done");
   };
   useEffect(() => {
     forId();
   }, [address]);
   const stake = async (e) => {
     e.preventDefault();
-    console.log("hello");
     try {
       const { ethereum } = window;
       if (ethereum) {
@@ -368,7 +331,6 @@ function RecruitmentDetails() {
               let stakeTx = await connectedContract.stakeByCompany({
                 value: 1000000000000000,
               });
-              console.log(stakeTx);
             }
             break;
 
@@ -388,7 +350,6 @@ function RecruitmentDetails() {
               let stakeTx = await connectedContract_s.stakeByCompany({
                 value: 1000000000000000,
               });
-              console.log(stakeTx);
             }
             break;
 
@@ -408,7 +369,6 @@ function RecruitmentDetails() {
               let stakeTx = await connectedContract_c.stakeByCompany({
                 value: 1000000000000000,
               });
-              console.log(stakeTx);
             }
             break;
 
@@ -428,13 +388,10 @@ function RecruitmentDetails() {
               let stakeTx = await connectedContract_a.stakeByCompany({
                 value: 1000000000000000,
               });
-              console.log(stakeTx);
             }
             break;
           case 80001:
             //for POLYGON
-            console.log("ploygon");
-
             const con = new ethers.Contract(
               CONTRACT_ADDRESS_POLYGON,
               contract,
@@ -539,24 +496,12 @@ function RecruitmentDetails() {
 
               <div className="recruit-components-question">
                 <div className="img-input-submit-section">
-                  {/* <img
-                    onClick={handleClick}
-                    src={plus}
-                    alt="file"
-                    className="plus-icon"
-                    id={plus}
-                  /> */}
-
                   <input
                     id="question-input"
                     type="text"
                     // required
                     defaultValue={credentials.addition_question}
                     onChange={(e) => {
-                      // setCredentials({
-                      //   ...credentials,
-                      //   addition_question: e.target.value,
-                      // });
                       setSingleQuestion(e.target.value);
                     }}
                     className="
@@ -576,8 +521,6 @@ function RecruitmentDetails() {
                       m-0
                       focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none all-inputfield
                     "
-
-                    // id="job-radio"
                   />
                   <button
                     type="button"
@@ -653,7 +596,6 @@ function RecruitmentDetails() {
                 {jobLocation === "Onsite" ? (
                   <input
                     type="text"
-                    // onClick={(e) => handleClick1(e)}
                     className="
                       form-control
                       block
@@ -696,7 +638,6 @@ function RecruitmentDetails() {
                 {jobLocation === "Hybrid" ? (
                   <input
                     type="text"
-                    // onClick={(e) => handleClick1(e)}
                     className="
                       form-control
                       block
@@ -754,30 +695,6 @@ function RecruitmentDetails() {
                     });
                   }}
                 />
-                {/* <label id="number-label">To</label>
-                <input
-                  type="number"
-                  min="0"
-                  max="10"
-                  id="number"
-                  className="
-                  form-control
-                  block
-                  w-full
-                  px-3
-                  py-1.5
-                  text-base
-                  font-normal
-                  text-gray-700
-                  bg-white bg-clip-padding
-                  border border-solid border-gray-500
-                  rounded
-                  transition
-                  ease-in-out
-                  m-0
-                  focus:text-gray-700 focus:bg-white focus:border-600 focus:outline-none
-                "
-                /> */}
               </div>
               <div>
                 <label id="recruit-label">Job Location: </label>
@@ -815,7 +732,6 @@ function RecruitmentDetails() {
                       handleSelect(e);
                     }}
                     isSearchable={true}
-                    // isOptionDisabled={() => selectedOptions.length >= 5}
                     isMulti
                     styles={style}
                   />

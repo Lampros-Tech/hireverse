@@ -17,7 +17,6 @@ function Jobpost() {
     });
     const table = "application_details_table_80001_2806";
     const readRes = await tableland.read(`SELECT * FROM ${name}`);
-    console.log(readRes);
     for (let i = 0; i < readRes["rows"].length; i++) {
       let jobId = readRes["rows"][i][0];
       const response = await tableland.read(
@@ -32,18 +31,13 @@ function Jobpost() {
       ]);
     }
     setData(data);
-    console.log(data);
     setLoading(true);
   };
   const sendThis = (id) => {
     navigate(`/company/jobapplicant/?dummy=${JSON.stringify(id)}`);
-    console.log("id");
-    console.log(id);
   };
   const sendThat = (id) => {
     navigate(`/company/jobinsights/?dummy=${JSON.stringify(id)}`);
-    console.log("id");
-    console.log(id);
   };
   useEffect(() => {
     showJobPosts();
@@ -138,6 +132,8 @@ function Jobpost() {
         </div>
       </>
     );
+  } else {
+    console.log("loading");
   }
 }
 export default Jobpost;
