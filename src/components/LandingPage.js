@@ -114,9 +114,9 @@ function LandingPage() {
           <section className="d-sponsers">
             <p className="d-sponser-p">Powered by :</p>
             <div className="d-sponser-grid">
-              <div className="d-sponser-grid-item">
+              {/* <div className="d-sponser-grid-item">
                 <img src={aurora} alt="polygon" className="d-sponser-img" />
-              </div>
+              </div> */}
               <div className="d-sponser-grid-item">
                 <img src={covalent} alt="polygon" className="d-sponser-img" />
               </div>
@@ -144,9 +144,9 @@ function LandingPage() {
               <div className="d-sponser-grid-item">
                 <img src={tableland} alt="polygon" className="d-sponser-img" />
               </div>
-              <div className="d-sponser-grid-item">
+              {/* <div className="d-sponser-grid-item">
                 <img src={worldcoin} alt="polygon" className="d-sponser-img" />
-              </div>
+              </div> */}
 
               <div className="d-sponser-grid-item">
                 <img src={xmtp} alt="polygon" className="d-sponser-img" />

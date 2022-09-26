@@ -27,10 +27,10 @@ function Myrepos() {
 
     console.log(tableland);
 
-    // const fetchRepos = await tableland.read(`SELECT * FROM ${repoTable}`);
-    const fetchRepos = await tableland.read(
-      `SELECT * FROM creators_repo_table_80001_2538`
-    );
+    const fetchRepos = await tableland.read(`SELECT * FROM ${repoTable}`);
+    // const fetchRepos = await tableland.read(
+    //   `SELECT * FROM creators_repo_table_80001_2538`
+    // );
     setAllUserRepo(fetchRepos["rows"]);
     setLoading(false);
   };
