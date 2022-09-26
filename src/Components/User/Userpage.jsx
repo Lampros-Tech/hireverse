@@ -11,6 +11,8 @@ import axios from "axios";
 import env from "react-dotenv";
 import $ from "jquery";
 import Timer from "./Timer";
+import { ethers } from "ethers";
+import { connect } from "@tableland/sdk";
 import { useAccount } from "wagmi";
 // import { stringify } from "flatted";
 import { toJSON } from "flatted";
@@ -22,6 +24,10 @@ import { Squash as Hamburger } from "hamburger-react";
 // import a from '../Images/profilePicture.png'
 import companyLogo from "../Images/Lampros_Tech_Logo2.png";
 import companyLogoResponsive from "../Images/LT_logo.png";
+
+import contract from "../../Contracts/artifacts/superfluid_contract.json";
+export const CONTRACT_ADDRESS_POLYGON =
+  "0x77F0A41DfA59B6dC1E7f1388eF88117C146b4C8d";
 
 const Userpage = () => {
   const Navigator = useNavigate();
@@ -277,17 +283,81 @@ const Userpage = () => {
     addFinalQuestion(questionsArray);
   };
 
-  useEffect(() => { }, [attendedQuestions]);
+  useEffect(() => {}, [attendedQuestions]);
+
+  //contract end test function
+  const contractEndTest = async () => {
+    // const currentLocation = window.location.href;
+    // const param = currentLocation.split("=");
+    // const job_id = param[1].split("%")[0];
+    // const user = param[2];
+    // const tableland = await connect({
+    //   network: "testnet",
+    //   chain: "polygon-mumbai",
+    // });
+    // const job_table = "job_table_80001_2018";
+    // const assessment_table = "creators_assesment_table_80001_2849";
+    // const readRes = await tableland.read(
+    //   `SELECT company_id,assesment_id FROM ${job_table} where job_id=8`
+    // );
+    // let company_id = readRes["rows"][0][0];
+    // let assessment_id = readRes["rows"][0][1];
+    // const res = await tableland.read(
+    //   `SELECT creators_id FROM ${assessment_table} where assesment_id=${assessment_id}`
+    // );
+    // let creator_id = res["rows"][0][0];
+    // const res1 = await tableland.read(
+    //   `SELECT wallet_address FROM creators_table_80001_2155 where creator_id=${creator_id}`
+    // );
+    // const creator_address = res1["rows"][0][0];
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+        if (chainId === 80001) {
+          const con = new ethers.Contract(
+            CONTRACT_ADDRESS_POLYGON,
+            contract,
+            signer
+          );
+          console.log("delete stream");
+          const tx = await con.deleteStream(
+            "0x408402F30618a6985c56cF9608E04CEA12CddC37",
+            2,
+            10,
+            "0x19193e458590f15A0180042E3518634165BADe39"
+          );
+          tx.wait();
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Final Submit of code.
 
   const finalSubmit = () => {
     addFinalQuestion(questionsArray);
+    contractEndTest();
     console.log(questionsArray);
 
-    const data = questionsArray.map((i, index)=>{
-      return({q_no:i.q_no, answered:i.answered,question:i.question, UserAns:i.UserAns, status:i.status})
-    })
+    const data = questionsArray.map((i, index) => {
+      return {
+        q_no: i.q_no,
+        answered: i.answered,
+        question: i.question,
+        UserAns: i.UserAns,
+        status: i.status,
+      };
+    });
 
     // console.log(data);
 
@@ -295,20 +365,21 @@ const Userpage = () => {
       assessment_id: 6,
       candidate_wallet_address: address,
       duration: 8,
-      data: data
+      data: data,
     };
 
     console.log(reqData);
-    axios.post(`${env.API_URI}/getResult`, reqData)
+    axios
+      .post(`${env.API_URI}/getResult`, reqData)
       .then((res) => {
         // console.log(res);
-        console.log(res.data.percentage)
+        console.log(res.data.percentage);
         cookies.set("percentage", res.data.percentage);
       })
       .catch((err) => {
         console.log(err);
-      })
-      Navigator("/test_taken");
+      });
+    Navigator("/test_taken");
     // cookies.remove("Timer");
   };
 

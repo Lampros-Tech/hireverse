@@ -15,7 +15,7 @@ import { connect } from "@tableland/sdk";
 import userAnswer from "./userAnswer";
 import contract from "../../Contracts/artifacts/superfluid_contract.json";
 export const CONTRACT_ADDRESS_POLYGON =
-  "0x1fAFFec79B44Ae0a4A2bB35a02E056B69489Cfc4";
+  "0x77F0A41DfA59B6dC1E7f1388eF88117C146b4C8d";
 
 function Landingpage() {
   const [tempData, setTempData] = useState([]);
@@ -50,7 +50,7 @@ function Landingpage() {
     document.onmousedown = disableselect;
   }, []);
 
-  const storeTime = async() => {
+  const storeTime = async () => {
     const currentTime = new Date().toLocaleString();
     //getting all the data from tableland
 
@@ -59,30 +59,30 @@ function Landingpage() {
       network: "testnet",
       chain: "polygon-mumbai",
     });
-    const job_table = "job_table_80001_2018";
-    const company_table = "company_table_80001_1730";
-    const assessment_table = "creators_assesment_table_80001_2849";
-    const readRes = await tableland.read(
-      `SELECT company_id,assesment_id FROM ${job_table} where job_id=8`
-    );
-    let company_id = readRes["rows"][0][0];
-    let assessment_id = readRes["rows"][0][1];
-    const response = await tableland.read(
-      `SELECT wallet_address FROM ${company_table} where company_id=${company_id}`
-    );
-    let company_address = response["rows"][0][0];
-    const res = await tableland.read(
-      `SELECT creators_id FROM ${assessment_table} where assesment_id=${assessment_id}`
-    );
-    let creator_id = res["rows"][0][0];
-    const res1 = await tableland.read(
-      `SELECT wallet_address FROM creators_table_80001_2155 where creator_id=${creator_id}`
-    );
-    const creator_address = res1["rows"][0][0];
-    const res2 = await tableland.read(
-      `SELECT candidate_id FROM candidate_table_80001_1648 where wallet_address='0x19193e458590f15A0180042E3518634165BADe39'`
-    );
-    const candidate_id = res2["rows"][0][0];
+    // const job_table = "job_table_80001_2018";
+    // const company_table = "company_table_80001_1730";
+    // const assessment_table = "creators_assesment_table_80001_2849";
+    // const readRes = await tableland.read(
+    //   `SELECT company_id,assesment_id FROM ${job_table} where job_id=8`
+    // );
+    // let company_id = readRes["rows"][0][0];
+    // let assessment_id = readRes["rows"][0][1];
+    // const response = await tableland.read(
+    //   `SELECT wallet_address FROM ${company_table} where company_id=${company_id}`
+    // );
+    // let company_address = response["rows"][0][0];
+    // const res = await tableland.read(
+    //   `SELECT creators_id FROM ${assessment_table} where assesment_id=${assessment_id}`
+    // );
+    // let creator_id = res["rows"][0][0];
+    // const res1 = await tableland.read(
+    //   `SELECT wallet_address FROM creators_table_80001_2155 where creator_id=${creator_id}`
+    // );
+    // const creator_address = res1["rows"][0][0];
+    // const res2 = await tableland.read(
+    //   `SELECT candidate_id FROM candidate_table_80001_1648 where wallet_address='0x19193e458590f15A0180042E3518634165BADe39'`
+    // );
+    // const candidate_id = res2["rows"][0][0];
     //contract integration
 
     try {
@@ -104,10 +104,10 @@ function Landingpage() {
           );
 
           const tx = await con.startTest(
-            creator_address,
-            company_id,
-            8,
-            candidate_id,
+            "0x408402F30618a6985c56cF9608E04CEA12CddC37",
+            2,
+            10,
+            2,
             "0x19193e458590f15A0180042E3518634165BADe39"
           );
           tx.wait();
@@ -121,7 +121,10 @@ function Landingpage() {
     //   job_id: 8,
     //   wallet: "0x19193e458590f15A0180042E3518634165BADe39",
     // };
-    navigator("/test");
+    // navigator("/test");
+    navigator(
+      `/test/?dummy=8 anddummy1=0x19193e458590f15A0180042E3518634165BADe39`
+    );
   };
 
   {
