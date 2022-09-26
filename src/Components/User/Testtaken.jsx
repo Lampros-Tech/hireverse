@@ -13,10 +13,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ethers } from "ethers";
 import data_nft from "../../Contracts/artifacts/data_nft.json"
+import { useAccount } from "wagmi";
 const TestTaken = () => {
   const cookies = new Cookies();
   const navigator = useNavigate();
   const [metadataUri, setMetadataUri] = useState(null);
+  const { address } = useAccount();
   const [txHash, setTxHash] = useState(null);
 
   const NFT_GOERLI = "0xA78970518ea6754781Afd24CB35305E16e27003A";  //old
@@ -123,7 +125,7 @@ const TestTaken = () => {
         chain: 'rinkeby',
         contract_address: '0x508C019B90976D654a90d5CECD49C0B7A810a357',
         metadata_uri: metadataUri,
-        mint_to_address: '0xdab4984b2f4e06d207f73678935a649ae6969490'
+        mint_to_address: address
       }
     };
 
@@ -158,7 +160,7 @@ const TestTaken = () => {
             // let balance = await connectedContract.contractBalance();
             // console.log(balance.toNumber() / 1000000000000000000);
             const connectedContractNft_g = new ethers.Contract(NFT_GOERLI, data_nft.abi, signer);
-            let mint = await connectedContractNft_g.mint("0xDaB4984b2F4e06d207f73678935A649ae6969490", metadataUri,{
+            let mint = await connectedContractNft_g.mint("0xDaB4984b2F4e06d207f73678935A649ae6969490", metadataUri, {
               gasLimit: 300000
             });
             let tokenID = await connectedContractNft_g.tokenURI(6)
@@ -181,7 +183,7 @@ const TestTaken = () => {
             // balance = await connectedContract.contractBalance();
             // console.log(balance.toNumber() / 1000000000000000000);
             const connectedContractNft_s = new ethers.Contract(NFT_SKALE, data_nft.abi, signer);
-            mint = await connectedContractNft_s.mint("0xDaB4984b2F4e06d207f73678935A649ae6969490", metadataUri,{
+            mint = await connectedContractNft_s.mint("0xDaB4984b2F4e06d207f73678935A649ae6969490", metadataUri, {
               gasLimit: 300000
             });
             console.log(mint.hash)
