@@ -1,6 +1,8 @@
 import { Fragment, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Popover, Menu, Transition } from "@headlessui/react";
+import PopUp from "../notification/NotificationPopup";
+
 import {
   Bars3Icon,
   BellIcon,
@@ -9,12 +11,15 @@ import {
   XMarkIcon,
   LinkIcon,
 } from "@heroicons/react/24/outline";
+import { NotificationItem, chainNameType } from "@epnsproject/sdk-uiweb";
+import * as EpnsAPI from "@epnsproject/sdk-restapi";
 
 import WalletPopup from "../walletconnect/WalletPopup";
 
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import logo from "../assets/images/logo.png";
 import SelectChain from "../walletconnect/SelectChain";
+import { ethers } from "ethers";
 
 const solutions = [
   {
@@ -50,39 +55,6 @@ const solutions = [
   //     icon: ArrowPathIcon,
   //   },
 ];
-// const callsToAction = [
-//   //   { name: "Watch Demo", href: "#", icon: PlayIcon },
-//   //   { name: "Contact Sales", href: "#", icon: PhoneIcon },
-// ];
-// const resources = [
-//   {
-//     name: "Help Center",
-//     description:
-//       "Get all of your questions answered in our forums or contact support.",
-//     href: "#",
-//     icon: LifebuoyIcon,
-//   },
-//   {
-//     name: "Guides",
-//     description:
-//       "Learn how to maximize our platform to get the most out of it.",
-//     href: "#",
-//     icon: BookmarkSquareIcon,
-//   },
-//   {
-//     name: "Events",
-//     description:
-//       "See what meet-ups and other events we might be planning near you.",
-//     href: "#",
-//     icon: CalendarIcon,
-//   },
-//   {
-//     name: "Security",
-//     description: "Understand how we take your privacy seriously.",
-//     href: "#",
-//     icon: ShieldCheckIcon,
-//   },
-// ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -90,6 +62,84 @@ function classNames(...classes) {
 
 export default function CandidateHeader() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenSelectChain, setIsOpenSelectChain] = useState(false);
+
+  const [data, setData] = useState([]);
+  const [channelData, setChannelData] = useState([]);
+  var useraddress = "";
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signerobject = provider.getSigner();
+
+  const checkSusbcription = async () => {
+    await getuseraddress();
+    const subscriptions = await EpnsAPI.user.getSubscriptions({
+      user: "eip155:42:" + useraddress, // user address in CAIP
+      env: "staging",
+    });
+
+    var flag = false;
+    console.log(subscriptions);
+    // console.log(subscriptions[0].channel);
+    // console.log(subscriptions[1].channel);
+    // console.log(subscriptions[2].channel);
+
+    for (let i = 0; i < subscriptions.length; i++) {
+      if (
+        subscriptions[i].channel ===
+        "0xfaabb044AF5C19145cA4AE13CA12C419395A72FB"
+      ) {
+        flag = true;
+      }
+    }
+    return flag;
+  };
+  const fetchNotifications = async () => {
+    await getuseraddress();
+    console.log(useraddress);
+    const notifications = await EpnsAPI.user.getFeeds({
+      user: "eip155:42:" + useraddress, // user address in CAIP
+      env: "staging",
+    });
+    setData(notifications);
+    // console.log(notifications)
+  };
+
+  const getuseraddress = async () => {
+    await window.ethereum
+      .request({ method: "eth_requestAccounts" })
+      .then((res) => {
+        // Return the address of the wallet
+        // console.log(res)
+        useraddress = res;
+      });
+  };
+  const optIn = async () => {
+    if ((await checkSusbcription()) === true) {
+      alert("you are already opted in");
+      setIsOpen(!isOpen);
+      // setOpted(!opted);
+      return;
+    }
+
+    await getuseraddress();
+
+    await EpnsAPI.channels.subscribe({
+      signer: signerobject,
+      channelAddress: "eip155:42:0xfaabb044AF5C19145cA4AE13CA12C419395A72FB", // channel address in CAIP
+      userAddress: "eip155:42:" + useraddress, // user address in CAIP
+      onSuccess: () => {
+        alert("opt in success");
+      },
+      onError: () => {
+        alert("opt in error");
+      },
+      env: "staging",
+    });
+  };
+
+  const toggleSelectChain = () => {
+    setIsOpenSelectChain(!isOpenSelectChain);
+  };
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -342,13 +392,13 @@ export default function CandidateHeader() {
                 <button
                   type="button"
                   className="rounded-full p-1 text-gray-400 header-orange focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 "
-                  onClick={togglePopup}
+                  onClick={toggleSelectChain}
                 >
                   <span className="sr-only">select chain options</span>
                   <LinkIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
-                {isOpen && (
+                {isOpenSelectChain && (
                   <WalletPopup
                     content={
                       <>
@@ -357,17 +407,116 @@ export default function CandidateHeader() {
                       </>
                     }
                     title="Switch Network"
-                    handleClose={togglePopup}
+                    handleClose={toggleSelectChain}
                   />
                 )}
 
                 <button
+                  onClick={() => {
+                    fetchNotifications();
+                    togglePopup();
+                  }}
                   type="button"
                   className="rounded-full p-1 text-gray-400 header-orange focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 "
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
+
+                {/* EPNS code */}
+
+                <div className="no-test">
+                  {isOpen && (
+                    <PopUp
+                      content={
+                        <>
+                          <div>
+                            <ul>
+                              {/* <li>
+                        <img src={channelData.icon} />
+                      </li>
+                      <li>{channelData.channel}</li>
+                      <li>{channelData.name}</li>
+                      <li>{channelData.info}</li>
+                       <button
+                          className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                          onClick={() => fetchChannel()}
+                        >
+                          Fetch-Channel
+                        </button> */}
+                              <button
+                                type="button"
+                                className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                                onClick={() => optIn()}
+                                disabled={checkSusbcription() ? false : true}
+                              >
+                                Opt-In
+                              </button>
+                              {/* <button
+                          type="button"
+                          className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                          onClick={() => optOut()}
+                        >
+                          Opt-Out
+                        </button> */}
+                            </ul>
+                          </div>
+
+                          {data.length > 0 ? (
+                            // **********************
+                            <>
+                              {data.map((oneNotification, i) => {
+                                const {
+                                  cta,
+                                  title,
+                                  message,
+                                  app,
+                                  icon,
+                                  image,
+                                  url,
+                                  blockchain,
+                                  secret,
+                                  notification,
+                                } = oneNotification;
+
+                                return (
+                                  <div className="grid grid-col-1 flex-shrink-1">
+                                    <NotificationItem
+                                      key={`notif-${i}`}
+                                      notificationTitle={notification.title}
+                                      notificationBody={notification.body}
+                                      cta={cta}
+                                      app={app}
+                                      icon={icon}
+                                      image={image}
+                                      url={cta}
+                                    />
+                                  </div>
+                                );
+                              })}
+                            </>
+                          ) : (
+                            // ********************
+                            <>
+                              <div>
+                                <p>
+                                  **********************************************
+                                </p>
+                                <p>
+                                  Currently there is no notification for you.☺
+                                </p>
+                                <p>
+                                  **********************************************
+                                </p>
+                              </div>
+                            </>
+                          )}
+                        </>
+                      }
+                      handleClose={togglePopup}
+                    />
+                  )}
+                </div>
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3 z-50">

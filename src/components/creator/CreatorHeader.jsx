@@ -113,12 +113,6 @@ function classNames(...classes) {
 }
 
 export default function CreatorHeader() {
-  const [selectChain, setSelectChain] = useState(false);
-
-  const togglePopupForChain = () => {
-    setSelectChain(!selectChain);
-  };
-
   const [data, setData] = useState([]);
   const [channelData, setChannelData] = useState([]);
   var useraddress = "";
@@ -152,7 +146,7 @@ export default function CreatorHeader() {
     await getuseraddress();
     console.log(useraddress);
     const notifications = await EpnsAPI.user.getFeeds({
-      user: "eip155:42:0xe57f4c84539a6414c4cf48f135210e01c477efe0", // user address in CAIP
+      user: "eip155:42:" + useraddress, // user address in CAIP
       env: "staging",
     });
     setData(notifications);
@@ -193,6 +187,11 @@ export default function CreatorHeader() {
   };
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenSelectChain, setIsOpenSelectChain] = useState(false);
+
+  const toggleSelectChain = () => {
+    setIsOpenSelectChain(!isOpenSelectChain);
+  };
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -585,13 +584,13 @@ export default function CreatorHeader() {
                 <button
                   type="button"
                   className="rounded-full p-1 text-gray-400 header-orange focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 "
-                  onClick={togglePopup}
+                  onClick={toggleSelectChain}
                 >
                   <span className="sr-only">select chain options</span>
                   <LinkIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
-                {isOpen && (
+                {isOpenSelectChain && (
                   <WalletPopup
                     content={
                       <>
@@ -600,7 +599,7 @@ export default function CreatorHeader() {
                       </>
                     }
                     title="Switch Network"
-                    handleClose={togglePopup}
+                    handleClose={toggleSelectChain}
                   />
                 )}
 
@@ -610,7 +609,7 @@ export default function CreatorHeader() {
                     togglePopup();
                   }}
                   type="button"
-                  className="rounded-full p-1 text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="rounded-full p-1 text-gray-400 header-orange focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 "
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
@@ -655,35 +654,55 @@ export default function CreatorHeader() {
                             </ul>
                           </div>
 
-                          {data.map((oneNotification, i) => {
-                            const {
-                              cta,
-                              title,
-                              message,
-                              app,
-                              icon,
-                              image,
-                              url,
-                              blockchain,
-                              secret,
-                              notification,
-                            } = oneNotification;
+                          {data.length > 0 ? (
+                            // **********************
+                            <>
+                              {data.map((oneNotification, i) => {
+                                const {
+                                  cta,
+                                  title,
+                                  message,
+                                  app,
+                                  icon,
+                                  image,
+                                  url,
+                                  blockchain,
+                                  secret,
+                                  notification,
+                                } = oneNotification;
 
-                            return (
-                              <div className="grid grid-col-1 flex-shrink-1">
-                                <NotificationItem
-                                  key={`notif-${i}`}
-                                  notificationTitle={notification.title}
-                                  notificationBody={notification.body}
-                                  cta={cta}
-                                  app={app}
-                                  icon={icon}
-                                  image={image}
-                                  url={cta}
-                                />
+                                return (
+                                  <div className="grid grid-col-1 flex-shrink-1">
+                                    <NotificationItem
+                                      key={`notif-${i}`}
+                                      notificationTitle={notification.title}
+                                      notificationBody={notification.body}
+                                      cta={cta}
+                                      app={app}
+                                      icon={icon}
+                                      image={image}
+                                      url={cta}
+                                    />
+                                  </div>
+                                );
+                              })}
+                            </>
+                          ) : (
+                            // ********************
+                            <>
+                              <div>
+                                <p>
+                                  **********************************************
+                                </p>
+                                <p>
+                                  Currently there is no notification for you.☺
+                                </p>
+                                <p>
+                                  **********************************************
+                                </p>
                               </div>
-                            );
-                          })}
+                            </>
+                          )}
                         </>
                       }
                       handleClose={togglePopup}

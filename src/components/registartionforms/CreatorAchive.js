@@ -13,7 +13,7 @@ import StoreCoverImg from "./StoreCoverImg";
 import contract from "../../Contracts/artifacts/superfluid_contract.json";
 
 export const CONTRACT_ADDRESS_POLYGON =
-  "0x1fAFFec79B44Ae0a4A2bB35a02E056B69489Cfc4";
+  "0x77F0A41DfA59B6dC1E7f1388eF88117C146b4C8d";
 
 function CreatorAchive() {
   let navigate = useNavigate();
