@@ -47,7 +47,7 @@ const client = createClient({
   provider,
   webSocketProvider,
 });
-function CreatorMessage() {
+function CompanyMessage() {
     return (
     <div className="communication">
       <WagmiConfig client={client}>
@@ -57,5 +57,5 @@ function CreatorMessage() {
   );
 }
 
-export default CreatorMessage;
+export default CompanyMessage;
 

@@ -294,7 +294,7 @@ const ConversationLeft = ({
           </div> */}
 
           <div className="verify-content">
-            <p className="font-black text-black-500 dark:text-white">Powered By</p>
+            <p className="font-black text-black-500 dark:text-white w-2/4 pl-2 grow">Powered By</p>
             <img src={xmtp} className="xmtp-logo-msg" />
           </div>
         </div>
