@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "universal-cookie";
 
 import { useAccount } from "wagmi";
 
@@ -22,7 +23,36 @@ function RoleSelector() {
   // ];
 
   const [value, setValue] = React.useState("");
+  const cookies = new Cookies();
+  var userData = "";
 
+  const getStage = (addre) => {
+    console.log(addre);
+    var data = JSON.stringify({
+      walletaddress: addre,
+    });
+
+    var config = {
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}/getStage?walletaddress=${addre}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        // console.log(response.data);
+        userData = response.data;
+        console.log(userData);
+        cookies.set("loginID", userData.login_id);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   const sendRole = (walletAddress, role) => {
     var data = JSON.stringify({
       walletAddress: walletAddress,
@@ -60,6 +90,10 @@ function RoleSelector() {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
+  useEffect(() => {
+    getStage();
+  }, []);
 
   if (isConnected) {
     return (
