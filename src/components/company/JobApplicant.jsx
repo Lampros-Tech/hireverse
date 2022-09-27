@@ -39,6 +39,7 @@ function JobApplicant() {
       const response1 = await tableland.read(
         `SELECT degree FROM ${table1} where login_id=${login_id}`
       );
+      if (!data.find((item) => response["rows"][i][0] === item[7])) {
       data.push([
         response["rows"][0][4],
         response["rows"][0][2],
@@ -47,7 +48,9 @@ function JobApplicant() {
         param[1],
         readRes["rows"][i][0],
         response["rows"][0][6],
+        response["rows"][i][0]
       ]);
+    }
     }
     setData(data);
     //

@@ -39,13 +39,16 @@ function InviteCandidate() {
         `SELECT degree FROM education_table_80001_2259 where login_id=${login_id}`
       );
       let url = "https://ipfs.io/ipfs/" + readRes["rows"][i][4];
+      if (!data.find((item) => readRes["rows"][i][0] === item[5])) {
       data.push([
         url,
         readRes["rows"][i][2],
         response["rows"][0][0],
         readRes["rows"][i][3],
         readRes["rows"][i][6],
+        readRes["rows"][i][0]
       ]);
+    }
     }
     setData(data);
     // console.log(data);

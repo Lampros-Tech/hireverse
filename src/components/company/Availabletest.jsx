@@ -63,12 +63,14 @@ function AvailableTest() {
       chain: "polygon-mumbai",
     });
     const readRes = await tableland.read(`SELECT * FROM ${name}`);
+    console.log(readRes)
     for (let i = 0; i < readRes["rows"].length; i++) {
       let creator_id = readRes["rows"][i][1];
       const response = await tableland.read(
         `SELECT name,profile_image FROM creators_table_80001_2155 where creator_id=${creator_id}`
       );
       let url = "https://ipfs.io/ipfs/" + response["rows"][0][1];
+      if (!data.find((item) => readRes["rows"][i][0] === item[0])) {
       data.push([
         readRes["rows"][i][0],
         readRes["rows"][i][2],
@@ -77,6 +79,7 @@ function AvailableTest() {
         response["rows"][0][0],
         url,
       ]);
+    }
     }
     setData(data);
     setLoading(true);
