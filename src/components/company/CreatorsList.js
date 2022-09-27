@@ -12,6 +12,7 @@ function CreatorsList() {
       chain: "polygon-mumbai",
     });
     const readRes = await tableland.read(`SELECT * FROM ${name}`);
+    console.log(readRes);
     for (let i = 0; i < readRes["rows"].length; i++) {
       let login_id = readRes["rows"][i][1];
       const response = await tableland.read(
@@ -38,16 +39,19 @@ function CreatorsList() {
       const skill3 = await tableland.read(
         `SELECT skill_name FROM skill_table_80001_1735 where skill_id=${response["rows"][2][0]}`
       );
-      data.push([
-        readRes["rows"][i][5],
-        readRes["rows"][i][3],
-        final_array.toString(),
-        readRes["rows"][i][10],
-        readRes["rows"][i][4],
-        skill1["rows"][0][0],
-        skill2["rows"][0][0],
-        skill3["rows"][0][0],
-      ]);
+      if (!data.find((item) => readRes["rows"][i][0] === item[8])) {
+        data.push([
+          readRes["rows"][i][5],
+          readRes["rows"][i][3],
+          final_array.toString(),
+          readRes["rows"][i][10],
+          readRes["rows"][i][4],
+          skill1["rows"][0][0],
+          skill2["rows"][0][0],
+          skill3["rows"][0][0],
+          readRes["rows"][i][0],
+        ]);
+      }
     }
     setData(data);
     setLoading(true);

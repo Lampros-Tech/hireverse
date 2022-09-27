@@ -23,12 +23,15 @@ function Jobpost() {
         `SELECT * FROM ${table} where job_id=${jobId}`
       );
       let noOfApplicants = response["rows"].length;
+      if (!data.find((item) => readRes["rows"][i][0] === item[4])) {
       data.push([
         readRes["rows"][i][3],
         readRes["rows"][i][4],
         noOfApplicants,
         jobId,
+        readRes["rows"][i][0]
       ]);
+    }
     }
     setData(data);
     setLoading(true);
@@ -81,18 +84,7 @@ function Jobpost() {
                         </label>
                       </div>
 
-                      <label
-                        for="first_name"
-                        class="block text-sm font-medium text-gray-900 dark:text-gray-300 applied-name applied-main"
-                      >
-                        Last Applied:
-                      </label>
-                      <label
-                        for="first_name"
-                        class="block  text-sm font-medium text-gray-900 dark:text-gray-300 applied-time applied-main"
-                      >
-                        2 hour ago
-                      </label>
+                      <div className="flex-grow"> </div>
 
                       <div className="myjobpost-main-button">
                         <div className="myjobpost-button">

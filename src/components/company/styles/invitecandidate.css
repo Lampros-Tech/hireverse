@@ -118,6 +118,9 @@
 }
 .qualification-bech {
   margin-left: 5px;
+  width: 115px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .invitecandidate-main-button {
   display: flex;

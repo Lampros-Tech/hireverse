@@ -14,14 +14,12 @@ function TestsFeed() {
     });
     const table = "creators_table_80001_2155";
     const readRes = await tableland.read(`SELECT * FROM ${name}`);
-    // setData([]);
     for (let i = 0; i < readRes["rows"].length; i++) {
       let creatorId = readRes["rows"][i][1];
       const response = await tableland.read(
         `SELECT name,profile_image FROM ${table} where creator_id=${creatorId}`
       );
       let url = "https://ipfs.io/ipfs/" + response["rows"][0][1];
-      // let noOfApplicants = response["rows"].length;
       var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
       d.setUTCSeconds(readRes["rows"][i][6]);
       let date_array = d.toString().split(" ", 4);
@@ -29,19 +27,22 @@ function TestsFeed() {
       for (let i = 1; i < date_array.length; i++) {
         final_array.push(date_array[i]);
       }
-      data.push([
-        readRes["rows"][i][2],
-        final_array.toString(),
-        readRes["rows"][i][10],
-        response["rows"][0][0],
-        readRes["rows"][i][3],
-        readRes["rows"][i][11],
-        readRes["rows"][i][12],
-        readRes["rows"][i][13],
-        readRes["rows"][i][4],
-        readRes["rows"][i][5],
-        url,
-      ]);
+      if (!data.find((item) => readRes["rows"][i][0] === item[0])) {
+        data.push([
+          readRes["rows"][i][0],
+          readRes["rows"][i][2],
+          final_array.toString(),
+          readRes["rows"][i][10],
+          response["rows"][0][0],
+          readRes["rows"][i][3],
+          readRes["rows"][i][11],
+          readRes["rows"][i][12],
+          readRes["rows"][i][13],
+          readRes["rows"][i][4],
+          readRes["rows"][i][5],
+          url,
+        ]);
+      }
     }
     setData(data);
     setLoading(true);
@@ -83,7 +84,7 @@ function TestsFeed() {
                 <div className="td-main-content">
                   <div className="td-main-1">
                     <label for="first_name" class="td-name">
-                      {inde[0]}
+                      {inde[1]}
                     </label>
                     <div className="td-row">
                       <div className="td-outer-heading">
@@ -106,7 +107,7 @@ function TestsFeed() {
                         >
                           Duration:{" "}
                         </span>
-                        <span className="gap-1">{inde[1]}</span>
+                        <span className="gap-1">{inde[2]}</span>
                       </div>
                       <div className="td-outer-heading">
                         <svg
@@ -123,7 +124,7 @@ function TestsFeed() {
                         </svg>
 
                         <span>Experience: </span>
-                        <span>{inde[2]} year</span>
+                        <span>{inde[3]} year</span>
                       </div>
                       <div className="td-outer-heading">
                         <svg
@@ -145,26 +146,20 @@ function TestsFeed() {
                   <div className="user-avatar">
                     <div className="td-user-name">
                       <h1 className="td-name">The Test is made by</h1>
-                      <span>{inde[3]}</span>
+                      <span>{inde[4]}</span>
                     </div>
                     <img
                       class=" user-img w-10 h-10 rounded"
-                      src={inde[10]}
+                      src={inde[11]}
                       alt="Default avatar"
                     />
                   </div>
                 </div>
                 <div className="td-paragraph">
-                  <p>{inde[4]}</p>
+                  <p>{inde[5]}</p>
                 </div>
                 <div className="td-btn-main">
                   <div className="tag-and-btn">
-                    <button
-                      type="button"
-                      class=" tag-button px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-mdhover:shadow-lg  focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
-                    >
-                      {titleCase(inde[5])}
-                    </button>
                     <button
                       type="button"
                       class=" tag-button px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-mdhover:shadow-lg  focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
@@ -177,6 +172,12 @@ function TestsFeed() {
                     >
                       {titleCase(inde[7])}
                     </button>
+                    <button
+                      type="button"
+                      class=" tag-button px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-mdhover:shadow-lg  focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"
+                    >
+                      {titleCase(inde[8])}
+                    </button>
                   </div>
 
                   <div className="cost-button">
@@ -184,13 +185,13 @@ function TestsFeed() {
                       type="button"
                       class=" fix-cost  px-6 py-2 mx-2 border-2 border-black-900 text-black-900 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                     >
-                      Fix Cost : {inde[8]}
+                      Fix Cost : {inde[9]}
                     </button>
                     <button
                       type="button"
                       class=" color-btnn  px-6 py-2 border-2 border-purple-600 text-purple-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                     >
-                      Variable cost : {inde[9]}
+                      Variable cost : {inde[10]}
                     </button>
                   </div>
                   <div className="main-btn">
