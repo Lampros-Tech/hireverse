@@ -241,50 +241,40 @@ function SelectChain() {
   return (
     <>
       <div className="select-chain-grid-parent">
-        <div className="sc-grid-item">
+        <div className="sc-grid-item" onClick={connectToGoerli}>
           <div className="sc-grid-img">
             <img className="sc-grid-item-img" src={ethlogo} alt="ethlogo" />
           </div>
-          <button onClick={connectToGoerli} className="sc-button">
-            Switch To GOERLI
-          </button>
+          <button className="sc-button">Switch To GOERLI</button>
         </div>
         {/* <div className="sc-grid-item">
           <button onClick={connectToSkale} className="sc-button">
             SWITCH TO Skale
           </button>
         </div> */}
-        <div className="sc-grid-item">
+        <div className="sc-grid-item" onClick={addSkale}>
           <div className="sc-grid-img">
             <img className="sc-grid-item-img skale" src={skale} alt="skale" />
           </div>
-          <button onClick={addSkale} className="sc-button">
-            Switch To SKALE
-          </button>
+          <button className="sc-button">Switch To SKALE</button>
         </div>
-        <div className="sc-grid-item">
+        <div className="sc-grid-item" onClick={addCronos}>
           <div className="sc-grid-img">
             <img className="sc-grid-item-img" src={cronos} alt="cronos" />
           </div>
-          <button onClick={addCronos} className="sc-button">
-            Switch To CRONOS
-          </button>
+          <button className="sc-button">Switch To CRONOS</button>
         </div>
-        <div className="sc-grid-item">
+        <div className="sc-grid-item" onClick={addAurora}>
           <div className="sc-grid-img">
             <img className="sc-grid-item-img" src={aurora} alt="aurora" />
           </div>
-          <button onClick={addAurora} className="sc-button">
-            Switch To AURORA
-          </button>
+          <button className="sc-button">Switch To AURORA</button>
         </div>
-        <div className="sc-grid-item">
+        <div className="sc-grid-item" onClick={addPolygon}>
           <div className="sc-grid-img">
             <img className="sc-grid-item-img" src={polygon} alt="polygon" />
           </div>
-          <button onClick={addPolygon} className="sc-button">
-            Switch To POLYGON
-          </button>
+          <button className="sc-button">Switch To POLYGON</button>
         </div>
       </div>
     </>

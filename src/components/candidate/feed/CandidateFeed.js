@@ -14,12 +14,11 @@ import { Web3Storage } from "web3.storage";
 import "./feed.css";
 import Axios from "axios";
 
-const API_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGZiNzE4QzgwYmJlYUQwNTAzYThFMjgzMmI2MDU0RkVmOUU4MzA2NzQiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjE0MTEzNjczNTAsIm5hbWUiOiJUcnkifQ.srPPE7JD3gn8xEBCgQQs_8wyo6rDrXaDWC0QM8FtChA";
-
-const client = new Web3Storage({ token: API_TOKEN });
-
 function CandidateFeed() {
+  const API_TOKEN =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGZiNzE4QzgwYmJlYUQwNTAzYThFMjgzMmI2MDU0RkVmOUU4MzA2NzQiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjE0MTEzNjczNTAsIm5hbWUiOiJUcnkifQ.srPPE7JD3gn8xEBCgQQs_8wyo6rDrXaDWC0QM8FtChA";
+
+  const client = new Web3Storage({ token: API_TOKEN });
   const [isOpen, setIsOpen] = useState(false);
   const chooseImg = useRef("");
 
@@ -27,7 +26,8 @@ function CandidateFeed() {
   const [data2, setData2] = useState([]);
   const [data3, setData3] = useState([]);
   const [additionalQuestions, setAdditonalQuestions] = useState({});
-  var [file, setFile] = useState("");
+  var [file, setFile] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState(0);
 
   const boxRef = useRef(null);
 
@@ -42,25 +42,6 @@ function CandidateFeed() {
     status: "",
     schedule_interview: "",
   });
-
-  async function handleupload() {
-    // const fileInput = document.querySelector('input[type="file"]');
-    // console.log(fileInput.files);
-
-    const fileUpload = file;
-    const rootCid = await client.put(fileUpload, {
-      name: "dehitas profile images",
-      maxRetries: 3,
-    });
-    console.log(rootCid);
-    // const res = await client.get(rootCid);
-    // const files = await res.files();
-    // console.log(files);
-    // const url = URL.createObjectURL(files[0]);
-    // console.log(url);
-    // console.log(files[0].cid);
-    // setFile(url);
-  }
 
   async function storeWithProgress(file) {
     // show the root cid as soon as it's ready
@@ -175,11 +156,44 @@ function CandidateFeed() {
     for (let i = 0; i < readRes["rows"][0][8].length; i++) {}
   };
 
+  // async function handleupload() {
+  //   // const fileInput = document.querySelector('input[type="file"]');
+  //   // console.log(fileInput.files);
+
+  //   const fileUpload = file;
+  //   const rootCid = await client.put(fileUpload, {
+  //     name: "dehitas profile images",
+  //     maxRetries: 3,
+  //   });
+  //   console.log(rootCid);
+  //   // const res = await client.get(rootCid);
+  //   // const files = await res.files();
+  //   // console.log(files);
+  //   // const url = URL.createObjectURL(files[0]);
+  //   // console.log(url);
+  //   // console.log(files[0].cid);
+  //   // setFile(url);
+  // }
+
+  async function handleupload() {
+    // var fileInput = document.getElementById("input");
+    console.log(file);
+    const rootCid = await client.put(file[0]);
+    console.log(rootCid);
+    const res = await client.get(rootCid);
+    const files = await res.files();
+    console.log(files);
+    const url = URL.createObjectURL(files[0]);
+    console.log(url);
+    console.log(files[0].cid);
+    // setFile(url);
+  }
+
   const applyForJob = async () => {
     console.log(file);
     console.log(message);
     console.log(additionalQuestions);
-    await handleupload();
+    // await handleupload();
 
     // console.log(file);
   };
@@ -271,11 +285,20 @@ function CandidateFeed() {
   };
 
   useEffect(() => {
+    showJobPosts();
+
+    console.log(data1);
+  }, [data1]);
+
+  useEffect(() => {
     // console.log(additionalQuestions);
     // console.log(titleCase("hello there I'm Jaydip"));
-    showJobPosts();
-    console.log(file);
+    // showJobPosts();
+    if (file) {
+      handleupload();
+    }
   }, [file]);
+
   function titleCase(str) {
     str = str.toLowerCase().split(" ");
     for (var i = 0; i < str.length; i++) {
@@ -549,8 +572,8 @@ function CandidateFeed() {
                               {/* <input className="form-upload-btn" type="file" /> */}
                               <div
                                 className="candidate-form-upload-imgdiv"
-                                onClick={() => {
-                                  chooseImg.current.click();
+                                onClick={(e) => {
+                                  chooseImg.current.click(e);
                                 }}
                               >
                                 <img
@@ -566,7 +589,7 @@ function CandidateFeed() {
                                 name="fileupload"
                                 id="input"
                                 hidden
-                                onChange={(e) => setFile(e.target.files[0])}
+                                onChange={(e) => setFile(e.target.files)}
                               ></input>
                               <div className="applicationform-block">
                                 <div className="candidate-form-title">
@@ -676,8 +699,8 @@ function CandidateFeed() {
                                   <button
                                     className="candidate-form-btn"
                                     onClick={() => {
-                                      // applyForJob();
-                                      storeWithProgress(file);
+                                      applyForJob();
+                                      // storeWithProgress(file);
                                     }}
                                   >
                                     Submit

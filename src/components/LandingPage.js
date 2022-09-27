@@ -189,7 +189,7 @@ function LandingPage() {
                   {/* <button className="d-third-flex-btn">Connect Wallet</button> */}
                 </div>
               </div>
-              <div className="d-third-flex-item">
+              <div className="d-third-flex-item reverse-flex">
                 <div className="d-second-flex-item-right-two">
                   <h1 className="d-second-flex-right-h1">Utilize The Time !</h1>
                   <p className="d-second-flex-right-p">
@@ -285,7 +285,7 @@ function LandingPage() {
                   <button className="d-third-flex-btn">Connect Wallet</button>
                 </div>
               </div>
-              <div className="d-third-flex-item">
+              <div className="d-third-flex-item reverse-flex">
                 <div className="d-third-flex-item-right">
                   <h1 className="d-third-flex-right-h1">
                     Get paid to create tests

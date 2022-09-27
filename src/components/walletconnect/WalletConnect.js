@@ -77,7 +77,7 @@ export function WalletConnect() {
           if (userData.role === "candidate") {
             navigate("/candidateregform");
           } else if (userData.role === "company") {
-            navigate("/companyregform");
+            navigate("/company");
           } else if (userData.role === "creator") {
             navigate("/creatorregform");
           }
@@ -87,7 +87,7 @@ export function WalletConnect() {
           } else if (userData.role === "company") {
             navigate("/company");
           } else if (userData.role === "creator") {
-            cookies.set("creatorID", userData.creator_id)
+            cookies.set("creatorID", userData.creator_id);
             navigate("/creator");
           }
         }
