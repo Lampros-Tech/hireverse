@@ -199,7 +199,7 @@ export default function Profile() {
 
   const fetchData = () => {
     var data = JSON.stringify({
-      wallet_address: "0x054ae6107cAadC187c304de87365bc52F8c2ADB9",
+      wallet_address: address,
     });
 
     var config = {
@@ -214,15 +214,12 @@ export default function Profile() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        setUserEduDescription(
-          response.data["education details"][0].edu_description
-        );
-        setUserEduInstitute(
-          response.data["education details"][0].institute_name
-        );
-        setUserEduStartDate(
-          response.data["education details"][0].edu_start_date
-        );
+        setUserEduDescription();
+        // response.data["education details"][0].edu_description
+        setUserEduInstitute();
+        // response.data["education details"][0].institute_name
+        setUserEduStartDate();
+        // response.data["education details"][0].edu_start_date
         setUserExpStartDate(response.data["experiences"][1].start_date);
         setUserExpEndDate(response.data["experiences"][1].end_date);
         setUserExpScore(response.data["experiences"][1].status);
@@ -235,10 +232,10 @@ export default function Profile() {
         setUserExpCompanyname(response.data["experiences"][1].company_name);
         setUserExpDesc(response.data["experiences"][1].e_description);
         setUserExpType(response.data["experiences"][1].employement_type);
-        setUserEduField(response.data["education details"][0].filed_of_study);
-        setUserEduEndDate(response.data["education details"][0].edu_end_date);
-        setUserEduScore(response.data["education details"][0].score);
-        setUserDegree(response.data["education details"][0].degree);
+        // setUserEduField(response.data["education details"][0].filed_of_study);
+        // setUserEduEndDate(response.data["education details"][0].edu_end_date);
+        // setUserEduScore(response.data["education details"][0].score);
+        // setUserDegree(response.data["education details"][0].degree);
         setUserBio(response.data.bio);
         setUserLocation(response.data.country);
         setLoading(false);
