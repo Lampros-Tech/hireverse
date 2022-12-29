@@ -206,7 +206,7 @@ export default function CreatorHeader() {
               <Link to="/">
                 <span className="sr-only">Workflow</span>
                 <img
-                  id="nav-img"
+                  // id="nav-img"
                   className="h-12 w-auto custome_logo sm:h-20 "
                   src={logo}
                   alt="logo"

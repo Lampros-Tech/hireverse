@@ -7,6 +7,7 @@ import $ from "jquery";
 import "jquery/dist/jquery.min.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
+import LoadingIcon from "../walletconnect/LoadingIcon";
 import { useNavigate } from "react-router-dom";
 import Backlogo from "./Images/back_logo";
 import axios from "axios";
@@ -233,7 +234,11 @@ function Viewquestion() {
       </div>
     );
   } else {
-    return "loading";
+    return (
+      <div className="candidate-jobfeed-loading">
+        <LoadingIcon />
+      </div>
+    );
   }
 }
 export default Viewquestion;
