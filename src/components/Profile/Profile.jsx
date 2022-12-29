@@ -44,6 +44,7 @@ export default function Profile() {
   const [loadingMessage, setLoadingmessage] = useState("Loading...");
   const [metaDataNft, setMetaDataNft] = useState([]);
 
+
   //for integration
   const [usrAccount, setUsrAccount] = useState();
   const CONTRACT_ADDRESS_GOERLI = "0x8C1C947F7f5c23ee58399912EABdECB88F9b7B37";
@@ -214,15 +215,32 @@ export default function Profile() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        setUserEduDescription();
-        // response.data["education details"][0].edu_description
-        setUserEduInstitute();
-        // response.data["education details"][0].institute_name
-        setUserEduStartDate();
-        // response.data["education details"][0].edu_start_date
-        setUserExpStartDate(response.data["experiences"][1].start_date);
-        setUserExpEndDate(response.data["experiences"][1].end_date);
-        setUserExpScore(response.data["experiences"][1].status);
+        setUserEduDescription(response.data["education details"][0].edu_description);
+        
+        setUserEduInstitute(response.data["education details"][0].institute_name);
+        var education_sd = new Date(response.data["education details"][0].edu_start_date*1000)
+        
+        setUserEduStartDate(education_sd.toGMTString().substring(4,17));
+          // console.log(d.toGMTString().substring(4,17))
+        var exp_sd = new Date(response.data["education details"][0].edu_start_date*1000)
+        
+        setUserExpStartDate(exp_sd.toGMTString().substring(4,17));
+        var edu_ed = new Date(response.data["experiences"][1].end_date * 1000)
+        setUserExpEndDate(edu_ed.toGMTString().substring(4,17))
+        if(response.data["experiences"][1].status===0)
+        {
+          setUserExpScore("Not Working");
+        }
+        if(response.data["experiences"][1].status===1)
+        {
+          setUserExpScore("Working");
+        }
+        if(response.data["experiences"][1].status===-1)
+        {
+          setUserExpScore("Not Sure");
+        }
+
+        
         setUserProfileImg(response.data.profile_image);
         setUserName(response.data.name);
         setUserCoverImg(response.data.cover_image);
@@ -232,10 +250,11 @@ export default function Profile() {
         setUserExpCompanyname(response.data["experiences"][1].company_name);
         setUserExpDesc(response.data["experiences"][1].e_description);
         setUserExpType(response.data["experiences"][1].employement_type);
-        // setUserEduField(response.data["education details"][0].filed_of_study);
-        // setUserEduEndDate(response.data["education details"][0].edu_end_date);
-        // setUserEduScore(response.data["education details"][0].score);
-        // setUserDegree(response.data["education details"][0].degree);
+        setUserEduField(response.data["education details"][0].filed_of_study);
+        var exp_ed = new Date(response.data["education details"][0].edu_end_date * 1000);
+        setUserEduEndDate(exp_ed.toGMTString().substring(4,17))
+        setUserEduScore(response.data["education details"][0].score);
+        setUserDegree(response.data["education details"][0].degree);
         setUserBio(response.data.bio);
         setUserLocation(response.data.country);
         setLoading(false);
