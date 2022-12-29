@@ -43,6 +43,9 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [loadingMessage, setLoadingmessage] = useState("Loading...");
   const [metaDataNft, setMetaDataNft] = useState([]);
+  const [user, setUser] = useState(null);
+  const [creatorData, setCreatorData] = useState([]);
+  const [companyData, setCompanyData] = useState([]);
 
   //for integration
   const [usrAccount, setUsrAccount] = useState();
@@ -197,56 +200,147 @@ export default function Profile() {
 
   //covalent api ends
 
-  const fetchData = () => {
+  const fetchData = async (addre) => {
+    console.log(address);
     var data = JSON.stringify({
-      wallet_address: address,
+      walletaddress: address,
     });
 
     var config = {
-      method: "post",
-      url: `${process.env.REACT_APP_API_URL}/getProfile`,
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}/getStage?walletaddress=${addre}`,
       headers: {
         "Content-Type": "application/json",
       },
       data: data,
     };
-
-    axios(config)
+    var userData = "";
+    await axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        setUserEduDescription();
-        // response.data["education details"][0].edu_description
-        setUserEduInstitute();
-        // response.data["education details"][0].institute_name
-        setUserEduStartDate();
-        // response.data["education details"][0].edu_start_date
-        setUserExpStartDate(response.data["experiences"][1].start_date);
-        setUserExpEndDate(response.data["experiences"][1].end_date);
-        setUserExpScore(response.data["experiences"][1].status);
-        setUserProfileImg(response.data.profile_image);
-        setUserName(response.data.name);
-        setUserCoverImg(response.data.cover_image);
-        setUserExpLocation(response.data["experiences"][1].location);
-        setUserExpTitle(response.data["experiences"][1].e_title);
-        setUserSkill(response.data.skills);
-        setUserExpCompanyname(response.data["experiences"][1].company_name);
-        setUserExpDesc(response.data["experiences"][1].e_description);
-        setUserExpType(response.data["experiences"][1].employement_type);
-        // setUserEduField(response.data["education details"][0].filed_of_study);
-        // setUserEduEndDate(response.data["education details"][0].edu_end_date);
-        // setUserEduScore(response.data["education details"][0].score);
-        // setUserDegree(response.data["education details"][0].degree);
-        setUserBio(response.data.bio);
-        setUserLocation(response.data.country);
-        setLoading(false);
+        // console.log(response.data);
+        userData = response.data.role;
+        setUser(userData);
+        console.log(userData);
       })
       .catch(function (error) {
         console.log(error);
       });
+
+    if (userData === "candidate") {
+      console.log("in");
+      var data = JSON.stringify({
+        wallet_address: address,
+      });
+
+      var config = {
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}/getProfile`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          setUserEduDescription(
+            response.data["education details"][0].edu_description
+          );
+          // response.data["education details"][0].edu_description;
+          setUserEduInstitute(
+            response.data["education details"][0].institute_name
+          );
+          // response.data["education details"][0].institute_name;
+          setUserEduStartDate(
+            response.data["education details"][0].edu_start_date
+          );
+          // response.data["education details"][0].edu_start_date;
+          setUserExpStartDate(response.data["experiences"][0].start_date);
+          setUserExpEndDate(response.data["experiences"][0].end_date);
+          if (response.data["experiences"][0].status === 0) {
+            setUserExpScore("Not Working");
+          }
+          if (response.data["experiences"][0].status === 1) {
+            setUserExpScore("Working");
+          }
+          if (response.data["experiences"][0].status === -1) {
+            setUserExpScore("Not Sure");
+          }
+          // setUserExpScore(response.data["experiences"][0].status);
+          setUserProfileImg(response.data.profile_image);
+          setUserName(response.data.name);
+          setUserCoverImg(response.data.cover_image);
+          setUserExpLocation(response.data["experiences"][0].location);
+          setUserExpTitle(response.data["experiences"][0].e_title);
+          setUserSkill(response.data.skills);
+          setUserExpCompanyname(response.data["experiences"][0].company_name);
+          setUserExpDesc(response.data["experiences"][0].e_description);
+          setUserExpType(response.data["experiences"][0].employement_type);
+          setUserEduField(response.data["education details"][0].filed_of_study);
+          setUserEduEndDate(response.data["education details"][0].edu_end_date);
+          setUserEduScore(response.data["education details"][0].score);
+          setUserDegree(response.data["education details"][0].degree);
+          setUserBio(response.data.bio);
+          setUserLocation(response.data.country);
+          setLoading(false);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else if (userData === "creator") {
+      var data = JSON.stringify({
+        wallet_address: address,
+      });
+
+      var config = {
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}/getProfile`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          setCreatorData(response.data);
+          setLoading(false);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else if (userData === "company") {
+      var data = JSON.stringify({
+        wallet_address: address,
+      });
+
+      var config = {
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}/getProfile`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+          setCompanyData(response.data);
+          setLoading(false);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      setLoading(false);
+
+      console.log("byebye");
+    }
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(address);
   }, []);
   let profilePhoto = "https://ipfs.io/ipfs/" + userProfileImg;
   let coverPhoto = "https://ipfs.io/ipfs/" + userCoverImg;
@@ -257,95 +351,103 @@ export default function Profile() {
       </div>
     );
   } else {
-    return (
-      <>
-        <div className="profile-profile">
-          <div className="profile-profileRight">
-            <div className="profile-profileRightTop">
-              <div className="profile-profileCover">
-                <img
-                  className="profile-profileCoverImg"
-                  src={coverPhoto}
-                  alt="cover"
-                />
-                <img
-                  className="profile-profileUserImg"
-                  src={profilePhoto}
-                  alt="profile_image"
-                />
+    if (user === "candidate") {
+      return (
+        <>
+          <div className="profile-profile">
+            <div className="profile-profileRight">
+              <div className="profile-profileRightTop">
+                <div className="profile-profileCover">
+                  <img
+                    className="profile-profileCoverImg"
+                    src={coverPhoto}
+                    alt="cover"
+                  />
+                  <img
+                    className="profile-profileUserImg"
+                    src={profilePhoto}
+                    alt="profile_image"
+                  />
+                </div>
+                <div className="profile-profileInfo">
+                  <h4 className="profile-profileInfoName">{userName}</h4>
+                  {/* <span className="profile-profileInfoDesc">Hello World</span> */}
+                </div>
+                <button
+                  className="withdraw-btn"
+                  onClick={(e) => {
+                    withdraw(e);
+                  }}
+                >
+                  Withdraw
+                </button>
               </div>
-              <div className="profile-profileInfo">
-                <h4 className="profile-profileInfoName">{userName}</h4>
-                {/* <span className="profile-profileInfoDesc">Hello World</span> */}
-              </div>
-              <button
-                className="withdraw-btn"
-                onClick={(e) => {
-                  withdraw(e);
-                }}
-              >
-                Withdraw
-              </button>
             </div>
           </div>
-        </div>
 
-        {/* //////////////////////////////////////////////////////////////////////////////// */}
-        <div className="userprofile-main-div">
-          <div className="profile-rightbar-main-box">
-            <div className="exp-logo">
-              <img
-                className="profile-educationProfileImg"
-                src={userlogo}
-                alt=""
-              />{" "}
-              <div className="profile-leftbar-experience">User information</div>
-            </div>
-            <div className="profile-leftbar-main-box">
-              {/* <span className="bold-text-experience">Lajja Vaniya</span> */}
-              <div>
-                <span className="bold-text-experience">Branch:</span>
-                <span className="profile-leftbar-edu-date">{userEduField}</span>
+          {/* //////////////////////////////////////////////////////////////////////////////// */}
+          <div className="userprofile-main-div">
+            <div className="profile-rightbar-main-box">
+              <div className="exp-logo">
+                <img
+                  className="profile-educationProfileImg"
+                  src={userlogo}
+                  alt=""
+                />{" "}
+                <div className="profile-leftbar-experience">
+                  User information
+                </div>
               </div>
-              <div>
-                <span className="bold-text-experience">Skills:</span>
-                {userSkill.map((skill_) => (
-                  <span className="profile-leftbar-skill01">{skill_}</span>
-                ))}
-              </div>
-              <div className="address-pro-merge">
-                <span className="bold-text-experience">Location:</span>
-                {/* <span className="profile-rightbar-location">surat-</span> */}
-                <span className="profile-rightbar-address">{userLocation}</span>
-              </div>
-              {/* <div className="address-pro-merge">
+              <div className="profile-leftbar-main-box">
+                {/* <span className="bold-text-experience">Lajja Vaniya</span> */}
+                <div>
+                  <span className="bold-text-experience">Branch:</span>
+                  <span className="profile-leftbar-edu-date">
+                    {userEduField}
+                  </span>
+                </div>
+                <div>
+                  <span className="bold-text-experience">Skills:</span>
+                  {userSkill.map((skill_) => (
+                    <span className="profile-leftbar-skill01">{skill_}</span>
+                  ))}
+                </div>
+                <div className="address-pro-merge">
+                  <span className="bold-text-experience">Location:</span>
+                  {/* <span className="profile-rightbar-location">surat-</span> */}
+                  <span className="profile-rightbar-address">
+                    {userLocation}
+                  </span>
+                </div>
+                {/* <div className="address-pro-merge">
                 <span className="bold-text-experience">e-mail:</span>
                 <span className="profile-rightbar-address">
                   email@email.com
                 </span>
               </div> */}
-              {/* <div className="address-pro-merge">
+                {/* <div className="address-pro-merge">
                 <span className="bold-text-experience">Contact-no:</span>
                 <span className="profile-rightbar-address">
                   email@email.com
                 </span>
               </div> */}
-              <span className="profile-rightbar-des">{userbio}</span>
-            </div>
-          </div>
-
-          <div className="profile-leftbar-main">
-            <div className="experience-main-box">
-              <div className="exp-logo">
-                <img
-                  className="profile-educationProfileImg"
-                  src={exlogo}
-                  alt=""
-                />{" "}
-                <div className="profile-leftbar-experience">Experience</div>
+                <span className="bold-text-experience">Bio:</span>
+                <span className="profile-rightbar-des">{userbio}</span>
               </div>
-              <div className="profile-leftbar-main-box">
-                {/* <div className="profile-educationTopRight">
+            </div>
+
+            <div className="profile-leftbar-main">
+              <div className="experience-main-box">
+                <div className="exp-logo">
+                  <img
+                    className="profile-educationProfileImg"
+                    src={exlogo}
+                    alt=""
+                  />{" "}
+                  <div className="profile-leftbar-experience">Experience</div>
+                </div>
+                <div className="profile-leftbar-main-box">
+                  {/* <div className="profile-educationTopRight">
               <span className="profile-educationUsername">
                 <img
                   className="profile-educationEditImg"
@@ -355,135 +457,142 @@ export default function Profile() {
               </span>
             </div> */}
 
-                <div className="bold-text-experience">
-                  <span className="profile-leftbar-domain">{userExpTitle}</span>
-                </div>
-                <div className="bold-text-experience">
-                  <span className="profile-leftbar-companyname">
-                    {UserExpCompanyname}
-                  </span>
-                </div>
-                <div>
-                  <span className="bold-text-experience">Employee_type:</span>
-                  <span className="profile-leftbar-skill01">{userExpType}</span>
-                </div>
-
-                <span className="bold-text-experience">Location:</span>
-                <span className="profile-leftbar-skill01">
-                  {userExpLocation}
-                </span>
-
-                <div className="profile-leftbar-merge">
-                  <span className="bold-text-experience">Start_date:</span>
-                  <span className="profile-leftbar-skill01">
-                    {userExpStartDate}
-                  </span>
-                  <div>
-                    <span className="bold-text-experience">End_date:</span>
-                    <span className="profile-leftbar-skill01">
-                      {userExpEndDate}
+                  <div className="bold-text-experience">
+                    <span className="profile-leftbar-domain">
+                      {userExpTitle}
                     </span>
                   </div>
-                  <span className="bold-text-experience">Status:</span>
-                  <span className="profile-leftbar-skill01">
-                    {userExpScore}
-                  </span>
-                </div>
+                  <div className="bold-text-experience">
+                    <span className="profile-leftbar-companyname">
+                      {UserExpCompanyname}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="bold-text-experience">Employee_type:</span>
+                    <span className="profile-leftbar-skill01">
+                      {userExpType}
+                    </span>
+                  </div>
 
-                <span className="profile-rightbar-des">{userExpDesc}</span>
+                  <span className="bold-text-experience">Location:</span>
+                  <span className="profile-leftbar-skill01">
+                    {userExpLocation}
+                  </span>
+
+                  <div className="profile-leftbar-merge">
+                    <span className="bold-text-experience">Start_date:</span>
+                    <span className="profile-leftbar-skill01">
+                      {userExpStartDate}
+                    </span>
+                    <div>
+                      <span className="bold-text-experience">End_date:</span>
+                      <span className="profile-leftbar-skill01">
+                        {userExpEndDate}
+                      </span>
+                    </div>
+                    <span className="bold-text-experience">Status:</span>
+                    <span className="profile-leftbar-skill01">
+                      {userExpScore}
+                    </span>
+                  </div>
+                  <span className="bold-text-experience">Description:</span>
+                  <span className="profile-rightbar-des">{userExpDesc}</span>
+                </div>
               </div>
-            </div>
-            <div className="education-main-box">
-              <div className="edu-exp-merge-div">
+              <div className="education-main-box">
+                <div className="edu-exp-merge-div">
+                  <div className="exp-logo">
+                    <img
+                      className="profile-educationProfileImg"
+                      src={edu_logo}
+                      alt=""
+                    />{" "}
+                    <div className="profile-leftbar-experience">Education</div>
+                  </div>
+                  <div className="profile-leftbar-main-box">
+                    <div className="bold-text-experience">
+                      <span className="profile-leftbar-domain2">
+                        {userDegree}
+                      </span>
+                    </div>
+                    <div className="bold-text-experience">
+                      <span className="profile-leftbar-branch">
+                        {userEduInstitute}
+                      </span>
+                    </div>
+                    <span className="bold-text-experience">Score:</span>
+                    <span className="profile-leftbar-skill01">
+                      {userEduscore}
+                    </span>
+                    <div>
+                      <span className="bold-text-experience">Branch:</span>
+                      <span className="profile-leftbar-skill01">
+                        {userEduField}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="bold-text-experience">Start_date:</span>
+                      <span className="profile-leftbar-skill01">
+                        {userEduStartDate}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="bold-text-experience">End_date:</span>
+                      <span className="profile-leftbar-skill01">
+                        {userEduEndDate}
+                      </span>
+                    </div>
+
+                    <span className="profile-rightbar-des">
+                      {userEduDescription}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="skill-main-box">
                 <div className="exp-logo">
                   <img
                     className="profile-educationProfileImg"
-                    src={edu_logo}
+                    src={skill}
                     alt=""
                   />{" "}
-                  <div className="profile-leftbar-experience">Education</div>
+                  <div className="profile-leftbar-experience">Skills</div>
                 </div>
                 <div className="profile-leftbar-main-box">
-                  <div className="bold-text-experience">
-                    <span className="profile-leftbar-domain2">
-                      {userDegree}
-                    </span>
-                  </div>
-                  <div className="bold-text-experience">
-                    <span className="profile-leftbar-branch">
-                      {userEduInstitute}
-                    </span>
-                  </div>
-                  <span className="bold-text-experience">Score:</span>
-                  <span className="profile-leftbar-skill01">
-                    {userEduscore}
-                  </span>
                   <div>
-                    <span className="bold-text-experience">Branch:</span>
-                    <span className="profile-leftbar-skill01">
-                      {userEduField}
-                    </span>
+                    {userSkill.map((skill_) => (
+                      <span className="profile-leftbar-skill">{skill_}</span>
+                    ))}
                   </div>
-                  <div>
-                    <span className="bold-text-experience">Start_date:</span>
-                    <span className="profile-leftbar-skill01">
-                      {userEduStartDate}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="bold-text-experience">End_date:</span>
-                    <span className="profile-leftbar-skill01">
-                      {userEduEndDate}
-                    </span>
-                  </div>
-
-                  <span className="profile-rightbar-des">
-                    {userEduDescription}
-                  </span>
                 </div>
               </div>
-            </div>
+              <div className="usernft-main">
+                <div className="exp-logo">
+                  <img
+                    className="profile-educationProfileImg"
+                    src={nftlogo}
+                    alt=""
+                  />{" "}
+                  <div className="profile-leftbar-experience">User NFT's </div>
+                </div>
 
-            <div className="skill-main-box">
-              <div className="exp-logo">
-                <img
-                  className="profile-educationProfileImg"
-                  src={skill}
-                  alt=""
-                />{" "}
-                <div className="profile-leftbar-experience">Skills</div>
-              </div>
-              <div className="profile-leftbar-main-box">
-                <div>
-                  {userSkill.map((skill_) => (
-                    <span className="profile-leftbar-skill">{skill_}</span>
+                <div className="profile-rightbar-main-nft">
+                  {metaDataNft.map((mdnft) => (
+                    <img
+                      className="profile-profileCoverImg-nft"
+                      src={mdnft.items[0].nft_data[0].external_data.image}
+                      alt="cover"
+                    />
                   ))}
                 </div>
               </div>
             </div>
-            <div className="usernft-main">
-              <div className="exp-logo">
-                <img
-                  className="profile-educationProfileImg"
-                  src={nftlogo}
-                  alt=""
-                />{" "}
-                <div className="profile-leftbar-experience">User NFT's </div>
-              </div>
-
-              <div className="profile-rightbar-main-nft">
-                {metaDataNft.map((mdnft) => (
-                  <img
-                    className="profile-profileCoverImg-nft"
-                    src={mdnft.items[0].nft_data[0].external_data.image}
-                    alt="cover"
-                  />
-                ))}
-              </div>
-            </div>
           </div>
-        </div>
-      </>
-    );
+        </>
+      );
+    } else {
+      return <div>No Data Soory</div>;
+    }
   }
 }
