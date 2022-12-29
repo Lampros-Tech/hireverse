@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./test.css";
+import LoadingIcon from "../../walletconnect/LoadingIcon";
 import TestNFT from "../../assets/images/exam-result.jpg";
 import CompanyLogo from "../../assets/images/companyprofile.png";
 import testdata from "../testdata";
@@ -102,7 +103,11 @@ const CandidateTestResults = () => {
       </>
     );
   } else {
-    return "loading";
+    return (
+      <div className="candidate-jobfeed-loading">
+        <LoadingIcon />
+      </div>
+    );
   }
 };
 

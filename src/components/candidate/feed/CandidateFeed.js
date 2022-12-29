@@ -1034,7 +1034,7 @@ function CandidateFeed() {
     );
   } else {
     return (
-      <div>
+      <div className="candidate-jobfeed-loading">
         <LoadingIcon />
       </div>
     );
