@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import LoadingIcon from "../walletconnect/LoadingIcon";
 import "./styles/creatorlist.css";
 import { connect } from "@tableland/sdk";
 
@@ -165,7 +166,11 @@ function CreatorsList() {
       </div>
     );
   } else {
-    console.log("Loading");
+    return (
+      <div className="test-loader">
+        <LoadingIcon />
+      </div>
+    );
   }
 }
 

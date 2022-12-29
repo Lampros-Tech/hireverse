@@ -124,6 +124,10 @@
 .fix-cost {
   width: 100%;
 }
+.test-loader {
+  padding-top: 20vh;
+}
+
 /* @media only screen and (max-width: 1280px) {
   .cost-button{
     width: 250px;

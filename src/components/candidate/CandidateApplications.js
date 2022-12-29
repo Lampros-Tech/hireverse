@@ -48,7 +48,9 @@ function CandidateApplications() {
                     <button
                       type="button"
                       class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3  jobapplicant-invite-button2"
-                      onClick={() => { window.location.href = "https://test.dehitas.xyz" }}
+                      onClick={() => {
+                        window.location.href = "https://test.dehitas.xyz";
+                      }}
                     >
                       Start Test
                     </button>
@@ -112,7 +114,9 @@ function CandidateApplications() {
                     <button
                       type="button"
                       class="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3  jobapplicant-invite-button2"
-                      onClick={() => { window.location.href = "https://test.dehitas.xyz" }}
+                      onClick={() => {
+                        window.location.href = "https://test.dehitas.xyz";
+                      }}
                     >
                       Start Test
                     </button>

@@ -3,6 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 import { Popover, Menu, Transition } from "@headlessui/react";
 import React from "react";
 import PopUp from "../notification/NotificationPopup";
+import "./creator.css";
 
 import {
   BrowserRouter as Router,
@@ -205,6 +206,7 @@ export default function CreatorHeader() {
               <Link to="/">
                 <span className="sr-only">Workflow</span>
                 <img
+                  id="nav-img"
                   className="h-12 w-auto custome_logo sm:h-20 "
                   src={logo}
                   alt="logo"

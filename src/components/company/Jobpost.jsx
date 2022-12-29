@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import LoadingIcon from "../walletconnect/LoadingIcon";
 import "../company/styles/jobpost.css";
 import { connect } from "@tableland/sdk";
 import Jobinsights from "./JobInsight";
@@ -24,14 +25,14 @@ function Jobpost() {
       );
       let noOfApplicants = response["rows"].length;
       if (!data.find((item) => readRes["rows"][i][0] === item[4])) {
-      data.push([
-        readRes["rows"][i][3],
-        readRes["rows"][i][4],
-        noOfApplicants,
-        jobId,
-        readRes["rows"][i][0]
-      ]);
-    }
+        data.push([
+          readRes["rows"][i][3],
+          readRes["rows"][i][4],
+          noOfApplicants,
+          jobId,
+          readRes["rows"][i][0],
+        ]);
+      }
     }
     setData(data);
     setLoading(true);
@@ -125,7 +126,11 @@ function Jobpost() {
       </>
     );
   } else {
-    console.log("loading");
+    return (
+      <div className="test-loader">
+        <LoadingIcon />
+      </div>
+    );
   }
 }
 export default Jobpost;

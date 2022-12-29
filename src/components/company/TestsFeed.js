@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import LoadingIcon from "../walletconnect/LoadingIcon";
 import { connect } from "@tableland/sdk";
 import "../company/styles/testfeed.css";
 import { useNavigate } from "react-router-dom";
@@ -224,7 +225,11 @@ function TestsFeed() {
       </div>
     );
   } else {
-    console.log("Loading");
+    return (
+      <div className="test-loader">
+        <LoadingIcon />
+      </div>
+    );
   }
 }
 
