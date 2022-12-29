@@ -13,6 +13,7 @@ import { Web3Storage } from "web3.storage";
 
 import "./feed.css";
 import Axios from "axios";
+import LoadingIcon from "../../walletconnect/LoadingIcon";
 
 function CandidateFeed() {
   const API_TOKEN =
@@ -288,7 +289,7 @@ function CandidateFeed() {
     showJobPosts();
 
     console.log(data1);
-  }, [data1]);
+  }, []);
 
   useEffect(() => {
     // console.log(additionalQuestions);
@@ -307,226 +308,229 @@ function CandidateFeed() {
     return str.join(" ");
   }
 
-  return (
-    <>
-      <div className="candidate-jobfeed-main-content">
-        <div className="candidate-jobfeed-main-right">
-          <div className="candidate-jobfeed-header">
-            Job Feed
-            <div className="candidate-jobfeed-header2">Saved Job (80)</div>
-          </div>
-          {data1.map((inde) => {
-            return (
-              <div className="candidate-right-side">
-                <div className="candidate-jobfeed-outer">
-                  <div className="candidate-jobfeed-top">
-                    <img
-                      className="candidate-jobfeed-logo"
-                      src={inde[0]}
-                      alt="company-logo"
-                    />
-                    <div className="candidate-jobfeed-title">{inde[1]}</div>
-                  </div>
-                  <div className="candidate-jobfeed-middle">
-                    <div className="candidate-jobfeed-companyname">
-                      {inde[2]}
+  if (loading) {
+    return (
+      <>
+        <div className="candidate-jobfeed-main-content">
+          <div className="candidate-jobfeed-main-right">
+            <div className="candidate-jobfeed-header">
+              Job Feed
+              <div className="candidate-jobfeed-header2">Saved Job (80)</div>
+            </div>
+            {data1.map((inde) => {
+              return (
+                <div className="candidate-right-side">
+                  <div className="candidate-jobfeed-outer">
+                    <div className="candidate-jobfeed-top">
+                      <img
+                        className="candidate-jobfeed-logo"
+                        src={inde[0]}
+                        alt="company-logo"
+                      />
+                      <div className="candidate-jobfeed-title">{inde[1]}</div>
                     </div>
-                    <div className="candidate-jobfeed-location">{inde[3]}</div>
-                    <div className="candidate-jobfeed-experience">
-                      {inde[4]} year experience
+                    <div className="candidate-jobfeed-middle">
+                      <div className="candidate-jobfeed-companyname">
+                        {inde[2]}
+                      </div>
+                      <div className="candidate-jobfeed-location">
+                        {inde[3]}
+                      </div>
+                      <div className="candidate-jobfeed-experience">
+                        {inde[4]} year experience
+                      </div>
                     </div>
-                  </div>
-                  <div className="candidate-jobfeed-basic-des">{inde[5]}</div>
+                    <div className="candidate-jobfeed-basic-des">{inde[5]}</div>
 
-                  <button
-                    onClick={() => togglePopup(inde[6])}
-                    className="candidate-jobfeed-button-more"
-                  >
-                    More
-                  </button>
-                  <button
-                    className="candidate-jobfeed-button"
-                    onClick={() => {
-                      formPopup(inde[6]);
-                    }}
-                  >
-                    Apply
-                  </button>
-                  {isOpen && (
-                    <div ref={boxRef}>
-                      <Popup
-                        content={
-                          <>
-                            <div className="popup-form">
-                              <div className="main-sidebar-popup">
-                                <div className="popup1">
-                                  <div className="candidate-more-top">
-                                    <img
-                                      className="candidate-more-logo"
-                                      src={data2[0][0]}
-                                      alt="company-logo"
-                                    />
-                                    <div className="candidate-more-title">
-                                      {data2[0][1]}
+                    <button
+                      onClick={() => togglePopup(inde[6])}
+                      className="candidate-jobfeed-button-more"
+                    >
+                      More
+                    </button>
+                    <button
+                      className="candidate-jobfeed-button"
+                      onClick={() => {
+                        formPopup(inde[6]);
+                      }}
+                    >
+                      Apply
+                    </button>
+                    {isOpen && (
+                      <div ref={boxRef}>
+                        <Popup
+                          content={
+                            <>
+                              <div className="popup-form">
+                                <div className="main-sidebar-popup">
+                                  <div className="popup1">
+                                    <div className="candidate-more-top">
+                                      <img
+                                        className="candidate-more-logo"
+                                        src={data2[0][0]}
+                                        alt="company-logo"
+                                      />
+                                      <div className="candidate-more-title">
+                                        {data2[0][1]}
+                                      </div>
                                     </div>
-                                  </div>
-                                  <div className="candidate-more-middle">
-                                    <div className="candidate-more-companyname">
-                                      {data2[0][2]}
-                                    </div>
-                                    {/* <div className="candidate-more-location">
+                                    <div className="candidate-more-middle">
+                                      <div className="candidate-more-companyname">
+                                        {data2[0][2]}
+                                      </div>
+                                      {/* <div className="candidate-more-location">
                                       {newData.location}
                                     </div> */}
-                                  </div>
-                                  <div className="candidate-more-desc">
-                                    {data2[0][3]}
-                                  </div>
-                                </div>
-                                <div className="popup-sidebar">
-                                  <div className="candidate-more-top-sidebar">
-                                    <img
-                                      className="candidate-more-logo-sidebar"
-                                      src={data2[0][0]}
-                                      alt="company-logo"
-                                    />
-                                  </div>
-                                  <div className="candidate-more-location-sidebar">
-                                    <div className="candidate-more-companyname">
-                                      {data2[0][2]}
+                                    </div>
+                                    <div className="candidate-more-desc">
+                                      {data2[0][3]}
                                     </div>
                                   </div>
-                                  <div className="candidate-more-location-sidebar">
-                                    <span className="sidebar2-span">
-                                      Location
-                                    </span>
-                                    {data2[0][10]}
-                                  </div>
-                                  <div className="candidate-more-location-sidebar">
-                                    <span className="sidebar2-span">
-                                      Experience
-                                    </span>
-                                    {data2[0][11]} Years
-                                  </div>
-                                  <div className="candidate-more-location-sidebar">
-                                    <span className="sidebar2-span">
-                                      Posted a job
-                                    </span>
-                                    {data2[0][12]}
-                                  </div>
-                                  <div className="candidate-more-location-sidebar">
-                                    <span className="sidebar2-span">
-                                      Share Job
-                                    </span>
-                                    <div className="sharejob-icon">
-                                      <a href="https://accounts.google.com/">
-                                        <img
-                                          src={GoogleLogo}
-                                          className="candidate-form-upload-sharejob"
-                                          alt="upload_img"
-                                        />
-                                      </a>
-                                      <a href="https://twitter.com/login">
-                                        <img
-                                          src={TwitterLogo}
-                                          className="candidate-form-upload-sharejob"
-                                          alt="upload_img"
-                                        />
-                                      </a>
-                                      <a href="https://www.facebook.com/login/">
-                                        <img
-                                          src={FacebookLogo}
-                                          className="candidate-form-upload-sharejob"
-                                          alt="upload_img"
-                                        />
-                                      </a>
-                                      <a href="https://www.linkedin.com/login">
-                                        <img
-                                          src={LinkedlnLogo}
-                                          className="candidate-form-upload-sharejob"
-                                          alt="upload_img"
-                                        />
-                                      </a>
+                                  <div className="popup-sidebar">
+                                    <div className="candidate-more-top-sidebar">
+                                      <img
+                                        className="candidate-more-logo-sidebar"
+                                        src={data2[0][0]}
+                                        alt="company-logo"
+                                      />
                                     </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <span className="primaryskill-span ">
-                                Primary Skills:
-                              </span>
-                              <div className="candidate-more-skills-tag">
-                                {(() => {
-                                  if (data2[0][4]) {
-                                    return (
-                                      <div>
-                                        <div className="candidate-more-skills">
-                                          {titleCase(data2[0][4])}
-                                        </div>
+                                    <div className="candidate-more-location-sidebar">
+                                      <div className="candidate-more-companyname">
+                                        {data2[0][2]}
                                       </div>
-                                    );
-                                  }
-                                })()}
+                                    </div>
+                                    <div className="candidate-more-location-sidebar">
+                                      <span className="sidebar2-span">
+                                        Location
+                                      </span>
+                                      {data2[0][10]}
+                                    </div>
+                                    <div className="candidate-more-location-sidebar">
+                                      <span className="sidebar2-span">
+                                        Experience
+                                      </span>
+                                      {data2[0][11]} Years
+                                    </div>
+                                    <div className="candidate-more-location-sidebar">
+                                      <span className="sidebar2-span">
+                                        Posted a job
+                                      </span>
+                                      {data2[0][12]}
+                                    </div>
+                                    <div className="candidate-more-location-sidebar">
+                                      <span className="sidebar2-span">
+                                        Share Job
+                                      </span>
+                                      <div className="sharejob-icon">
+                                        <a href="https://accounts.google.com/">
+                                          <img
+                                            src={GoogleLogo}
+                                            className="candidate-form-upload-sharejob"
+                                            alt="upload_img"
+                                          />
+                                        </a>
+                                        <a href="https://twitter.com/login">
+                                          <img
+                                            src={TwitterLogo}
+                                            className="candidate-form-upload-sharejob"
+                                            alt="upload_img"
+                                          />
+                                        </a>
+                                        <a href="https://www.facebook.com/login/">
+                                          <img
+                                            src={FacebookLogo}
+                                            className="candidate-form-upload-sharejob"
+                                            alt="upload_img"
+                                          />
+                                        </a>
+                                        <a href="https://www.linkedin.com/login">
+                                          <img
+                                            src={LinkedlnLogo}
+                                            className="candidate-form-upload-sharejob"
+                                            alt="upload_img"
+                                          />
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <span className="primaryskill-span ">
+                                  Primary Skills:
+                                </span>
+                                <div className="candidate-more-skills-tag">
+                                  {(() => {
+                                    if (data2[0][4]) {
+                                      return (
+                                        <div>
+                                          <div className="candidate-more-skills">
+                                            {titleCase(data2[0][4])}
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+                                  })()}
 
-                                {(() => {
-                                  if (data2[0][5]) {
-                                    return (
-                                      <div>
-                                        <div className="candidate-more-skills">
-                                          {titleCase(data2[0][5])}
+                                  {(() => {
+                                    if (data2[0][5]) {
+                                      return (
+                                        <div>
+                                          <div className="candidate-more-skills">
+                                            {titleCase(data2[0][5])}
+                                          </div>
                                         </div>
-                                      </div>
-                                    );
-                                  }
-                                })()}
-                                {(() => {
-                                  if (data2[0][6]) {
-                                    return (
-                                      <div>
-                                        <div className="candidate-more-skills">
-                                          {titleCase(data2[0][6])}
+                                      );
+                                    }
+                                  })()}
+                                  {(() => {
+                                    if (data2[0][6]) {
+                                      return (
+                                        <div>
+                                          <div className="candidate-more-skills">
+                                            {titleCase(data2[0][6])}
+                                          </div>
                                         </div>
-                                      </div>
-                                    );
-                                  }
-                                })()}
-                                {(() => {
-                                  if (data2[0][7]) {
-                                    return (
-                                      <div>
-                                        <div className="candidate-more-skills">
-                                          {titleCase(data2[0][7])}
+                                      );
+                                    }
+                                  })()}
+                                  {(() => {
+                                    if (data2[0][7]) {
+                                      return (
+                                        <div>
+                                          <div className="candidate-more-skills">
+                                            {titleCase(data2[0][7])}
+                                          </div>
                                         </div>
-                                      </div>
-                                    );
-                                  }
-                                })()}
-                                {(() => {
-                                  if (data2[0][8]) {
-                                    return (
-                                      <div>
-                                        <div className="candidate-more-skills">
-                                          {titleCase(data2[0][8])}
+                                      );
+                                    }
+                                  })()}
+                                  {(() => {
+                                    if (data2[0][8]) {
+                                      return (
+                                        <div>
+                                          <div className="candidate-more-skills">
+                                            {titleCase(data2[0][8])}
+                                          </div>
                                         </div>
-                                      </div>
-                                    );
-                                  }
-                                })()}
-                              </div>
-                              <span className="primaryskill-span ">
-                                Secondary Skills:
-                              </span>
-                              <div className="candidate-more-skills-tag">
-                                {(() => {
-                                  if (data2[0][9]) {
-                                    return (
-                                      <div>
-                                        <div className="candidate-more-skills">
-                                          {titleCase(data2[0][9])}
+                                      );
+                                    }
+                                  })()}
+                                </div>
+                                <span className="primaryskill-span ">
+                                  Secondary Skills:
+                                </span>
+                                <div className="candidate-more-skills-tag">
+                                  {(() => {
+                                    if (data2[0][9]) {
+                                      return (
+                                        <div>
+                                          <div className="candidate-more-skills">
+                                            {titleCase(data2[0][9])}
+                                          </div>
                                         </div>
-                                      </div>
-                                    );
-                                  }
-                                })()}
-                                {/* <div className="candidate-more-skills">
+                                      );
+                                    }
+                                  })()}
+                                  {/* <div className="candidate-more-skills">
                                   {newData.Skills6}
                                 </div>
                                 <div className="candidate-more-skills">
@@ -535,157 +539,157 @@ function CandidateFeed() {
                                 <div className="candidate-more-skills">
                                   {newData.Skills8}
                                 </div> */}
-                              </div>
+                                </div>
 
-                              <div className="popup2">
-                                <div className="candidate-more-btn-size">
-                                  <button
-                                    className="candidate-more-button"
-                                    onClick={() => {
-                                      formPopup(boxRef.id);
-                                    }}
-                                  >
-                                    Apply
-                                  </button>
+                                <div className="popup2">
+                                  <div className="candidate-more-btn-size">
+                                    <button
+                                      className="candidate-more-button"
+                                      onClick={() => {
+                                        formPopup(boxRef.id);
+                                      }}
+                                    >
+                                      Apply
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </>
-                        }
-                        handleClose={togglePopup}
-                      />
-                    </div>
-                  )}
+                            </>
+                          }
+                          handleClose={togglePopup}
+                        />
+                      </div>
+                    )}
 
-                  {isForm && (
-                    <div ref={boxRef}>
-                      <Popup
-                        content={
-                          <>
-                            <div>
-                              <div className="candidate-form-header">
-                                Application Form
-                              </div>
-                              <div className="candidate-form-attachment-header">
-                                Attachments
-                              </div>
-                              {/* <input className="form-upload-btn" type="file" /> */}
-                              <div
-                                className="candidate-form-upload-imgdiv"
-                                onClick={(e) => {
-                                  chooseImg.current.click(e);
-                                }}
-                              >
-                                <img
-                                  src={Upload}
-                                  id="resume_img"
-                                  className="candidate-form-upload-img"
-                                  alt="upload_img"
-                                />
-                              </div>
-                              <input
-                                type="file"
-                                ref={chooseImg}
-                                name="fileupload"
-                                id="input"
-                                hidden
-                                onChange={(e) => setFile(e.target.files)}
-                              ></input>
-                              <div className="applicationform-block">
-                                <div className="candidate-form-title">
-                                  {data3[0][0]}
+                    {isForm && (
+                      <div ref={boxRef}>
+                        <Popup
+                          content={
+                            <>
+                              <div>
+                                <div className="candidate-form-header">
+                                  Application Form
                                 </div>
-                                <div className="candidate-form-desc">
-                                  {data3[0][1]}
+                                <div className="candidate-form-attachment-header">
+                                  Attachments
                                 </div>
-                                <div className="candidate-skills-header">
-                                  Skills and Expertise
+                                {/* <input className="form-upload-btn" type="file" /> */}
+                                <div
+                                  className="candidate-form-upload-imgdiv"
+                                  onClick={(e) => {
+                                    chooseImg.current.click(e);
+                                  }}
+                                >
+                                  <img
+                                    src={Upload}
+                                    id="resume_img"
+                                    className="candidate-form-upload-img"
+                                    alt="upload_img"
+                                  />
                                 </div>
-                                <div className="candidate-more-skills-tag">
-                                  {(() => {
-                                    if (data3[0][2]) {
-                                      return (
-                                        <div>
-                                          <div className="candidate-form-skills">
-                                            {titleCase(data3[0][2])}
+                                <input
+                                  type="file"
+                                  ref={chooseImg}
+                                  name="fileupload"
+                                  id="input"
+                                  hidden
+                                  onChange={(e) => setFile(e.target.files)}
+                                ></input>
+                                <div className="applicationform-block">
+                                  <div className="candidate-form-title">
+                                    {data3[0][0]}
+                                  </div>
+                                  <div className="candidate-form-desc">
+                                    {data3[0][1]}
+                                  </div>
+                                  <div className="candidate-skills-header">
+                                    Skills and Expertise
+                                  </div>
+                                  <div className="candidate-more-skills-tag">
+                                    {(() => {
+                                      if (data3[0][2]) {
+                                        return (
+                                          <div>
+                                            <div className="candidate-form-skills">
+                                              {titleCase(data3[0][2])}
+                                            </div>
                                           </div>
-                                        </div>
-                                      );
-                                    }
-                                  })()}
-                                  {(() => {
-                                    if (data3[0][3]) {
-                                      return (
-                                        <div>
-                                          <div className="candidate-form-skills">
-                                            {titleCase(data3[0][3])}
+                                        );
+                                      }
+                                    })()}
+                                    {(() => {
+                                      if (data3[0][3]) {
+                                        return (
+                                          <div>
+                                            <div className="candidate-form-skills">
+                                              {titleCase(data3[0][3])}
+                                            </div>
                                           </div>
-                                        </div>
-                                      );
-                                    }
-                                  })()}
-                                  {(() => {
-                                    if (data3[0][4]) {
-                                      return (
-                                        <div>
-                                          <div className="candidate-form-skills">
-                                            {titleCase(data3[0][4])}
+                                        );
+                                      }
+                                    })()}
+                                    {(() => {
+                                      if (data3[0][4]) {
+                                        return (
+                                          <div>
+                                            <div className="candidate-form-skills">
+                                              {titleCase(data3[0][4])}
+                                            </div>
                                           </div>
-                                        </div>
-                                      );
-                                    }
-                                  })()}
-                                  {(() => {
-                                    if (data3[0][5]) {
-                                      return (
-                                        <div>
-                                          <div className="candidate-form-skills">
-                                            {titleCase(data3[0][5])}
+                                        );
+                                      }
+                                    })()}
+                                    {(() => {
+                                      if (data3[0][5]) {
+                                        return (
+                                          <div>
+                                            <div className="candidate-form-skills">
+                                              {titleCase(data3[0][5])}
+                                            </div>
                                           </div>
-                                        </div>
-                                      );
-                                    }
-                                  })()}
-                                  {(() => {
-                                    if (data3[0][6]) {
-                                      return (
-                                        <div>
-                                          <div className="candidate-form-skills">
-                                            {titleCase(data3[0][6])}
+                                        );
+                                      }
+                                    })()}
+                                    {(() => {
+                                      if (data3[0][6]) {
+                                        return (
+                                          <div>
+                                            <div className="candidate-form-skills">
+                                              {titleCase(data3[0][6])}
+                                            </div>
                                           </div>
+                                        );
+                                      }
+                                    })()}
+                                  </div>
+                                  <div className="candidate-cover-header">
+                                    Cover Letter
+                                  </div>
+                                  <textarea
+                                    className="candidate-text-box"
+                                    name="message"
+                                    onChange={handleChange}
+                                    value={message}
+                                  />
+                                  {que.map((inde, key) => {
+                                    // console.log(key);
+                                    return (
+                                      <div>
+                                        <div className="candidate-form-question">
+                                          {inde[0]}
                                         </div>
-                                      );
-                                    }
-                                  })()}
-                                </div>
-                                <div className="candidate-cover-header">
-                                  Cover Letter
-                                </div>
-                                <textarea
-                                  className="candidate-text-box"
-                                  name="message"
-                                  onChange={handleChange}
-                                  value={message}
-                                />
-                                {que.map((inde, key) => {
-                                  // console.log(key);
-                                  return (
-                                    <div>
-                                      <div className="candidate-form-question">
-                                        {inde[0]}
+                                        <textarea
+                                          className="candidate-form-question-box"
+                                          name={`message${key}`}
+                                          onChange={(e) =>
+                                            handleAnswerChange(e, key)
+                                          }
+                                          // defaultValue={message1}
+                                        />
                                       </div>
-                                      <textarea
-                                        className="candidate-form-question-box"
-                                        name={`message${key}`}
-                                        onChange={(e) =>
-                                          handleAnswerChange(e, key)
-                                        }
-                                        // defaultValue={message1}
-                                      />
-                                    </div>
-                                  );
-                                })}
-                                {/* <div className="candidate-form-question">
+                                    );
+                                  })}
+                                  {/* <div className="candidate-form-question">
                                   {formData.Question2}
                                 </div>
                                 <textarea
@@ -695,339 +699,346 @@ function CandidateFeed() {
                                   value={message}
                                 /> */}
 
-                                <div className="candidate-more-btn-size-application">
-                                  <button
-                                    className="candidate-form-btn"
-                                    onClick={() => {
-                                      applyForJob();
-                                      // storeWithProgress(file);
-                                    }}
-                                  >
-                                    Submit
-                                  </button>
+                                  <div className="candidate-more-btn-size-application">
+                                    <button
+                                      className="candidate-form-btn"
+                                      onClick={() => {
+                                        applyForJob();
+                                        // storeWithProgress(file);
+                                      }}
+                                    >
+                                      Submit
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </>
-                        }
-                        handleClose={formPopup}
-                      />
-                    </div>
-                  )}
+                            </>
+                          }
+                          handleClose={formPopup}
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-        <div className="candidate-jobfeed-main-left">
-          <div className="cancel-filter-apply">
-            {/* <button type="button" class="candidate-cancel-btn">
+              );
+            })}
+          </div>
+          <div className="candidate-jobfeed-main-left">
+            <div className="cancel-filter-apply">
+              {/* <button type="button" class="candidate-cancel-btn">
               Cancel
             </button> */}
-            <span>Filter by</span>
-            <button
-              type="button"
-              class="text-white   font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  candidate-apply-btn"
-            >
-              Apply
-            </button>
-          </div>
-          <div className="expriencelevel-candidate">
-            <h3 class=" font-semibold text-gray-900 dark:text-white font-['Montserrat'] ex-level-candidates">
-              Exprience Level:
-            </h3>
-            <div class="flex items-center pl-3 font-['Open_Sans']">
-              <input
-                id="vue-checkbox"
-                type="checkbox"
-                value=""
-                class="  w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="vue-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+              <span>Filter by</span>
+              <button
+                type="button"
+                class="text-white   font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  candidate-apply-btn"
               >
-                Entry Level
-              </label>
+                Apply
+              </button>
             </div>
-            <div class="flex items-center pl-3">
-              <input
-                id="vue-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 "
-              />
-              <label
-                for="vue-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                Associate Level
-              </label>
+            <div className="expriencelevel-candidate">
+              <h3 class=" font-semibold text-gray-900 dark:text-white font-['Montserrat'] ex-level-candidates">
+                Exprience Level:
+              </h3>
+              <div class="flex items-center pl-3 font-['Open_Sans']">
+                <input
+                  id="vue-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="  w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="vue-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Entry Level
+                </label>
+              </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="vue-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 "
+                />
+                <label
+                  for="vue-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Associate Level
+                </label>
+              </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="vue-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="vue-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Expert Level
+                </label>
+              </div>
             </div>
-            <div class="flex items-center pl-3">
-              <input
-                id="vue-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="vue-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                Expert Level
-              </label>
+            <div className="jobtype-candidate">
+              <h3 class=" font-semibold text-gray-900 dark:text-white font-['Montserrat'] ex-level-candidates">
+                Job Type:
+              </h3>
+              <div class="flex items-center pl-3">
+                <input
+                  id="vue-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="vue-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  On-Site
+                </label>
+              </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="vue-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="vue-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Hybrid
+                </label>
+              </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="vue-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="vue-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Remote
+                </label>
+              </div>
             </div>
-          </div>
-          <div className="jobtype-candidate">
-            <h3 class=" font-semibold text-gray-900 dark:text-white font-['Montserrat'] ex-level-candidates">
-              Job Type:
-            </h3>
-            <div class="flex items-center pl-3">
-              <input
-                id="vue-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="vue-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                On-Site
-              </label>
-            </div>
-            <div class="flex items-center pl-3">
-              <input
-                id="vue-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="vue-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                Hybrid
-              </label>
-            </div>
-            <div class="flex items-center pl-3">
-              <input
-                id="vue-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="vue-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                Remote
-              </label>
-            </div>
-          </div>
-          <div className="technology-candidate">
-            <h3 class=" font-semibold text-gray-900 dark:text-white font-['Montserrat'] ex-level-candidates">
-              Technology:
-            </h3>
+            <div className="technology-candidate">
+              <h3 class=" font-semibold text-gray-900 dark:text-white font-['Montserrat'] ex-level-candidates">
+                Technology:
+              </h3>
 
-            <div class="flex items-center pl-3">
-              <input
-                id="vue-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="vue-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                Vue JS
-              </label>
-            </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="vue-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="vue-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Vue JS
+                </label>
+              </div>
 
-            <div class="flex items-center pl-3">
-              <input
-                id="vue-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="vue-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                Blockchain
-              </label>
-            </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="vue-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="vue-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Blockchain
+                </label>
+              </div>
 
-            <div class="flex items-center pl-3">
-              <input
-                id="vue-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="vue-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                Wordpress
-              </label>
-            </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="vue-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="vue-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Wordpress
+                </label>
+              </div>
 
-            <div class="flex items-center pl-3">
-              <input
-                id="react-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="react-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                React
-              </label>
-            </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="react-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="react-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  React
+                </label>
+              </div>
 
-            <div class="flex items-center pl-3">
-              <input
-                id="angular-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="angular-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                Angular
-              </label>
-            </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="angular-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="angular-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Angular
+                </label>
+              </div>
 
-            <div class="flex items-center pl-3">
-              <input
-                id="laravel-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="laravel-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                Laravel
-              </label>
+              <div class="flex items-center pl-3">
+                <input
+                  id="laravel-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="laravel-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Laravel
+                </label>
+              </div>
             </div>
-          </div>
-          <div className="expriencelevel-candidate">
-            <h3 class=" font-semibold text-gray-900 dark:text-white font-['Montserrat'] ex-level-candidates">
-              Location:
-            </h3>
-            <div class="flex items-center pl-3">
-              <input
-                id="angular-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="angular-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                Brazil
-              </label>
-            </div>
-            <div class="flex items-center pl-3">
-              <input
-                id="angular-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="angular-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                India
-              </label>
-            </div>
-            <div class="flex items-center pl-3">
-              <input
-                id="angular-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="angular-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                China
-              </label>
-            </div>
-            <div class="flex items-center pl-3">
-              <input
-                id="angular-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="angular-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                France
-              </label>
-            </div>
-            <div class="flex items-center pl-3">
-              <input
-                id="angular-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="angular-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                Canada
-              </label>
-            </div>
-            <div class="flex items-center pl-3">
-              <input
-                id="angular-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-              />
-              <label
-                for="angular-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                Australlia
-              </label>
-            </div>
-            <div class="flex items-center pl-3">
-              <input
-                id="angular-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-500 dark:border-gray-500"
-              />
-              <label
-                for="angular-checkbox"
-                class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
-              >
-                Japan
-              </label>
+            <div className="expriencelevel-candidate">
+              <h3 class=" font-semibold text-gray-900 dark:text-white font-['Montserrat'] ex-level-candidates">
+                Location:
+              </h3>
+              <div class="flex items-center pl-3">
+                <input
+                  id="angular-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="angular-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Brazil
+                </label>
+              </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="angular-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="angular-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  India
+                </label>
+              </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="angular-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="angular-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  China
+                </label>
+              </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="angular-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="angular-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  France
+                </label>
+              </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="angular-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="angular-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Canada
+                </label>
+              </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="angular-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="angular-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Australlia
+                </label>
+              </div>
+              <div class="flex items-center pl-3">
+                <input
+                  id="angular-checkbox"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-500 dark:border-gray-500"
+                />
+                <label
+                  for="angular-checkbox"
+                  class="py-3 ml-2 w-full text-lg font-medium text-gray-900 dark:text-gray-300 font-['Open_Sans']"
+                >
+                  Japan
+                </label>
+              </div>
             </div>
           </div>
         </div>
+      </>
+    );
+  } else {
+    return (
+      <div>
+        <LoadingIcon />
       </div>
-    </>
-  );
+    );
+  }
 }
 
 export default CandidateFeed;
