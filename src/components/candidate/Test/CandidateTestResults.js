@@ -41,7 +41,16 @@ const CandidateTestResults = () => {
         `SELECT title,company_id FROM job_table_80001_2018 where job_id=${job_id[i]}`
       );
       console.log(res1);
-      let title = res1["rows"][0][0];
+      let title="";
+
+      if(res1["rows"][0]===undefined)
+      {
+
+      }
+      else{
+        title = res1["rows"][0][0];
+      }
+   
       const res2 = await tableland.read(
         `SELECT application_id FROM ${name} where job_id=${job_id[i]} and candidate_id=${candidate_id}`
       );
@@ -49,13 +58,32 @@ const CandidateTestResults = () => {
       const res3 = await tableland.read(
         `SELECT score,duration FROM result_table_80001_2805 where application_id=${app_id} and candidte_id=${candidate_id}`
       );
-      let score = res3["rows"][0][0];
-      let duration = res3["rows"][0][1];
-      let company_id = res1["rows"][0][1];
+      let score="";
+      if(score = res3["rows"][0]!==undefined)
+      {
+        score = res3["rows"][0][0];
+      }
+      
+      let duration = "";
+      if(duration = res3["rows"][0]!==undefined)
+      {
+        duration = res3["rows"][0][1];
+      }
+      
+      let company_id=null;
+      if(res1["rows"][0]!==undefined)
+      {
+         company_id = res1["rows"][0][1];
+      }
+         
       const res4 = await tableland.read(
         `SELECT name FROM company_table_80001_1730 where company_id=${company_id} `
       );
-      let company_name = res4["rows"][0][0];
+      let company_name = "";
+      if(company_name = res4["rows"][0] !== undefined)
+      {
+        company_name = res4["rows"][0][0];
+      }
       data.push([title, score, company_name, duration]);
     }
     setData(data);
