@@ -70,7 +70,7 @@ import SingleRepo from "./components/creator/SingleRepo";
 function App() {
   const { chains, provider, webSocketProvider } = configureChains(
     defaultChains,
-    [alchemyProvider({ apiKey: "yourAlchemyApiKey" }), publicProvider()]
+    [alchemyProvider({ apiKey: "2RmUIFuA9wmNin87r9a9YrWjQDl0a8ro" }), publicProvider()]
   );
 
   const client = createClient({
