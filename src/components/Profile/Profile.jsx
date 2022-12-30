@@ -591,8 +591,352 @@ export default function Profile() {
           </div>
         </>
       );
+    } else if (user === "creator") {
+      return (
+        <>
+          <div className="profile-profile">
+            <div className="profile-profileRight">
+              <div className="profile-profileRightTop">
+                <div className="profile-profileCover">
+                  <img
+                    className="profile-profileCoverImg"
+                    src={"https://ipfs.io/ipfs/" + creatorData.cover_image}
+                    alt="cover"
+                  />
+                  <img
+                    className="profile-profileUserImg"
+                    src={"https://ipfs.io/ipfs/" + creatorData.profile_image}
+                    alt="profile_image"
+                  />
+                </div>
+                <div className="profile-profileInfo">
+                  <h4 className="profile-profileInfoName">
+                    {creatorData.name}
+                  </h4>
+                  {/* <span className="profile-profileInfoDesc">Hello World</span> */}
+                </div>
+                <button
+                  className="withdraw-btn"
+                  onClick={(e) => {
+                    withdraw(e);
+                  }}
+                >
+                  Withdraw
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* //////////////////////////////////////////////////////////////////////////////// */}
+          <div className="userprofile-main-div">
+            <div className="profile-rightbar-main-box">
+              <div className="exp-logo">
+                <img
+                  className="profile-educationProfileImg"
+                  src={userlogo}
+                  alt=""
+                />{" "}
+                <div className="profile-leftbar-experience">
+                  User information
+                </div>
+              </div>
+              <div className="profile-leftbar-main-box">
+                {/* <span className="bold-text-experience">Lajja Vaniya</span> */}
+                <div>
+                  <span className="bold-text-experience">Address:</span>
+                  <span className="profile-leftbar-edu-date">
+                    {creatorData.address}
+                  </span>
+                </div>
+                <div>
+                  <span className="bold-text-experience">Contact Number:</span>
+                  <span className="profile-leftbar-edu-date">
+                    {creatorData.contect_number}
+                  </span>
+                </div>
+                <div className="address-pro-merge">
+                  <span className="bold-text-experience">Country:</span>
+
+                  <span className="profile-rightbar-address">
+                    {creatorData.contry}
+                  </span>
+                </div>
+
+                <span className="bold-text-experience">Bio:</span>
+                <span className="profile-rightbar-des">{creatorData.bio}</span>
+              </div>
+            </div>
+
+            <div className="profile-leftbar-main">
+              <div className="experience-main-box">
+                <div className="exp-logo">
+                  <img
+                    className="profile-educationProfileImg"
+                    // src={exlogo}
+                    alt=""
+                  />{" "}
+                  <div className="profile-leftbar-experience">Achievements</div>
+                </div>
+                <div className="profile-leftbar-main-box">
+                  {/* <div className="profile-educationTopRight">
+              <span className="profile-educationUsername">
+                <img
+                  className="profile-educationEditImg"
+                  src={editimg}
+                  alt=""
+                />
+              </span>
+            </div> */}
+
+                  <div className="profile-leftbar-merge">
+                    <span className="bold-text-experience">Title: </span>
+
+                    <span className="profile-leftbar-domain">
+                      {creatorData.achievements[0].a_title}
+                    </span>
+                  </div>
+                  <div className="profile-leftbar-merge">
+                    <span className="bold-text-experience">Organization: </span>
+
+                    <span className="profile-leftbar-companyname">
+                      {creatorData.achievements[0].issueing_organization}
+                    </span>
+                  </div>
+
+                  <div className="profile-leftbar-merge">
+                    <span className="bold-text-experience">Description:</span>
+                    <span className="profile-leftbar-skill01">
+                      {creatorData.achievements[0].a_description}
+                    </span>
+                    <div>
+                      <span className="bold-text-experience">Score:</span>
+                      <span className="profile-leftbar-skill01">
+                        {creatorData.achievements[0].score}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="education-main-box">
+                <div className="edu-exp-merge-div">
+                  <div className="exp-logo">
+                    <img
+                      className="profile-educationProfileImg"
+                      // src={edu_logo}
+                      alt=""
+                    />{" "}
+                    <div className="profile-leftbar-experience">
+                      Experience Details
+                    </div>
+                  </div>
+                  <div className="profile-leftbar-main-box">
+                    <span className="bold-text-experience">Years:</span>
+                    <span className="profile-leftbar-skill01">
+                      {creatorData.experiance_details}
+                    </span>
+                    <span className="profile-rightbar-des">
+                      {/* {userEduDescription} */}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="skill-main-box">
+                <div className="exp-logo">
+                  <img
+                    className="profile-educationProfileImg"
+                    // src={skill}
+                    alt=""
+                  />{" "}
+                  <div className="profile-leftbar-experience">Skills</div>
+                </div>
+                <div className="profile-leftbar-main-box">
+                  {/* <div>
+                    {userSkill.map((skill_) => (
+                      <span className="profile-leftbar-skill">{skill_}</span>
+                    ))}
+                  </div> */}
+                </div>
+              </div>
+              <div className="usernft-main">
+                <div className="exp-logo">
+                  <img
+                    className="profile-educationProfileImg"
+                    src={nftlogo}
+                    alt=""
+                  />{" "}
+                  <div className="profile-leftbar-experience">User NFT's </div>
+                </div>
+
+                <div className="profile-rightbar-main-nft">
+                  {metaDataNft.map((mdnft) => (
+                    <img
+                      className="profile-profileCoverImg-nft"
+                      src={mdnft.items[0].nft_data[0].external_data.image}
+                      alt="cover"
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    } else if (user === "company") {
+      return (
+        <>
+          <div className="profile-profile">
+            <div className="profile-profileRight">
+              <div className="profile-profileRightTop">
+                <div className="profile-profileCover">
+                  <img
+                    className="profile-profileCoverImg"
+                    src={"https://ipfs.io/ipfs/" + companyData.cover_image}
+                    alt="cover"
+                  />
+                  <img
+                    className="profile-profileUserImg"
+                    src={"https://ipfs.io/ipfs/" + companyData.logo}
+                    alt="profile_image"
+                  />
+                </div>
+                <div className="profile-profileInfo">
+                  <h4 className="profile-profileInfoName">
+                    {companyData.name}
+                  </h4>
+                  {/* <span className="profile-profileInfoDesc">Hello World</span> */}
+                </div>
+                <button
+                  className="withdraw-btn"
+                  onClick={(e) => {
+                    withdraw(e);
+                  }}
+                >
+                  Withdraw
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* //////////////////////////////////////////////////////////////////////////////// */}
+          <div className="userprofile-main-div">
+            <div className="profile-rightbar-main-box">
+              <div className="exp-logo">
+                <img
+                  className="profile-educationProfileImg"
+                  src={userlogo}
+                  alt=""
+                />{" "}
+                <div className="profile-leftbar-experience">
+                  Company Information
+                </div>
+              </div>
+              <div className="profile-leftbar-main-box">
+                {/* <span className="bold-text-experience">Lajja Vaniya</span> */}
+                <div>
+                  <span className="bold-text-experience">Address:</span>
+                  <span className="profile-leftbar-edu-date">
+                    {companyData.address}
+                  </span>
+                </div>
+                <div>
+                  <span className="bold-text-experience">Contact Number:</span>
+                  <span className="profile-leftbar-edu-date">
+                    {companyData.contect_number}
+                  </span>
+                </div>
+                <div className="address-pro-merge">
+                  <span className="bold-text-experience">Contry:</span>
+
+                  <span className="profile-rightbar-address">
+                    {companyData.contry}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="profile-leftbar-main">
+              <div className="experience-main-box">
+                <div className="exp-logo">
+                  <img
+                    className="profile-educationProfileImg"
+                    src={exlogo}
+                    alt=""
+                  />{" "}
+                  <div className="profile-leftbar-experience">
+                    Company Details
+                  </div>
+                </div>
+                <div className="profile-leftbar-main-box">
+                  {/* <div className="profile-educationTopRight">
+              <span className="profile-educationUsername">
+                <img
+                  className="profile-educationEditImg"
+                  src={editimg}
+                  alt=""
+                />
+              </span>
+            </div> */}
+
+                  <div>
+                    <span className="bold-text-experience">About:</span>
+                    <span className="profile-leftbar-skill01">
+                      {companyData.description}
+                    </span>
+                  </div>
+
+                  <span className="bold-text-experience">
+                    Year of Establishment:
+                  </span>
+                  <span className="profile-leftbar-skill01">
+                    {companyData.year_of_establishment}
+                  </span>
+
+                  <div className="profile-leftbar-merge">
+                    <span className="bold-text-experience">
+                      Number of Employees:
+                    </span>
+                    <span className="profile-leftbar-skill01">
+                      {companyData.number_of_employees}
+                    </span>
+                    <div>
+                      <span className="bold-text-experience">Company Url:</span>
+                      <span className="profile-leftbar-skill01">
+                        {companyData.company_url}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="usernft-main">
+                <div className="exp-logo">
+                  <img
+                    className="profile-educationProfileImg"
+                    src={nftlogo}
+                    alt=""
+                  />{" "}
+                  <div className="profile-leftbar-experience">
+                    Company NFT's{" "}
+                  </div>
+                </div>
+
+                <div className="profile-rightbar-main-nft">
+                  {metaDataNft.map((mdnft) => (
+                    <img
+                      className="profile-profileCoverImg-nft"
+                      src={mdnft.items[0].nft_data[0].external_data.image}
+                      alt="cover"
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      );
     } else {
-      return <div>No Data Soory</div>;
+      return <div> welcome Unknown</div>;
     }
   }
 }
