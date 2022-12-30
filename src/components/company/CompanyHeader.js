@@ -393,19 +393,7 @@ export default function CompanyHeader() {
                       )}
                     </Menu.Item> */}
                   <Menu.Item>
-                    {({ active }) => (
-                      <Link
-                        // onClick={() =>
-                        //   window.open("https://office.dehitas.xyz/?username=jd")
-                        // }
-                        className={classNames(
-                          active ? "bg-gray-100" : "",
-                          "block px-4 py-2 text-sm text-gray-700"
-                        )}
-                      >
-                        Public Office
-                      </Link>
-                    )}
+                 
                   </Menu.Item>
                 </Menu.Items>
               </Transition>

@@ -31,15 +31,24 @@ function CreatorsList() {
       //     `SELECT skill_name FROM skill_table_80001_1735 where skill_id=${response["rows"][0][0]}`
       //   );
       // }
-      const skill1 = await tableland.read(
+      var skill1;
+      if (response["rows"].length > 0) {
+       skill1 = await tableland.read(
         `SELECT skill_name FROM skill_table_80001_1735 where skill_id=${response["rows"][0][0]}`
       );
-      const skill2 = await tableland.read(
+      }
+      var skill2;
+      if (response["rows"].length > 0) {
+      skill2 = await tableland.read(
         `SELECT skill_name FROM skill_table_80001_1735 where skill_id=${response["rows"][1][0]}`
       );
-      const skill3 = await tableland.read(
+      }
+      var skill3;
+      if (response["rows"].length > 0) {
+      skill3 = await tableland.read(
         `SELECT skill_name FROM skill_table_80001_1735 where skill_id=${response["rows"][2][0]}`
       );
+      }
       if (!data.find((item) => readRes["rows"][i][0] === item[8])) {
         data.push([
           readRes["rows"][i][5],
