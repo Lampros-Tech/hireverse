@@ -1,8 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  useRef,
-} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../creator/Addquestion.css";
 import axios from "axios";
 import { connect as TBLconnect } from "@tableland/sdk";
@@ -24,13 +20,10 @@ import Select from "react-select";
 import { countryArr } from "../registartionforms/CountryList";
 import parse from "html-react-parser";
 
-
 export default function AddQuestion() {
   // let navigate = useNavigate();
   const cookies = new Cookies();
-  const difficultyOption = [
-    ["Easy"], ["Medium"], ["Difficult"]
-  ]
+  const difficultyOption = [["Easy"], ["Medium"], ["Difficult"]];
   // const [optionList, setOptionList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [setNumber, setSetNumber] = useState(null);
@@ -69,7 +62,7 @@ export default function AddQuestion() {
     // console.log(readRes.rows);
     // setAllSkills(readRes.rows);
     const filterSkills = readRes.rows.map((skill, i) => {
-      return { value: skill[0], label: skill[1] }
+      return { value: skill[0], label: skill[1] };
     });
     setPrimarySkills(filterSkills);
     setSecondarySkills(filterSkills);
@@ -87,23 +80,22 @@ export default function AddQuestion() {
     }),
   };
 
-
   const getRepoTable = () => {
     if (!isConnected) {
       connect();
     }
     // console.log(address);
     var res_data = JSON.stringify({
-      "walletAddress": address
+      walletAddress: address,
     });
 
     var config = {
-      method: 'post',
+      method: "post",
       url: `${process.env.REACT_APP_API_URL}/creator/getTables`,
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      data: res_data
+      data: res_data,
     };
 
     axios(config)
@@ -112,19 +104,25 @@ export default function AddQuestion() {
         console.log(response.data);
         setRepoTableName(response.data.repo_table);
         setQuestionTableName(response.data.question_table);
-        if (response.data.question_table === null || response.data.question_table === "" || response.data.question_table === undefined) {
+        if (
+          response.data.question_table === null ||
+          response.data.question_table === "" ||
+          response.data.question_table === undefined
+        ) {
           setTimeout(() => {
-            setLoadingMessage("Please create a question table before proceeding...");
+            setLoadingMessage(
+              "Please create a question table before proceeding..."
+            );
             setLoading(true);
             navigate("/role/creator");
-          }, 5000)
+          }, 5000);
         }
       })
       .catch(function (error) {
         console.log(error);
-        setLoadingMessage("Something went wrong...")
+        setLoadingMessage("Something went wrong...");
       });
-  }
+  };
 
   const fetchRepositoriesNames = async () => {
     const tableland = await TBLconnect({
@@ -132,14 +130,16 @@ export default function AddQuestion() {
       chain: "polygon-mumbai",
     });
     // console.log(tableland);
-    const readRes = await tableland.read(`SELECT repo_name from ${repoTableName}`);
+    const readRes = await tableland.read(
+      `SELECT repo_name from ${repoTableName}`
+    );
     // const readRes = await tableland.read(`SELECT * FROM ${name}`);
     const data = readRes.rows;
     // console.log(readRes.rows);
     setAllRepos(readRes.rows);
     setCreatorId(cookies.get("creatorID"));
     setLoading(false);
-  }
+  };
 
   //single Question
   const editorRef_singleQ = useRef(null);
@@ -156,7 +156,7 @@ export default function AddQuestion() {
     // if (!parseHtml || !category || correct1 === -1) {
     //   return;
     // }
-    setLoadingMessage("Adding the questions...")
+    setLoadingMessage("Adding the questions...");
     setLoading(true);
     console.log("I am not comfortable");
     const question = "'" + editorRef_singleQ.current.getContent() + "'";
@@ -185,16 +185,31 @@ export default function AddQuestion() {
     }
 
     const solution = "'" + editorRef_solution.current.getContent() + "'";
-    const primaryTags = "'" + selectedPrimarySkills['label'] + "'";
+    const primaryTags = "'" + selectedPrimarySkills["label"] + "'";
     const secondaryTags = "'" + selectedSecondarySkills.join() + "'";
     const diff = "'" + difficulty + "'";
     const repo = "'" + selectedRepo + "'";
     const priv = privacy;
 
-    console.log(question, option1, option2, option3, option4, option5, correct, solution, primaryTags, secondaryTags, diff, repo, priv);
+    console.log(
+      question,
+      option1,
+      option2,
+      option3,
+      option4,
+      option5,
+      correct,
+      solution,
+      primaryTags,
+      secondaryTags,
+      diff,
+      repo,
+      priv
+    );
     console.log(Math.floor(new Date().getTime() / 1000));
 
     try {
+      console.log("jarra hai");
       const creatorsData = await insert_creators_questions_table(
         questionTableName,
         "'" + address + "'",
@@ -217,7 +232,7 @@ export default function AddQuestion() {
       setCreatorsProcessedData(creatorsData);
     } catch {
       setTimeout(() => {
-        setLoadingMessage("Something went wrong...")
+        setLoadingMessage("Something went wrong...");
         setLoading(false);
       }, 5000);
     }
@@ -228,27 +243,29 @@ export default function AddQuestion() {
       network: "testnet",
       chain: "polygon-mumbai",
     });
-    const lastEntry = await tableland.read(`SELECT creators_question_id FROM ${questionTableName} ORDER BY creators_question_id DESC LIMIT 1`);
+    const lastEntry = await tableland.read(
+      `SELECT creators_question_id FROM ${questionTableName} ORDER BY creators_question_id DESC LIMIT 1`
+    );
     console.log(lastEntry.rows[0][0]);
 
     const customConfig = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     var data = JSON.stringify({
-      "creators_question_id": lastEntry.rows[0][0],
-      "creators_questions_table_name": questionTableName
+      creators_question_id: lastEntry.rows[0][0],
+      creators_questions_table_name: questionTableName,
     });
 
     var config = {
-      method: 'post',
+      method: "post",
       url: `${process.env.REACT_APP_API_URL}/toBeVerified`,
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      data: data
+      data: data,
     };
 
     axios(config)
@@ -265,7 +282,7 @@ export default function AddQuestion() {
         }, 5000);
         setCreatorsProcessedData(null);
       });
-  }
+  };
 
   useEffect(() => {
     try {
@@ -285,16 +302,16 @@ export default function AddQuestion() {
   }, [repoTableName]);
 
   useEffect(() => {
-    console.log(selectedPrimarySkills)
+    console.log(selectedPrimarySkills);
   }, [selectedPrimarySkills]);
 
   useEffect(() => {
-    console.log(selectedSecondarySkills)
+    console.log(selectedSecondarySkills);
     console.log(selectedSecondarySkills.join());
   }, [selectedSecondarySkills]);
 
   useEffect(() => {
-    console.log(selectedNation)
+    console.log(selectedNation);
   }, [selectedNation]);
 
   useEffect(() => {
@@ -306,23 +323,21 @@ export default function AddQuestion() {
       setTimeout(() => {
         setLoadingMessage("Their was some error processing the data...");
         setLoading(false);
-      }, 5000)
+      }, 5000);
     }
-  }, [creatorsProcessedData])
+  }, [creatorsProcessedData]);
 
   if (loading) {
     return (
-      <div style={{ height: '85vh' }}>
+      <div style={{ height: "85vh" }}>
         <LoadingIcon message={loadingMessage} />
       </div>
-    )
-  }
-  else {
+    );
+  } else {
     return (
       <>
         <div className="Add-Questionspage">
           <div className="Add-Enter_Questions">
-
             {/* // Only for one Question */}
             <div className="Question-parrent">
               {/* <div className="Instruction">Enter Main Question Overehere.</div> */}
@@ -855,7 +870,9 @@ export default function AddQuestion() {
 
                   <Editor
                     apiKey=""
-                    onInit={(evt, editor) => (editorRef_solution.current = editor)}
+                    onInit={(evt, editor) =>
+                      (editorRef_solution.current = editor)
+                    }
                     initialValue="<p></p>"
                     init={{
                       placeholder: "Please enter solution here...",
@@ -916,15 +933,25 @@ export default function AddQuestion() {
               </div>
               <br />
               <div>
-                <select defaultValue={""} name="repos" className="uplift rounded p-3" onChange={(e) => { setDifficulty(e.target.value) }} id="repos">
-                  <option value="" disabled>Select difficluty level</option>
-                  {
-                    difficultyOption.map((repo, i) => {
-                      return (
-                        <option value={repo} key={i}>{repo}</option>
-                      )
-                    })
-                  }
+                <select
+                  defaultValue={""}
+                  name="repos"
+                  className="uplift rounded p-3"
+                  onChange={(e) => {
+                    setDifficulty(e.target.value);
+                  }}
+                  id="repos"
+                >
+                  <option value="" disabled>
+                    Select difficluty level
+                  </option>
+                  {difficultyOption.map((repo, i) => {
+                    return (
+                      <option value={repo} key={i}>
+                        {repo}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
               <div className="repo-stroring-option my-9 px-4 ">
@@ -940,7 +967,9 @@ export default function AddQuestion() {
                         value="1"
                         defaultChecked
                         name="privacy-radio"
-                        onChange={(e) => { setPrivacy(Number(e.target.value)) }}
+                        onChange={(e) => {
+                          setPrivacy(Number(e.target.value));
+                        }}
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
                       />
                       <label className="ml-2 font-secondary font-semibold text-left">
@@ -953,7 +982,9 @@ export default function AddQuestion() {
                         type="radio"
                         value="2"
                         name="privacy-radio"
-                        onChange={(e) => { setPrivacy(Number(e.target.value)) }}
+                        onChange={(e) => {
+                          setPrivacy(Number(e.target.value));
+                        }}
                         disabled
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
                       />
@@ -982,8 +1013,8 @@ export default function AddQuestion() {
                       options={secondarySkills}
                       onChange={(e) => {
                         const data = e.map((i) => {
-                          return i.label
-                        })
+                          return i.label;
+                        });
                         setSelectedSecondarySkills(data);
                       }}
                       isSearchable={true}
@@ -993,38 +1024,51 @@ export default function AddQuestion() {
                   </div>
                   <br />
                   <div>
-                    <select defaultValue={""} placeholder="Please select a country name" onChange={(e) => { setSelectedNation(e.target.value) }} className="uplift rounded p-3">
+                    <select
+                      defaultValue={""}
+                      placeholder="Please select a country name"
+                      onChange={(e) => {
+                        setSelectedNation(e.target.value);
+                      }}
+                      className="uplift rounded p-3"
+                    >
                       <option value="">Please select the nation</option>
-                      {
-                        countryArr.map((nation, i) => (
-                          <option key={i} value={nation}>
-                            {nation}
-                          </option>
-                        ))
-                      }
+                      {countryArr.map((nation, i) => (
+                        <option key={i} value={nation}>
+                          {nation}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <br />
                   <div>
-                    <select defaultValue={""} name="repos" className="uplift rounded p-3" onChange={(e) => { setSelectedRepo(e.target.value) }} id="repos">
-                      <option value="" disabled>Select your repository</option>
-                      {
-                        allRepos.map((repo, i) => {
-                          return (
-                            <option value={repo} key={i}>{repo}</option>
-                          )
-                        })
-                      }
+                    <select
+                      defaultValue={""}
+                      name="repos"
+                      className="uplift rounded p-3"
+                      onChange={(e) => {
+                        setSelectedRepo(e.target.value);
+                      }}
+                      id="repos"
+                    >
+                      <option value="" disabled>
+                        Select your repository
+                      </option>
+                      {allRepos.map((repo, i) => {
+                        return (
+                          <option value={repo} key={i}>
+                            {repo}
+                          </option>
+                        );
+                      })}
                     </select>
                   </div>
                 </div>
-
               </div>
               <button
                 className="Add-submit"
                 onClick={() => {
                   submitQuestion();
-
                 }}
               >
                 Add Question

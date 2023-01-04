@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import LoadingIcon from "../walletconnect/LoadingIcon";
 import { useParams } from "react-router-dom";
 import "../company/styles/availabletest.css";
 import avtar from "../company/styles/companyprofile.png";
@@ -29,6 +30,8 @@ function AvailableTest() {
   const [loading, setLoading] = useState(false);
 
   const updateAssessmentId = (e) => {
+    setLoading(false);
+    console.log(loading);
     const currentLocation = window.location.href;
     const param = currentLocation.split("=");
     var data = JSON.stringify({
@@ -44,7 +47,6 @@ function AvailableTest() {
       },
       data: data,
     };
-
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
@@ -63,7 +65,7 @@ function AvailableTest() {
       chain: "polygon-mumbai",
     });
     const readRes = await tableland.read(`SELECT * FROM ${name}`);
-    console.log(readRes)
+    console.log(readRes);
     for (let i = 0; i < readRes["rows"].length; i++) {
       let creator_id = readRes["rows"][i][1];
       const response = await tableland.read(
@@ -71,15 +73,15 @@ function AvailableTest() {
       );
       let url = "https://ipfs.io/ipfs/" + response["rows"][0][1];
       if (!data.find((item) => readRes["rows"][i][0] === item[0])) {
-      data.push([
-        readRes["rows"][i][0],
-        readRes["rows"][i][2],
-        readRes["rows"][i][4],
-        readRes["rows"][i][3],
-        response["rows"][0][0],
-        url,
-      ]);
-    }
+        data.push([
+          readRes["rows"][i][0],
+          readRes["rows"][i][2],
+          readRes["rows"][i][4],
+          readRes["rows"][i][3],
+          response["rows"][0][0],
+          url,
+        ]);
+      }
     }
     setData(data);
     setLoading(true);
@@ -396,7 +398,11 @@ function AvailableTest() {
       </>
     );
   } else {
-    console.log("loading");
+    return (
+      <div className="test-loader">
+        <LoadingIcon />
+      </div>
+    );
   }
 }
 export default AvailableTest;

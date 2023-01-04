@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
+import LoadingIcon from "../walletconnect/LoadingIcon";
 import "../company/styles/invitecandidate.css";
 import Upload from "../company/styles/fileuploads.svg";
 import Successpopup from "./Successpopup";
 import avtar from "../company/styles/companyprofile.png";
 import { connect } from "@tableland/sdk";
 import { useAccount } from "wagmi";
-import * as EpnsAPI from "@epnsproject/sdk-restapi";
-
+import * as PushAPI from "@pushprotocol/restapi";
 import { ethers } from "ethers";
 import contract from "../../Contracts/artifacts/superfluid_contract.json";
 import { type } from "jquery";
@@ -38,19 +38,22 @@ function InviteCandidate() {
       const response = await tableland.read(
         `SELECT degree FROM education_table_80001_2259 where login_id=${login_id}`
       );
+      console.log(response);
       let url = "https://ipfs.io/ipfs/" + readRes["rows"][i][4];
+      console.log(data);
       if (!data.find((item) => readRes["rows"][i][0] === item[5])) {
-      data.push([
-        url,
-        readRes["rows"][i][2],
-        response["rows"][0][0],
-        readRes["rows"][i][3],
-        readRes["rows"][i][6],
-        readRes["rows"][i][0]
-      ]);
+        data.push([
+          url,
+          readRes["rows"][i][2],
+          // response["rows"][0][0],
+          response.rows.length > 0 ? response.rows[0][0] : "N/A",
+          readRes["rows"][i][3],
+          readRes["rows"][i][6],
+          readRes["rows"][i][0],
+        ]);
+      }
     }
-    }
-    setData(data);
+    // setData(data);
     // console.log(data);
     setLoading(true);
   };
@@ -60,29 +63,58 @@ function InviteCandidate() {
   const Pkey = `0x${process.env.REACT_APP_PK}`;
   const signer = new ethers.Wallet(Pkey);
 
+  // const sendNotification = async (receiver) => {
+  //   // console.log(receiver);
+  //   try {
+  //     const apiResponse = await EpnsAPI.payloads.sendNotification({
+  //       signer,
+  //       type: 3, // target
+  //       identityType: 2, // direct payload
+  //       notification: {
+  //         title: "Interview Invitation",
+  //         body: "Hello you have been invited to the interview, The interview details will be shared soon",
+  //       },
+  //       payload: {
+  //         title: `[sdk-test] payload title`,
+  //         body: `sample msg body`,
+  //         cta: "https://office.dehitas.xyz/?id=cZJte9SEh",
+  //         img: "",
+  //       },
+  //       recipients: "eip155:42:" + receiver, // recipient address
+  //       // ['eip155:42:0xCdBE6D076e05c5875D90fa35cc85694E1EAFBBd1', 'eip155:42:0x52f856A160733A860ae7DC98DC71061bE33A28b3'], //for multiple recipients
+  //       channel: "eip155:42:0xfaabb044AF5C19145cA4AE13CA12C419395A72FB", // your channel address
+  //       env: "staging",
+  //     });
+  //     console.log("API repsonse: sent ", apiResponse);
+  //     alert("Notification sent to the candidate");
+  //   } catch (err) {
+  //     console.error("Error: ", err);
+  //   }
+  // };
+
   const sendNotification = async (receiver) => {
-    // console.log(receiver);
     try {
-      const apiResponse = await EpnsAPI.payloads.sendNotification({
-        signer,
+      const apiResponse = await PushAPI.payloads.sendNotification({
+        signer: signer,
         type: 3, // target
         identityType: 2, // direct payload
         notification: {
-          title: "Interview Invitation",
-          body: "Hello you have been invited to the interview, The interview details will be shared soon",
+          title: `Interview Invitation`,
+          body: `Hello you have been invited to the interview, The interview details will be shared soon `,
         },
         payload: {
-          title: `[sdk-test] payload title`,
-          body: `sample msg body`,
+          title: `[sdk-test] payload title `,
+          body: `Congratulation`,
           cta: "https://office.dehitas.xyz/?id=cZJte9SEh",
           img: "",
         },
-        recipients: "eip155:42:" + receiver, // recipient address
-        // ['eip155:42:0xCdBE6D076e05c5875D90fa35cc85694E1EAFBBd1', 'eip155:42:0x52f856A160733A860ae7DC98DC71061bE33A28b3'], //for multiple recipients
-        channel: "eip155:42:0xfaabb044AF5C19145cA4AE13CA12C419395A72FB", // your channel address
+        recipients: "eip155:5:0x6Ea2D65538C1eAD906bF5F7EdcfEa03B504297ce", // recipient address
+        channel: "eip155:5:0x737175340d1D1CaB2792bcf83Cff6bE7583694c7", // your channel address
         env: "staging",
       });
-      console.log("API repsonse: sent ", apiResponse);
+
+      // apiResponse?.status === 204, if sent successfully!
+      console.log("API repsonse: ", apiResponse);
       alert("Notification sent to the candidate");
     } catch (err) {
       console.error("Error: ", err);
@@ -102,7 +134,22 @@ function InviteCandidate() {
 
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
-        if (chainId === 80001) {
+        if (chainId === 5) {
+          const currentLocation = window.location.href;
+          const param = currentLocation.split("=");
+          const job_id = param[1];
+          const user = [e.target.id];
+          const con = new ethers.Contract(
+            CONTRACT_ADDRESS_POLYGON,
+            contract,
+            signer
+          );
+          const tx = await con.InviteCandidatesToDrive(companyId, job_id, user);
+          tx.wait();
+          sendNotification("0xe57f4c84539a6414C4Cf48f135210e01c477EFE0");
+        }
+
+        if (chainId === 8001) {
           const currentLocation = window.location.href;
           const param = currentLocation.split("=");
           const job_id = param[1];
@@ -265,7 +312,11 @@ function InviteCandidate() {
       </>
     );
   } else {
-    return "loading";
+    return (
+      <div className="test-loader">
+        <LoadingIcon />
+      </div>
+    );
   }
 }
 export default InviteCandidate;
