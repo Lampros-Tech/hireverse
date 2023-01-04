@@ -373,14 +373,14 @@ export default function Profile() {
                   <h4 className="profile-profileInfoName">{userName}</h4>
                   {/* <span className="profile-profileInfoDesc">Hello World</span> */}
                 </div>
-                <button
+                {/* <button
                   className="withdraw-btn"
                   onClick={(e) => {
                     withdraw(e);
                   }}
                 >
                   Withdraw
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
@@ -806,14 +806,14 @@ export default function Profile() {
                   </h4>
                   {/* <span className="profile-profileInfoDesc">Hello World</span> */}
                 </div>
-                <button
+                {/* <button
                   className="withdraw-btn"
                   onClick={(e) => {
                     withdraw(e);
                   }}
                 >
                   Withdraw
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
