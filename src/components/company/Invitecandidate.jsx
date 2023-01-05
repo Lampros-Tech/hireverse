@@ -108,7 +108,7 @@ function InviteCandidate() {
           cta: "https://office.dehitas.xyz/?id=cZJte9SEh",
           img: "",
         },
-        recipients: "eip155:5:0x6Ea2D65538C1eAD906bF5F7EdcfEa03B504297ce", // recipient address
+        recipients: "eip155:42:" + receiver, // recipient address
         channel: "eip155:5:0x737175340d1D1CaB2792bcf83Cff6bE7583694c7", // your channel address
         env: "staging",
       });

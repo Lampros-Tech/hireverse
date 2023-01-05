@@ -11,8 +11,10 @@ import {
   XMarkIcon,
   LinkIcon,
 } from "@heroicons/react/24/outline";
-import { NotificationItem, chainNameType } from "@epnsproject/sdk-uiweb";
-import * as EpnsAPI from "@epnsproject/sdk-restapi";
+// import { NotificationItem, chainNameType } from "@epnsproject/sdk-uiweb";
+// import * as EpnsAPI from "@epnsproject/sdk-restapi";
+import { NotificationItem, chainNameType } from "@pushprotocol/uiweb";
+import * as PushAPI from "@pushprotocol/restapi";
 
 import WalletPopup from "../walletconnect/WalletPopup";
 
@@ -72,7 +74,7 @@ export default function CandidateHeader() {
 
   const checkSusbcription = async () => {
     await getuseraddress();
-    const subscriptions = await EpnsAPI.user.getSubscriptions({
+    const subscriptions = await PushAPI.user.getSubscriptions({
       user: "eip155:42:" + useraddress, // user address in CAIP
       env: "staging",
     });
@@ -96,7 +98,7 @@ export default function CandidateHeader() {
   const fetchNotifications = async () => {
     await getuseraddress();
     console.log(useraddress);
-    const notifications = await EpnsAPI.user.getFeeds({
+    const notifications = await PushAPI.user.getFeeds({
       user: "eip155:42:" + useraddress, // user address in CAIP
       env: "staging",
     });
@@ -123,7 +125,7 @@ export default function CandidateHeader() {
 
     await getuseraddress();
 
-    await EpnsAPI.channels.subscribe({
+    await PushAPI.channels.subscribe({
       signer: signerobject,
       channelAddress: "eip155:42:0xfaabb044AF5C19145cA4AE13CA12C419395A72FB", // channel address in CAIP
       userAddress: "eip155:42:" + useraddress, // user address in CAIP

@@ -37,28 +37,24 @@ import AvailableTest from "./components/company/Availabletest";
 import InviteCandidate from "./components/company/Invitecandidate";
 import JobApplicant from "./components/company/JobApplicant";
 import Jobinsights from "./components/company/JobInsight";
-import CreatorMessage from "./components/creator/CreatorMessages";
-import CandidateMessage from "./components/candidate/CandidateMessages";
-import CompanyMessage from "./components/company/CompanyMessages";
+// import CreatorMessage from "./components/creator/CreatorMessages";
+// import CandidateMessage from "./components/candidate/CandidateMessages";
+// import CompanyMessage from "./components/company/CompanyMessages";
 import EditQuestion from "./components/creator/EditQuestion";
 import QuestionFeed from "./components/creator/questionFeed";
 import CreatorEducation from "./components/registartionforms/CreatorEducation";
 import CreatorSignRequest from "./components/CreatorSignRequest";
 import Verifyquestion from "./components/creator/Verifyquestion";
-import {
-  WagmiConfig,
-  createClient,
-  defaultChains,
-  configureChains,
-} from "wagmi";
-
+import { WagmiConfig, createClient, configureChains } from "wagmi";
+import { goerli } from "wagmi/chains";
+import { infuraProvider } from "wagmi/providers/infura";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
 // import { getDefaultProvider } from "ethers";
 // import Profile from "./xmtp/xmtp";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
-// import { InjectedConnector } from "wagmi/connectors/injected";
+import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
@@ -66,11 +62,16 @@ import CandidateAchive from "./components/registartionforms/CandidateAchive";
 import CreatorAchive from "./components/registartionforms/CreatorAchive";
 import CandidateApplications from "./components/candidate/CandidateApplications";
 import SingleRepo from "./components/creator/SingleRepo";
+import TempFile from "./components/Profile/TempFile";
 
 function App() {
   const { chains, provider, webSocketProvider } = configureChains(
-    defaultChains,
-    [alchemyProvider({ apiKey: "2RmUIFuA9wmNin87r9a9YrWjQDl0a8ro" }), publicProvider()]
+    [goerli],
+    [
+      // infuraProvider({ apiKey: "60dabf2f78cf4921a240288f829cf52c" }),
+      alchemyProvider({ apiKey: "agm5AdUZ1hq6rNwFb_UKArMPJbUJH3R9" }),
+      publicProvider(),
+    ]
   );
 
   const client = createClient({
@@ -89,13 +90,13 @@ function App() {
           qrcode: true,
         },
       }),
-      // new InjectedConnector({
-      //   chains,
-      //   options: {
-      //     name: "Injected",
-      //     shimDisconnect: true,
-      //   },
-      // }),
+      new InjectedConnector({
+        chains,
+        options: {
+          name: "Injected",
+          shimDisconnect: true,
+        },
+      }),
     ],
     provider,
     webSocketProvider,
@@ -110,6 +111,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<LandingPage />}></Route>
+            <Route path="/tempfile" element={<TempFile />}></Route>
             <Route path="signup/ev" element={<EmailVeficationPage />}></Route>
             <Route path="role" element={<RoleSelector />}></Route>
             <Route path="role/creator" element={<CreatorSignRequest />}></Route>
@@ -155,7 +157,7 @@ function App() {
               <Route path="my_assessment" element={<MyAssesments />} />
               <Route path="edit_repo" element={<Editrepo />} />
               <Route path="edit_assesment" element={<EditAssesment />} />
-              <Route path="message" element={<CreatorMessage />} />
+              {/* <Route path="message" element={<CreatorMessage />} /> */}
               <Route path="VerifyQuestion" element={<Verifyquestion />} />
 
               <Route path="repo/:key" element={<SingleRepo />} />
@@ -176,7 +178,7 @@ function App() {
               <Route path="invitecandidates" element={<InviteCandidate />} />
               <Route path="jobapplicant" element={<JobApplicant />} />
               <Route path="jobinsights" element={<Jobinsights />} />
-              <Route path="message" element={<CompanyMessage />} />
+              {/* <Route path="message" element={<CompanyMessage />} /> */}
               <Route path="company-profile" element={<Profile />} />
             </Route>
 
@@ -191,7 +193,7 @@ function App() {
               <Route path="applications" element={<CandidateApplications />} />
               <Route path="testtakenpage" element={<TestTakenpage />} />
               <Route path="testInstruction" element={<TestInstructionpage />} />
-              <Route path="message" element={<CandidateMessage />} />
+              {/* <Route path="message" element={<CandidateMessage />} /> */}
             </Route>
           </Routes>
         </Router>

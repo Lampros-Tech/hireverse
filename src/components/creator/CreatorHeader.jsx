@@ -11,8 +11,10 @@ import {
   Route,
   BrowserRouter,
 } from "react-router-dom";
-import { NotificationItem, chainNameType } from "@epnsproject/sdk-uiweb";
-import * as EpnsAPI from "@epnsproject/sdk-restapi";
+// import { NotificationItem, chainNameType } from "@epnsproject/sdk-uiweb";
+import { NotificationItem, chainNameType } from "@pushprotocol/uiweb";
+// import * as EpnsAPI from "@epnsproject/sdk-restapi";
+import * as PushAPI from "@pushprotocol/restapi";
 import { useState } from "react";
 import { ethers } from "ethers";
 import {
@@ -122,8 +124,8 @@ export default function CreatorHeader() {
 
   const checkSusbcription = async () => {
     await getuseraddress();
-    const subscriptions = await EpnsAPI.user.getSubscriptions({
-      user: "eip155:42:" + useraddress, // user address in CAIP
+    const subscriptions = await PushAPI.user.getSubscriptions({
+      user: "eip155:42:0x408402f30618a6985c56cf9608e04cea12cddc37", // user address in CAIP
       env: "staging",
     });
 
@@ -133,6 +135,9 @@ export default function CreatorHeader() {
     // console.log(subscriptions[1].channel);
     // console.log(subscriptions[2].channel);
 
+    if (subscriptions === undefined) {
+      return false;
+    }
     for (let i = 0; i < subscriptions.length; i++) {
       if (
         subscriptions[i].channel ===
@@ -146,7 +151,7 @@ export default function CreatorHeader() {
   const fetchNotifications = async () => {
     await getuseraddress();
     console.log(useraddress);
-    const notifications = await EpnsAPI.user.getFeeds({
+    const notifications = await PushAPI.user.getFeeds({
       user: "eip155:42:" + useraddress, // user address in CAIP
       env: "staging",
     });
@@ -172,8 +177,8 @@ export default function CreatorHeader() {
     }
 
     await getuseraddress();
-
-    await EpnsAPI.channels.subscribe({
+    console.log(useraddress);
+    await PushAPI.channels.subscribe({
       signer: signerobject,
       channelAddress: "eip155:42:0xfaabb044AF5C19145cA4AE13CA12C419395A72FB", // channel address in CAIP
       userAddress: "eip155:42:" + useraddress, // user address in CAIP

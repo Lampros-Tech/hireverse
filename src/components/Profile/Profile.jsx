@@ -15,9 +15,25 @@ import { useState } from "react";
 import LoadingIcon from "../walletconnect/LoadingIcon";
 import data from "../../Contracts/artifacts/data.json";
 import { ethers } from "ethers";
+import { useEnsName } from "wagmi";
+import { useEnsAddress } from "wagmi";
+import { useEnsAvatar } from "wagmi";
 
 export default function Profile() {
   const { address, isConnected } = useAccount();
+  const { data, isError, isLoading } = useEnsName({
+    address: "0x6Ea2D65538C1eAD906bF5F7EdcfEa03B504297ce",
+  });
+
+  // const { data, isError, isLoading } = useEnsAddress({
+  //   name: "brantly.eth",
+  // });
+
+  // const { data, isError, isLoading } = useEnsAvatar({
+  //   address: "0x6Ea2D65538C1eAD906bF5F7EdcfEa03B504297ce",
+  //   chainId: 5,
+  // });
+
   const [userEduDescription, setUserEduDescription] = useState(null);
   const [userbio, setUserBio] = useState(null);
   const [employeeSkills] = useState(null);
@@ -613,6 +629,14 @@ export default function Profile() {
                   <h4 className="profile-profileInfoName">
                     {creatorData.name}
                   </h4>
+                  <h4 className="profile-profileInfoName">
+                    {/* {isLoading
+                      ? "fetching name..."
+                      : isError
+                      ? "Error in fetching Name"
+                      : data} */}
+                    {data ? data : "not found"}
+                  </h4>
                   {/* <span className="profile-profileInfoDesc">Hello World</span> */}
                 </div>
                 <button
@@ -804,6 +828,7 @@ export default function Profile() {
                   <h4 className="profile-profileInfoName">
                     {companyData.name}
                   </h4>
+                  <h4></h4>
                   {/* <span className="profile-profileInfoDesc">Hello World</span> */}
                 </div>
                 {/* <button
