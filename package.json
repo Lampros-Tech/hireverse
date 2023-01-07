@@ -15,6 +15,7 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "@tinymce/tinymce-react": "^4.2.0",
+    "@wagmi/core": "^0.8.10",
     "@xmtp/xmtp-js": "^5.1.0",
     "assert": "^2.0.0",
     "browserify-zlib": "^0.2.0",

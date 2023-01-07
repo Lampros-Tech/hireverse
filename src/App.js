@@ -28,6 +28,7 @@ import CandidateRegForm from "./components/registartionforms/CandidateRegForm";
 import CreatorRegForm from "./components/registartionforms/CreatorRegForm";
 import CandidateEducation from "./components/registartionforms/CandidateEducation";
 import CandidateExperience from "./components/registartionforms/CandidateExperience";
+import CandidateCompanyList from "./components/candidate/CandidateCompanyList";
 import CreatorExperience from "./components/registartionforms/CreatorExperience";
 import CandidateTestResults from "./components/candidate/Test/CandidateTestResults";
 import CandidateTest from "./components/candidate/Test/CandidateTest";
@@ -189,6 +190,10 @@ function App() {
                 path="candidate-test-results"
                 element={<CandidateTestResults />}
               />
+              <Route
+                path="company-list"
+                element={<CandidateCompanyList />}
+              ></Route>
               <Route path="candidate-profile" element={<Profile />} />
               <Route path="applications" element={<CandidateApplications />} />
               <Route path="testtakenpage" element={<TestTakenpage />} />
