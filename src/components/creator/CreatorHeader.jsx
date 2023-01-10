@@ -125,7 +125,7 @@ export default function CreatorHeader() {
   const checkSusbcription = async () => {
     await getuseraddress();
     const subscriptions = await PushAPI.user.getSubscriptions({
-      user: "eip155:42:0x408402f30618a6985c56cf9608e04cea12cddc37", // user address in CAIP
+      user: "eip155:5:" + useraddress, // user address in CAIP
       env: "staging",
     });
 
@@ -141,7 +141,7 @@ export default function CreatorHeader() {
     for (let i = 0; i < subscriptions.length; i++) {
       if (
         subscriptions[i].channel ===
-        "0xfaabb044AF5C19145cA4AE13CA12C419395A72FB"
+        "0x28AECC0D973F486F9Bfd38085f39Da5c9d82a4E5"
       ) {
         flag = true;
       }
@@ -152,7 +152,7 @@ export default function CreatorHeader() {
     await getuseraddress();
     console.log(useraddress);
     const notifications = await PushAPI.user.getFeeds({
-      user: "eip155:42:" + useraddress, // user address in CAIP
+      user: "eip155:5:" + useraddress, // user address in CAIP
       env: "staging",
     });
     setData(notifications);
@@ -180,8 +180,8 @@ export default function CreatorHeader() {
     console.log(useraddress);
     await PushAPI.channels.subscribe({
       signer: signerobject,
-      channelAddress: "eip155:42:0xfaabb044AF5C19145cA4AE13CA12C419395A72FB", // channel address in CAIP
-      userAddress: "eip155:42:" + useraddress, // user address in CAIP
+      channelAddress: "eip155:5:0x28AECC0D973F486F9Bfd38085f39Da5c9d82a4E5", // channel address in CAIP
+      userAddress: "eip155:5:" + useraddress, // user address in CAIP
       onSuccess: () => {
         alert("opt in success");
       },

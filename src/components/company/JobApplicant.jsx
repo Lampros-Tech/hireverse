@@ -167,35 +167,6 @@ function JobApplicant() {
   const Pkey = `0x${process.env.REACT_APP_PK}`;
   const signer = new ethers.Wallet(Pkey);
 
-  // const sendNotification = async (receiver) => {
-  //   // console.log(receiver);
-  //   try {
-  //     const apiResponse = await EpnsAPI.payloads.sendNotification({
-  //       signer,
-  //       type: 3, // target
-  //       identityType: 2, // direct payload
-  //       notification: {
-  //         title: "Job Application Status",
-  //         body: "Hello you are Approved for the Job Interview, The interview details will be shared soon",
-  //       },
-  //       payload: {
-  //         title: `[sdk-test] payload title`,
-  //         body: `sample msg body`,
-  //         cta: "https://office.dehitas.xyz/?id=cZJte9SEh",
-  //         img: "",
-  //       },
-  //       recipients: "eip155:42:" + receiver, // recipient address
-  //       // ['eip155:42:0xCdBE6D076e05c5875D90fa35cc85694E1EAFBBd1', 'eip155:42:0x52f856A160733A860ae7DC98DC71061bE33A28b3'], //for multiple recipients
-  //       channel: "eip155:42:0xfaabb044AF5C19145cA4AE13CA12C419395A72FB", // your channel address
-  //       env: "staging",
-  //     });
-  //     console.log("API repsonse: sent ", apiResponse);
-  //     alert("Notification sent to the candidate");
-  //   } catch (err) {
-  //     console.error("Error: ", err);
-  //   }
-  // };
-
   const sendNotification = async (receiver) => {
     try {
       const apiResponse = await PushAPI.payloads.sendNotification({
@@ -213,7 +184,7 @@ function JobApplicant() {
           img: "",
         },
         recipients: "eip155:5:0x6Ea2D65538C1eAD906bF5F7EdcfEa03B504297ce", // recipient address
-        channel: "eip155:5:0x737175340d1D1CaB2792bcf83Cff6bE7583694c7", // your channel address
+        channel: "eip155:5:0x28AECC0D973F486F9Bfd38085f39Da5c9d82a4E5", // your channel address
         env: "staging",
       });
 
