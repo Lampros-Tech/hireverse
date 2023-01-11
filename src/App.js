@@ -64,6 +64,8 @@ import CreatorAchive from "./components/registartionforms/CreatorAchive";
 import CandidateApplications from "./components/candidate/CandidateApplications";
 import SingleRepo from "./components/creator/SingleRepo";
 import TempFile from "./components/Profile/TempFile";
+import CreateStream from "./components/company/stream/CreateStream";
+import ViewStream from "./components/company/stream/ViewStream";
 
 function App() {
   const { chains, provider, webSocketProvider } = configureChains(
@@ -181,6 +183,7 @@ function App() {
               <Route path="jobinsights" element={<Jobinsights />} />
               {/* <Route path="message" element={<CompanyMessage />} /> */}
               <Route path="company-profile" element={<Profile />} />
+              <Route path="create-livepeer-stream" element={<CreateStream />} />
             </Route>
 
             <Route path="candidate" element={<CandidateHeader />}>
@@ -198,6 +201,7 @@ function App() {
               <Route path="applications" element={<CandidateApplications />} />
               <Route path="testtakenpage" element={<TestTakenpage />} />
               <Route path="testInstruction" element={<TestInstructionpage />} />
+              <Route path="view-livepeer-stream" element={<ViewStream />} />
               {/* <Route path="message" element={<CandidateMessage />} /> */}
             </Route>
           </Routes>

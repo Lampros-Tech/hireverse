@@ -1,7 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./companylist.css";
+import liveStream from "../company/stream/livestream.json";
+import { ethers } from "ethers";
+import { connect } from "@tableland/sdk";
+import Livepeer from "livepeer-nodejs";
 
 const CandidateCompanyList = () => {
+  const livepeerObject = new Livepeer("2219207c-552d-4847-abf1-425386027cfa");
+  const [Streams, setStreams] = useState([]);
+  var contrat_address = "0x6acf713321f539d4749108338534e2b79403f8dc";
+
+  const getStream = async () => {
+    const name = "company_table_80001_1730";
+    const tableland = await connect({
+      network: "testnet",
+      chain: "polygon-mumbai",
+    });
+    const readRes = await tableland.read(`SELECT * FROM ${name}`);
+    console.log(readRes);
+    var companyaddress = [];
+    for (let i = 0; i < readRes["rows"].length; i++) {
+      companyaddress.push(readRes["rows"][i][5]);
+    }
+    console.log(companyaddress);
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const streamInstance = new ethers.Contract(
+      contrat_address,
+      liveStream,
+      signer
+    );
+
+    const getStream = await streamInstance.getAllStream(companyaddress);
+    console.log(getStream);
+  };
+
+  const getAllLiveStreams = async () => {
+    const streams = await livepeerObject.Stream.getAll(1, true, true);
+    console.log(streams);
+
+    for (let i = 0; i < streams.length; i++) {}
+  };
+
+  useEffect(() => {
+    getAllLiveStreams();
+    // getStream();
+  }, []);
   return (
     <>
       <div className="candidate-companylist-main">

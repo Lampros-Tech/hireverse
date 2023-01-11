@@ -1,0 +1,65 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_streamid",
+        "type": "string"
+      }
+    ],
+    "name": "storeStream",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "_companyAddress",
+        "type": "address[]"
+      }
+    ],
+    "name": "getAllStream",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "compnayAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string[]",
+            "name": "streamId",
+            "type": "string[]"
+          }
+        ],
+        "internalType": "struct LiveStream.data[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_companyAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getStream",
+    "outputs": [
+      {
+        "internalType": "string[]",
+        "name": "",
+        "type": "string[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
