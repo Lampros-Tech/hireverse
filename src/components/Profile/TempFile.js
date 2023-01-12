@@ -30,7 +30,7 @@ function TempFile() {
     // });
 
     const msg = {
-      hello: "Deepak",
+      hello: "Jaydip",
     };
     streamr.publish(streamId, msg);
   };

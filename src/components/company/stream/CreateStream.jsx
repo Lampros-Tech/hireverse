@@ -13,6 +13,8 @@ const CreateStream = () => {
   const stream = useRef(null);
   const [session, setSession] = useState("");
   const [url, setUrl] = useState("");
+  const [msg, setMsg] = useState();
+  const { msgText } = useRef();
   const livepeerObject = new Livepeer("2219207c-552d-4847-abf1-425386027cfa");
 
   const onButtonClick = async () => {
@@ -105,6 +107,15 @@ const CreateStream = () => {
       console.log("Stream error.", err.message);
     });
   };
+  const addMsg = () => {
+    const temp = document.getElementById("msg");
+    const div = document.createElement("div");
+    div.className = "cs-message-sender";
+    div.innerHTML = msg;
+    setMsg("");
+    temp.appendChild(div);
+    temp.scrollTop = temp.scrollHeight;
+  };
 
   return (
     <div className="cs-main">
@@ -125,16 +136,22 @@ const CreateStream = () => {
       </div>
       <div className="cs-message-main">
         <div className="cs-message-header">Messages</div>
-        <div className="cs-message-senderparent">
+        <div className="cs-message-senderparent" id="msg">
           <div className="cs-message-sender">Hello</div>
         </div>
         <div className="cs-send-parent">
           <textarea
             style={{ resize: "none" }}
             className="cs-send"
+            value={msg}
             type="text"
+            onChange={(e) => {
+              setMsg(e.target.value);
+            }}
           />
-          <button className="cs-sendbtn">Send</button>
+          <button className="cs-sendbtn" onClick={() => addMsg()}>
+            Send
+          </button>
         </div>
       </div>
     </div>
