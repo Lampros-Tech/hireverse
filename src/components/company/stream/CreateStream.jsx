@@ -4,6 +4,7 @@ import { Client } from "@livepeer/webrtmp-sdk";
 import { ethers } from "ethers";
 import liveStream from "./livestream.json";
 import "./createstream.css";
+import { StreamrClient, StreamPermission } from "streamr-client";
 
 import Livepeer from "livepeer-nodejs";
 // contact address :0x6acf713321f539d4749108338534e2b79403f8dc
@@ -16,6 +17,33 @@ const CreateStream = () => {
   const [msg, setMsg] = useState();
   const { msgText } = useRef();
   const livepeerObject = new Livepeer("2219207c-552d-4847-abf1-425386027cfa");
+
+  const publishMsg = async (e) => {
+    const streamId = "0x9b4716573622751e7f6a56da251d054b6bba4b00/deh";
+
+    //auth from burner wallet
+    const { address, privateKey } = StreamrClient.generateEthereumAccount();
+
+    const streamr = new StreamrClient({
+      auth: {
+        privateKey: privateKey,
+      },
+    });
+
+    //{CODe for Granting Permission to Public}////////////////////////////////////////////////////////////
+    // const stream = await streamr.getOrCreateStream({
+    //   id: "0x9b4716573622751e7f6a56da251d054b6bba4b00/deh",
+    // });
+    // await stream.grantPermissions({
+    //   public: true,
+    //   permissions: [StreamPermission.SUBSCRIBE, StreamPermission.PUBLISH],
+    // });
+
+    const msg = {
+      hello: e.target.message,
+    };
+    streamr.publish(streamId, msg);
+  };
 
   const onButtonClick = async () => {
     videoEl.current.volume = 0;
@@ -109,7 +137,7 @@ const CreateStream = () => {
   };
   const addMsg = () => {
     const temp = document.getElementById("msg");
-    const div = document.createElement("div");
+    const div = document.createElement("p");
     div.className = "cs-message-sender";
     div.innerHTML = msg;
     setMsg("");
@@ -137,7 +165,7 @@ const CreateStream = () => {
       <div className="cs-message-main">
         <div className="cs-message-header">Messages</div>
         <div className="cs-message-senderparent" id="msg">
-          <div className="cs-message-sender">Hello</div>
+          <p className="cs-message-sender">Hello</p>
         </div>
         <div className="cs-send-parent">
           <textarea

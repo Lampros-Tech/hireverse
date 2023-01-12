@@ -71,8 +71,9 @@
   background-color: #134e6f;
   color: #fff;
   width: max-content;
-  max-width: 60%;
+  max-width: 70%;
   height: auto;
+  word-wrap: break-word;
   padding: 10px;
   border-radius: 10px 10px 0px 10px;
   margin-right: 1vw;
