@@ -2,33 +2,11 @@ import React, { useEffect } from "react";
 import ReactPlayer from "react-player";
 import liveStream from "./livestream.json";
 import { ethers } from "ethers";
+import { useLocation } from "react-router-dom";
 
 function ViewStream() {
-  var contrat_address = "0x6acf713321f539d4749108338534e2b79403f8dc";
-
-  const getStream = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const streamInstance = new ethers.Contract(
-      contrat_address,
-      liveStream,
-      signer
-    );
-
-    // const storeStream = await streamInstance.storeStream(stream_.streamKey);
-    // const getStream = await streamInstance.getStream(
-    //   "0x0195ad2Fb013cCdAB86d0b07B413163111f7CB05"
-    // );
-
-    const getAllStream = await streamInstance.getAllStream([
-      "0x0195ad2Fb013cCdAB86d0b07B413163111f7CB05",
-    ]);
-    console.log(getAllStream);
-  };
-
-  useEffect(() => {
-    getStream();
-  }, []);
+  const location = useLocation();
+  console.log(location.state.id);
 
   return (
     <div>
@@ -37,7 +15,11 @@ function ViewStream() {
           <div className="exp-img">
             {/* <img src="https://picsum.photos/200" alt="" /> */}
             <ReactPlayer
-              url={"https://livepeercdn.studio/hls/6de9wdkmngzmvybw/index.m3u8"}
+              url={
+                "https://livepeercdn.studio/hls/" +
+                location.state.id +
+                "/index.m3u8"
+              }
               controls={true}
               style={{ width: "100%" }}
             />
