@@ -8,6 +8,7 @@ import { StreamrClient, StreamPermission } from "streamr-client";
 function ViewStream() {
   const location = useLocation();
   const [msg, setMsg] = useState();
+  const [loading, setLoading] = useState(false);
 
   // console.log(location.state.id);
 
@@ -37,17 +38,21 @@ function ViewStream() {
       "0x9b4716573622751e7f6a56da251d054b6bba4b00/deh",
       // console.log(msg)
       (message) => {
-        const temp = document.getElementById("msg");
-        const div = document.createElement("p");
-        div.className = "cs-message-sender";
-        div.innerHTML = message;
-        setMsg("");
-        temp.appendChild(div);
-        temp.scrollTop = temp.scrollHeight;
-        // This function will be called when new messages occur
-        console.log(JSON.stringify(message));
+        setLoading(true);
+        if (loading) {
+          const temp = document.getElementById("msg");
+          const div = document.createElement("p");
+          div.className = "cs-message-sender";
+          div.innerHTML = message;
+          setMsg("");
+          temp.appendChild(div);
+          temp.scrollTop = temp.scrollHeight;
+          // This function will be called when new messages occur
+          console.log(JSON.stringify(message));
+        }
       }
     );
+    return () => setLoading(false);
   });
 
   useEffect(() => {
