@@ -82,7 +82,7 @@ function ViewStream() {
       <div className="cs-message-main">
         <div className="cs-message-header">Messages</div>
         <div className="cs-message-senderparent" id="msg">
-          <p className="cs-message-sender">Hello</p>
+          {/* <p className="cs-message-sender">Hello</p> */}
         </div>
       </div>
     </div>

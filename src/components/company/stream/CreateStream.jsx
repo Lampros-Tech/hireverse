@@ -166,7 +166,7 @@ const CreateStream = () => {
       <div className="cs-message-main">
         <div className="cs-message-header">Messages</div>
         <div className="cs-message-senderparent" id="msg">
-          <p className="cs-message-sender">Hello</p>
+          {/* <p className="cs-message-sender">Hello</p> */}
         </div>
         <div className="cs-send-parent">
           <textarea
