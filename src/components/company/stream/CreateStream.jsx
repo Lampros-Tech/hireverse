@@ -107,7 +107,7 @@ const CreateStream = () => {
   };
 
   return (
-    <div>
+    <div className="cs-main">
       <div className="video-main">
         <video
           className="cs-video"
@@ -116,12 +116,26 @@ const CreateStream = () => {
           // height="500px"
           // width="1000px"
         />
+        <div className="video-btn-main">
+          <button className="video-btn-start" onClick={() => onButtonClick()}>
+            Start Stream
+          </button>
+          <button className="video-btn-stop">Stop Stream</button>
+        </div>
       </div>
-      <div className="video-btn-main">
-        <button className="video-btn-start" onClick={() => onButtonClick()}>
-          Start Stream
-        </button>
-        <button className="video-btn-stop">Stop Stream</button>
+      <div className="cs-message-main">
+        <div className="cs-message-header">Messages</div>
+        <div className="cs-message-senderparent">
+          <div className="cs-message-sender">Hello</div>
+        </div>
+        <div className="cs-send-parent">
+          <textarea
+            style={{ resize: "none" }}
+            className="cs-send"
+            type="text"
+          />
+          <button className="cs-sendbtn">Send</button>
+        </div>
       </div>
     </div>
   );

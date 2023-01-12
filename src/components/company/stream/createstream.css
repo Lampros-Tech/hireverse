@@ -1,3 +1,7 @@
+.cs-main {
+  display: flex;
+}
+
 .video-main {
   margin-left: 5vw;
 }
@@ -8,7 +12,7 @@
 }
 
 .video-btn-main {
-  margin-left: 22vw;
+  margin-left: 18vw;
   margin-top: 5vh;
 }
 
@@ -32,4 +36,61 @@
   padding: 10px;
   color: #fff;
   border-radius: 10px;
+}
+
+.cs-message-main {
+  background-color: #f9fafb;
+  height: 60vh;
+  width: 30vw;
+  margin-top: 20vh;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  border-radius: 10px;
+}
+
+.cs-message-header {
+  text-align: center;
+  margin-top: 1vh;
+  font-size: larger;
+  font-weight: 800;
+}
+
+.cs-message-senderparent {
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-message-sender {
+  align-self: flex-end;
+  background-color: #134e6f;
+  color: #fff;
+  width: max-content;
+  padding: 10px;
+  border-radius: 10px 10px 0px 10px;
+  margin-right: 1vw;
+}
+
+.cs-send-parent {
+  margin-top: 40vh;
+  display: flex;
+}
+
+.cs-send {
+  border: 1px solid black;
+  height: 8vh;
+  width: 22vw;
+  margin-left: 1vw;
+  border-radius: 5px;
+}
+
+.cs-sendbtn {
+  background-color: #ff6150;
+  font-size: medium;
+  font-weight: 500;
+  padding: 10px;
+  color: #fff;
+  width: max-content;
+  height: max-content;
+  border-radius: 10px;
+  margin-left: 1vw;
 }
