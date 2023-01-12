@@ -18,7 +18,7 @@ const CreateStream = () => {
   const { msgText } = useRef();
   const livepeerObject = new Livepeer("2219207c-552d-4847-abf1-425386027cfa");
 
-  const publishMsg = async (e) => {
+  const publishMsg = async () => {
     const streamId = "0x9b4716573622751e7f6a56da251d054b6bba4b00/deh";
 
     //auth from burner wallet
@@ -39,9 +39,9 @@ const CreateStream = () => {
     //   permissions: [StreamPermission.SUBSCRIBE, StreamPermission.PUBLISH],
     // });
 
-    const msg = {
-      hello: e.target.message,
-    };
+    // const msgs = {
+    //   hello: msg,
+    // };
     streamr.publish(streamId, msg);
   };
 
@@ -135,7 +135,8 @@ const CreateStream = () => {
       console.log("Stream error.", err.message);
     });
   };
-  const addMsg = () => {
+  const addMsg = async () => {
+    await publishMsg();
     const temp = document.getElementById("msg");
     const div = document.createElement("p");
     div.className = "cs-message-sender";

@@ -74,8 +74,8 @@ const CandidateCompanyList = () => {
   }, [loading]);
 
   useEffect(() => {
-    getAllCompanies();
     getAllLiveStreams();
+    getAllCompanies();
     // getStream();
   }, []);
   return (
@@ -131,24 +131,26 @@ const CandidateCompanyList = () => {
 
                         <div className="candidatelist-main-button">
                           <div className="candidatelist-button">
-                            <span
-                              className="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3  jobapplicant-invite-button2"
-                              onClick={() => {
-                                navigate("/candidate/view-livepeer-stream", {
-                                  state: {
-                                    id: streams[0]["playbackId"]
-                                      ? streams[0]["playbackId"]
-                                      : null,
-                                  },
-                                });
-                              }}
-                            >
-                              {liveStreamData.length > 0 &&
-                              streams[0]["playbackId"] ==
-                                liveStreamData[key]["pbId"]
-                                ? "live"
-                                : "not"}
-                            </span>
+                            {liveStreamData.length > 0 &&
+                            streams.length > 0 &&
+                            streams[0]["playbackId"] ==
+                              liveStreamData[key]["pbId"] ? (
+                              <span
+                                className="text-white live-button font-medium rounded-lg text-sm px-9 py-3 mr-3  jobapplicant-invite-button2"
+                                onClick={() => {
+                                  navigate("/candidate/view-livepeer-stream", {
+                                    state: {
+                                      id:
+                                        streams.length > 0
+                                          ? streams[0]["playbackId"]
+                                          : null,
+                                    },
+                                  });
+                                }}
+                              >
+                                LIVE
+                              </span>
+                            ) : null}
                           </div>
                         </div>
                       </div>

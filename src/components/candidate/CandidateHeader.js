@@ -172,7 +172,7 @@ export default function CandidateHeader() {
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </Popover.Button>
             </div>
-            <form className="hidden space-x-10 md:flex items-center w-1/4">
+            {/* <form className="hidden space-x-10 md:flex items-center w-1/4">
               <div className="relative w-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -194,7 +194,7 @@ export default function CandidateHeader() {
                   className="w-full py-2 pl-10  text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
                 />
               </div>
-            </form>
+            </form> */}
             <Popover.Group
               as="nav"
               className="hidden space-x-10 md:flex items-center"
@@ -205,7 +205,12 @@ export default function CandidateHeader() {
               >
                 Feed
               </Link>
-
+              <Link
+                to="/candidate/company-list"
+                className="text-base font-medium text-gray-900 hover:text-gray-700"
+              >
+                Companies
+              </Link>
               <Popover className="relative">
                 {({ open }) => (
                   <>
@@ -681,7 +686,12 @@ export default function CandidateHeader() {
                   >
                     Feed
                   </Link>
-
+                  <Link
+                    to="/candidate/company-list"
+                    className="text-base font-medium text-gray-900 hover:text-gray-700"
+                  >
+                    Companies
+                  </Link>
                   <Link
                     to="/candidate/message"
                     className="text-base font-medium text-gray-900 hover:text-gray-700"

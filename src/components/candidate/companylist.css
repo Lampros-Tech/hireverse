@@ -44,3 +44,22 @@
   max-width: 1024px;
   /* padding: 50px; */
 }
+
+span.live-button {
+  cursor: pointer;
+  background-color: green;
+  color: white;
+  animation: fadeIn 1s linear infinite;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
