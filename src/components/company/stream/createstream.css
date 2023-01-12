@@ -8,7 +8,10 @@
 
 .cs-video {
   height: 80vh;
+  min-height: 80vh;
+  min-width: 55vw;
   padding-top: 20vh;
+  max-width: 55vw;
 }
 
 .video-btn-main {
@@ -103,4 +106,5 @@
   height: max-content;
   border-radius: 10px;
   margin-left: 1vw;
+  margin-top: 1vh;
 }
