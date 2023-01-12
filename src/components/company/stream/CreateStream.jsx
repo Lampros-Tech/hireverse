@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Client } from "@livepeer/webrtmp-sdk";
 import { ethers } from "ethers";
 import liveStream from "./livestream.json";
+import "./createstream.css";
 
 import Livepeer from "livepeer-nodejs";
 // contact address :0x6acf713321f539d4749108338534e2b79403f8dc
@@ -107,14 +108,21 @@ const CreateStream = () => {
 
   return (
     <div>
-      <video
-        className="cs-video"
-        ref={videoEl}
-        controls
-        height="500px"
-        width="500px"
-      />
-      <button onClick={() => onButtonClick()}>Stream</button>
+      <div className="video-main">
+        <video
+          className="cs-video"
+          ref={videoEl}
+          controls
+          // height="500px"
+          // width="1000px"
+        />
+      </div>
+      <div className="video-btn-main">
+        <button className="video-btn-start" onClick={() => onButtonClick()}>
+          Start Stream
+        </button>
+        <button className="video-btn-stop">Stop Stream</button>
+      </div>
     </div>
   );
 };

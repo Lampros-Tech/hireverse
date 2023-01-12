@@ -1,0 +1,35 @@
+.video-main {
+  margin-left: 5vw;
+}
+
+.cs-video {
+  height: 80vh;
+  padding-top: 20vh;
+}
+
+.video-btn-main {
+  margin-left: 22vw;
+  margin-top: 5vh;
+}
+
+.video-btn-start {
+  margin-left: 20px;
+  margin-top: 10px;
+  background-color: #1ac0c6;
+  font-size: medium;
+  font-weight: 500;
+  padding: 10px;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.video-btn-stop {
+  margin-left: 20px;
+  margin-top: 10px;
+  background-color: #ff6150;
+  font-size: medium;
+  font-weight: 500;
+  padding: 10px;
+  color: #fff;
+  border-radius: 10px;
+}

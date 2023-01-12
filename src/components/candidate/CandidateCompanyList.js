@@ -127,32 +127,32 @@ const CandidateCompanyList = () => {
                             htmlFor="first_name"
                             className="block  text-sm font-medium text-gray-900 dark:text-gray-300 jobapplicant-bech jobapplicant-qualification-main"
                           ></label>
+                        </div>
 
-                          <div className="jobapplication-main-button">
-                            <div className="jobapplicant-button">
-                              <span
-                                className="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3  jobapplicant-invite-button2"
-                                onClick={() => {
-                                  navigate("/candidate/view-livepeer-stream", {
-                                    state: {
-                                      id: streams[0]["playbackId"]
-                                        ? streams[0]["playbackId"]
-                                        : null,
-                                    },
-                                  });
-                                }}
-                              >
-                                {liveStreamData.length > 0 &&
-                                streams[0]["playbackId"] ==
-                                  liveStreamData[key]["pbId"]
-                                  ? "live"
-                                  : "not"}
-                              </span>
-                            </div>
+                        <div className="candidatelist-main-button">
+                          <div className="candidatelist-button">
+                            <span
+                              className="text-white  font-medium rounded-lg text-sm px-9 py-3 mr-3  jobapplicant-invite-button2"
+                              onClick={() => {
+                                navigate("/candidate/view-livepeer-stream", {
+                                  state: {
+                                    id: streams[0]["playbackId"]
+                                      ? streams[0]["playbackId"]
+                                      : null,
+                                  },
+                                });
+                              }}
+                            >
+                              {liveStreamData.length > 0 &&
+                              streams[0]["playbackId"] ==
+                                liveStreamData[key]["pbId"]
+                                ? "live"
+                                : "not"}
+                            </span>
                           </div>
                         </div>
                       </div>
-                      <div className="jobapplications-description-section2">
+                      <div className="candidatelist-description-section2">
                         <label
                           htmlFor="first_name"
                           className="block  text-sm font-medium text-gray-900 dark:text-gray-300"
