@@ -25,6 +25,7 @@
   padding-bottom: 5%;
   text-align: center;
   font-family: "OpenSans";
+  margin-top: 5vh;
 }
 
 .candidate-info {
@@ -53,9 +54,9 @@
   text-align: center;
   margin: 0 auto;
 }
-.test-result-main-content {
+/* .test-result-main-content {
   margin-top: 5%;
-}
+} */
 .profile-name-merge-div {
   display: flex;
   align-items: center;
