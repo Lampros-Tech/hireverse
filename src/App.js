@@ -66,6 +66,7 @@ import SingleRepo from "./components/creator/SingleRepo";
 import TempFile from "./components/Profile/TempFile";
 import CreateStream from "./components/company/stream/CreateStream";
 import ViewStream from "./components/company/stream/ViewStream";
+import MintNft from "./components/company/stream/MintNft";
 
 function App() {
   const { chains, provider, webSocketProvider } = configureChains(
@@ -197,6 +198,7 @@ function App() {
                 path="company-list"
                 element={<CandidateCompanyList />}
               ></Route>
+              <Route path="mint-nft" element={<MintNft />} />
               <Route path="candidate-profile" element={<Profile />} />
               <Route path="applications" element={<CandidateApplications />} />
               <Route path="testtakenpage" element={<TestTakenpage />} />
