@@ -1,5 +1,6 @@
 // import { NextPage } from "next";
 import { useState, useEffect, useCallback } from "react";
+import "./mintnft.css";
 // import Link from "next/link";
 // import styles from "../styles/home.module.scss";
 // import { createInflate } from "zlib";
@@ -74,7 +75,7 @@ const MintNft = () => {
 
   return (
     <div>
-      <div className="flex flex-col justify-center items-center h-full w-full">
+      <div className="mintnft-main">
         {!isMartian ? (
           <>
             <p style={{ fontSize: "25px" }}>
@@ -105,7 +106,7 @@ const MintNft = () => {
               }}
             >
               {viewType != "simple" && (
-                <div className="flex flex-col justify-center items-center">
+                <div className="mintnft-parent">
                   <h2 className="mb-[10px] font-semibold text-[20px]">
                     Create NFT Collection
                   </h2>
@@ -117,15 +118,18 @@ const MintNft = () => {
                   </button>
                 </div>
               )}
-              <div className="flex flex-col justify-center items-center">
-                <h2 className="mb-[10px] font-semibold">Create NFT</h2>
+
+              <div className="mintnft-left-main">
+                <h2 className="mintnft-header">Create NFT</h2>
                 <input
+                  className="mintnft-textarea"
                   placeholder="NFT name"
                   type="text"
                   value={nftName}
                   onChange={(e) => setNftName(e.target.value)}
                 />
                 <input
+                  className="mintnft-textarea"
                   placeholder="NFT Description"
                   type="text"
                   value={nftDescription}
@@ -135,6 +139,7 @@ const MintNft = () => {
                   <input placeholder="NFT collection name" type="text" />
                 )}
                 <input
+                  className="mintnft-textarea"
                   placeholder="NFT Url"
                   type="text"
                   onChange={(e) => {
@@ -142,10 +147,12 @@ const MintNft = () => {
                     setImageError(false);
                   }}
                 />
-                <button onClick={btnCreateNft}>Create NFT</button>
+                <button className="mintnft-btn" onClick={btnCreateNft}>
+                  Create NFT
+                </button>
               </div>
               <div className="flex flex-col justify-center items-center">
-                <p className="mb-[10px]">NFT preview</p>
+                <p className="mintnft-header1">NFT preview</p>
                 <img
                   src={imageError ? "/image/initimg.svg" : nftImgUrl}
                   alt="nft-image"
@@ -156,8 +163,11 @@ const MintNft = () => {
                   className="h-[200px] w-[200px] border-solid border-[1px] border-[rgb(78, 78, 78)] bg-[black] visible"
                 />
               </div>
+              <button onClick={btnConnect} className="mintnft-cnt-btn">
+                Connect
+              </button>
             </div>
-            <p
+            {/* <p
               onClick={() =>
                 setViewType(viewType == "simple" ? "advance" : "simple")
               }
@@ -170,15 +180,15 @@ const MintNft = () => {
               {address.substring(0, 6) +
                 "..." +
                 address.substring(address.length - 4)}
-            </button>
+            </button> */}
           </>
         )}
       </div>
-      <h1>Hello World</h1>
+      {/* <h1>Hello World</h1>
       <button onClick={() => btnConnect()}>
-        {/* onClick={() => setConnect(true)}> */}
+        onClick={() => setConnect(true)}>
         Connect <span>Aptos</span> wallet
-      </button>
+      </button> */}
 
       {/* <Link href={"/"}>
         <a>

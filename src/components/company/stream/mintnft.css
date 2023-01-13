@@ -1,0 +1,52 @@
+.mintnft-main {
+  padding-top: 20vh;
+  margin-left: 35vw;
+}
+
+.mintnft-parent {
+  display: flex;
+}
+
+.mintnft-left-main {
+  margin-right: 5vw;
+}
+
+.mintnft-header {
+  text-align: center;
+  font-weight: 600;
+}
+
+.mintnft-header1 {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.mintnft-textarea {
+  border: 1px solid black;
+  margin: 10px;
+  border-radius: 5px;
+  height: 5vh;
+}
+
+.mintnft-btn {
+  margin-left: 3.5vw;
+  margin-top: 10px;
+  background-color: #1ac0c6;
+  font-size: medium;
+  font-weight: 500;
+  padding: 10px;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.mintnft-cnt-btn {
+  margin-left: 25vw;
+  margin-top: -10vh;
+  background-color: #ff6150;
+  font-size: medium;
+  font-weight: 500;
+  padding: 10px;
+  color: #fff;
+  border-radius: 10px;
+}
