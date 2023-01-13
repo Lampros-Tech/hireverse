@@ -81,39 +81,39 @@ function JobApplicant() {
   };
 
   const updateApproveDisapprove = async (job_id, candidate_id, ans, e) => {
-    const tableland = await connect({
-      network: "testnet",
-      chain: "polygon-mumbai",
-    });
-    const table = "application_details_table_80001_2806";
-    const readRes = await tableland.read(
-      `SELECT application_id FROM ${table} where job_id=${job_id} and candidate_id=${candidate_id}`
-    );
-    console.log(readRes);
-    var data = JSON.stringify({
-      application_id: readRes["rows"][0][0],
-      status: ans,
-    });
+    // const tableland = await connect({
+    //   network: "testnet",
+    //   chain: "polygon-mumbai",
+    // });
+    // const table = "application_details_table_80001_2806";
+    // const readRes = await tableland.read(
+    //   `SELECT application_id FROM ${table} where job_id=${job_id} and candidate_id=${candidate_id}`
+    // );
+    // console.log(readRes);
+    // var data = JSON.stringify({
+    //   application_id: readRes["rows"][0][0],
+    //   status: ans,
+    // });
 
-    const response = await tableland.read(
-      `SELECT wallet_address FROM candidate_table_80001_1648 where candidate_id=${candidate_id}`
-    );
-    const user = response["rows"][0][0];
-    var config = {
-      method: "post",
-      url: `${process.env.REACT_APP_API_URL}/updateApproveDisapprove`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // const response = await tableland.read(
+    //   `SELECT wallet_address FROM candidate_table_80001_1648 where candidate_id=${candidate_id}`
+    // );
+    // const user = response["rows"][0][0];
+    // var config = {
+    //   method: "post",
+    //   url: `${process.env.REACT_APP_API_URL}/updateApproveDisapprove`,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   data: data,
+    // };
+    // axios(config)
+    //   .then(function (response) {
+    //     console.log(JSON.stringify(response.data));
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
 
     try {
       const { ethereum } = window;
@@ -133,8 +133,8 @@ function JobApplicant() {
             signer
           );
           console.log(e.target.id);
-          const tx = await con.approveCandidate(companyId, job_id, user);
-          tx.wait();
+          // const tx = await con.approveCandidate(companyId, job_id, user);
+          // tx.wait();
           sendNotification("0xe57f4c84539a6414C4Cf48f135210e01c477EFE0");
         }
       }
@@ -183,7 +183,7 @@ function JobApplicant() {
           cta: "https://office.dehitas.xyz/?id=cZJte9SEh",
           img: "",
         },
-        recipients: "eip155:5:0x6Ea2D65538C1eAD906bF5F7EdcfEa03B504297ce", // recipient address
+        recipients: "eip155:5:0x19193e458590f15A0180042E3518634165BADe39", // recipient address
         channel: "eip155:5:0x28AECC0D973F486F9Bfd38085f39Da5c9d82a4E5", // your channel address
         env: "staging",
       });
