@@ -40,6 +40,13 @@
   border-radius: 10px;
 }
 
+.mintnft-img {
+  height: 20vh;
+  width: 12vw;
+  max-width: 12vw;
+  background-color: black;
+}
+
 .mintnft-cnt-btn {
   margin-left: 25vw;
   margin-top: -10vh;
@@ -49,4 +56,9 @@
   padding: 10px;
   color: #fff;
   border-radius: 10px;
+}
+img.live-preview-nft {
+  width: auto;
+  max-width: 800px;
+  height: auto;
 }

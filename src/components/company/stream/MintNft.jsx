@@ -13,7 +13,9 @@ const MintNft = () => {
   const [viewType, setViewType] = useState("simple");
   const [address, setAddress] = useState("");
 
-  const [nftImgUrl, setNftImgUrl] = useState("");
+  const [nftImgUrl, setNftImgUrl] = useState(
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEyvv0lw3MnluzqsFOpvbz9ypKSrXVqfkxJPDUBPu8HQ&s"
+  );
   const [nftName, setNftName] = useState("");
   const [nftDescription, setNftDescription] = useState("");
 
@@ -49,25 +51,25 @@ const MintNft = () => {
     // Create a collection
     // const txnHash1 = await window.martian.createCollection("ColName123", "CollectionDescription", "https://aptos.dev")
     console.log(nftName, nftDescription, nftImgUrl, imageError);
-    if (nftName == "") {
-      notify("error", "Input nft name!");
-      return;
-    }
-    if (nftDescription == "") {
-      notify("error", "Input nft description!");
-      return;
-    }
-    if (nftImgUrl == "" || imageError) {
-      notify("error", "Input valid image url!");
-      return;
-    }
+    // if (nftName == "") {
+    //   notify("error", "Input nft name!");
+    //   return;
+    // }
+    // if (nftDescription == "") {
+    //   notify("error", "Input nft description!");
+    //   return;
+    // }
+    // if (nftImgUrl == "" || imageError) {
+    //   notify("error", "Input valid image url!");
+    //   return;
+    // }
     // Create Token
     const txnHash = await window.martian.createToken(
       "ColName123",
-      nftName,
-      nftDescription,
+      "Livepeer Attende",
+      "Congrats you have attende the livepeer stream of Dehitas",
       1,
-      nftImgUrl,
+      "https://ipfs.io/ipfs/bafybeie2lhkx5ikjb6meyu7fgtluippnqnwnncf2iflmhfrjsyzwseobrm",
       1
     );
     console.log(txnHash);
@@ -120,47 +122,42 @@ const MintNft = () => {
               )}
 
               <div className="mintnft-left-main">
-                <h2 className="mintnft-header">Create NFT</h2>
+                {address.substring(0, 6) +
+                  "..." +
+                  address.substring(address.length - 4)}
+                <h2 className="mintnft-header">NFT Details</h2>
                 <input
                   className="mintnft-textarea"
                   placeholder="NFT name"
                   type="text"
-                  value={nftName}
+                  value="LivePeer Attende"
                   onChange={(e) => setNftName(e.target.value)}
                 />
                 <input
                   className="mintnft-textarea"
                   placeholder="NFT Description"
                   type="text"
-                  value={nftDescription}
+                  value="Congrats you have attende the livepeer stream of Dehitas"
                   onChange={(e) => setNftDescription(e.target.value)}
                 />
                 {viewType != "simple" && (
                   <input placeholder="NFT collection name" type="text" />
                 )}
-                <input
-                  className="mintnft-textarea"
-                  placeholder="NFT Url"
-                  type="text"
-                  onChange={(e) => {
-                    setNftImgUrl(e.target.value);
-                    setImageError(false);
-                  }}
-                />
+
                 <button className="mintnft-btn" onClick={btnCreateNft}>
-                  Create NFT
+                  Mint NFT
                 </button>
               </div>
               <div className="flex flex-col justify-center items-center">
                 <p className="mintnft-header1">NFT preview</p>
                 <img
-                  src={imageError ? "/image/initimg.svg" : nftImgUrl}
+                  src="https://ipfs.io/ipfs/bafybeie2lhkx5ikjb6meyu7fgtluippnqnwnncf2iflmhfrjsyzwseobrm"
                   alt="nft-image"
                   onError={(e) => {
                     setImageError(true);
                   }}
-                  data-src={nftImgUrl}
-                  className="h-[200px] w-[200px] border-solid border-[1px] border-[rgb(78, 78, 78)] bg-[black] visible"
+                  data-src="https://ipfs.io/ipfs/bafybeie2lhkx5ikjb6meyu7fgtluippnqnwnncf2iflmhfrjsyzwseobrm"
+                  className="h-[200px] w-[200px] border-solid border-[1px] border-[rgb(78, 78, 78)] bg-[black] visible live-preview-nft"
                 />
               </div>
               <button onClick={btnConnect} className="mintnft-cnt-btn">

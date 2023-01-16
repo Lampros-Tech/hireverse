@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import liveStream from "./livestream.json";
 import { ethers } from "ethers";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { StreamrClient, StreamPermission } from "streamr-client";
 
 function ViewStream() {
   const location = useLocation();
   const [msg, setMsg] = useState();
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   // console.log(location.state.id);
 
@@ -66,26 +68,34 @@ function ViewStream() {
   }, []);
 
   return (
-    <div className="cs-main">
-      <div className="video-main">
-        <ReactPlayer
-          className="cs-video"
-          url={
-            "https://livepeercdn.studio/hls/" +
-            location.state.id +
-            "/index.m3u8"
-          }
-          controls={true}
-          style={{ width: "100%" }}
-        />
-      </div>
-      <div className="cs-message-main">
-        <div className="cs-message-header">Messages by Streamr</div>
-        <div className="cs-message-senderparent" id="msg">
-          {/* <p className="cs-message-sender">Hello</p> */}
+    <>
+      <div className="cs-main">
+        <div className="video-main">
+          <ReactPlayer
+            className="cs-video"
+            url={
+              "https://livepeercdn.studio/hls/" +
+              location.state.id +
+              "/index.m3u8"
+            }
+            controls={true}
+            style={{ width: "100%" }}
+          />
+        </div>
+        <div className="cs-message-main">
+          <div className="cs-message-header">Messages by Streamr</div>
+          <div className="cs-message-senderparent" id="msg">
+            {/* <p className="cs-message-sender">Hello</p> */}
+          </div>
         </div>
       </div>
-    </div>
+      <button
+        className="mint-nft-button"
+        onClick={() => navigate("/candidate/mint-nft")}
+      >
+        Mint NFT
+      </button>
+    </>
   );
 }
 

@@ -108,3 +108,11 @@
   margin-left: 1vw;
   margin-top: 1vh;
 }
+
+button.mint-nft-button {
+  margin: 20px 70px;
+  background-color: #ff6150;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+}

@@ -137,6 +137,17 @@ function JobApplicant() {
           // tx.wait();
           sendNotification("0xe57f4c84539a6414C4Cf48f135210e01c477EFE0");
         }
+        if (chainId === 5) {
+          const con = new ethers.Contract(
+            CONTRACT_ADDRESS_POLYGON,
+            contract,
+            signer
+          );
+          console.log(e.target.id);
+          // const tx = await con.approveCandidate(companyId, job_id, user);
+          // tx.wait();
+          sendNotification("0xe57f4c84539a6414C4Cf48f135210e01c477EFE0");
+        }
       }
     } catch (error) {
       console.log(error);
